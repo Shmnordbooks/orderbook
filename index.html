@@ -2927,7 +2927,7 @@ document.addEventListener('click', (e) => {
         const orderCountBadge = document.querySelector('.order-count');
         if (orderCountBadge) orderCountBadge.textContent = '0';
 
-        alert('Sepet tamamen temizlendi.');
+        alert('Cart was completely cleaned.');
     }
 });
 
@@ -3138,7 +3138,7 @@ document.addEventListener('click', function(e) {
 
     if (!clearBtn) return;  // butona basılmadıysa hiçbir şey yapma
 
-    if (!confirm('Tüm ürünleri silmek istediğine emin misin?\nBu işlem geri alınamaz!')) {
+    if (!confirm('Are you sure you want to clear all items in your cart?')) {
         return;
     }
 
@@ -3180,9 +3180,9 @@ document.addEventListener('click', function(e) {
 
     // 6. Kullanıcıya bilgi ver
     if (typeof showToast === 'function') {
-        showToast('Sepet tamamen temizlendi ✓', 2500);
+        showToast('Cart was completely cleaned ✓', 2500);
     } else {
-        alert('Sepet tamamen temizlendi!');
+        alert('Cart was completely cleaned!');
     }
 
     // 7. En garanti çözüm: sayfayı yenile (hayalet ürünleri kesin öldürür)
@@ -3205,7 +3205,7 @@ document.addEventListener('click', function(e) {
 
     if (!clearBtn) return;
 
-    if (!confirm('Tüm siparişi ve tüm miktarları sıfırlamak istediğine emin misin?')) {
+    if (!confirm('Are you sure you want to clear all items in your cart?')) {
         return;
     }
 
