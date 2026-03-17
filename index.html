@@ -702,7 +702,7 @@
     #coverPage .cover-left { display: flex; flex-direction: column; align-items: center; }
     .cover-eyebrow { justify-content: center; }
     .cover-blue-line { margin-left: auto; margin-right: auto; }
-    .cover-enter-btn { font-size: 13px; padding: 14px 28px; }
+    .cover-select-label { font-size: 11px; }
     .cover-shimano-logo { height: 28px !important; }
     .cover-catalog-label { font-size: 11px !important; }
 
@@ -1375,34 +1375,21 @@
 }
 
 /* Giriş butonu */
-.cover-enter-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
-  background: #0082CA;
-  color: #fff;
+.cover-select-label {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.35em;
+  color: rgba(255,255,255,0.55);
   text-transform: uppercase;
-  padding: 16px 36px;
-  border: none;
-  cursor: pointer;
-  clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
-  transition: background 0.2s, transform 0.15s;
-  position: relative;
+  margin-top: 8px;
+  animation: selectBlink 1.4s ease-in-out infinite;
+  user-select: none;
+  pointer-events: none;
 }
-.cover-enter-btn:hover {
-  background: #0099ee;
-  transform: translateX(4px);
-}
-.cover-enter-btn .btn-arrow {
-  font-size: 20px; line-height: 1;
-  transition: transform 0.2s;
-}
-.cover-enter-btn:hover .btn-arrow {
-  transform: translateX(4px);
+@keyframes selectBlink {
+  0%,100% { opacity: 0.3; }
+  50%      { opacity: 1;   }
 }
 
 /* Sağ taraf - görsel */
@@ -1554,18 +1541,8 @@
 .cover-stat-num { font-size:32px; font-weight:900; color:#ffffff; line-height:1; }
 .cover-stat-lbl { font-size:10px; font-weight:600; letter-spacing:0.2em; color:rgba(255,255,255,0.35); text-transform:uppercase; }
 .cover-stat-divider { width:1px; background:rgba(255,255,255,0.1); align-self:stretch; margin:4px 0; }
-.cover-enter-btn {
-  display:inline-flex; align-items:center; gap:14px;
-  background:#0082CA; color:#fff;
-  font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:700;
-  letter-spacing:0.18em; text-transform:uppercase;
-  padding:16px 36px; border:none; cursor:pointer;
-  clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));
-  transition:background 0.2s,transform 0.15s;
-}
-.cover-enter-btn:hover { background:#0099ee; transform:translateX(4px); }
-.cover-enter-btn .btn-arrow { font-size:20px; transition:transform 0.2s; }
-.cover-enter-btn:hover .btn-arrow { transform:translateX(4px); }
+
+.cover-shoes-btn:hover { background:rgba(255,255,255,0.12) !important; border-color:rgba(255,255,255,0.4) !important; color:#fff !important; transform:translateX(4px); }
 .cover-right { display:flex; align-items:center; justify-content:center; position:relative; animation: cvSlideRight 0.9s 0.3s ease both; }
 .cover-img-frame { position:relative; width:100%; max-width:520px; }
 .cover-img-frame::before {
@@ -1638,12 +1615,12 @@
   <div class="cover-body">
     <div class="cover-left">
       <div class="cover-blue-line" style="width:120px;height:2px;background:#0082CA;margin-bottom:24px;"></div>
-      <div class="cover-title" style="color:#0082CA;">HARDGOODS</div>
-      <div class="cover-subtitle">Order Book — March 2026</div>
+      <div class="cover-title" style="color:#0082CA;opacity:0.6;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'" onclick="enterCatalog()">HARDGOODS</div>
+      <a href="shoes.html" class="cover-title" style="color:#0082CA;text-decoration:none;display:block;margin-top:8px;cursor:pointer;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">SHOES</a>
+      <a href="pedals.html" class="cover-title" style="color:#0082CA;text-decoration:none;display:block;margin-top:8px;cursor:pointer;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">PEDALS</a>
+      <div class="cover-subtitle" style="margin-top:16px;">Order Book — March 2026</div>
 
-      <button class="cover-enter-btn" onclick="enterCatalog()">
-        Enter Order Book <span class="btn-arrow">&#8594;</span>
-      </button>
+      <div class="cover-select-label">SELECT ORDER BOOK</div>
     </div>
 
   </div>
@@ -3381,7 +3358,9 @@ function toplamAdetHesaplaVeGoster() {
         orderSummaryBaslik.appendChild(adetSpan);
     } else {
         // Eğer başlık bulunamazsa sol sidebar'daki Order Summary sekmesine ekle
-        const tab = document.querySelector('[data-tab="OrderSummary"], .order-summary-tab, li:has(> span:contains("Order Summary"))');
+        // Find tab by text content (safe version - no :contains)
+        const allTabs = document.querySelectorAll('[data-tab="OrderSummary"], .order-summary-tab, li');
+        const tab = Array.from(allTabs).find(el => el.textContent.includes('Order Summary')) || null;
         if (tab) {
             const adetDiv = document.createElement('div');
             adetDiv.id = 'toplam-adet-goster';
