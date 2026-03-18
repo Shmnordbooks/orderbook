@@ -1048,12 +1048,12 @@
   .os-row-qty-edit:focus { border-color: var(--accent); }
   .os-row-remove {
     background: none; border: none;
-    color: var(--text-dim); cursor: pointer;
+    color: #ffffff; cursor: pointer;
     font-size: 16px; padding: 4px 8px;
     border-radius: 4px; transition: all 0.15s;
-    text-align: center;
+    text-align: center; opacity: 0.9;
   }
-  .os-row-remove:hover { color: var(--unavail); background: rgba(255,59,92,0.08); }
+  .os-row-remove:hover { color: var(--unavail); background: rgba(255,59,92,0.08); opacity: 1; }
 
   /* Order summary chip indicator */
   .order-chip-badge {
@@ -1888,7 +1888,7 @@ function render() {
       <td class="td-desc2 hide-mobile">${item.desc2||'—'}</td>
       <td class="td-cat hide-mobile">${CATEGORY_LABELS[item.cat]||item.cat}</td>
       <td>${badgeHtml(item.status, item.etd)}</td>
-      <td><input class="qty-input" type="number" min="1" data-code="${item.code}" data-has-value="${hasVal}" value="${qtyVal}" placeholder="—" onchange="setQty('${item.code}','${item.desc1.replace(/'/g,"\'")}',this.value)"></td>
+      <td><input class="qty-input" type="number" min="0" data-code="${item.code}" data-has-value="${hasVal}" value="${qtyVal}" placeholder="—" oninput="var _v=parseInt(this.value);if(!this.value||_v<=0||isNaN(_v)){this.value='';this.dataset.hasValue='false';setQty('${item.code}','${item.desc1.replace(/'/g,"\'")}','');}else{setQty('${item.code}','${item.desc1.replace(/'/g,"\'")}',this.value);}"></td>
     </tr>`;
   });
 
@@ -2078,26 +2078,16 @@ function exportOrder() {
 }
 
 function clearOrder() {
-    // 1. Tarayıcıdaki tüm gizli hafızayı sil
-    localStorage.clear();
-    
-    // 2. Ekrandaki tüm miktar kutularını sıfırla
-    document.querySelectorAll('.qty-input').forEach(input => {
-        input.value = '';
-        input.classList.remove('has-val');
+    if (!confirm('Are you sure you want to clear all items from your order?')) return;
+    Object.keys(orderList).forEach(k => delete orderList[k]);
+    document.querySelectorAll('.qty-input').forEach(el => {
+        el.value = '';
+        el.dataset.hasValue = 'false';
+        el.classList.remove('has-val');
     });
-    
-    // 3. Sepet listesini (Order Summary) boşalt
-    const orderItems = document.getElementById('orderItems');
-    if (orderItems) orderItems.innerHTML = '';
-    
-    // 4. Toplam adetleri sıfırla
-    if (typeof updateOrderSummary === 'function') {
-        updateOrderSummary();
-    }
-    
-    // 5. Kesin sonuç için sayfayı tazele
-    window.location.reload();
+    updateOrderPanel();
+    updateSummaryChip();
+    renderSummaryPage();
 }
 
 // Initial render
@@ -2361,7 +2351,7 @@ function buildGsRows(items, tableId) {
       <td style="padding:11px 16px;font-size:13px;font-weight:500;color:var(--text);">${item.desc1||'—'}</td>
       <td style="padding:11px 16px;font-size:12px;color:var(--text-muted);">${item.desc2||''}</td>
       <td style="padding:11px 16px;">${badge}</td>
-      <td style="padding:11px 16px;"><input class="qty-input" type="number" min="1" data-code="${item.code}" data-has-value="${hasVal}" value="${qtyVal}" placeholder="—" onchange="setQty(this.dataset.code, this.dataset.desc, this.value)" data-desc="${item.desc1.replace(/"/g,'')}"></td>
+      <td style="padding:11px 16px;"><input class="qty-input" type="number" min="0" data-code="${item.code}" data-has-value="${hasVal}" value="${qtyVal}" placeholder="—" oninput="var _v=parseInt(this.value);if(!this.value||_v<=0||isNaN(_v)){this.value='';this.dataset.hasValue='false';setQty(this.dataset.code,this.dataset.desc,'');}else{setQty(this.dataset.code,this.dataset.desc,this.value);}" data-desc="${item.desc1.replace(/"/g,'')}"></td>
     </tr>`;
   });
   html += '</table>';
@@ -2403,6 +2393,7 @@ function closeSummaryPage() {
 
 function clearAllOrders() {
   if (Object.keys(orderList).length === 0) return;
+  if (!confirm('Are you sure you want to clear all items from your order?')) return;
   orderList = {};
   updateOrderPanel();
   updateSummaryChip();
@@ -2432,8 +2423,6 @@ function renderSummaryPage() {
       <div class="os-empty">
         <div class="os-empty-icon">🛒</div>
         <h3>Your order list is empty</h3>
-        <p>Browse product categories and enter quantities to build your order.</p>
-        <button class="os-empty-btn" onclick="closeSummaryPage()">Browse Products</button>
       </div>`;
     return;
   }
@@ -2511,7 +2500,7 @@ function renderSummaryPage() {
         <div class="os-row-desc">${item.desc || '—'}</div>
         <div class="os-row-model">${item.model || ''}</div>
         <div>${badge}</div>
-        <div style="text-align:center"><input class="os-row-qty-edit" type="number" min="1" value="${item.qty}" onchange="updateQtyFromSummary('${item.code}', this.value)"></div>
+        <div style="text-align:center"><input class="os-row-qty-edit" type="number" min="1" value="${item.qty}" oninput="var _v=parseInt(this.value);if(!this.value||_v<=0||isNaN(_v)){this.value='';updateQtyFromSummary('${item.code}','');}else{updateQtyFromSummary('${item.code}',this.value);}"></div>
         <div style="text-align:center"><button class="os-row-remove" onclick="removeFromOrder('${item.code}')" title="Remove">✕</button></div>
       </div>`;
     });
@@ -2537,9 +2526,16 @@ function updateQtyFromSummary(code, val) {
 
 function removeFromOrder(code) {
   delete orderList[code];
+  // Clear ALL possible qty inputs that reference this code
+  document.querySelectorAll(
+    `.qty-input[data-code="${code}"], .qty-input[data-id="${code}"], input[data-code="${code}"], input[data-id="${code}"]`
+  ).forEach(el => {
+    el.value = '';
+    el.dataset.hasValue = 'false';
+    if (el.classList) { el.classList.remove('has-val'); }
+  });
   updateOrderPanel();
   updateSummaryChip();
-  document.querySelectorAll(`.qty-input[data-code="${code}"]`).forEach(el => { el.value = ''; el.dataset.hasValue = 'false'; });
   renderSummaryPage();
 }
 
@@ -2850,70 +2846,14 @@ function enterCatalog() { /* coverPage removed */ } function _enterCatalog_orig(
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
-// Search clear button
-// CLEAR ALL BUTONU: Tam temizlik ve görsel yenileme
+// CLEAR ALL — btn-clear click → clearOrder() üzerinden yönetilir
 document.addEventListener('click', (e) => {
     const btn = e.target.closest('.btn-clear');
-    if (btn) {
-        if (!confirm('Tüm sepeti boşaltmak istediğinize emin misiniz?')) return;
-
-        // 1. LocalStorage'ı tamamen uçur
-        localStorage.removeItem('shimano_order_final');
-        localStorage.clear();
-        
-        // 2. Sayfadaki istisnasız TÜM adet inputlarını fiziksel olarak sıfırla
-        document.querySelectorAll('.qty-input').forEach(input => {
-            input.value = '';
-            input.classList.remove('has-val');
-            input.removeAttribute('data-has-value');
-        });
-
-        // 3. Sepet modalı/paneli içindeki ürünleri temizle
-        const cartItemsContainer = document.querySelector('.cart-items') || document.querySelector('.order-items');
-        if (cartItemsContainer) {
-            cartItemsContainer.innerHTML = '<div class="empty-cart-msg" style="padding:20px; text-align:center; color:var(--text-muted);">Sepetiniz boş.</div>';
-        }
-
-        // 4. Sayaçları ve özet panelini sıfırla
-        if (typeof updateOrderSummary === 'function') {
-            updateOrderSummary();
-        }
-
-        // 5. Sepet sayacı rozetini sıfırla
-        const orderCountBadge = document.querySelector('.order-count');
-        if (orderCountBadge) orderCountBadge.textContent = '0';
-
-        alert('Cart was completely cleaned.');
-    }
+    if (!btn) return;
+    clearOrder();
 });
 
-// YANDAKİ X (SİLME) BUTONU İÇİN EKLEME
-document.addEventListener('click', (e) => {
-    const removeBtn = e.target.closest('.remove-item') || e.target.closest('.os-row-remove');
-    if (removeBtn) {
-        const itemId = removeBtn.getAttribute('data-id');
-        if (itemId) {
-            // Ana listedeki inputu bul ve sıfırla
-            const mainInput = document.querySelector(`.qty-input[data-id="${itemId}"]`);
-            if (mainInput) {
-                mainInput.value = '';
-                mainInput.classList.remove('has-val');
-            }
-            
-            // LocalStorage'ı güncelle
-            let cart = JSON.parse(localStorage.getItem('shimano_order_final') || '{}');
-            delete cart[itemId];
-            localStorage.setItem('shimano_order_final', JSON.stringify(cart));
-            
-            // Görseli güncelle
-            if (typeof updateOrderSummary === 'function') updateOrderSummary();
-            
-            // Eğer sepet sayfasındaysak satırı kaldır
-            const row = removeBtn.closest('.os-row') || removeBtn.closest('.order-item');
-            if (row) row.remove();
-        }
-    }
-});
+// (removed conflicting remove listener — removeFromOrder handles everything)
 
 });
 function clearSearch() {
@@ -2944,293 +2884,9 @@ function showToast(message, duration) {
 }
 
 </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    let savedCart = JSON.parse(localStorage.getItem('shimanoCart')) || {};
 
-    function restoreCartUI() {
-        const qtyInputs = document.querySelectorAll('.qty-input');
-        let updated = false;
-        
-        qtyInputs.forEach(input => {
-            const row = input.closest('tr');
-            if (row) {
-                const codeElement = row.querySelector('.td-code');
-                if (codeElement) {
-                    const sku = codeElement.innerText.trim();
-                    
-                    // Eğer ürün hafızada varsa ve kutu boşsa/farklıysa doldur
-                    if (savedCart[sku] && input.value != savedCart[sku]) {
-                        input.value = savedCart[sku];
-                        updated = true;
-                    }
-                }
-            }
-        });
-        
-        // Eğer bir kutuyu otomatik doldurduysak, sisteme "hesapla" sinyali gönder
-        if (updated) {
-            qtyInputs.forEach(input => {
-                const sku = input.closest('tr')?.querySelector('.td-code')?.innerText.trim();
-                if (savedCart[sku]) {
-                    input.dispatchEvent(new Event('input', { bubbles: true }));
-                    input.dispatchEvent(new Event('change', { bubbles: true }));
-                }
-            });
-        }
-    }
 
-    // 1. İlk sayfa yüklemesinde çalıştır
-    setTimeout(restoreCartUI, 300);
 
-    // 2. GÖZLEMCİ: Sayfa HTML'i dinamik olarak değişirse (Örn: Order Summary'den dönülürse) anında yakala
-    const observer = new MutationObserver(() => {
-        setTimeout(restoreCartUI, 50); 
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // 3. Tıklama Olayları Yönetimi
-    document.addEventListener('click', function(e) {
-        // "Siparişi Temizle" (Clear) butonuna basıldıysa her şeyi sıfırla
-        if (e.target && (e.target.classList.contains('btn-clear') || e.target.closest('.btn-clear'))) {
-            localStorage.removeItem('shimanoCart');
-            savedCart = {};
-            document.querySelectorAll('.qty-input').forEach(input => {
-                input.value = '';
-                input.dispatchEvent(new Event('input', { bubbles: true }));
-            });
-        } else {
-            // Başka bir şeye tıklandıysa (menü, geri butonu vs.) sepeti tekrar kontrol et
-            setTimeout(restoreCartUI, 100);
-            setTimeout(restoreCartUI, 300);
-        }
-    });
-
-    // 4. Kullanıcı yeni bir rakam girdiğinde hafızayı güncelle
-    document.addEventListener('input', function(e) {
-        if (e.target && e.target.classList.contains('qty-input')) {
-            const row = e.target.closest('tr');
-            if (row) {
-                const skuElement = row.querySelector('.td-code');
-                if (skuElement) {
-                    const sku = skuElement.innerText.trim();
-                    const val = parseInt(e.target.value);
-                    
-                    if (val > 0) {
-                        savedCart[sku] = val;
-                    } else {
-                        delete savedCart[sku];
-                    }
-                    localStorage.setItem('shimanoCart', JSON.stringify(savedCart));
-                }
-            }
-        }
-    });
-});
-</script>
-<script>
-// --- SHIMANO KESİN SEPET YÖNETİMİ (V3) ---
-
-// Sayfa açıldığında hafızayı kutulara doldur
-window.addEventListener('DOMContentLoaded', () => {
-    const data = localStorage.getItem('shimano_order_final');
-    if (data) {
-        const cart = JSON.parse(data);
-        Object.keys(cart).forEach(id => {
-            const input = document.querySelector(`.qty-input[data-id="${id}"]`);
-            if (input) {
-                input.value = cart[id];
-                input.classList.add('has-val');
-            }
-        });
-        // Sepet özetini bir kez güncelle
-        if(typeof updateOrderSummary === 'function') updateOrderSummary();
-    }
-});
-
-// Her miktar değişiminde hafızayı anlık kaydet
-document.addEventListener('input', (e) => {
-    if (e.target.classList.contains('qty-input')) {
-        const cart = {};
-        document.querySelectorAll('.qty-input').forEach(input => {
-            if (input.value && parseInt(input.value) > 0) {
-                cart[input.getAttribute('data-id')] = input.value;
-            }
-        });
-        localStorage.setItem('shimano_order_final', JSON.stringify(cart));
-    }
-});
-
-// CLEAR ALL BUTONU: Her şeyi kökten sil ve sayfayı tazele
-document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn-clear');
-    if (btn) {
-        localStorage.clear(); // Tüm tarayıcı hafızasını kazı
-        localStorage.removeItem('shimano_order_final');
-        
-        document.querySelectorAll('.qty-input').forEach(input => {
-            input.value = '';
-            input.classList.remove('has-val');
-        });
-        
-        // Sistemi tamamen resetlemek için sayfayı yenile
-        window.location.reload();
-    }
-});
-</script>
-
-<script>
-// ============================================================================
-// EN GÜÇLÜ CLEAR ALL KODU - TÜM SEPETİ SIFIRLIYOR (13 Mart 2026)
-// ============================================================================
-document.addEventListener('click', function(e) {
-    // CLEAR ALL butonuna mı basıldı? (farklı class isimlerine de bakar)
-    const clearBtn = e.target.closest('.btn-clear') || 
-                     e.target.closest('#clearAll') || 
-                     e.target.closest('[class*="clear"]') ||
-                     (e.target.tagName === 'BUTTON' && e.target.textContent.toUpperCase().includes('CLEAR ALL')) ||
-                     e.target.closest('.os-clear-all') ||
-                     e.target.closest('.clear-all');
-
-    if (!clearBtn) return;  // butona basılmadıysa hiçbir şey yapma
-
-    if (!confirm('Are you sure you want to clear all items in your cart?')) {
-        return;
-    }
-
-    // 1. Tüm bilinen sepet anahtarlarını sil
-    ['shimano_order_final', 'shimanoCart', 'shimano_order', 'cart', 'orderItems'].forEach(key => {
-        localStorage.removeItem(key);
-    });
-
-    // 2. Sayfadaki TÜM adet kutularını sıfırla
-    document.querySelectorAll('.qty-input, input[type="number"], input[data-id], .quantity-input').forEach(el => {
-        el.value = '';
-        el.classList.remove('has-val', 'filled');
-        el.dispatchEvent(new Event('input', { bubbles: true }));
-        el.dispatchEvent(new Event('change', { bubbles: true }));
-    });
-
-    // 3. Sepet / özet listesini boşalt
-    const sepetAlanlari = [
-        '.order-items', '.cart-items', '.os-items', 
-        '.order-summary-list', '#orderSummaryContent', 
-        '.order-list', '.cart-list'
-    ];
-    
-    sepetAlanlari.forEach(sel => {
-        const alan = document.querySelector(sel);
-        if (alan) {
-            alan.innerHTML = '<div style="padding:30px; text-align:center; color:#888;">Sepetiniz boş.</div>';
-        }
-    });
-
-    // 4. Sepet sayısı rozetlerini sıfırla
-    document.querySelectorAll('.order-count, .cart-count, [data-count], .badge').forEach(b => {
-        b.textContent = '0';
-    });
-
-    // 5. Varsa özet güncelleme fonksiyonlarını çalıştır
-    if (typeof updateOrderSummary === 'function') updateOrderSummary();
-    if (typeof renderOrderSummary === 'function') renderOrderSummary();
-
-    // 6. Kullanıcıya bilgi ver
-    if (typeof showToast === 'function') {
-        showToast('Cart was completely cleaned ✓', 2500);
-    } else {
-        alert('Cart was completely cleaned!');
-    }
-
-    // 7. En garanti çözüm: sayfayı yenile (hayalet ürünleri kesin öldürür)
-    setTimeout(() => {
-        window.location.reload();
-    }, 600);
-});
-</script>
-<script>
-// ============================================================================
-// EK GÜÇLENDİRME: Clear All basınca TÜM SAYFADAKİ TÜM QTY KUTULARINI SIFIRLA
-// Önceki clear kodunun içine veya hemen altına ekle (tercihen replace et)
-// ============================================================================
-document.addEventListener('click', function(e) {
-    const clearBtn = e.target.closest('.btn-clear') || 
-                     e.target.closest('#clearAll') || 
-                     e.target.closest('[class*="clear-all"]') ||
-                     e.target.closest('.os-clear-all') ||
-                     (e.target.tagName === 'BUTTON' && e.target.textContent.toUpperCase().includes('CLEAR ALL'));
-
-    if (!clearBtn) return;
-
-    if (!confirm('Are you sure you want to clear all items in your cart?')) {
-        return;
-    }
-
-    // ────────────────────────────────────────────────
-    // ÖNEMLİ KISIM BURASI → TÜM SAYFADAKİ INPUTLARI BUL VE SIFIRLA
-    // ────────────────────────────────────────────────
-    const tumAdetKutuları = document.querySelectorAll(
-        '.qty-input, ' +
-        'input[type="number"], ' +
-        'input[data-id], ' +
-        '[class*="quantity"], ' +
-        '[class*="qty"], ' +
-        'input[min="0"], ' +
-        '.order-qty, .cart-qty, .item-qty'
-    );
-
-    tumAdetKutuları.forEach(kutu => {
-        kutu.value = '';                      // değeri sil
-        kutu.textContent = '';                // eğer innerText varsa
-        kutu.classList.remove('has-val', 'filled', 'active', 'non-empty');
-        kutu.removeAttribute('value');        // attribute'u da sil
-        kutu.dispatchEvent(new Event('input',  { bubbles: true, cancelable: true }));
-        kutu.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
-        kutu.blur();                          // focus'u kaldır (bazı dinleyicileri susturur)
-    });
-
-    // ────────────────────────────────────────────────
-    // LocalStorage'ları da temizle (tekrar garanti olsun)
-    // ────────────────────────────────────────────────
-    ['shimano_order_final', 'shimanoCart', 'shimano_order', 'cart', 'orderItems', 'selectedItems'].forEach(key => {
-        localStorage.removeItem(key);
-    });
-
-    // Sepet listesi / özet alanlarını boş mesaj yap
-    const sepetContainerSelectors = [
-        '.order-items', '.cart-items', '.os-items', 
-        '.order-summary-list', '#orderSummaryContent', 
-        '.order-list', '.cart-list', '.os-row-container'
-    ];
-
-    sepetContainerSelectors.forEach(sel => {
-        const container = document.querySelector(sel);
-        if (container) {
-            container.innerHTML = '<div style="padding:40px; text-align:center; color:var(--text-muted); font-size:1.1em;">Sepet boşaltıldı.</div>';
-        }
-    });
-
-    // Rozet / sayaçları sıfırla
-    document.querySelectorAll('.order-count, .cart-count, .badge, [data-count]').forEach(el => {
-        el.textContent = '0';
-        el.style.display = 'none';  // bazı tasarımlarda rozeti gizlemek iyi olur
-    });
-
-    // Varsa özet fonksiyonlarını tetikle
-    [updateOrderSummary, renderOrderSummary, updateCart].forEach(fn => {
-        if (typeof fn === 'function') fn();
-    });
-
-    // Toast + feedback
-    if (typeof showToast === 'function') {
-        showToast('Tüm ürünler ve miktar kutuları sıfırlandı ✓', 3000);
-    }
-
-    // En garanti: 400-800 ms sonra sayfayı yenile (tüm observer'ları ve hafızayı sıfırlar)
-    setTimeout(() => {
-        window.location.reload(true);  // cache'i de bypass et
-    }, 700);
-});
-</script>
 <script>
 // ============================================================================
 // SAYFAYI YENİLEME / KAPATMA / SEKME KAPATMA UYARISI
