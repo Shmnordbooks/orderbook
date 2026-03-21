@@ -34,6 +34,7 @@
     --text: #12131a; --text-muted: #6b7280; --text-dim: #b0b8c8;
     --avail: #00a878; --etd: #d97706; --unavail: #dc2626;
     --avail-bg: rgba(0,168,120,0.08); --etd-bg: rgba(217,119,6,0.08); --unavail-bg: rgba(220,38,38,0.08);
+    --color-black-shoe: #1a1a1a;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;
     transition-property: background-color, border-color, color; transition-duration: 0.18s; }
@@ -593,6 +594,60 @@ function renderModelCard(m) {
   </div>`;
 }
 
+/* ── Color name → text color mapping for visual clarity ── */
+const COLOR_MAP = {
+  'white':          '#f0f0f0',
+  'blue':           '#5ba8ff',
+  'red':            '#ff5a5a',
+  'navy':           '#6688cc',
+  'green':          '#4caf50',
+  'sage green':     '#8fbc8f',
+  'light green':    '#90ee90',
+  'olive':          '#9ab973',
+  'silver':         '#b8c0cc',
+  'gray':           '#9e9e9e',
+  'grey':           '#9e9e9e',
+  'ice gray':       '#a8c4d8',
+  'stone gray':     '#a0998e',
+  'brown':          '#c49464',
+  'almond brown':   '#c4a882',
+  'sand beige':     '#d4b896',
+  'violet':         '#b07cc6',
+  'wine':           '#b44060',
+  'denim':          '#6b8cae',
+  'cyber blue':     '#00b4d8',
+  'airy blue':      '#7ec8e3',
+  'ice blue':       '#99d5e8',
+  'aqua blue':      '#56c8d8',
+  'surf blue':      '#3ea8c8',
+  'dark blue':      '#5078b0',
+  'deep sea':       '#3a8a9e',
+  'butterfly':      '#d070a0',
+  'camouflage':     '#7a8a5a',
+  'gray splatter':  '#9e9e9e',
+  'metallic orange':'#e8883c',
+  'matte gunmetal': '#8a8f96',
+  'neon yellow':    '#d4e600',
+  'light gray':     '#ababab',
+  'mint':           '#88d8b0',
+  'clear':          '#c0dce8',
+};
+function getColorStyle(desc) {
+  if (!desc) return '';
+  const d = desc.toLowerCase();
+  /* Black: skip in dark mode (invisible), show in light mode */
+  const isBlack = /\bblack\b/.test(d);
+  if (isBlack) {
+    return 'color: var(--color-black-shoe, var(--text-muted))';
+  }
+  for (const [key, hex] of Object.entries(COLOR_MAP)) {
+    if (d.includes(key)) {
+      return `color:${hex}; font-weight:600`;
+    }
+  }
+  return '';
+}
+
 function renderItemRow(it, showPrice = false) {
   const qty = orderMap[it.code] ? orderMap[it.code].qty : '';
   const hasVal = qty > 0 ? 'true' : 'false';
@@ -614,7 +669,7 @@ function renderItemRow(it, showPrice = false) {
   <div class="item-row${showPrice ? ' item-row-priced' : ''}" id="row-${it.code}">
     <div class="item-info">
       <span class="item-code">${it.code}</span>
-      <span class="item-desc">${it.desc2 || it.desc1}</span>
+      <span class="item-desc" style="${getColorStyle(it.desc2 || it.desc1)}">${it.desc2 || it.desc1}</span>
     </div>
     ${priceCell}
     ${statusBadge}
@@ -733,7 +788,7 @@ function buildGallery(group, colorGroups) {
           <img src="${src}" alt="${label}" loading="lazy">
         </div>`;
     }).join('');
-    return `<div class="color-group-label">${label}</div><div class="color-group-grid">${thumbs}</div>`;
+    return `<div class="color-group-label" style="${getColorStyle(label)}">${label}</div><div class="color-group-grid">${thumbs}</div>`;
   }).join('');
 
   galEl.innerHTML = `
@@ -867,7 +922,7 @@ function updateOrderPanel() {
     html += `
     <div class="order-item">
       <span class="order-item-code">${code}</span>
-      <span class="order-item-desc">${o.desc2}</span>
+      <span class="order-item-desc" style="${getColorStyle(o.desc2)}">${o.desc2}</span>
       <span class="order-item-qty">×${o.qty}</span>
     </div>`;
   });
