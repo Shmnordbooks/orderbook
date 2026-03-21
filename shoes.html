@@ -388,6 +388,7 @@ function showCoverPage(btn) {
   document.getElementById('coverPageView').style.display = 'block';
   document.getElementById('resultsInfo').style.display = 'none';
   document.getElementById('catalogContent').style.display = 'none';
+  document.querySelector('header').style.display = 'none';
   // update cover page stats
   const totalModels = SHOE_DATA.length;
   const totalSkus = SHOE_DATA.reduce((sum, m) => sum + m.items.length, 0);
@@ -405,6 +406,7 @@ function setCat(cat, btn) {
   document.getElementById('coverPageView').style.display = 'none';
   document.getElementById('resultsInfo').style.display = '';
   document.getElementById('catalogContent').style.display = '';
+  document.querySelector('header').style.display = '';
   renderCatalog();
 }
 
@@ -419,6 +421,12 @@ function clearSearch() {
 document.getElementById('searchInput').addEventListener('input', function() {
   searchQuery = this.value.trim().toLowerCase();
   document.getElementById('searchClear').classList.toggle('visible', searchQuery.length > 0);
+  if (searchQuery.length > 0) {
+    document.getElementById('coverPageView').style.display = 'none';
+    document.getElementById('resultsInfo').style.display = '';
+    document.getElementById('catalogContent').style.display = '';
+    document.querySelector('header').style.display = '';
+  }
   renderCatalog();
 });
 
