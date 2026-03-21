@@ -273,7 +273,7 @@
 
   <!-- MAIN -->
   <main class="main" id="mainContent">
-    <div class="shoes-hero">
+    <div class="shoes-hero" id="shoesHero">
       <div class="shoes-hero-left">
         <h2>SHIMANO <span>SHOES</span></h2>
         <p>Order Book — March 2026</p>
@@ -389,6 +389,7 @@ function showCoverPage(btn) {
   document.getElementById('resultsInfo').style.display = 'none';
   document.getElementById('catalogContent').style.display = 'none';
   document.querySelector('header').style.display = 'none';
+  document.getElementById('shoesHero').style.display = 'none';
   // update cover page stats
   const totalModels = SHOE_DATA.length;
   const totalSkus = SHOE_DATA.reduce((sum, m) => sum + m.items.length, 0);
@@ -407,6 +408,12 @@ function setCat(cat, btn) {
   document.getElementById('resultsInfo').style.display = '';
   document.getElementById('catalogContent').style.display = '';
   document.querySelector('header').style.display = '';
+  document.getElementById('shoesHero').style.display = '';
+  // Update hero stats for selected category
+  const catModels = SHOE_DATA.filter(m => m.cat === cat);
+  const allItems = catModels.reduce((arr, m) => arr.concat(m.items), []);
+  document.getElementById('statModels').textContent = catModels.length;
+  document.getElementById('statItems').textContent = allItems.length;
   renderCatalog();
 }
 
@@ -426,6 +433,19 @@ document.getElementById('searchInput').addEventListener('input', function() {
     document.getElementById('resultsInfo').style.display = '';
     document.getElementById('catalogContent').style.display = '';
     document.querySelector('header').style.display = '';
+    document.getElementById('shoesHero').style.display = '';
+    const matched = SHOE_DATA.filter(m =>
+      m.group.toLowerCase().includes(searchQuery) ||
+      m.name.toLowerCase().includes(searchQuery) ||
+      m.items.some(i =>
+        i.code.toLowerCase().includes(searchQuery) ||
+        i.desc1.toLowerCase().includes(searchQuery) ||
+        i.desc2.toLowerCase().includes(searchQuery)
+      )
+    );
+    const allItems = matched.reduce((arr, m) => arr.concat(m.items), []);
+    document.getElementById('statModels').textContent = matched.length;
+    document.getElementById('statItems').textContent = allItems.length;
   }
   renderCatalog();
 });

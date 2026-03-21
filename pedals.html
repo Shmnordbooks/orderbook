@@ -193,7 +193,7 @@
   </nav>
 
   <main class="main" id="mainContent">
-    <div class="hero-strip">
+    <div class="hero-strip" id="heroStrip">
       <div class="pedals-hero-left">
         <h2>SHIMANO <span>PEDALS</span></h2>
         <p>Order Book &mdash; March 2026</p>
@@ -324,7 +324,7 @@ function init() {
       document.getElementById('resultsInfo').style.display = '';
       document.getElementById('catalogContent').style.display = '';
       document.querySelector('header').style.display = '';
-      // Update hero stats for search results
+      document.getElementById('heroStrip').style.display = '';
       const matched = PEDAL_DATA.filter(g =>
         g.group.toLowerCase().includes(searchQuery) ||
         g.name.toLowerCase().includes(searchQuery) ||
@@ -358,6 +358,7 @@ function showCoverPage(btn) {
   document.getElementById('resultsInfo').style.display = 'none';
   document.getElementById('catalogContent').style.display = 'none';
   document.querySelector('header').style.display = 'none';
+  document.getElementById('heroStrip').style.display = 'none';
   const totalModels = PEDAL_DATA.length;
   const totalSkus = PEDAL_DATA.reduce((s, m) => s + (m.items ? m.items.length : 1), 0);
   const totalOrdered = Object.values(orderMap).reduce((s, o) => s + (o.qty || 0), 0);
@@ -452,6 +453,7 @@ function setCat(cat) {
   document.getElementById('resultsInfo').style.display = '';
   document.getElementById('catalogContent').style.display = '';
   document.querySelector('header').style.display = '';
+  document.getElementById('heroStrip').style.display = '';
   currentCat = cat;
   document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('active'));
   const el = document.getElementById('cat-' + cat);
@@ -459,12 +461,10 @@ function setCat(cat) {
   // Update hero stats for selected category
   const catModels = PEDAL_DATA.filter(g => g.cat === cat);
   const allItems = catModels.reduce((arr, g) => arr.concat(g.items || [g]), []);
-  const avail = allItems.filter(i => i.status === 'available').length;
-  const etd   = allItems.filter(i => i.status === 'etd').length;
   document.getElementById('statModels').textContent = catModels.length;
   document.getElementById('statSkus').textContent   = allItems.length;
-  document.getElementById('statAvail').textContent  = avail;
-  document.getElementById('statEtd').textContent    = etd;
+  document.getElementById('statAvail').textContent  = allItems.filter(i => i.status === 'available').length;
+  document.getElementById('statEtd').textContent    = allItems.filter(i => i.status === 'etd').length;
   renderCatalog();
 }
 
