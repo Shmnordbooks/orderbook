@@ -1801,28 +1801,44 @@ function setStatusFilter(status) {
   render();
 }
 
-// Search
+// Search (global across all categories)
 let searchTimer;
 document.getElementById('searchInput').addEventListener('input', e => {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(() => {
     searchQuery = e.target.value.toLowerCase().trim();
     currentPage = 1;
+    // Visual feedback: dim category chips during global search
+    document.querySelectorAll('.cat-chip').forEach(b => {
+      if (searchQuery) {
+        b.style.opacity = '0.45';
+        b.style.pointerEvents = 'none';
+      } else {
+        b.style.opacity = '';
+        b.style.pointerEvents = '';
+      }
+    });
+    // If search was active and is now cleared, restore current category view
     render();
   }, 200);
 });
 
 function getFiltered() {
   let items = allItems;
-  if (currentCat !== 'all') items = items.filter(i => i.cat === currentCat);
-  if (currentStatus !== 'all') items = items.filter(i => i.status === currentStatus);
+  // When searching, ignore category filter → search globally across all products
   if (searchQuery) {
+    // Skip category filter — search everything
+    if (currentStatus !== 'all') items = items.filter(i => i.status === currentStatus);
     items = items.filter(i =>
       i.code.toLowerCase().includes(searchQuery) ||
       i.desc1.toLowerCase().includes(searchQuery) ||
       i.desc2.toLowerCase().includes(searchQuery) ||
       (CATEGORY_LABELS[i.cat]||i.cat).toLowerCase().includes(searchQuery)
     );
+  } else {
+    // No search active — apply category filter as normal
+    if (currentCat !== 'all') items = items.filter(i => i.cat === currentCat);
+    if (currentStatus !== 'all') items = items.filter(i => i.status === currentStatus);
   }
   if (sortCol) {
     items = [...items].sort((a,b) => {
