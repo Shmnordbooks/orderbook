@@ -126,31 +126,30 @@
 (function(){
   'use strict';
 
-  // ── Hardcoded valid passcodes (case-insensitive) ──
-  // ── Hardcoded valid passcodes (case-insensitive) ──
-var VALID_CODES = [
-  'GCC-2026', 
-  'DEALER-VIP',
-  'ALGHARIYA-2026',
-  'BIKEERA-2026',
-  'REVO-2026',
-  'WOLFIS-2026',
-  'TREK-2026',
-  'TCH-2026',
-  'EMSONS-2026',
-  'ALBOOM-2026',
-  'CRANK-2026',
-  'MUSCAT-2026',
-  'SS-2026',
-  'BIKELANE-2026',
-  'ACTIVE-2026',
-  'WHEELS-2026',
-  'LIMPOPO-2026',
-  'DAKAMUZ-2026',
-  'DAKAMKZ-2026',
-  'CYCLEKOM-2026',
-  'EXTREME-2026'
-];
+  // ── Şifreler ve Logoların Eşleşmesi ──
+  var DEALER_LOGOS = {
+    'ALGHARIYA-2026': 'ALGHARIYA.png',
+    'BIKEERA-2026': 'BIKEERA.png',
+    'REVO-2026': 'REVO.png',
+    'WOLFIS-2026': 'WOLFIS.png',
+    'TREK-2026': 'TREK.png',
+    'TCH-2026': 'TCH.png',
+    'EMSONS-2026': 'EMSONS.png',
+    'ALBOOM-2026': 'ALBOOM.png',
+    'CRANK-2026': 'CRANK.png',
+    'MUSCAT-2026': 'MUSCAT.png',
+    'SS-2026': 'SS.png',
+    'BIKELANE-2026': 'BIKELANE.png',
+    'ACTIVE-2026': 'ACTIVE.png',
+    'WHEELS-2026': 'WHEELS.png',
+    'LIMPOPO-2026': 'LIMPOPO.png',
+    'DAKAMUZ-2026': 'DAKAMUZ.jpg',
+    'DAKAMKZ-2026': 'DAKAMKZ.jpg',
+    'CYCLEKOM-2026': 'CYCLEKOM.png',
+    'EXTREME-2026': 'EXTREME.png'
+  };
+
+  var VALID_CODES = ['GCC-2026', 'DEALER-VIP'].concat(Object.keys(DEALER_LOGOS));
 
   var input   = document.getElementById('accessCode');
   var btn     = document.getElementById('submitBtn');
@@ -158,15 +157,20 @@ var VALID_CODES = [
 
   function attempt(){
     var code = input.value.trim().toUpperCase();
-    if (!code){ errEl.textContent = 'Please enter a code.'; return; }
+    if (!code){ errEl.textContent = 'Lütfen bir kod girin.'; return; }
 
     var match = VALID_CODES.some(function(v){ return v.toUpperCase() === code; });
 
     if (match){
       sessionStorage.setItem('isAuthenticated', 'true');
+      
+      // Şifreye ait logoyu sisteme kaydet (eğer logo yoksa boş bırakır)
+      var logo = DEALER_LOGOS[code] || '';
+      sessionStorage.setItem('dealerLogo', logo);
+      
       window.location.href = 'index.html';
     } else {
-      errEl.textContent = 'Invalid code. Please try again.';
+      errEl.textContent = 'Geçersiz kod. Lütfen tekrar deneyin.';
       input.select();
     }
   }
@@ -175,14 +179,8 @@ var VALID_CODES = [
   input.addEventListener('keydown', function(e){
     if (e.key === 'Enter') attempt();
   });
-
-  // If already authenticated, skip straight to catalog
-  if (sessionStorage.getItem('isAuthenticated') === 'true'){
-    window.location.href = 'index.html';
-  }
-
-  input.focus();
 })();
 </script>
+
 </body>
 </html>

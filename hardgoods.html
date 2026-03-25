@@ -3164,5 +3164,37 @@ document.addEventListener('click', e => {
 })();
 </script>
 <script src="shared-cart.js"></script>
+<style>
+  .dealer-badge {
+    position: fixed;
+    top: 15px;
+    right: 85px; /* Tema butonunun hemen solunda duracak */
+    background: #ffffff; /* İçi her zaman beyaz (Light/Dark temada sorunsuz) */
+    border-radius: 6px;
+    height: 40px;
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 9999;
+  }
+  .dealer-badge img {
+    max-height: 28px;
+    max-width: 120px;
+    object-fit: contain;
+  }
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var logoName = sessionStorage.getItem('dealerLogo');
+    if (logoName) { 
+      var badge = document.createElement('div');
+      badge.className = 'dealer-badge';
+      badge.innerHTML = '<img src="logos/' + logoName + '" alt="Dealer Logo">';
+      document.body.appendChild(badge);
+    }
+  });
+</script>
 </body>
 </html>
