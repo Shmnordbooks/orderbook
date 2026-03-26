@@ -3167,11 +3167,11 @@ document.addEventListener('click', e => {
 <style>
   .dealer-badge {
     position: fixed;
-    top: 15px;
-    right: 85px; /* Tema butonunun hemen solunda duracak */
-    background: #ffffff; /* İçi her zaman beyaz (Light/Dark temada sorunsuz) */
+    top: 14px; 
+    left: 150px; 
+    background: #ffffff; 
     border-radius: 6px;
-    height: 40px;
+    height: 38px;
     padding: 4px 12px;
     display: flex;
     align-items: center;
@@ -3180,7 +3180,7 @@ document.addEventListener('click', e => {
     z-index: 9999;
   }
   .dealer-badge img {
-    max-height: 28px;
+    max-height: 26px;
     max-width: 120px;
     object-fit: contain;
   }
@@ -3193,6 +3193,15 @@ document.addEventListener('click', e => {
       badge.className = 'dealer-badge';
       badge.innerHTML = '<img src="' + logoName + '" alt="Dealer Logo">';
       document.body.appendChild(badge);
+
+      var walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+      var node;
+      while(node = walk.nextNode()) {
+        var text = node.nodeValue;
+        if (text.includes('| Catalog') || text.includes('| Hardgoods') || text.includes('| Shoes') || text.includes('| Pedals')) {
+          node.nodeValue = text.replace(/\|\s*(Catalog|Hardgoods|Shoes|Pedals)/ig, '');
+        }
+      }
     }
   });
 </script>
