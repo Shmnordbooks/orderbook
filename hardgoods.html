@@ -1733,6 +1733,92 @@
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
 </head>
 <body data-catalog="hardgoods">
+<style>
+  #videoCoverPage {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    background: #0a0a0f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  
+  #videoCoverPage video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    /* Yazı olmadığı için videoyu tam parlaklıkta gösteriyoruz */
+  }
+
+  .cover-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+</style>
+
+<div id="videoCoverPage">
+  <video id="introVideo" autoplay muted playsinline>
+ <div id="videoCoverPage">
+  <video id="introVideo" autoplay muted playsinline></video>
+</div>
+  </video>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var coverPage = document.getElementById('videoCoverPage');
+    var video = document.getElementById('introVideo');
+
+    // 1. VİDEO HAVUZU
+    var videoList = [
+      'finish_line.mp4', 
+      'sprint.mp4', 
+      'mountain.mp4', 
+      'peloton.mp4'
+    ];
+
+    // 2. %100 KESİN KONTROL: URL'de "skip=true" notu var mı?
+    var urlParams = new URLSearchParams(window.location.search);
+    var skipVideo = urlParams.get('skip') === 'true';
+
+    function hideIntro() {
+      if (coverPage) {
+        coverPage.classList.add('cover-hidden');
+        setTimeout(function() {
+          coverPage.remove();
+        }, 800);
+      }
+    }
+
+    // Eğer linkte skip=true varsa videoyu hiç göstermeden sil
+    if (skipVideo) {
+      if (coverPage) coverPage.remove();
+    } 
+    // Yoksa (yani Index'ten normal tıklandıysa) videoyu oynat
+    else {
+      if (video) {
+        var randomVideo = videoList[Math.floor(Math.random() * videoList.length)];
+        video.src = randomVideo;
+        video.load();
+
+        video.addEventListener('ended', hideIntro);
+        video.addEventListener('error', hideIntro);
+        setTimeout(hideIntro, 3000);
+      }
+    }
+  });
+</script>
+
 <header>
   <div class="header-inner">
     <div class="logo"><img src="data:image/png;base64,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" alt="Shimano" style="height:28px;vertical-align:middle;margin-right:10px;"><img id="dealerLogo" src="" alt="" style="height:36px;vertical-align:middle;display:none;border-radius:6px;background:#fff;padding:2px 6px;box-shadow:0 1px 4px rgba(0,0,0,0.15);"></div>
@@ -2525,8 +2611,15 @@ function closeSummaryPage() {
 }
 
 function clearAllOrders() {
-  if (Object.keys(orderList).length === 0) return;
-  if (!confirm('Are you sure you want to clear all items from your order?')) return;
+  // Check if ANY catalog has orders in shared cart
+  var shared = {};
+  try { shared = JSON.parse(localStorage.getItem('shimano_all_orders')) || {}; } catch(e){}
+  var anyOrders = Object.keys(shared).length > 0 || Object.keys(orderList).length > 0;
+  if (!anyOrders) return;
+  if (!confirm('Clear ALL orders from every catalog (Hardgoods, Shoes, Pedals)?')) return;
+  // Clear shared cart
+  localStorage.removeItem('shimano_all_orders');
+  // Clear local hardgoods
   orderList = {};
   updateOrderPanel();
   updateSummaryChip();
@@ -2537,7 +2630,13 @@ function clearAllOrders() {
 }
 
 function updateSummaryChip() {
-  const count = Object.keys(orderList).length;
+  var shared = {};
+  try { shared = JSON.parse(localStorage.getItem('shimano_all_orders')) || {}; } catch(e){}
+  var count = 0;
+  Object.keys(shared).forEach(function(pg){ count += Object.keys(shared[pg]).length; });
+  // Also count local orderList items not yet synced
+  var localCount = Object.keys(orderList).length;
+  if (localCount > count) count = localCount; // fallback
   const badge = document.getElementById('summaryBadge');
   if (badge) {
     badge.textContent = count;
@@ -2546,66 +2645,131 @@ function updateSummaryChip() {
 }
 
 function renderSummaryPage() {
-  const keys = Object.keys(orderList);
+  // Read ALL orders from shared cart (cross-catalog)
+  var shared = {};
+  try { shared = JSON.parse(localStorage.getItem('shimano_all_orders')) || {}; } catch(e){}
+
+  // Fallback: if hardgoods not yet in shared, use local orderList
+  if (!shared.hardgoods && Object.keys(orderList).length > 0) {
+    shared.hardgoods = {};
+    Object.keys(orderList).forEach(function(code) {
+      var e = orderList[code];
+      shared.hardgoods[code] = { qty: typeof e === 'object' ? e.qty : e, desc1: typeof e === 'object' ? (e.desc || e.desc1 || '') : code, desc2: typeof e === 'object' ? (e.desc2 || '') : '', price: '' };
+    });
+  }
+
+  var PAGE_LABELS = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS' };
+  var PAGE_COLORS = { hardgoods:'#0ea5e9', shoes:'#f59e0b', pedals:'#10b981' };
+  var pageOrder = ['hardgoods','shoes','pedals'];
+
   const statsEl = document.getElementById('osSummaryStats');
   const contentEl = document.getElementById('osSummaryContent');
 
-  if (keys.length === 0) {
+  // Count total items across all catalogs
+  var allCount = 0;
+  pageOrder.forEach(function(pg) { if (shared[pg]) allCount += Object.keys(shared[pg]).length; });
+
+  if (allCount === 0) {
     statsEl.style.display = 'none';
     contentEl.innerHTML = `
       <div class="os-empty">
         <div class="os-empty-icon">🛒</div>
         <h3>Your order list is empty</h3>
+        <p style="opacity:0.6;font-size:13px">Add items from any catalog — HARDGOODS, SHOES, or PEDALS</p>
       </div>`;
     return;
   }
 
   statsEl.style.display = 'flex';
 
-  // Group by category
-  const byCat = {};
   let totalSkus = 0, totalQty = 0, availCount = 0, etdCount = 0, unavailCount = 0;
+  var tableHtml = '<div class="os-table-wrap">';
 
-  keys.forEach(code => {
-    const entry = orderList[code];
-    const qty = typeof entry === 'object' ? entry.qty : entry;
-    const desc = typeof entry === 'object' ? entry.desc : code;
-    // Find item in catalog
-    let item = null; let cat = '';
-    for (const [c, items] of Object.entries(CATALOG)) {
-      const found = items.find(i => i.code === code);
-      if (found) { item = found; cat = c; break; }
-    }
-    // Also check groupsets
-    if (!item) {
-      for (const gs of Object.values(GROUPSETS)) {
-        if (gs.items_by_option) {
-          for (const items of Object.values(gs.items_by_option)) {
-            const found = items.find(i => i.code === code);
-            if (found) { item = found; cat = gs.name || 'Groupset'; break; }
-          }
-        } else if (gs.items) {
-          const found = gs.items.find(i => i.code === code);
-          if (found) { item = found; cat = gs.name || 'Groupset'; break; }
+  pageOrder.forEach(function(pg) {
+    var items = shared[pg];
+    if (!items || Object.keys(items).length === 0) return;
+    var codes = Object.keys(items);
+    var pgLabel = PAGE_LABELS[pg] || pg.toUpperCase();
+    var pgColor = PAGE_COLORS[pg] || '#888';
+    var pgQty = 0;
+    codes.forEach(function(c){ pgQty += (items[c].qty || 0); });
+
+    // Section header with catalog color badge
+    tableHtml += '<div class="os-cat-header" style="border-left:3px solid ' + pgColor + ';padding-left:12px;display:flex;align-items:center;gap:8px;">';
+    tableHtml += '<span style="background:' + pgColor + '22;color:' + pgColor + ';font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:0.06em;">' + pgLabel + '</span>';
+    tableHtml += '<span class="os-cat-count">' + codes.length + ' SKU' + (codes.length > 1 ? 's' : '') + ' · ' + pgQty + ' pcs</span></div>';
+
+    codes.forEach(function(code) {
+      var v = items[code];
+      var qty = v.qty || 0;
+      var desc = v.desc1 || '';
+      var model = v.desc2 || '';
+      var status = 'available';
+      var etd = '';
+
+      // For hardgoods items, try to look up status from CATALOG
+      if (pg === 'hardgoods' && typeof CATALOG !== 'undefined') {
+        for (var cat in CATALOG) {
+          var found = CATALOG[cat].find(function(i){ return i.code === code; });
+          if (found) { status = found.status; etd = found.etd; desc = found.desc1; model = found.desc2; break; }
         }
-        if (item) break;
+        if (typeof GROUPSETS !== 'undefined') {
+          for (var gsKey in GROUPSETS) {
+            var gs = GROUPSETS[gsKey];
+            if (gs.items_by_option) {
+              for (var opt in gs.items_by_option) {
+                var f2 = gs.items_by_option[opt].find(function(i){ return i.code === code; });
+                if (f2) { status = f2.status; etd = f2.etd; desc = f2.desc1; model = f2.desc2; break; }
+              }
+            } else if (gs.items) {
+              var f3 = gs.items.find(function(i){ return i.code === code; });
+              if (f3) { status = f3.status; etd = f3.etd; desc = f3.desc1; model = f3.desc2; break; }
+            }
+          }
+        }
       }
-    }
 
-    const catLabel = CATEGORY_LABELS[cat] || cat || 'Other';
-    if (!byCat[catLabel]) byCat[catLabel] = [];
-    byCat[catLabel].push({ code, qty, desc: item ? item.desc1 : desc, model: item ? item.desc2 : '', status: item ? item.status : 'available', etd: item ? item.etd : '' });
-
-    totalSkus++;
-    totalQty += qty;
-    if (item) {
-      if (item.status === 'available') availCount++;
-      else if (item.status === 'etd') etdCount++;
+      totalSkus++;
+      totalQty += qty;
+      if (status === 'available') availCount++;
+      else if (status === 'etd') etdCount++;
       else unavailCount++;
-    }
+
+      var badge = '';
+      if (status === 'available') badge = '<span class="badge avail"><span class="badge-dot"></span>Available</span>';
+      else if (status === 'etd') badge = '<span class="badge etd"><span class="badge-dot"></span>' + (etd || 'ETD') + '</span>';
+      else badge = '<span class="badge unavail"><span class="badge-dot"></span>N/A</span>';
+
+      // For hardgoods items: editable qty + remove; for other catalogs: read-only display (edit via their own page)
+      var qtyCell = '', removeCell = '';
+      if (pg === 'hardgoods') {
+        qtyCell = '<div style="text-align:center"><input class="os-row-qty-edit" type="number" min="1" value="' + qty + '" oninput="var _v=parseInt(this.value);if(!this.value||_v<=0||isNaN(_v)){this.value=\'\';updateQtyFromSummary(\'' + code + '\',\'\');}else{updateQtyFromSummary(\'' + code + '\',this.value);}"></div>';
+        removeCell = '<div style="text-align:center"><button class="os-row-remove" onclick="removeFromOrder(\'' + code + '\')" title="Remove">✕</button></div>';
+      } else {
+        qtyCell = '<div style="text-align:center;font-family:Barlow Condensed,sans-serif;font-weight:700;color:var(--avail);font-size:13px;">×' + qty + '</div>';
+        removeCell = '<div style="text-align:center"><button class="os-row-remove" onclick="_aoDeleteItem(\'' + pg + '\',\'' + code.replace(/'/g, "\\'") + '\')" title="Remove">✕</button></div>';
+      }
+
+      tableHtml += '<div class="os-row">' +
+        '<div class="os-row-code">' + code + '</div>' +
+        '<div class="os-row-desc">' + (desc || '—') + '</div>' +
+        '<div class="os-row-model">' + (model || '') + '</div>' +
+        '<div>' + badge + '</div>' +
+        qtyCell + removeCell +
+      '</div>';
+    });
   });
 
-  // Stats bar
+  tableHtml += '</div>';
+
+  // Stats bar with catalog chips
+  var chipHtml = '';
+  pageOrder.forEach(function(pg) {
+    if (!shared[pg] || Object.keys(shared[pg]).length === 0) return;
+    var pqty = 0; Object.values(shared[pg]).forEach(function(v){ pqty += (v.qty || 0); });
+    chipHtml += '<span style="background:' + PAGE_COLORS[pg] + '22;color:' + PAGE_COLORS[pg] + ';font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;font-family:Barlow Condensed,sans-serif;letter-spacing:0.05em;">' + PAGE_LABELS[pg] + ': ' + pqty + '</span> ';
+  });
+
   statsEl.innerHTML = `
     <div class="os-stat"><div class="os-stat-val accent">${totalSkus}</div><div class="os-stat-label">Total SKUs</div></div>
     <div class="os-stat-divider"></div>
@@ -2615,30 +2779,9 @@ function renderSummaryPage() {
     <div class="os-stat"><div class="os-stat-val etd">${etdCount}</div><div class="os-stat-label">ETD Items</div></div>
     ${unavailCount > 0 ? `<div class="os-stat"><div class="os-stat-val" style="color:var(--unavail)">${unavailCount}</div><div class="os-stat-label">Unavailable</div></div>` : ''}
     <div class="os-stat-divider"></div>
-    <div class="os-stat"><div class="os-stat-val" style="font-size:14px;padding-top:4px;color:var(--text-muted)">March 2026</div><div class="os-stat-label">Order Date</div></div>
+    <div class="os-stat"><div style="display:flex;gap:4px;flex-wrap:wrap;padding-top:4px">${chipHtml}</div><div class="os-stat-label">Catalogs</div></div>
   `;
 
-  // Table by category
-  let tableHtml = '<div class="os-table-wrap">';
-  Object.entries(byCat).sort((a,b)=>a[0].localeCompare(b[0])).forEach(([catLabel, items]) => {
-    tableHtml += `<div class="os-cat-header">${catLabel}<span class="os-cat-count">${items.length} item${items.length>1?'s':''}</span></div>`;
-    items.forEach(item => {
-      let badge = '';
-      if (item.status === 'available') badge = '<span class="badge avail"><span class="badge-dot"></span>Available</span>';
-      else if (item.status === 'etd') badge = `<span class="badge etd"><span class="badge-dot"></span>${item.etd}</span>`;
-      else badge = '<span class="badge unavail"><span class="badge-dot"></span>N/A</span>';
-
-      tableHtml += `<div class="os-row">
-        <div class="os-row-code">${item.code}</div>
-        <div class="os-row-desc">${item.desc || '—'}</div>
-        <div class="os-row-model">${item.model || ''}</div>
-        <div>${badge}</div>
-        <div style="text-align:center"><input class="os-row-qty-edit" type="number" min="1" value="${item.qty}" oninput="var _v=parseInt(this.value);if(!this.value||_v<=0||isNaN(_v)){this.value='';updateQtyFromSummary('${item.code}','');}else{updateQtyFromSummary('${item.code}',this.value);}"></div>
-        <div style="text-align:center"><button class="os-row-remove" onclick="removeFromOrder('${item.code}')" title="Remove">✕</button></div>
-      </div>`;
-    });
-  });
-  tableHtml += '</div>';
   contentEl.innerHTML = tableHtml;
 }
 
@@ -2703,30 +2846,40 @@ function addSummaryChip() {
   coverChip.onclick = function() { location.href = 'index.html'; };
   catFilters.insertBefore(coverChip, chip);
 
-  // ── Catalog Navigation Buttons ──
+  // Insert Order Summary right after Main Page (coverChip)
+  var osSep = document.createElement('div');
+  osSep.className = 'sidebar-sep';
+  osSep.style.margin = '4px 16px';
+  catFilters.insertBefore(osSep, coverChip.nextSibling);
+  catFilters.insertBefore(chip, osSep.nextSibling);
+
+  // ── Catalog Navigation Buttons (after Order Summary) ──
   var navLabels = [
     { label:'HARDGOODS', href:'hardgoods.html', color:'#0ea5e9', icon:'<path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/>', active:true },
     { label:'SHOES',     href:'shoes.html',     color:'#f59e0b', icon:'<path d="M2 18s1-6 4-6c2 0 3 2 5 2s3-2 5-2c3 0 4 6 4 6"/><path d="M4 12l2-4 3 2 3-4 3 4 3-2"/>' },
     { label:'PEDALS',    href:'pedals.html',    color:'#10b981', icon:'<circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7"/>' }
   ];
+  // Reference point: insert CATALOGS section after chip
   var navSep = document.createElement('div');
   navSep.className = 'sidebar-sep';
-  catFilters.insertBefore(navSep, chip);
+  catFilters.insertBefore(navSep, chip.nextSibling);
   var navTitle = document.createElement('div');
   navTitle.className = 'sidebar-section-label';
   navTitle.textContent = 'CATALOGS';
-  catFilters.insertBefore(navTitle, chip);
+  catFilters.insertBefore(navTitle, navSep.nextSibling);
+  var lastNavEl = navTitle;
   navLabels.forEach(function(n) {
     var btn = document.createElement(n.active ? 'button' : 'a');
     btn.className = 'cat-chip';
     if (!n.active) { btn.href = n.href; btn.style.textDecoration = 'none'; }
     btn.style.cssText += 'margin:2px 8px;width:calc(100% - 16px);border-left:3px solid ' + n.color + ';color:' + n.color + ';font-weight:700;' + (n.active ? 'opacity:1;background:rgba(14,165,233,0.12);pointer-events:none;' : 'opacity:0.7;');
     btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0">' + n.icon + '</svg> ' + n.label + (n.active ? ' <span style="font-size:9px;opacity:0.5;margin-left:auto">●</span>' : '');
-    catFilters.insertBefore(btn, chip);
+    catFilters.insertBefore(btn, lastNavEl.nextSibling);
+    lastNavEl = btn;
   });
   var navSep2 = document.createElement('div');
   navSep2.className = 'sidebar-sep';
-  catFilters.insertBefore(navSep2, chip);
+  catFilters.insertBefore(navSep2, lastNavEl.nextSibling);
 }
 
 addSummaryChip();
@@ -3164,6 +3317,30 @@ document.addEventListener('click', e => {
 })();
 </script>
 <script src="shared-cart.js"></script>
+<script>
+// Auto-open Order Summary when navigating from shoes/pedals via #openOrderSummary
+(function(){
+  if (window.location.hash === '#openOrderSummary') {
+    // Wait for DOM + shared-cart restore
+    setTimeout(function(){
+      if (typeof openSummaryPage === 'function') openSummaryPage();
+      // Clean hash
+      if (history.replaceState) history.replaceState(null, '', window.location.pathname + window.location.search);
+    }, 500);
+  }
+  // Keep summary badge synced with shared cart
+  function updBadge(){
+    if (typeof updateSummaryChip === 'function') updateSummaryChip();
+  }
+  setInterval(updBadge, 800);
+  window.addEventListener('storage', function(e){
+    if(e.key==='shimano_all_orders'){
+      updBadge();
+      if(typeof summaryPageOpen!=='undefined' && summaryPageOpen && typeof renderSummaryPage==='function') renderSummaryPage();
+    }
+  });
+})();
+</script>
 <script>
 (function(){
   var dl = sessionStorage.getItem('dealerLogo');

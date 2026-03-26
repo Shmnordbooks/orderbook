@@ -320,14 +320,14 @@
       Main Page
     </a>
     <div class="sidebar-sep" style="margin:4px 16px"></div>
-    <a href="hardgoods.html#openOrderSummary" id="sharedOrderSummaryBtn" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0082CA;color:#0082CA;font-weight:800;background:rgba(0,130,202,0.08);">
+    <a href="hardgoods.html?skip=true#openOrderSummary" id="sharedOrderSummaryBtn" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0082CA;color:#0082CA;font-weight:800;background:rgba(0,130,202,0.08);">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0;opacity:0.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
       Order Summary <span class="order-chip-badge" id="sharedCartBadge" style="display:none;background:#0082CA;color:white;font-family:Barlow Condensed,sans-serif;font-size:10px;font-weight:800;border-radius:10px;padding:1px 6px;min-width:18px;line-height:1.4;margin-left:auto;text-align:center;">0</span>
     </a>
     <!-- Catalog Navigation -->
     <div class="sidebar-sep" style="margin:4px 16px"></div>
     <div class="sidebar-section-label">CATALOGS</div>
-    <a href="hardgoods.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0ea5e9;color:#0ea5e9;font-weight:700;opacity:0.7;">
+    <a href="hardgoods.html?skip=true" class="cat-chip" style="margin:2px 8px; width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0ea5e9;color:#0ea5e9;font-weight:700;opacity:0.7;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       HARDGOODS
     </a>
@@ -1168,6 +1168,21 @@ window.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="shared-cart.js"></script>
+<script>
+// Update Order Summary badge from shared cart
+(function updateSharedBadge(){
+  function upd(){
+    try{
+      var s=JSON.parse(localStorage.getItem('shimano_all_orders'))||{}, c=0;
+      Object.keys(s).forEach(function(p){c+=Object.keys(s[p]).length;});
+      var b=document.getElementById('sharedCartBadge');
+      if(b){b.textContent=c;b.style.display=c>0?'inline-flex':'none';}
+    }catch(e){}
+  }
+  upd(); setInterval(upd, 800);
+  window.addEventListener('storage',function(e){if(e.key==='shimano_all_orders')upd();});
+})();
+</script>
 <script>
 (function(){
   var dl = sessionStorage.getItem('dealerLogo');
