@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAZER — Helmet Catalog | March 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #1e1e2e;
+    --border-hover: #2a2a3e;
+    --accent: #e8003d;
+    --accent2: #ff6b00;
+    --gold: #c9a84c;
+    --text: #e8e8f0;
+    --text-muted: #6b6b82;
+    --text-dim: #3a3a52;
+    --avail: #00c896;
+    --etd: #ff9500;
+    --unavail: #ff3b5c;
+    --avail-bg: rgba(0,200,150,0.08);
+    --etd-bg: rgba(255,149,0,0.08);
+    --unavail-bg: rgba(255,59,92,0.08);
+    --shimano-blue: #0082CA;
+  }
+  html.light {
+    --bg: #f0f2f5; --surface: #ffffff; --card: #f8f9fb;
+    --border: #dde1ea; --border-hover: #b8bfcc;
+    --text: #12131a; --text-muted: #6b7280; --text-dim: #b0b8c8;
+    --avail: #00a878; --etd: #d97706; --unavail: #dc2626;
+    --avail-bg: rgba(0,168,120,0.08); --etd-bg: rgba(217,119,6,0.08); --unavail-bg: rgba(220,38,38,0.08);
+    --color-black-shoe: #1a1a1a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;
+    transition-property: background-color, border-color, color; transition-duration: 0.18s; }
+  html { scroll-behavior: smooth; font-size: 130%; }
+  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+  /* HEADER */
+  header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; }
+  html.light header { background: rgba(240,242,245,0.95); }
+  .header-inner { max-width: 1500px; margin: 0 auto; display: flex; align-items: center; gap: 16px; height: 64px; }
+  .logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.05em; color: var(--text); white-space: nowrap; display:flex; align-items:center; gap:8px; }
+  .logo span { color: #0082CA; }
+  .header-divider { width: 1px; height: 28px; background: var(--border); }
+  .header-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; white-space:nowrap; }
+  .header-search { flex: 1; position: relative; }
+  .header-search input { width: 100%; padding: 9px 16px 9px 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; }
+  .header-search input:focus { border-color: var(--accent); }
+  .header-search input::placeholder { color: var(--text-muted); }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; pointer-events: none; }
+  .btn-back { display: flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--surface); border: 1px solid var(--shimano-blue); border-radius: 8px; color: #ffffff; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; cursor: pointer; text-decoration: none; transition: all 0.15s; white-space:nowrap; text-shadow: 0 0 8px rgba(0,160,233,0.6); }
+  .btn-back:hover { border-color: var(--shimano-blue); color: var(--shimano-blue); }
+
+  /* THEME TOGGLE */
+  .theme-toggle { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 5px 14px 5px 6px; cursor: pointer; flex-shrink: 0; user-select: none; }
+  .theme-toggle:hover { border-color: var(--shimano-blue); }
+  .theme-toggle-track { position: relative; width: 32px; height: 18px; background: var(--border); border-radius: 9px; transition: background 0.25s; flex-shrink: 0; }
+  html.light .theme-toggle-track { background: var(--shimano-blue); }
+  .theme-toggle-thumb { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.3); transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+  html.light .theme-toggle-thumb { transform: translateX(14px); }
+  .theme-toggle-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
+  html.light .theme-toggle-label { color: var(--shimano-blue); }
+  .theme-toggle-icon { font-size: 14px; line-height: 1; transition: transform 0.4s ease; }
+  html.light .theme-toggle-icon { transform: rotate(360deg); }
+
+  /* LAYOUT */
+  .catalog-layout { display: flex; gap: 0; max-width: 1500px; margin: 0 auto; padding: 0 0 60px; align-items: flex-start; }
+  .sidebar { width: 140px; flex-shrink: 0; position: sticky; top: 64px; max-height: calc(100vh - 80px); overflow-y: auto; padding: 12px 0 24px; border-right: 1px solid var(--border); scrollbar-width: thin; scrollbar-color: var(--border) transparent; background: var(--surface); }
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .sidebar-section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); padding: 8px 16px 4px; }
+  .sidebar-sep { height: 1px; background: var(--border); margin: 6px 16px; }
+  .cat-chip { display: flex; align-items: center; gap: 6px; width: 100%; padding: 7px 12px; border: none; border-left: 3px solid transparent; border-radius: 0; background: transparent; color: rgba(255,255,255,0.85); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: all 0.15s; }
+  .cat-chip-svg { display: none; }
+  .cat-chip:hover { background: rgba(0,130,202,0.07); color: var(--text); border-left-color: rgba(0,130,202,0.35); }
+  .cat-chip.active { background: rgba(0,130,202,0.12); border-left-color: #0082CA; color: #0082CA; font-weight: 600; }
+  html.light .cat-chip { background: var(--surface); color: rgba(30,40,60,0.85); }
+  .main { flex: 1; min-width: 0; padding: 20px 24px 0; }
+
+  /* HERO STRIP */
+  .shoes-hero { background: linear-gradient(135deg, rgba(0,130,202,0.12) 0%, rgba(0,130,202,0.04) 100%); border: 1px solid rgba(0,130,202,0.2); border-radius: 12px; padding: 20px 28px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .shoes-hero-left h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; margin-bottom: 4px; }
+  .shoes-hero-left h2 span { color: #0082CA; }
+  .shoes-hero-left p { font-size: 13px; color: var(--text-muted); }
+  .shoes-hero-stats { display: flex; gap: 20px; }
+  .hero-stat { text-align: center; }
+  .hero-stat-val { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800; color: var(--shimano-blue); }
+  .hero-stat-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+
+  /* MODEL CARDS */
+  .model-section { margin-bottom: 32px; }
+  .section-header { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); padding: 6px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .model-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.15s; }
+  .model-card:hover { border-color: var(--border-hover); }
+  .model-card-header { display: flex; align-items: center; gap: 14px; padding: 14px 16px; cursor: pointer; }
+  .model-card-header:hover { background: rgba(255,255,255,0.02); }
+  .model-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: 0.04em; min-width: 80px; }
+  .model-name { font-size: 13px; color: var(--text-muted); flex: 1; }
+  .model-price { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+  .model-srp { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.55); margin-left: 8px; }
+  .model-toggle { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 12px; transition: transform 0.2s; }
+  .model-card.open .model-toggle { transform: rotate(180deg); }
+  .model-items { display: none; padding: 0 16px 14px; border-top: 1px solid var(--border); }
+  .model-card.open .model-items { display: block; }
+  .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 5px; padding-top: 10px; }
+  /* ── Photo Gallery ── */
+  .model-gallery { display: flex; gap: 10px; padding: 12px 0 10px; overflow: hidden; }
+  .model-gallery-main { flex: 0 0 280px; height: 200px; border-radius: 8px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; }
+  .model-gallery-main img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.25s; }
+  .model-gallery-main img:hover { transform: scale(1.04); }
+  .model-gallery-colors { display: flex; flex-direction: column; gap: 4px; }
+  .color-group-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); padding:1px 0; border-bottom:1px solid var(--border); margin-top:2px; }
+  .color-group-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .model-gallery-thumb { width: 68px; height: 50px; border-radius: 6px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; flex-shrink: 0; transition: border-color 0.15s; }
+  .model-gallery-thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .model-gallery-thumb.active { border-color: #0082CA; }
+  .model-gallery-thumb:hover { border-color: var(--border-hover); }
+  .model-gallery-skeleton { display: flex; gap: 10px; padding: 12px 0 10px; }
+  .gallery-skel-main { flex: 0 0 280px; height: 200px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); animation: skel-pulse 1.4s ease-in-out infinite; }
+  .gallery-skel-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .gallery-skel-thumb { width: 68px; height: 50px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); animation: skel-pulse 1.4s ease-in-out infinite; }
+  @keyframes skel-pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .model-gallery-none { display:none; }
+
+  /* ── Lightbox ── */
+  .lightbox-overlay { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.88); backdrop-filter:blur(12px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+  .lightbox-overlay.active { opacity:1; pointer-events:all; }
+  .lightbox-box { position:relative; max-width:800px; width:90vw; max-height:90vh; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .lightbox-close { position:absolute; top:-40px; right:0; background:rgba(255,255,255,0.12); border:none; color:#fff; width:36px; height:36px; border-radius:50%; font-size:20px; cursor:pointer; transition:background 0.15s; display:flex; align-items:center; justify-content:center; }
+  .lightbox-close:hover { background:rgba(255,255,255,0.25); }
+  .lightbox-img { max-width:100%; max-height:65vh; object-fit:contain; border-radius:10px; background:var(--surface); }
+  .lightbox-info { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px 20px; width:100%; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .lightbox-model { font-family:'Barlow Condensed',sans-serif; font-size:24px; font-weight:800; color:var(--text); letter-spacing:0.03em; }
+  .lightbox-name { font-size:14px; color:var(--text-muted); flex:1; }
+  .lightbox-prices { display:flex; gap:12px; align-items:baseline; }
+  .lightbox-price { font-family:'Barlow Condensed',sans-serif; font-size:20px; font-weight:700; color:var(--shimano-blue); }
+  .lightbox-srp { font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:600; color:var(--text-muted); }
+  .lightbox-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.1); border:none; color:#fff; width:44px; height:44px; border-radius:50%; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; }
+  .lightbox-nav:hover { background:rgba(255,255,255,0.25); }
+  .lightbox-nav.prev { left:-56px; }
+  .lightbox-nav.next { right:-56px; }
+  @media(max-width:900px) { .lightbox-nav.prev{left:4px;} .lightbox-nav.next{right:4px;} }
+  .item-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); transition: border-color 0.12s; min-width: 0; }
+  .item-row.item-row-priced { grid-template-columns: 1fr auto auto auto; }
+  .item-row:hover { border-color: var(--border-hover); }
+  .item-price { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; color: var(--text); white-space: nowrap; }
+  .item-info { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .item-code { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item-desc { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .badge-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+  .badge.avail { color: var(--avail); background: var(--avail-bg); border: 1px solid rgba(0,200,150,0.2); }
+  .badge.etd { color: var(--etd); background: var(--etd-bg); border: 1px solid rgba(255,149,0,0.2); }
+  .badge.unavail { color: var(--unavail); background: var(--unavail-bg); border: 1px solid rgba(255,59,92,0.2); }
+  .qty-input { width: 54px; padding: 4px 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; text-align: center; outline: none; transition: border-color 0.15s; }
+  .qty-input:focus { box-shadow: inset 0 0 0 2px var(--avail), 0 0 8px rgba(0,200,150,0.15); border-color: transparent !important; }
+  .qty-input[data-has-value="true"] { border-color: rgba(0,200,150,0.4); }
+
+  /* ORDER SUMMARY PANEL */
+  .order-panel { display: none !important; }
+  .order-panel-header { padding: 14px 16px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .order-panel-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+  .order-count { background: var(--accent); color: white; font-size: 11px; font-weight: 700; border-radius: 10px; padding: 2px 7px; font-family: 'Barlow Condensed', sans-serif; }
+  .order-items { max-height: 300px; overflow-y: auto; padding: 8px 0; }
+  .order-item { padding: 7px 14px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 11px; }
+  .order-item-code { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; color: var(--text); min-width: 90px; }
+  .order-item-desc { flex: 1; color: var(--text-muted); font-size: 11px; }
+  .order-item-qty { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; color: var(--avail); min-width: 20px; text-align: right; }
+  .order-empty { padding: 24px; text-align: center; color: var(--text-muted); font-size: 12px; }
+  .order-actions { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+  .btn-export { flex: 1; padding: 9px; border: none; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; cursor: pointer; transition: all 0.15s; text-align: center; text-decoration: none; display: block; }
+  .btn-export.primary { background: var(--shimano-blue); color: white; }
+  .btn-export.primary:hover { background: #006fa8; }
+  .btn-export.secondary { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+  .btn-export.secondary:hover { border-color: var(--border-hover); color: var(--text); }
+  .btn-clear { flex: 1; padding: 9px; background: var(--unavail-bg); border: 1px solid rgba(255,59,92,0.25); border-radius: 6px; color: var(--unavail); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; cursor: pointer; transition: all 0.15s; }
+  .btn-clear:hover { background: rgba(255,59,92,0.15); }
+  .order-total-row { padding: 10px 14px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .order-total-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .order-total-val { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); }
+
+  /* TOAST */
+  .toast-container { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 9000; pointer-events: none; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .toast { background: #1a1a24; color: #fff; padding: 8px 16px; border-radius: 4px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); border-left: 3px solid #0078C1; font-size: 13px; font-weight: 500; pointer-events: none; animation: toastIn 0.3s ease forwards; white-space: nowrap; }
+  .toast.removing { animation: toastOut 0.3s ease forwards; }
+  @keyframes toastIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes toastOut { from { opacity:1; transform:translateY(0); } to { opacity:0; transform:translateY(-12px); } }
+
+  /* RESULTS INFO */
+  .results-info { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+  .results-info strong { color: var(--text); }
+
+  /* SEARCH CLEAR */
+  .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: var(--border); border: none; color: var(--text-muted); width: 20px; height: 20px; border-radius: 50%; cursor: pointer; font-size: 13px; line-height: 1; display: none; align-items: center; justify-content: center; transition: background 0.15s, color 0.15s; }
+  .search-clear:hover { background: var(--accent); color: #fff; }
+  .search-clear.visible { display: flex; }
+
+  /* OS STATS BAR */
+  .os-stats-bar { display: flex; gap: 12px; padding: 10px 14px; background: var(--surface); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+  html.light .os-stats-bar { background: var(--surface); }
+  .os-stat-pill { display: flex; align-items: center; gap: 5px; font-size: 11px; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; letter-spacing: 0.05em; color: var(--text-muted); }
+  .os-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+  @media (max-width: 900px) {
+    .order-panel { display: none; }
+    .shoes-hero-stats { display: none; }
+  }
+  @media (max-width: 700px) {
+    .sidebar { display: none; }
+    /* Original 1fr override removed — now handled by 2-col grid below */
+  }
+
+  /* ============================================================
+     MOBILE 2-COLUMN GRID LAYOUT (≤ 768px)
+     Displays products side-by-side for efficient B2B ordering.
+     ============================================================ */
+  @media (max-width: 768px) {
+    .items-grid {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 6px !important;
+    }
+    .item-row,
+    .item-row.item-row-priced {
+      grid-template-columns: 1fr !important;
+      gap: 4px !important;
+      padding: 8px 8px !important;
+    }
+    .item-code {
+      font-size: 11px !important;
+      white-space: normal !important;
+      word-break: break-all;
+      line-height: 1.3;
+    }
+    .item-desc { font-size: 10px !important; }
+    .item-price { font-size: 11px !important; }
+    .item-row .badge {
+      font-size: 9px !important;
+      padding: 2px 5px !important;
+    }
+    .item-row .qty-input {
+      width: 100% !important;
+      max-width: 64px;
+      padding: 6px 4px !important;
+      font-size: 14px !important;
+      min-height: 36px;
+    }
+    .model-card-header {
+      padding: 10px 12px !important;
+      gap: 8px !important;
+      flex-wrap: wrap;
+    }
+    .model-tag { font-size: 14px !important; min-width: 60px !important; }
+    .model-name { font-size: 11px !important; }
+    .model-price, .model-srp { font-size: 13px !important; }
+    .model-gallery-main {
+      flex: 0 0 160px !important;
+      height: 120px !important;
+    }
+    .model-gallery {
+      gap: 6px !important;
+      padding: 8px 0 6px !important;
+    }
+    .model-gallery-thumb {
+      width: 48px !important;
+      height: 36px !important;
+    }
+    .model-items {
+      padding: 0 8px 10px !important;
+    }
+  }
+
+  /* ── VERY SMALL SCREENS (≤ 420px) → single column ── */
+  @media (max-width: 420px) {
+    .items-grid { grid-template-columns: 1fr !important; }
+  }
+
+
+  /* Lazer-specific overrides */
+  .lazer-logo-img { height: 32px; vertical-align: middle; }
+</style>
+</head>
+<body data-catalog="lazer">
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADhAOEDASIAAhEBAxEB/8QAHQABAAIDAQEBAQAAAAAAAAAAAAcIBQYJBAIDAf/EAEYQAAEDBAECAwMGCQkJAQAAAAEAAgMEBQYRBxIhCBMxFEFRFRcYImGUFiMyVVdxkZXTCUJDUmKB0dLUJVNWcnOSk6Gxwf/EABQBAQAAAAAAAAAAAAAAAAAAAAD/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCmSIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICKx3gP41tubZ/dL3kVppblZbNSdPkVcIkilqJdhgLXAtdprZD39D0lW+zPAOHcWxK7ZJcON8PFLbKOWql/2NT7IY0u0Pqep1ofaUHLNF6LjUmtuFTWGGCAzyulMUEYZGzqJPS1o7NaN6AHoF+MbHySNjjY573ENa1o2ST6ABB8ouifhq8O2L4xxzTyZ1i9pvGRXLpqaptxo46j2MEfVgb1AgED8oj1cT3IAUn/NFxV+jXD/3LT/5EHJ1TXxL4Z+ROScPiyq1VFkttvnleyn+Up5Y3zNb2L2hkb/q72Nkg7ae2tE4d+N41kXiTvdkud0tOLY0y/1hmlc9lPDBTMnf+LjHYAkANaB6b3rQKv5aOWuFrRaqS1WzPcUpaKjhZBTwx18YbHG0ANaBv0AAQVJ+hVyn+f8ADPvlT/p0+hVyn+f8M++VP+nV38QzbEsvNQMWyK3Xn2bp880cwlEfVvXUR2BOj+wrYEFAPoVcp/n/AAz75U/6dQ5zDxzX8Y5I3Hbvf7DdLmI+uohtc0svsu9FokL42AOIOw0bOu51sbvP4pecjgsMWE4YW12dXbphp42AP9h8zs17gexkOx0MP/Me2g7ccT4W4+oMZt1JfcPx6+XaOnb7fcq63RT1FXUEbllfI9pc5znlx2SfVByxRdYvmi4q/Rrh/wC5af8AyKKvFZjXGWCcL3autnHmJxXm4Fttthis8Ak86Xt1MIZvqawPcNe9oQc8kXUDjTgzj2xcf2O03vBsZuV0p6KNtbVVNshmklnI3IS9zSSOonWz2GgtiPEXFJGvm1w/9zU/+RBydRX28SXhgwyuwu55HgVqFlvlBA6p9lpnH2erawbczyySGO6Qenp0CexHfYoSgIiICIiAiIgIiICIiAiLceFcOlz7lPH8UYxzoq2sb7UQSC2nb9eU79xDGu19ukF/vBfhJwzgi0uqYfLuF6JulT8QJAPKHf0/FCPY9xLlpn8obmosvF1Bh9PLqqyCq6pQPdTwFr3b+G3mL9YDvgrNQxRwwshhY2OONoaxrRoNA7ABc0fGfmozPna7NppvMoLKBa6bROiYyfNP/kLxseoAQQurU+A7hz8Ir985WQ0vVabVN02uKVnaoqm6Pm9/VsfuPvf7/qEKD+DuObpyjyHQ4vbw+OBx86vqQNimp2kdb/19wAPe4gLqbi1iteM45b8fstK2lt1vgbBTxN9zWjXc+8n1JPckkn1Qemsr6OjqKOnqahkc1bMYaZhPeV4Y55aPjprHu/U0r0uIDST6AbUavxXNLj4gabL7rVWxmJ2m1zU1qpIp3un9ol6OuZ7SwNBLQ5vZx0A34lb1ktX7BjlzruoN9mpJZdn0HSwn/wDEHInKK0XHJrrcA/rFVWTTB3x6nl2//a3PgbiTIuWstbarUx1NboCHXG4vZuOljP7Op50Q1u+/2AEj54I4nyHlrL22e0MNPQQFr7lcXt3HSRnf/c86Ia0ep+ABI6YcaYPjvHmJUuM4zRCmo4Bt7zoyVEhA6pZHfznnXr+oAAAAB9cb4Tj3H2JUuM4zRCmoqcbc495JpCB1SSO/nPOu5/UBoAARj4p+eLfxTYzarS+Csy6ti3S05+s2lYdjzpR8P6rf5x+wFezxP85WviPHhTUghrsqr4yaCicdtib3Hny67hgO9D1eQQOwcW83MivN1yK+Vl7vddNX3GtlMtRUTO257j/8HuAHYAADQCCevBXjFfyLz+/LsgkmuLLNu6VVRUHrMlW46h6ie/V1dUg+HlLocoG8DOD/AIJcIUl0qYei4ZFJ8oS7A2ISOmAbHuLB1j/qFSzmua4phVLT1WV36is8NS8xwvqX9Ie4DZA/uQRxklH4l5cguElgu3HdNaXVL/YoqllQ+VsPUejrIZrq6db123vSiamj5I5B8UOOYHyNcbBcafDz8uVjbPHI2Jj+ljomv6gC53UYu3p0vd6+inWXnvh2OJ8nzg2R3S0u02YknQ9ANdytD8FlFVX2hy/ly7RFtdl93kdB1Hq8umic4NaD8A4vb+qNqCws0kcMT5ZXtjjY0ue5x0GgdySfgoo8Pl25GyeoyPLcsn8jGrpVdeMW+WnbHNDShz9SO00O09pYQHkk6J7AjcrVEMNTTyU9REyaGVpZJG9oc17SNEEHsQR7l4cmu9Lj+OXG+1kc8lLbqWSqmbBH1yFkbS4hrfedD0QYDmbMrZgXGl7yW6SxtZT0z2QRuPeedwIjjA95LiP1DZ9AVyXUneIPmTIeXMn9rrS6istK4i3W1r9shb/Xd/WkI9Xf3DQUYoCIiAiIgIiICIiAiIgK4n8m/hXm12Q8gVUYLYGi10Tv7bumSY6+IHlAH+05U7U4cWeJvOeOMJosSx+xYs6hpC9wkqaad0sjnvLnOeWzAE7OuwHYAIOlCxdbbLFTU01XUWugEcTHSSO9maToDZPp3VE/pq8qfmLDfudT/HQ+NTlM+thw37nU/wAdBb/hjB243Bd8kuVLHFkWTVZrq9oY0eyx/wBDSDp7dMTNN3327qOzsLJZtybgOE3KG25VlVutNZND58cE7z1mPZaHaAOgS0jfv0fgqXfTV5U/MWG/c6n+OoK5JzO+cgZlX5XkUzJK+tcCWxAiOJoGmsYCSQ0AaA2T7ySSSg6pYNnWI5xBVT4lfaW7xUjmsnfTkkMc4EgHYHuBXi5te9vDuZCJ5ZLJY6yKJw9Q98LmtP7SFRjwi8p5JidZUYjbLnhFitdbUe2111yEP3EA1rOlgbNH1nt2Z8SSSBsi0d75Bxu+W6S13XnLjc0E7me0Np6Py5HMDw4tDnVjgNga2Wn19EEncY4LjvHeIUmMY1SeRSQDckjtGWokP5UsjgB1OP7B2AAAAGavfyp8k1XyKKM3IxkU3tZcIQ/3F/SOogeuh3Ppseo0755+Jf0kYt+84v8AFPnn4l/SRi37zi/xQVoy/wAIvJeW5HW5DkHIVmrrlWyGSaaSKXufcANaDQNAAdgAAFpN/wDCre8czPD7BccmttdJkNz9n8mkY9sjKeNpknm24a+qwftcFc355+Jf0kYt+84v8VVLnXxIVdn8Qsl+wUWK+UVqtQttHPUh88BdIWyzSxmN7frEhsZOz2YdeqC8tJTwUlJDSU0TYoIY2xxRtGg1rRoAfYAFjsgxnG8hdA6/4/abuacOEBrqOOfyurXV09YPTvpbvXr0j4Kiv01eVPzFhv3Op/jp9NXlT8xYb9zqf46CY/GhZsRx/jWhx3GcMx6nyLJ7lDb6F1LbYI5gOoOeWuDQRs9DO3+8VgOPcbpcPwayYtRnqhtdFFTB+tGQtaA55+1x24/aVzmyrxD5pk/JWN51ebZYJqrHA40NEyCUUvW7Z8xzTIXF2+g9nAfi29vXe8/TW5P/AOH8Q+61H8dBLnLnOTcX8XOMY97WGWShpvYLv9bTWyVZY7qPfWmdNO7ffQLx71aCRjJI3RyNDmOBDmkbBB9y4/ZjkFxyvKrnkt3e19dcqp9TP0Ahoc476WgkkNHoBs6ACnixeMflC12ShthtWMVvslOyD2ioppzLL0tA63lswBcdbJAA37ggjTxF4FJxxy9e8cbGWUBlNVbjrs6mkJcwD49PdhPxYVHikjnLmC/cvVtrrsitFloqq3RyRMlt8UjDKxxB6X9b3bDSCRrX5TvXfaN0BERAREQEREBERAREQEREBERAWUttir7hY7teaZsZpLS2J1UXP04CV/Q3Q9/dYtbRhOS0Fotd8sl4t1TWWu9QRRzGlqGwzxOilbIxzXOY5pGwQWkd9+o0gyFLxfkUsLZJqq0UTpnRR0bKqtEZrJZKeKobFGda6vLmi/KLRt4G9rHX/DKqyWiKurrzZRPLS01W2gZVF1T5c8bJIyW9OvyJGuPfsCt1tnLttpbrPWHH7symdJCPk+O8h1LWU8VPDAynq4pIXRyjphJL2tYT5jxrXSWYTNORhkeK0tlMWQ0wp6GhpGwG9NkoN00EcXWKfyAR1eWXa8zs5xOygxkHHeT1DmGlpoaiKWlpamnmjlBZUe0yCKGNh98hk6mdHqDHJvXQ4j95+Nr1rqt9ysd2jZ5zaiSgrhK2nkiglncx50O5ZDKWuG2u6HdLjor+WDkS7WWzYtb6Rsj/AMHb7LeIhLUOdFK5wg6IzH7g0xSne/6d+tdy7L2PkLG8bD6bHcVr2UFbUOluUVXdWySPjNPPAIYntiaGBramU9bmuJPTsaBBDC2Pjq93THosgNZaqC1yQST+01lT0Na1kzITvQJBL3tAXinwu9w3u6WhzaV09toDcZXsqGujfT+W2RsjHDs4OY9rh79H3HstsZyv8j44cfxK3VtvpoqA0tLU1FYyWdj31TaiR7tRhpBDGsDQBrudnel4W8oV8edXnMKekmprjc7SaEyQ1XQ+KYwRxuqA4N9S5hf0gDXVrfbaDG2rj661tigvlRcrNbLdUQxyxT11V5Yd5k1TE1vYE9RdST9vg0H3rzx4Lf5rD8u00dPUW43UWpk8cuw+U+jwPXyySB1+myB69ludu5ruLbJHRXT8Ipa4UtPTy3Khvop6mbyqitlHU50Mn1SKxren3eS0776HnpuXzTwx2pmOQy2OOhMHkzzsfVvm872nz3VXlhxPtAa8t0AQOn7UGr5jgd4xiCpqKirtdfDSVhoax1BViU0tR9bUcjezmk+W/R1o9DtHstUW95znVsvVJfKey2CrtZv13F0uL6q4tqi57TKWRx9MUYYwGZ5O+on6vca76IgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiD/9k=" alt="LAZER" class="lazer-logo-img">
+    </div>
+    <div class="header-divider"></div>
+    <div class="header-date">March 2026</div>
+    <div class="header-search">
+      <span class="search-icon">&#x2315;</span>
+      <input type="text" id="sI" placeholder="Search by code, description, size..." oninput="doSearch()">
+    </div>
+    <div class="header-divider"></div>
+    <div class="theme-toggle" id="themeToggle" title="Toggle light/dark mode" onclick="toggleTheme()">
+      <span class="theme-toggle-icon" id="themeIcon">&#127769;</span>
+      <div class="theme-toggle-track"><div class="theme-toggle-thumb"></div></div>
+      <span class="theme-toggle-label" id="themeLabel">Dark</span>
+    </div>
+  </div>
+</header>
+
+<div class="catalog-layout">
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <a href="index.html" class="cat-chip" style="margin:4px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid rgba(255,120,0,0.5);color:#ff7800;font-weight:700;">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><path d="M8 2L1 8h2v6h4v-4h2v4h4V8h2z"/></svg>
+      Main Page
+    </a>
+    <div class="sidebar-sep" style="margin:4px 16px"></div>
+    <a href="hardgoods.html?skip=true#openOrderSummary" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0082CA;color:#0082CA;font-weight:800;background:rgba(0,130,202,0.08);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0;opacity:0.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Order Summary <span id="oBdg" style="background:#0082CA;color:white;font-family:Barlow Condensed,sans-serif;font-size:10px;font-weight:800;border-radius:10px;padding:1px 6px;min-width:18px;line-height:1.4;margin-left:auto;text-align:center;">0</span>
+    </a>
+    <div class="sidebar-sep" style="margin:4px 16px"></div>
+    <div class="sidebar-section-label">CATALOGS</div>
+    <a href="hardgoods.html?skip=true" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0ea5e9;color:#0ea5e9;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      HARDGOODS
+    </a>
+    <a href="shoes.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #f59e0b;color:#f59e0b;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M2 18s1-6 4-6c2 0 3 2 5 2s3-2 5-2c3 0 4 6 4 6"/><path d="M4 12l2-4 3 2 3-4 3 4 3-2"/></svg>
+      SHOES
+    </a>
+    <a href="pedals.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #10b981;color:#10b981;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7"/></svg>
+      PEDALS
+    </a>
+    <button class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #ff3c00;color:#ff3c00;font-weight:700;background:rgba(255,60,0,0.12);pointer-events:none;" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="5" r="3"/><path d="M12 8v14"/><path d="M5 15l7-3 7 3"/></svg>
+      LAZER <span style="font-size:9px;opacity:0.5;margin-left:auto">&#9679;</span>
+    </button>
+    <div class="sidebar-sep" style="margin:4px 16px"></div>
+    <div class="sidebar-section-label">CATEGORIES</div>
+    <button class="cat-chip active" data-cat="all" onclick="fCat('all',this)">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M6 6h4M6 10h4"/></svg>
+      All Helmets
+    </button>
+    <button class="cat-chip" data-cat="on-road" onclick="fCat('on-road',this)" style="color:#ff3c00">On-Road</button>
+    <button class="cat-chip" data-cat="off-road" onclick="fCat('off-road',this)" style="color:#00c2ff">Off-Road</button>
+    <button class="cat-chip" data-cat="leisure" onclick="fCat('leisure',this)" style="color:#a855f7">Leisure</button>
+    <button class="cat-chip" data-cat="kids" onclick="fCat('kids',this)" style="color:#f59e0b">Kids</button>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main" id="mainContent">
+    <div class="shoes-hero" id="shoesHero">
+      <div class="shoes-hero-left">
+        <h2>LAZER <span>HELMETS</span></h2>
+        <p>Order Book &mdash; March 2026</p>
+      </div>
+      <div class="shoes-hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-val" id="hModels">22</div>
+          <div class="hero-stat-lbl">Models</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val" id="hSKUs">264</div>
+          <div class="hero-stat-lbl">SKUs</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val" id="hOrder">0</div>
+          <div class="hero-stat-lbl">In Order</div>
+        </div>
+      </div>
+    </div>
+    <div class="results-info" id="sBar"></div>
+    <div id="pSec"></div>
+  </main>
+</div>
+
+<!-- ORDER PANEL -->
+<div id="oOv" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)" onclick="closeOrd(event)">
+  <div id="oPn" style="position:absolute;right:0;top:0;width:min(460px,90vw);height:100vh;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;animation:slideIn .25s ease-out" onclick="event.stopPropagation()">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)">
+      <h2 style="font-family:Barlow Condensed,sans-serif;font-size:17px;font-weight:700;letter-spacing:2px;color:var(--text);text-transform:uppercase">Order Summary</h2>
+      <button onclick="closeOrd()" style="width:28px;height:28px;background:var(--card);border:1px solid var(--border);border-radius:5px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px">&#10005;</button>
+    </div>
+    <div id="oBody" style="flex:1;overflow-y:auto;padding:12px 20px"></div>
+    <div style="padding:14px 20px;border-top:1px solid var(--border);background:var(--card)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:12px;color:var(--text-muted)">Total Items</span>
+        <span id="oTot" style="font-family:Barlow Condensed,sans-serif;font-size:20px;font-weight:700;color:var(--text)">0</span>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button onclick="clearO()" style="flex:1;padding:9px;border-radius:5px;font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;background:var(--unavail-bg);border:1px solid rgba(255,59,92,0.25);color:var(--unavail)">Clear All</button>
+        <button onclick="expCSV()" style="flex:1;padding:9px;border-radius:5px;font-family:Barlow Condensed,sans-serif;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;background:var(--shimano-blue);border:none;color:#fff">Export CSV</button>
+      </div>
+    </div>
+  </div>
+</div>
+@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// Theme toggle
+function toggleTheme(){
+  document.documentElement.classList.toggle('light');
+  var isLight = document.documentElement.classList.contains('light');
+  document.getElementById('themeIcon').textContent = isLight ? '\u2600' : '\uD83C\uDF19';
+  document.getElementById('themeLabel').textContent = isLight ? 'Light' : 'Dark';
+}
+
+// Category filter - shoes.html style
+function fCat(c, btn){
+  curC = c;
+  document.querySelectorAll('.cat-chip[data-cat]').forEach(function(e){
+    e.classList.toggle('active', e.dataset.cat === c);
+  });
+  render();
+}
+
+const RAW={"VOLANTE": {"cat": "on-road", "size": "VOLANTE KINETICORE | * | 52-56 | 55-59 | * | *", "weight": "Weight | 350 grm | size M without Lens", "price": "179.99", "srp": "379.99", "items": [{"sku": "BLC2237891844", "desc1": "LZR Helmet Volante KC CE-CPSC", "desc2": "Matte White Silver M", "etd": "available", "price": "179.99", "srp": "379.99"}, {"sku": "BLC2237891845", "desc1": "LZR Helmet Volante KC CE-CPSC", "desc2": "Matte White Silver S", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte White Silver": [{"sku": "BLC2237891844", "size": "M", "etd": "available", "price": "179.99", "srp": "379.99", "desc1": "LZR Helmet Volante KC CE-CPSC", "desc2": "Matte White Silver M"}, {"sku": "BLC2237891845", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet Volante KC CE-CPSC", "desc2": "Matte White Silver S"}]}}, "VICTOR": {"cat": "on-road", "size": "VICTOR | * | 52-56 | 55-59 | * | *", "weight": "", "price": "164.99", "srp": "359.99", "items": [{"sku": "BLC2237891852", "desc1": "Lazer Helmet Victor KC CE-CPSC", "desc2": "Matte White Silver M", "etd": "available", "price": "164.99", "srp": "359.99"}, {"sku": "BLC2237891853", "desc1": "Lazer Helmet Victor KC CE-CPSC", "desc2": "Matte White Silver S", "etd": "20260320", "price": "", "srp": ""}], "colors": {"Matte White Silver": [{"sku": "BLC2237891852", "size": "M", "etd": "available", "price": "164.99", "srp": "359.99", "desc1": "Lazer Helmet Victor KC CE-CPSC", "desc2": "Matte White Silver M"}, {"sku": "BLC2237891853", "size": "S", "etd": "20260320", "price": "", "srp": "", "desc1": "Lazer Helmet Victor KC CE-CPSC", "desc2": "Matte White Silver S"}]}}, "VENTO": {"cat": "on-road", "size": "VENTO | * | 52-56 | 55-59 | 58-61 | *", "weight": "Weight | 290grm", "price": "134.99", "srp": "269.99", "items": [{"sku": "BLC2227889969", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Matte Black L", "etd": "available", "price": "134.99", "srp": "269.99"}, {"sku": "BLC2227889970", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227889971", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892946", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Pure White L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892947", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Pure White M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892948", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Pure White S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892973", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Salt & Pepper L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892974", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Salt & Pepper M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892975", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Salt & Pepper S", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2227889969", "size": "L", "etd": "available", "price": "134.99", "srp": "269.99", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Matte Black L"}, {"sku": "BLC2227889970", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Matte Black M"}, {"sku": "BLC2227889971", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Matte Black S"}], "Pure White": [{"sku": "BLC2547892946", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Pure White L"}, {"sku": "BLC2547892947", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Pure White M"}, {"sku": "BLC2547892948", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Pure White S"}], "Salt & Pepper": [{"sku": "BLC2547892973", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Salt & Pepper L"}, {"sku": "BLC2547892974", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Salt & Pepper M"}, {"sku": "BLC2547892975", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Vento KC CE-CPSC", "desc2": "Salt & Pepper S"}]}}, "Z1": {"cat": "on-road", "size": "Z1 | * | 52-56 | 55-59 | 58-61 | *", "weight": "Weight | Medium | 220 grm", "price": "129.9", "srp": "249.99", "items": [{"sku": "BLC2447892320", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Black L", "etd": "available", "price": "129.9", "srp": "249.99"}, {"sku": "BLC2447892321", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892322", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892365", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Metallic Red L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892366", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Metallic Red M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892367", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Metallic Red S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892374", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Harbor Grey L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892375", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Harbor Grey M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892376", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Harbor Grey S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892982", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Pine Green L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892983", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Pine Green M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892984", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Pine Green S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892991", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Stone Blue L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892992", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Stone Blue M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892993", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Stone Blue S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893708", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Full White L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893709", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Full White M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893710", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Full White S", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2447892320", "size": "L", "etd": "available", "price": "129.9", "srp": "249.99", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Black L"}, {"sku": "BLC2447892321", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Black M"}, {"sku": "BLC2447892322", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Black S"}], "Metallic Red": [{"sku": "BLC2447892365", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Metallic Red L"}, {"sku": "BLC2447892366", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Metallic Red M"}, {"sku": "BLC2447892367", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Metallic Red S"}], "Harbor Grey": [{"sku": "BLC2447892374", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Harbor Grey L"}, {"sku": "BLC2447892375", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Harbor Grey M"}, {"sku": "BLC2447892376", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Harbor Grey S"}], "Matte Pine Green": [{"sku": "BLC2547892982", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Pine Green L"}, {"sku": "BLC2547892983", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Pine Green M"}, {"sku": "BLC2547892984", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Pine Green S"}], "Stone Blue": [{"sku": "BLC2547892991", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Stone Blue L"}, {"sku": "BLC2547892992", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Stone Blue M"}, {"sku": "BLC2547892993", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Stone Blue S"}], "Matte Full White": [{"sku": "BLC2647893708", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Full White L"}, {"sku": "BLC2647893709", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Full White M"}, {"sku": "BLC2647893710", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Z1 KC CE-CPSC", "desc2": "Matte Full White S"}]}}, "Sphere": {"cat": "on-road", "size": "Sphere | * | 52-56 | 55-59 | 58-61 | *", "weight": "", "price": "60.99", "srp": "149.99", "items": [{"sku": "BLC2647893861", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Black Red L", "etd": "available", "price": "60.99", "srp": "149.99"}, {"sku": "BLC2647893862", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Black Red M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893863", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Black Red S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893873", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Electric Blue L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893874", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Electric Blue M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893875", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Electric Blue S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893885", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Harbor Grey L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893886", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Harbor Grey M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893887", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Harbor Grey S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893891", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Matte Black L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893892", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893893", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893903", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Tyrian L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893904", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Tyrian M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893905", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Tyrian S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893909", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "White Silver L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893910", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "White Silver M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893911", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "White Silver S", "etd": "available", "price": "", "srp": ""}], "colors": {"Black Red": [{"sku": "BLC2647893861", "size": "L", "etd": "available", "price": "60.99", "srp": "149.99", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Black Red L"}, {"sku": "BLC2647893862", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Black Red M"}, {"sku": "BLC2647893863", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Black Red S"}], "Electric Blue": [{"sku": "BLC2647893873", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Electric Blue L"}, {"sku": "BLC2647893874", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Electric Blue M"}, {"sku": "BLC2647893875", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Electric Blue S"}], "Harbor Grey": [{"sku": "BLC2647893885", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Harbor Grey L"}, {"sku": "BLC2647893886", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Harbor Grey M"}, {"sku": "BLC2647893887", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Harbor Grey S"}], "Matte Black": [{"sku": "BLC2647893891", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Matte Black L"}, {"sku": "BLC2647893892", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Matte Black M"}, {"sku": "BLC2647893893", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Matte Black S"}], "Tyrian": [{"sku": "BLC2647893903", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Tyrian L"}, {"sku": "BLC2647893904", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Tyrian M"}, {"sku": "BLC2647893905", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "Tyrian S"}], "White Silver": [{"sku": "BLC2647893909", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "White Silver L"}, {"sku": "BLC2647893910", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "White Silver M"}, {"sku": "BLC2647893911", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Sphere KC CE-CPSC", "desc2": "White Silver S"}]}}, "Strada": {"cat": "on-road", "size": "STRADA | * | 52-56 | 55-59 | 58-61 | 61-64", "weight": "Weight | 290grm small size", "price": "50.99", "srp": "169.99", "items": [{"sku": "BLC2227891026", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Full Matte Black L", "etd": "available", "price": "50.99", "srp": "169.99"}, {"sku": "BLC2227891027", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Full Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891028", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Full Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891038", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Titanium L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891039", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Titanium M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891040", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Titanium S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891206", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Full Matte Black XL", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893000", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Pine Green L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893001", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Pine Green M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893002", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Pine Green S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893009", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Stone Blue L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893010", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Stone Blue M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893011", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Stone Blue S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893018", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Full White L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893019", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Full White M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893020", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Full White S", "etd": "available", "price": "", "srp": ""}], "colors": {"Full Matte Black": [{"sku": "BLC2227891026", "size": "L", "etd": "available", "price": "50.99", "srp": "169.99", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Full Matte Black L"}, {"sku": "BLC2227891027", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Full Matte Black M"}, {"sku": "BLC2227891028", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Full Matte Black S"}, {"sku": "BLC2227891206", "size": "XL", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Full Matte Black XL"}], "Matte Titanium": [{"sku": "BLC2227891038", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Titanium L"}, {"sku": "BLC2227891039", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Titanium M"}, {"sku": "BLC2227891040", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Titanium S"}], "Matte Pine Green": [{"sku": "BLC2547893000", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Pine Green L"}, {"sku": "BLC2547893001", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Pine Green M"}, {"sku": "BLC2547893002", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Pine Green S"}], "Stone Blue": [{"sku": "BLC2547893009", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Stone Blue L"}, {"sku": "BLC2547893010", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Stone Blue M"}, {"sku": "BLC2547893011", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Stone Blue S"}], "Matte Full White": [{"sku": "BLC2547893018", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Full White L"}, {"sku": "BLC2547893019", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Full White M"}, {"sku": "BLC2547893020", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Strada KC CE-CPSC", "desc2": "Matte Full White S"}]}}, "Tonic": {"cat": "on-road", "size": "TONIC | * | 52-56 | 55-59 | 58-61 | 61-64", "weight": "Weight | 240 grm Medium", "price": "35.9", "srp": "79.99", "items": [{"sku": "BLC2237891678", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Black XL", "etd": "available", "price": "35.9", "srp": "79.99"}, {"sku": "BLC2237891679", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Black L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891680", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891681", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891690", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "White XL", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891691", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "White L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891692", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "White M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891693", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "White S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891702", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Titanium L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891703", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Titanium M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891704", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Titanium S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891729", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Ice Grey L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891730", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Ice Grey M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891731", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Ice Grey S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892729", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "MJ 24 L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892730", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "MJ 24 M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892731", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "MJ 24 S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893036", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Pine Green L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893037", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Pine Green M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893038", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Pine Green S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893045", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Stone Blue L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893046", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Stone Blue M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893047", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Stone Blue S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893054", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Latte L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893055", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Latte M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893056", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Latte S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893496", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Vatternrundan L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893497", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Vatternrundan M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893498", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Vatternrundan S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893717", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Deep Green Flash L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893718", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Deep Green Flash M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893719", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Deep Green Flash S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893735", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Tyrian L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893736", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Tyrian M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893737", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Tyrian S", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2237891678", "size": "XL", "etd": "available", "price": "35.9", "srp": "79.99", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Black XL"}, {"sku": "BLC2237891679", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Black L"}, {"sku": "BLC2237891680", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Black M"}, {"sku": "BLC2237891681", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Black S"}], "White": [{"sku": "BLC2237891690", "size": "XL", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "White XL"}, {"sku": "BLC2237891691", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "White L"}, {"sku": "BLC2237891692", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "White M"}, {"sku": "BLC2237891693", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "White S"}], "Titanium": [{"sku": "BLC2237891702", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Titanium L"}, {"sku": "BLC2237891703", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Titanium M"}, {"sku": "BLC2237891704", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Titanium S"}], "Ice Grey": [{"sku": "BLC2237891729", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Ice Grey L"}, {"sku": "BLC2237891730", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Ice Grey M"}, {"sku": "BLC2237891731", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Ice Grey S"}], "MJ 24": [{"sku": "BLC2447892729", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "MJ 24 L"}, {"sku": "BLC2447892730", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "MJ 24 M"}, {"sku": "BLC2447892731", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "MJ 24 S"}], "Pine Green": [{"sku": "BLC2547893036", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Pine Green L"}, {"sku": "BLC2547893037", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Pine Green M"}, {"sku": "BLC2547893038", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Pine Green S"}], "Stone Blue": [{"sku": "BLC2547893045", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Stone Blue L"}, {"sku": "BLC2547893046", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Stone Blue M"}, {"sku": "BLC2547893047", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Stone Blue S"}], "Latte": [{"sku": "BLC2547893054", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Latte L"}, {"sku": "BLC2547893055", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Latte M"}, {"sku": "BLC2547893056", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Latte S"}], "Vatternrundan": [{"sku": "BLC2547893496", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Vatternrundan L"}, {"sku": "BLC2547893497", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Vatternrundan M"}, {"sku": "BLC2547893498", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Vatternrundan S"}], "Deep Green Flash": [{"sku": "BLC2647893717", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Deep Green Flash L"}, {"sku": "BLC2647893718", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Deep Green Flash M"}, {"sku": "BLC2647893719", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Deep Green Flash S"}], "Matte Tyrian": [{"sku": "BLC2647893735", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Tyrian L"}, {"sku": "BLC2647893736", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Tyrian M"}, {"sku": "BLC2647893737", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tonic KC CE-CPSC", "desc2": "Matte Tyrian S"}]}}, "Tempo": {"cat": "on-road", "size": "TEMPO | Unisize 54-61", "weight": "Weight | 260 grm", "price": "25.99", "srp": "59.99", "items": [{"sku": "BLC2237891817", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Black Uni", "etd": "available", "price": "25.99", "srp": "59.99"}, {"sku": "BLC2237891820", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "White Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891826", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Blue Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891832", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Titanium Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891838", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Flash Yellow Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891841", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Red Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237892039", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "TdF Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893063", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Pine Green Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893068", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Latte Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893073", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Mulberry Uni", "etd": "available", "price": "", "srp": ""}], "colors": {"Black": [{"sku": "BLC2237891817", "size": "Uni", "etd": "available", "price": "25.99", "srp": "59.99", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Black Uni"}], "White": [{"sku": "BLC2237891820", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "White Uni"}], "Blue": [{"sku": "BLC2237891826", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Blue Uni"}], "Titanium": [{"sku": "BLC2237891832", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Titanium Uni"}], "Flash Yellow": [{"sku": "BLC2237891838", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Flash Yellow Uni"}], "Red": [{"sku": "BLC2237891841", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Red Uni"}], "TdF": [{"sku": "BLC2237892039", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "TdF Uni"}], "Pine Green": [{"sku": "BLC2547893063", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Pine Green Uni"}], "Latte": [{"sku": "BLC2547893068", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Latte Uni"}], "Mulberry": [{"sku": "BLC2547893073", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Tempo KC CE-CPSC", "desc2": "Mulberry Uni"}]}}, "Jackal": {"cat": "off-road", "size": "JACKAL | * | 52-56 | 55-59 | 58-61 | 61-64", "weight": "Weight | 340 grm Medium size", "price": "100.99", "srp": "199.99", "items": [{"sku": "BLC2227890232", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Black L", "etd": "available", "price": "100.99", "srp": "199.99"}, {"sku": "BLC2227890233", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227890234", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892140", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Gold Green L", "etd": "20260830", "price": "", "srp": ""}, {"sku": "BLC2447892141", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Gold Green M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892142", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Gold Green S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892820", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Full White L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892821", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Full White M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892822", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Full White S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892826", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Rust Orange L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892827", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Rust Orange M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892828", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Rust Orange S", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2227890232", "size": "L", "etd": "available", "price": "100.99", "srp": "199.99", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Black L"}, {"sku": "BLC2227890233", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Black M"}, {"sku": "BLC2227890234", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Black S"}], "Gold Green": [{"sku": "BLC2447892140", "size": "L", "etd": "20260830", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Gold Green L"}, {"sku": "BLC2447892141", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Gold Green M"}, {"sku": "BLC2447892142", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Gold Green S"}], "Matte Full White": [{"sku": "BLC2547892820", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Full White L"}, {"sku": "BLC2547892821", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Full White M"}, {"sku": "BLC2547892822", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Full White S"}], "Matte Rust Orange": [{"sku": "BLC2547892826", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Rust Orange L"}, {"sku": "BLC2547892827", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Rust Orange M"}, {"sku": "BLC2547892828", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Jackal KC CE-CPSC", "desc2": "Matte Rust Orange S"}]}}, "Coyote": {"cat": "off-road", "size": "COYOTE | * | 52-56 | 55-59 | 58-61 | 61-64", "weight": "Weight | 340 grm Medium size", "price": "49.99", "srp": "119.99", "items": [{"sku": "BLC2237891747", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Black XL", "etd": "available", "price": "49.99", "srp": "119.99"}, {"sku": "BLC2237891748", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Black L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891749", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891750", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892850", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Full White L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892851", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Full White M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892852", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Full White S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893527", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Blue Celadon L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893528", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Blue Celadon M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893529", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Blue Celadon S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893533", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Green Tea L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893534", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Green Tea M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893535", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Green Tea S", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2237891747", "size": "XL", "etd": "available", "price": "49.99", "srp": "119.99", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Black XL"}, {"sku": "BLC2237891748", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Black L"}, {"sku": "BLC2237891749", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Black M"}, {"sku": "BLC2237891750", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Black S"}], "Matte Full White": [{"sku": "BLC2547892850", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Full White L"}, {"sku": "BLC2547892851", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Full White M"}, {"sku": "BLC2547892852", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Full White S"}], "Matte Blue Celadon": [{"sku": "BLC2647893527", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Blue Celadon L"}, {"sku": "BLC2647893528", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Blue Celadon M"}, {"sku": "BLC2647893529", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Blue Celadon S"}], "Matte Green Tea": [{"sku": "BLC2647893533", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Green Tea L"}, {"sku": "BLC2647893534", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Green Tea M"}, {"sku": "BLC2647893535", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Coyote KC CE-CPSC", "desc2": "Matte Green Tea S"}]}}, "Lupo": {"cat": "leisure", "size": "LUPO | UNISIZE 55-61", "weight": "Weight | 390 Grm Uni size", "price": "31.99", "srp": "74.99", "items": [{"sku": "BLC2447892152", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Black Uni", "etd": "available", "price": "31.99", "srp": "74.99"}, {"sku": "BLC2447892164", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte White Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892873", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Dusk Blue Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892878", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Maroon Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892883", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Autumn Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893557", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte White Stone Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893562", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Blue Celadon Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893567", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Mint Uni", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2447892152", "size": "Uni", "etd": "available", "price": "31.99", "srp": "74.99", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Black Uni"}], "Matte White": [{"sku": "BLC2447892164", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte White Uni"}], "Matte Dusk Blue": [{"sku": "BLC2547892873", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Dusk Blue Uni"}], "Matte Maroon": [{"sku": "BLC2547892878", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Maroon Uni"}], "Matte Autumn": [{"sku": "BLC2547892883", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Autumn Uni"}], "Matte White Stone": [{"sku": "BLC2647893557", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte White Stone Uni"}], "Matte Blue Celadon": [{"sku": "BLC2647893562", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Blue Celadon Uni"}], "Matte Mint": [{"sku": "BLC2647893567", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Lupo KC CE-CPSC", "desc2": "Matte Mint Uni"}]}}, "Finch": {"cat": "leisure", "size": "FINCH | UNISIZE 55-61", "weight": "Weight | 330 g", "price": "31.99", "srp": "74.99", "items": [{"sku": "BLC2447892270", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte Black Uni", "etd": "available", "price": "31.99", "srp": "74.99"}, {"sku": "BLC2447892272", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Grey Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892923", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte Sedona Red Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893572", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte Taffy Pink Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893577", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte Mint Green Uni", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893582", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte White Uni", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2447892270", "size": "Uni", "etd": "available", "price": "31.99", "srp": "74.99", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte Black Uni"}], "Grey": [{"sku": "BLC2447892272", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Grey Uni"}], "Matte Sedona Red": [{"sku": "BLC2547892923", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte Sedona Red Uni"}], "Matte Taffy Pink": [{"sku": "BLC2647893572", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte Taffy Pink Uni"}], "Matte Mint Green": [{"sku": "BLC2647893577", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte Mint Green Uni"}], "Matte White": [{"sku": "BLC2647893582", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Finch KC CE", "desc2": "Matte White Uni"}]}}, "Cage": {"cat": "off-road", "size": "Cage | 52-54 | 54-56 | 56-58 | 58-60 | 60-62", "weight": "", "price": "149.99", "srp": "279.99", "items": [{"sku": "BLC2237891319", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black XL", "etd": "available", "price": "149.99", "srp": "279.99"}, {"sku": "BLC2237891320", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891321", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891322", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891323", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black XS", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893588", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte White Black 24 L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893589", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte White Black 24 M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893590", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte White Black 24 S", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2237891319", "size": "XL", "etd": "available", "price": "149.99", "srp": "279.99", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black XL"}, {"sku": "BLC2237891320", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black L"}, {"sku": "BLC2237891321", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black M"}, {"sku": "BLC2237891322", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black S"}, {"sku": "BLC2237891323", "size": "XS", "etd": "available", "price": "", "srp": "", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte Black XS"}], "Matte White Black 24": [{"sku": "BLC2647893588", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte White Black 24 L"}, {"sku": "BLC2647893589", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte White Black 24 M"}, {"sku": "BLC2647893590", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "LZR Cage KC AS-CE-CPSC-ASTM", "desc2": "Matte White Black 24 S"}]}}, "Chase": {"cat": "off-road", "size": "Chase | 52-54 | 54-56 | 56-58 | 58-60 | 60-62", "weight": "Weight | 990 gr Size Medium", "price": "86.99", "srp": "199.99", "items": [{"sku": "BLC2447892176", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black XL", "etd": "available", "price": "86.99", "srp": "199.99"}, {"sku": "BLC2447892177", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892178", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892179", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black S", "etd": "20260529", "price": "", "srp": ""}, {"sku": "BLC2447892180", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black XS", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892182", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Moss L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892183", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Moss M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892184", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Moss S", "etd": "20260529", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2447892176", "size": "XL", "etd": "available", "price": "86.99", "srp": "199.99", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black XL"}, {"sku": "BLC2447892177", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black L"}, {"sku": "BLC2447892178", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black M"}, {"sku": "BLC2447892179", "size": "S", "etd": "20260529", "price": "", "srp": "", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black S"}, {"sku": "BLC2447892180", "size": "XS", "etd": "available", "price": "", "srp": "", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Black XS"}], "Matte Moss": [{"sku": "BLC2447892182", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Moss L"}, {"sku": "BLC2447892183", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Moss M"}, {"sku": "BLC2447892184", "size": "S", "etd": "20260529", "price": "", "srp": "", "desc1": "LZR Chase KC AS-CE-CPSC-ASTM", "desc2": "Matte Moss S"}]}}, "Cerro": {"cat": "off-road", "size": "CERRO | * | 54-56 | 55-59 | 58-61 | *", "weight": "Weight | 270 g Medium", "price": "41.99", "srp": "99.99", "items": [{"sku": "BLC2447892206", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Black L", "etd": "available", "price": "41.99", "srp": "99.99"}, {"sku": "BLC2447892207", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892208", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892218", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Taupe L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892219", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Taupe M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892220", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Taupe S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893608", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte White 26 L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893609", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte White 26 M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893610", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte White 26 S", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2447892206", "size": "L", "etd": "available", "price": "41.99", "srp": "99.99", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Black L"}, {"sku": "BLC2447892207", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Black M"}, {"sku": "BLC2447892208", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Black S"}], "Matte Taupe": [{"sku": "BLC2447892218", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Taupe L"}, {"sku": "BLC2447892219", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Taupe M"}, {"sku": "BLC2447892220", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte Taupe S"}], "Matte White 26": [{"sku": "BLC2647893608", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte White 26 L"}, {"sku": "BLC2647893609", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte White 26 M"}, {"sku": "BLC2647893610", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Cerro KC CE-CPSC", "desc2": "Matte White 26 S"}]}}, "Codax": {"cat": "leisure", "size": "CODAX | UNISIZE-54-61", "weight": "", "price": "31.99", "srp": "69.99", "items": [{"sku": "BLC2237891793", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Matte Black Uni +net", "etd": "available", "price": "31.99", "srp": "69.99"}, {"sku": "BLC2237891805", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Flash Yellow Uni +net", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2237891814", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Ice Grey Uni +net", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547892908", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Matte Full White Uni +net", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893620", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Matte Blue Uni +net", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893625", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Matte Red Uni +net", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black Uni +net": [{"sku": "BLC2237891793", "size": "Uni", "etd": "available", "price": "31.99", "srp": "69.99", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Matte Black Uni +net"}], "Flash Yellow Uni +net": [{"sku": "BLC2237891805", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Flash Yellow Uni +net"}], "Ice Grey Uni +net": [{"sku": "BLC2237891814", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Ice Grey Uni +net"}], "Matte Full White Uni +net": [{"sku": "BLC2547892908", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Matte Full White Uni +net"}], "Matte Blue Uni +net": [{"sku": "BLC2647893620", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Matte Blue Uni +net"}], "Matte Red Uni +net": [{"sku": "BLC2647893625", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Codax KC CE-CPSC", "desc2": "Matte Red Uni +net"}]}}, "Verde": {"cat": "leisure", "size": "VERDE | UNISIZE 50-56//UNISIZE-54-61", "weight": "Weight | 350 g", "price": "42.99", "srp": "99.99", "items": [{"sku": "BLC2447892242", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte White Stone M-L", "etd": "available", "price": "42.99", "srp": "99.99"}, {"sku": "BLC2447892246", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Lemongrass M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892248", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Fort Knox M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892250", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Grey Onyx M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892558", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte White Stone S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892562", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Lemongrass S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892564", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Fort Knox S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2447892566", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Grey Onyx S-M", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte White Stone": [{"sku": "BLC2447892242", "size": "M-L", "etd": "available", "price": "42.99", "srp": "99.99", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte White Stone M-L"}, {"sku": "BLC2447892558", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte White Stone S-M"}], "Matte Lemongrass": [{"sku": "BLC2447892246", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Lemongrass M-L"}, {"sku": "BLC2447892562", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Lemongrass S-M"}], "Matte Fort Knox": [{"sku": "BLC2447892248", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Fort Knox M-L"}, {"sku": "BLC2447892564", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Fort Knox S-M"}], "Matte Grey Onyx": [{"sku": "BLC2447892250", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Grey Onyx M-L"}, {"sku": "BLC2447892566", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "Lazer Helmet Verde KC CE-CPSC", "desc2": "Matte Grey Onyx S-M"}]}}, "CityZen": {"cat": "leisure", "size": "CITYZEN | 52-56 | 55-59 | 58-61 | 61-64", "weight": "Weight | 420 g Medium", "price": "24.99", "srp": "69.99", "items": [{"sku": "BLC2227891098", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Black L", "etd": "available", "price": "24.99", "srp": "69.99"}, {"sku": "BLC2227891099", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Black M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891100", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Black S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891104", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte White L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891105", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte White M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891106", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte White S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891110", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Livid L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891111", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Livid M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891112", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Livid S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891116", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Dark Green L", "etd": "unavail", "price": "", "srp": ""}, {"sku": "BLC2227891117", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Dark Green M", "etd": "unavail", "price": "", "srp": ""}, {"sku": "BLC2227891118", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Dark Green S", "etd": "20281126", "price": "", "srp": ""}, {"sku": "BLC2227891122", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Lila L", "etd": "unavail", "price": "", "srp": ""}, {"sku": "BLC2227891123", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Lila M", "etd": "20281126", "price": "", "srp": ""}, {"sku": "BLC2227891124", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Lila S", "etd": "unavail", "price": "", "srp": ""}, {"sku": "BLC2227891128", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Laurel Green L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891129", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Laurel Green M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891130", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Laurel Green S", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2227891249", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Black XL", "etd": "20260320", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2227891098", "size": "L", "etd": "available", "price": "24.99", "srp": "69.99", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Black L"}, {"sku": "BLC2227891099", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Black M"}, {"sku": "BLC2227891100", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Black S"}, {"sku": "BLC2227891249", "size": "XL", "etd": "20260320", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Black XL"}], "Matte White": [{"sku": "BLC2227891104", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte White L"}, {"sku": "BLC2227891105", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte White M"}, {"sku": "BLC2227891106", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte White S"}], "Matte Livid": [{"sku": "BLC2227891110", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Livid L"}, {"sku": "BLC2227891111", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Livid M"}, {"sku": "BLC2227891112", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Livid S"}], "Matte Dark Green": [{"sku": "BLC2227891116", "size": "L", "etd": "unavail", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Dark Green L"}, {"sku": "BLC2227891117", "size": "M", "etd": "unavail", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Dark Green M"}, {"sku": "BLC2227891118", "size": "S", "etd": "20281126", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Dark Green S"}], "Matte Lila": [{"sku": "BLC2227891122", "size": "L", "etd": "unavail", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Lila L"}, {"sku": "BLC2227891123", "size": "M", "etd": "20281126", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Lila M"}, {"sku": "BLC2227891124", "size": "S", "etd": "unavail", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Lila S"}], "Matte Laurel Green": [{"sku": "BLC2227891128", "size": "L", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Laurel Green L"}, {"sku": "BLC2227891129", "size": "M", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Laurel Green M"}, {"sku": "BLC2227891130", "size": "S", "etd": "available", "price": "", "srp": "", "desc1": "LZR Helmet CityZen KC CE-CPSC", "desc2": "Matte Laurel Green S"}]}}, "MAZE": {"cat": "leisure", "size": "MAZE | * | 50 | 56 | 56-61 | *", "weight": "Weight | 420gr", "price": "21.99", "srp": "52.9", "items": [{"sku": "BLC2547893195", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Black M-L", "etd": "available", "price": "21.99", "srp": "52.9"}, {"sku": "BLC2547893196", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Black S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893199", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte White M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893200", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte White S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893203", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Copper M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893204", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Copper S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893207", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Violet Fog M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893208", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Violet Fog S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893211", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte White Stone M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893212", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte White Stone S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893215", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Meadow Green M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893216", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Meadow Green S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893219", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Stone Blue M-L", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893220", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Stone Blue S-M", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893238", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR", "etd": "available", "price": "19.99", "srp": "49.99"}, {"sku": "BLC2547893242", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte White +STKR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893250", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Lime +STKR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893254", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Dusk Blue +STKR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893267", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR +GB", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893268", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte White +STKR +GB", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893283", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR +GR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893284", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893298", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Lime +STKR +BN Tag", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893299", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR+BN Tag", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893300", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR +BN Tag", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Black": [{"sku": "BLC2547893195", "size": "M-L", "etd": "available", "price": "21.99", "srp": "52.9", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Black M-L"}, {"sku": "BLC2547893196", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Black S-M"}], "Matte White": [{"sku": "BLC2547893199", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte White M-L"}, {"sku": "BLC2547893200", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte White S-M"}], "Copper": [{"sku": "BLC2547893203", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Copper M-L"}, {"sku": "BLC2547893204", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Copper S-M"}], "Matte Violet Fog": [{"sku": "BLC2547893207", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Violet Fog M-L"}, {"sku": "BLC2547893208", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Violet Fog S-M"}], "Matte White Stone": [{"sku": "BLC2547893211", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte White Stone M-L"}, {"sku": "BLC2547893212", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte White Stone S-M"}], "Matte Meadow Green": [{"sku": "BLC2547893215", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Meadow Green M-L"}, {"sku": "BLC2547893216", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Meadow Green S-M"}], "Matte Stone Blue": [{"sku": "BLC2547893219", "size": "M-L", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Stone Blue M-L"}, {"sku": "BLC2547893220", "size": "S-M", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT Maze KC CE-CPSC-ASTM", "desc2": "Matte Stone Blue S-M"}], "Matte Black +STKR": [{"sku": "BLC2547893238", "size": "Uni", "etd": "available", "price": "19.99", "srp": "49.99", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR"}], "Matte White +STKR": [{"sku": "BLC2547893242", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte White +STKR"}], "Matte Lime +STKR": [{"sku": "BLC2547893250", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Lime +STKR"}], "Matte Dusk Blue +STKR": [{"sku": "BLC2547893254", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Dusk Blue +STKR"}], "Matte Black +STKR +GB": [{"sku": "BLC2547893267", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR +GB"}], "Matte White +STKR +GB": [{"sku": "BLC2547893268", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte White +STKR +GB"}], "Matte Nordic Pink +STKR +GR": [{"sku": "BLC2547893283", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR +GR"}], "Matte Nordic Pink +STKR": [{"sku": "BLC2547893284", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR"}], "Matte Lime +STKR +BN Tag": [{"sku": "BLC2547893298", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Lime +STKR +BN Tag"}], "Matte Nordic Pink +STKR+BN Tag": [{"sku": "BLC2547893299", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR+BN Tag"}], "Matte Black +STKR +BN Tag": [{"sku": "BLC2547893300", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR +BN Tag"}]}}, "Nutz": {"cat": "kids", "size": "NUTZ | 50-56 cm", "weight": "", "price": "23.9", "srp": "54.99", "items": [{"sku": "BLC2647893660", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Leaves (Turnfit)", "etd": "available", "price": "23.9", "srp": "54.99"}, {"sku": "BLC2647893658", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Birds (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2647893656", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Sparkle (Turnfit)", "etd": "20260304", "price": "", "srp": ""}, {"sku": "BLC2547893514", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "TdF (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893443", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Steel Blue +GR (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893442", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Little Hearts +GR (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893392", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Black +GR (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893360", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Unicorns (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893358", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Steel Blue (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893352", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Green Dots (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893347", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Dragons (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893343", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Black (Turnfit)", "etd": "available", "price": "", "srp": ""}], "colors": {"Leaves (Turnfit)": [{"sku": "BLC2647893660", "size": "Uni", "etd": "available", "price": "23.9", "srp": "54.99", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Leaves (Turnfit)"}], "Birds (Turnfit)": [{"sku": "BLC2647893658", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Birds (Turnfit)"}], "Sparkle (Turnfit)": [{"sku": "BLC2647893656", "size": "Uni", "etd": "20260304", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Sparkle (Turnfit)"}], "TdF (Turnfit)": [{"sku": "BLC2547893514", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "TdF (Turnfit)"}], "Steel Blue +GR (Turnfit)": [{"sku": "BLC2547893443", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Steel Blue +GR (Turnfit)"}], "Little Hearts +GR (Turnfit)": [{"sku": "BLC2547893442", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Little Hearts +GR (Turnfit)"}], "Black +GR (Turnfit)": [{"sku": "BLC2547893392", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Black +GR (Turnfit)"}], "Unicorns (Turnfit)": [{"sku": "BLC2547893360", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Unicorns (Turnfit)"}], "Steel Blue (Turnfit)": [{"sku": "BLC2547893358", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Steel Blue (Turnfit)"}], "Green Dots (Turnfit)": [{"sku": "BLC2547893352", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Green Dots (Turnfit)"}], "Dragons (Turnfit)": [{"sku": "BLC2547893347", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Dragons (Turnfit)"}], "Black (Turnfit)": [{"sku": "BLC2547893343", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Nutz 2.0 KC CE-CPSC", "desc2": "Black (Turnfit)"}]}}, "Pnut": {"cat": "kids", "size": "PNUT | 46-52 cm", "weight": "Weight | 240g", "price": "24.99", "srp": "54.99", "items": [{"sku": "BLC2647893670", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Purple Pony (Turnfit)", "etd": "available", "price": "24.99", "srp": "54.99"}, {"sku": "BLC2647893664", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Mellow Yellow (Turnfit)", "etd": "20260731", "price": "", "srp": ""}, {"sku": "BLC2547893444", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Fuchsia +GR (Turnfit)", "etd": "20260529", "price": "", "srp": ""}, {"sku": "BLC2547893400", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Flying Rocket +GR (Turnfit)", "etd": "20260529", "price": "", "srp": ""}, {"sku": "BLC2547893399", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Dinosaurs +GR (Turnfit)", "etd": "20260529", "price": "", "srp": ""}, {"sku": "BLC2547893383", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Sealife (Turnfit)", "etd": "20260320", "price": "", "srp": ""}, {"sku": "BLC2547893381", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Rainbow (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893379", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Oranges (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893375", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Lemons (Turnfit)", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893369", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Flying Rocket (Turnfit)", "etd": "20260320", "price": "", "srp": ""}, {"sku": "BLC2547893367", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Dinosaurs (Turnfit)", "etd": "available", "price": "", "srp": ""}], "colors": {"Purple Pony (Turnfit)": [{"sku": "BLC2647893670", "size": "Uni", "etd": "available", "price": "24.99", "srp": "54.99", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Purple Pony (Turnfit)"}], "Mellow Yellow (Turnfit)": [{"sku": "BLC2647893664", "size": "Uni", "etd": "20260731", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Mellow Yellow (Turnfit)"}], "Fuchsia +GR (Turnfit)": [{"sku": "BLC2547893444", "size": "Uni", "etd": "20260529", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Fuchsia +GR (Turnfit)"}], "Flying Rocket +GR (Turnfit)": [{"sku": "BLC2547893400", "size": "Uni", "etd": "20260529", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Flying Rocket +GR (Turnfit)"}], "Dinosaurs +GR (Turnfit)": [{"sku": "BLC2547893399", "size": "Uni", "etd": "20260529", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Dinosaurs +GR (Turnfit)"}], "Sealife (Turnfit)": [{"sku": "BLC2547893383", "size": "Uni", "etd": "20260320", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Sealife (Turnfit)"}], "Rainbow (Turnfit)": [{"sku": "BLC2547893381", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Rainbow (Turnfit)"}], "Oranges (Turnfit)": [{"sku": "BLC2547893379", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Oranges (Turnfit)"}], "Lemons (Turnfit)": [{"sku": "BLC2547893375", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Lemons (Turnfit)"}], "Flying Rocket (Turnfit)": [{"sku": "BLC2547893369", "size": "Uni", "etd": "20260320", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Flying Rocket (Turnfit)"}], "Dinosaurs (Turnfit)": [{"sku": "BLC2547893367", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "Lazer HMT Pnut 2.0 KC CE-CPSC", "desc2": "Dinosaurs (Turnfit)"}]}}, "MAZE JR": {"cat": "kids", "size": "MAZE JR | 46-52 cm", "weight": "Weight | 240g", "price": "", "srp": "", "items": [{"sku": "BLC2547893299", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR+BN Tag", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893284", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893283", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR +GR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893268", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte White +STKR +GB", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893267", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR +GB", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893254", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Dusk Blue +STKR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893250", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Lime +STKR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893242", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte White +STKR", "etd": "available", "price": "", "srp": ""}, {"sku": "BLC2547893238", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR", "etd": "available", "price": "", "srp": ""}], "colors": {"Matte Nordic Pink +STKR+BN Tag": [{"sku": "BLC2547893299", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR+BN Tag"}], "Matte Nordic Pink +STKR": [{"sku": "BLC2547893284", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR"}], "Matte Nordic Pink +STKR +GR": [{"sku": "BLC2547893283", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Nordic Pink +STKR +GR"}], "Matte White +STKR +GB": [{"sku": "BLC2547893268", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte White +STKR +GB"}], "Matte Black +STKR +GB": [{"sku": "BLC2547893267", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR +GB"}], "Matte Dusk Blue +STKR": [{"sku": "BLC2547893254", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Dusk Blue +STKR"}], "Matte Lime +STKR": [{"sku": "BLC2547893250", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Lime +STKR"}], "Matte White +STKR": [{"sku": "BLC2547893242", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte White +STKR"}], "Matte Black +STKR": [{"sku": "BLC2547893238", "size": "Uni", "etd": "available", "price": "", "srp": "", "desc1": "LZR HMT MazeJR KC CE-CPSC-ASTM", "desc2": "Matte Black +STKR"}]}}};
+
+const CL={"on-road":"ON-ROAD","off-road":"OFF-ROAD","leisure":"LEISURE","kids":"KIDS"};
+const CC={"on-road":"#ff3c00","off-road":"#00c2ff","leisure":"#a855f7","kids":"#f59e0b"};
+const MO={"on-road":["VOLANTE","VICTOR","VENTO","Z1","Sphere","Strada","Tonic","Tempo"],
+"off-road":["Cage","Chase","Jackal","Coyote","Cerro"],
+"leisure":["Verde","CityZen","Lupo","Finch","Codax","MAZE"],
+"kids":["Nutz","Pnut","MAZE JR"]};
+
+let oMap={}, curC="all", sT="", openModels=new Set();
+window.orderMap = oMap; // shared-cart.js compatibility
+
+function showCover(){window.location.href='index.html'}
+function enterCat(){render()}
+function goTo(p){if(p==='lazer'){enterCat();return}const m={'hardgoods':'hardgoods.html','shoes':'shoes.html','pedals':'pedals.html'};if(m[p])window.location.href=m[p]}
+
+function fCat(c){
+  curC=c;
+  
+  
+  render();
+}
+function doSearch(){sT=document.getElementById('sI').value.toLowerCase().trim();render()}
+
+// Color map for item descriptions (same as shoes.html + lazer extras)
+var COLOR_MAP = {
+  'white':          '#f0f0f0',
+  'blue':           '#5ba8ff',
+  'red':            '#ff5a5a',
+  'navy':           '#6688cc',
+  'green':          '#4caf50',
+  'sage green':     '#8fbc8f',
+  'light green':    '#90ee90',
+  'olive':          '#9ab973',
+  'silver':         '#b8c0cc',
+  'gray':           '#9e9e9e',
+  'grey':           '#9e9e9e',
+  'ice gray':       '#a8c4d8',
+  'ice grey':       '#a8c4d8',
+  'stone gray':     '#a0998e',
+  'brown':          '#c49464',
+  'almond brown':   '#c4a882',
+  'sand beige':     '#d4b896',
+  'violet':         '#b07cc6',
+  'wine':           '#b44060',
+  'denim':          '#6b8cae',
+  'titanium':       '#9eaab4',
+  'pine green':     '#5a8a6a',
+  'stone blue':     '#6b8ea8',
+  'harbor grey':    '#8a9aa8',
+  'harbour grey':   '#8a9aa8',
+  'latte':          '#c8a882',
+  'tyrian':         '#9a3060',
+  'copper':         '#c87848',
+  'mulberry':       '#8a4068',
+  'taupe':          '#a89888',
+  'moss':           '#6a8a5a',
+  'celadon':        '#88c8a8',
+  'rust orange':    '#d87040',
+  'pink':           '#f0a0b8',
+  'nordic pink':    '#e8889a',
+  'fuchsia':        '#d8388a',
+  'purple':         '#a060c0',
+  'lime':           '#b8d830',
+  'yellow':         '#e8d040',
+  'flash yellow':   '#e8d040',
+  'gold':           '#d4aa40',
+  'metallic red':   '#c83838',
+  'mint':           '#88d8b0',
+  'dusk blue':      '#5878a8',
+  'meadow green':   '#68a870',
+  'violet fog':     '#a888b8',
+  'autumn':         '#c88848',
+  'maroon':         '#8a3040',
+  'sedona red':     '#c86848',
+  'onyx':           '#5a5a6a',
+  'lemongrass':     '#c8d868',
+  'fort knox':      '#c8a848',
+  'deep green flash':'#388850',
+  'matte tyrian':   '#9a3060',
+  'electric blue':  '#00b4d8',
+};
+
+function getColorStyle(desc) {
+  if (!desc) return '';
+  var d = desc.toLowerCase();
+  var isBlack = /\bblack\b/.test(d);
+  if (isBlack) return 'color: var(--color-black-shoe, var(--text-muted))';
+  var keys = Object.keys(COLOR_MAP);
+  for (var i = 0; i < keys.length; i++) {
+    if (d.includes(keys[i])) return 'color:' + COLOR_MAP[keys[i]] + ';font-weight:600';
+  }
+  return '';
+}
+
+function toggleModel(mn){
+  if(openModels.has(mn))openModels.delete(mn);else openModels.add(mn);
+  render();
+}
+
+function fmtBadge(e){
+  if(e==='available')return'<span class="badge avail"><span class="badge-dot"></span>AVAIL</span>';
+  if(e==='unavail')return'<span class="badge unavail"><span class="badge-dot"></span>N/A</span>';
+  if(e&&e.match(/^\d{8}$/)){var d=e.slice(6,8)+'/'+e.slice(4,6)+'/'+e.slice(0,4);return'<span class="badge etd"><span class="badge-dot"></span>ETD '+d+'</span>';}
+  return'<span class="badge" style="color:var(--text-muted)">\u2014</span>';
+}
+
+function render(){
+  var sec=document.getElementById('pSec');
+  var cats=curC==='all'?['on-road','off-road','leisure','kids']:[curC];
+  var html='',tSKU=0,tMod=0,cCnts={};
+
+  cats.forEach(function(ck){
+    var models=MO[ck]||[];
+    var cHTML='',cSKU=0;
+    models.forEach(function(mn){
+      var md=RAW[mn];if(!md||md.cat!==ck)return;
+      var matchItems=md.items.filter(function(it){return !sT||it.sku.toLowerCase().includes(sT)||it.desc1.toLowerCase().includes(sT)||it.desc2.toLowerCase().includes(sT)||mn.toLowerCase().includes(sT);});
+      if(!matchItems.length)return;
+
+      var pr=md.price||'';var sr=md.srp||'';
+      var isOpen=openModels.has(mn);
+      var skuCnt=matchItems.length;
+      cSKU+=skuCnt;tMod++;
+
+      // Model card header (shoes style)
+      cHTML+='<div class="model-card'+(isOpen?' open':'')+'" style="margin-bottom:12px">';
+      cHTML+='<div class="model-card-header" onclick="toggleModel(&quot;'+mn+'&quot;)">';
+      cHTML+='<span class="model-tag">'+mn+'</span>';
+      cHTML+='<span class="model-name">'+(md.items[0]?md.items[0].desc1:'')+'</span>';
+      cHTML+='<span class="model-price">'+(pr?'\u20ac'+parseFloat(pr).toFixed(2):'')+'</span>';
+      cHTML+='<span class="model-srp">'+(sr?'SRP \u20ac'+parseFloat(sr).toFixed(2):'')+'</span>';
+      cHTML+='<span class="model-toggle">\u25be</span>';
+      cHTML+='</div>';
+
+      // Detail panel with items-grid (shoes style)
+      if(isOpen){
+        cHTML+='<div class="model-items" style="display:block">';
+        var colors=md.colors||{};
+        Object.keys(colors).forEach(function(clr){
+          var items=colors[clr].filter(function(it){return !sT||it.sku.toLowerCase().includes(sT)||it.desc1.toLowerCase().includes(sT)||it.desc2.toLowerCase().includes(sT)||mn.toLowerCase().includes(sT);});
+          if(!items.length)return;
+          cHTML+='<div class="color-group-label" style="'+getColorStyle(clr)+'">'+clr+'</div>';
+          cHTML+='<div class="items-grid">';
+          items.forEach(function(it){
+            var inC=oMap[it.sku];
+            var p=it.price||pr||'';
+            var showPrice=p&&parseFloat(p)>0;
+            var hasVal=inC&&inC.qty>0;
+            cHTML+='<div class="item-row'+(showPrice?' item-row-priced':'')+'">';
+            cHTML+='<div class="item-info">';
+            cHTML+='<span class="item-code">'+it.sku+'</span>';
+            cHTML+='<span class="item-desc" style="'+getColorStyle(it.desc2)+'">'+it.desc2+'</span>';
+            cHTML+='</div>';
+            if(showPrice) cHTML+='<span class="item-price">\u20ac'+parseFloat(p).toFixed(2)+'</span>';
+            cHTML+=fmtBadge(it.etd);
+            cHTML+='<input type="number" class="qty-input" min="0" step="1" value="'+(inC?inC.qty:0)+'" data-has-value="'+(hasVal?'true':'false')+'" data-sku="'+it.sku+'" data-model="'+mn.replace(/\'/g,"&apos;")+'" data-desc="'+it.desc2.replace(/\'/g,"&apos;")+'" data-price="'+(parseFloat(p)||0)+'" data-desc1="'+(it.desc1||"").replace(/\'/g,"&apos;")+'" onchange="handleQty(this)" onclick="event.stopPropagation()">';
+            cHTML+='</div>';
+          });
+          cHTML+='</div>';
+        });
+        cHTML+='</div>';
+      }
+      cHTML+='</div>'; // close model-card
+    });
+    if(cSKU>0){
+      html+='<div class="model-section"><div class="section-header" style="border-left:3px solid '+CC[ck]+';padding-left:10px">'+CL[ck]+' \u2014 '+cSKU+' SKUs</div>';
+      html+=cHTML;
+      html+='</div>';
+      tSKU+=cSKU;cCnts[ck]=cSKU;
+    }
+  });
+  sec.innerHTML=html;
+  var sh='<strong>'+tMod+'</strong> model, <strong>'+tSKU+'</strong> SKU';
+  Object.keys(cCnts).forEach(function(ck){sh+=' &nbsp;|&nbsp; <span style="color:'+CC[ck]+'">\u25cf '+CL[ck]+': <strong>'+cCnts[ck]+'</strong></span>';});
+  document.getElementById('sBar').innerHTML=sh;
+}
+
+function handleQty(inp){
+  var v=parseInt(inp.value)||0;
+  var sku=inp.dataset.sku;
+  var mn=inp.dataset.model;
+  var desc=inp.dataset.desc;
+  var price=parseFloat(inp.dataset.price)||0;
+  var desc1=inp.dataset.desc1||'';
+  if(v>0){
+    oMap[sku]={qty:v,desc1:mn,desc2:desc,price:price.toString(),fullDesc:desc1};
+    inp.dataset.hasValue='true';
+    toast(mn+' \u2014 '+desc+' added','ok');
+  }else{
+    if(oMap[sku]){delete oMap[sku];toast(mn+' \u2014 '+desc+' removed','rm');}
+    inp.dataset.hasValue='false';
+  }
+  sync();updB();
+}
+
+function adjQ(sku,d){
+  const inp=document.getElementById('q-'+sku);if(!inp)return;
+  let v=parseInt(inp.value)||0;v=Math.max(0,Math.min(999,v+d));inp.value=v;
+  if(oMap[sku]){if(v===0){delete oMap[sku];sync();updB();render();return}oMap[sku].qty=v;sync();updB();const b=document.getElementById('b-'+sku);if(b){b.textContent='✓ '+v;b.className='sc-add in'}}
+}
+
+function toggle(sku,model,variant,price,desc1){
+  if(oMap[sku]){delete oMap[sku];toast(model+' — '+variant+' removed','rm')}
+  else{const qi=document.getElementById('q-'+sku);let qty=qi?parseInt(qi.value)||1:1;if(qty===0)qty=1;if(qi)qi.value=qty;
+    oMap[sku]={qty,desc1:model,desc2:variant,price:price.toString(),fullDesc:desc1};toast(model+' — '+variant+' added','ok')}
+  sync();updB();render();
+}
+
+function updB(){
+  const c=Object.keys(oMap).length;
+  document.getElementById('oBdg').textContent=c;var ho=document.getElementById('hOrder');if(ho)ho.textContent=c;
+  try{const sh=JSON.parse(localStorage.getItem('shimano_all_orders')||'{}');let t=0;Object.keys(sh).forEach(k=>{t+=Object.keys(sh[k]).length});if(t>c)document.getElementById('oBdg').textContent=t}catch(e){}
+}
+
+function sync(){
+  try{let sh=JSON.parse(localStorage.getItem('shimano_all_orders')||'{}');sh.lazer={};
+  Object.keys(oMap).forEach(sku=>{const it=oMap[sku];sh.lazer[sku]={qty:it.qty,desc1:it.desc1,desc2:it.desc2,price:it.price}});
+  localStorage.setItem('shimano_all_orders',JSON.stringify(sh))}catch(e){}
+}
+
+function restore(){
+  try{const sh=JSON.parse(localStorage.getItem('shimano_all_orders')||'{}');
+  if(sh.lazer){Object.keys(oMap).forEach(function(k){delete oMap[k]});Object.keys(sh.lazer).forEach(sku=>{const it=sh.lazer[sku];oMap[sku]={qty:it.qty,desc1:it.desc1,desc2:it.desc2||'',price:it.price||''}})}}catch(e){}
+}
+
+window.addEventListener('storage',e=>{if(e.key==='shimano_all_orders'){restore();updB();if(document.getElementById('cat').style.display!=='none')render()}});
+
+function openOrd(){document.getElementById('oOv').style.display='block';renOrd()}
+function closeOrd(e){if(e&&e.target!==document.getElementById('oOv'))return;document.getElementById('oOv').style.display='none'}
+
+function renOrd(){
+  const bd=document.getElementById('oBody');const ks=Object.keys(oMap);
+  if(!ks.length){bd.innerHTML='<div class="empty"><p style="font-size:14px;margin-bottom:8px">No items yet.</p><p style="font-size:11px">Add helmets from the catalog.</p></div>';document.getElementById('oTot').textContent='0';return}
+  let h='',tq=0;
+  ks.forEach(sku=>{const it=oMap[sku];tq+=it.qty;const p=parseFloat(it.price)||0;const lt=(p*it.qty).toFixed(2);
+    h+=`<div class="oi"><div class="oi-info"><div class="oi-m">${it.desc1}</div><div class="oi-d">${sku} — ${it.desc2}</div></div><div class="oi-q">×${it.qty}</div><div class="oi-p">${p?'€'+lt:''}</div><button class="oi-x" onclick="remO('${sku}')">✕</button></div>`});
+  bd.innerHTML=h;document.getElementById('oTot').textContent=tq+' items';
+}
+function remO(sku){delete oMap[sku];sync();updB();renOrd();render();toast('Removed','rm')}
+function clearO(){if(!confirm('Clear ALL Lazer orders?'))return;Object.keys(oMap).forEach(function(k){delete oMap[k]});sync();updB();renOrd();render();toast('All cleared','rm')}
+function expCSV(){
+  const ks=Object.keys(oMap);if(!ks.length){toast('No items','rm');return}
+  let csv='SKU,Model,Variant,Qty,Price,Line Total\n';
+  ks.forEach(sku=>{const it=oMap[sku];const p=parseFloat(it.price)||0;csv+=`"${sku}","${it.desc1}","${it.desc2}",${it.qty},${p.toFixed(2)},${(p*it.qty).toFixed(2)}\n`});
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='lazer_order_'+new Date().toISOString().slice(0,10)+'.csv';a.click();toast('Exported CSV','ok');
+}
+function toast(msg,cls){const ex=document.querySelector('.toast');if(ex)ex.remove();const t=document.createElement('div');t.className='toast '+cls;t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2000)}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  restore();updB();
+  if(location.hash==='#openOrderSummary'){setTimeout(()=>{enterCat();openOrd();history.replaceState(null,'',location.pathname)},500)}
+  enterCat();
+});
+
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   SHIMANO ALL ORDERS — Cross-Catalog Order Sync  v3.0
+   ═══════════════════════════════════════════════════════════════ */
+(function(){
+  'use strict';
+
+  var CDN_URLS = [
+    'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
+  ];
+  function loadSheetJS() {
+    if (window.XLSX) return Promise.resolve();
+    return new Promise(function(resolve, reject) {
+      var idx = 0;
+      (function tryNext() {
+        if (idx >= CDN_URLS.length) return reject();
+        var s = document.createElement('script');
+        s.src = CDN_URLS[idx++];
+        s.onload = resolve;
+        s.onerror = function(){ document.head.removeChild(s); tryNext(); };
+        document.head.appendChild(s);
+      })();
+    });
+  }
+
+  var SHARED_KEY   = 'shimano_all_orders';
+  var PAGE_LABELS  = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS', lazer:'LAZER' };
+  var PAGE_COLORS  = { hardgoods:'#0ea5e9', shoes:'#f59e0b', pedals:'#10b981', lazer:'#ff3c00' };
+  var POLL_MS      = 400;
+  var PAGE_ID      = null; // lazy — set in init()
+
+  function getPageId() {
+    if (!PAGE_ID) {
+      PAGE_ID = (document.body && document.body.getAttribute('data-catalog') || 'unknown').toLowerCase();
+    }
+    return PAGE_ID;
+  }
+
+  function getShared() {
+    try { return JSON.parse(localStorage.getItem(SHARED_KEY)) || {}; } catch(e){ return {}; }
+  }
+  function saveShared(d) {
+    try { localStorage.setItem(SHARED_KEY, JSON.stringify(d)); } catch(e){}
+  }
+
+  /* ─── Snapshot current page orders ──────────────────── */
+  function snapshotPage() {
+    var result = {};
+    if (window.orderList && typeof window.orderList === 'object') {
+      var keys = Object.keys(window.orderList);
+      for (var i = 0; i < keys.length; i++) {
+        var code = keys[i], v = window.orderList[code];
+        if (typeof v === 'object' && v) {
+          result[code] = { qty:v.qty||0, desc1:v.desc||v.desc1||'', desc2:v.desc2||'', price:v.price||'' };
+        } else {
+          result[code] = { qty:Number(v)||0, desc1:code, desc2:'', price:'' };
+        }
+      }
+    }
+    if (window.orderMap && typeof window.orderMap === 'object') {
+      var keys2 = Object.keys(window.orderMap);
+      for (var j = 0; j < keys2.length; j++) {
+        var code2 = keys2[j], v2 = window.orderMap[code2];
+        if (typeof v2 === 'object' && v2) {
+          result[code2] = { qty:v2.qty||0, desc1:v2.desc1||v2.desc||'', desc2:v2.desc2||'', price:v2.price||'' };
+        }
+      }
+    }
+    return result;
+  }
+
+  /* ─── Sync: ONLY update this page's slot, NEVER touch others ── */
+  var _lastHash = '';
+  var _restored = false; // set to true after restorePageFromShared runs
+  function syncToShared() {
+    var pid = getPageId();
+    if (pid === 'unknown') return;
+    var snap = snapshotPage();
+    var hash = JSON.stringify(snap);
+    if (hash === _lastHash) return;
+    _lastHash = hash;
+
+    var shared = getShared();
+    // Only write THIS page's data — never delete other pages
+    if (Object.keys(snap).length === 0) {
+      // Don't wipe the shared slot until restore has had a chance to run
+      if (!_restored) return;
+      // Page has no orders — remove only this page's entry
+      if (shared[pid]) {
+        delete shared[pid];
+        saveShared(shared);
+      }
+    } else {
+      shared[pid] = snap;
+      saveShared(shared);
+    }
+    updateBadge();
+  }
+
+  /* ─── Delete single item from shared cart ───────────── */
+  function deleteItem(catalog, code) {
+    var shared = getShared();
+    if (!shared[catalog] || !shared[catalog][code]) return;
+    delete shared[catalog][code];
+    if (Object.keys(shared[catalog]).length === 0) delete shared[catalog];
+    saveShared(shared);
+
+    // If deleting from current page, also remove from live order
+    var pid = getPageId();
+    if (catalog === pid) {
+      if (window.orderList && window.orderList[code]) {
+        delete window.orderList[code];
+        if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
+        // Clear the input field too
+        var inputs = document.querySelectorAll('.qty-input[data-code="' + code + '"]');
+        for (var i = 0; i < inputs.length; i++) { inputs[i].value = ''; inputs[i].dataset.hasValue = 'false'; }
+      }
+      if (window.orderMap && window.orderMap[code]) {
+        delete window.orderMap[code];
+        if (typeof window.saveOrder === 'function') window.saveOrder();
+        if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
+        if (typeof window.updateStats === 'function') window.updateStats();
+        var inputs2 = document.querySelectorAll('.qty-input[data-code="' + code + '"]');
+        for (var j = 0; j < inputs2.length; j++) { inputs2[j].value = ''; inputs2[j].dataset.hasValue = 'false'; }
+      }
+      _lastHash = ''; // force re-sync
+    }
+
+    updateBadge();
+    var pn = document.getElementById('aoPanel');
+    if (pn && pn.classList.contains('open')) renderPanel();
+  }
+  // Expose globally for onclick
+  window._aoDeleteItem = deleteItem;
+
+  /* ─── Totals ────────────────────────────────────────── */
+  function getTotals() {
+    var shared = getShared(), totalItems = 0;
+    var pages = Object.keys(shared);
+    for (var p = 0; p < pages.length; p++) {
+      var items = shared[pages[p]], codes = Object.keys(items);
+      for (var c = 0; c < codes.length; c++) totalItems += (items[codes[c]].qty || 0);
+    }
+    return totalItems;
+  }
+
+  function collectAll() {
+    var shared = getShared(), all = [], order = ['hardgoods','shoes','pedals','lazer'];
+    for (var o = 0; o < order.length; o++) {
+      var pg = order[o], items = shared[pg];
+      if (!items) continue;
+      var codes = Object.keys(items);
+      for (var c = 0; c < codes.length; c++) {
+        var code = codes[c], v = items[code];
+        all.push({ source:PAGE_LABELS[pg]||pg.toUpperCase(), catalog:pg, code:code,
+          desc1:v.desc1||'', desc2:v.desc2||'', qty:v.qty||0, price:v.price||'' });
+      }
+    }
+    return all;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     UI
+     ═══════════════════════════════════════════════════════ */
+  function injectUI() {
+    var css = document.createElement('style');
+    css.textContent = '\
+.ao-fab{position:fixed;bottom:20px;right:20px;z-index:9999;width:56px;height:56px;border-radius:14px;\
+background:linear-gradient(135deg,#0066cc,#0044aa);border:none;cursor:pointer;\
+display:flex;align-items:center;justify-content:center;\
+box-shadow:0 4px 20px rgba(0,102,204,.35);transition:all .25s}\
+.ao-fab:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(0,102,204,.5)}\
+.ao-fab svg{width:24px;height:24px;color:#fff}\
+.ao-badge{position:absolute;top:-5px;right:-5px;background:#e8003d;color:#fff;font-size:11px;\
+font-weight:700;min-width:21px;height:21px;border-radius:99px;display:flex;align-items:center;\
+justify-content:center;padding:0 5px;font-family:"Barlow Condensed",Arial,sans-serif;\
+transform:scale(0);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}\
+.ao-badge.vis{transform:scale(1)}\
+.ao-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(3px);\
+z-index:10000;opacity:0;pointer-events:none;transition:opacity .3s}\
+.ao-overlay.open{opacity:1;pointer-events:all}\
+.ao-panel{position:fixed;top:0;right:0;width:460px;max-width:96vw;height:100vh;\
+background:var(--surface,#111118);border-left:1px solid var(--border,#1e1e2e);\
+z-index:10001;display:flex;flex-direction:column;transform:translateX(100%);\
+transition:transform .35s cubic-bezier(.22,1,.36,1);box-shadow:-8px 0 40px rgba(0,0,0,.45)}\
+.ao-panel.open{transform:translateX(0)}\
+.ao-head{padding:16px 20px;border-bottom:1px solid var(--border,#1e1e2e);display:flex;\
+align-items:center;justify-content:space-between}\
+.ao-head h3{font-family:"Barlow Condensed",Arial,sans-serif;font-size:17px;font-weight:700;\
+letter-spacing:.08em;text-transform:uppercase;color:var(--text,#e8e8f0);margin:0;\
+display:flex;align-items:center;gap:8px}\
+.ao-count{font-size:12px;color:var(--text-muted,#6b6b82);font-weight:400;text-transform:none;letter-spacing:0}\
+.ao-close{background:none;border:none;color:var(--text-muted,#6b6b82);cursor:pointer;\
+padding:6px;border-radius:6px;display:flex;transition:all .2s}\
+.ao-close:hover{color:var(--text,#e8e8f0);background:rgba(255,255,255,.06)}\
+.ao-body{flex:1;overflow-y:auto;padding:0}\
+.ao-body::-webkit-scrollbar{width:4px}\
+.ao-body::-webkit-scrollbar-thumb{background:var(--border,#1e1e2e);border-radius:4px}\
+.ao-sh{padding:10px 20px;font-family:"Barlow Condensed",Arial,sans-serif;font-size:11px;\
+font-weight:700;letter-spacing:.12em;text-transform:uppercase;display:flex;\
+align-items:center;gap:8px;position:sticky;top:0;\
+background:var(--surface,#111118);z-index:1;border-bottom:1px solid rgba(255,255,255,.04)}\
+.ao-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}\
+.ao-sc{color:var(--text-muted,#6b6b82);font-weight:400;letter-spacing:.04em}\
+.ao-row{display:grid;grid-template-columns:100px 1fr 36px 24px;gap:6px;padding:6px 20px;\
+border-bottom:1px solid rgba(255,255,255,.025);font-size:12px;align-items:center}\
+.ao-rc{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:700;font-size:12px;\
+color:var(--text,#e8e8f0);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\
+.ao-rd{color:var(--text-muted,#6b6b82);white-space:nowrap;overflow:hidden;\
+text-overflow:ellipsis;font-size:11px}\
+.ao-rq{font-family:"Barlow Condensed",Arial,sans-serif;font-weight:700;font-size:13px;\
+color:var(--avail,#00c896);text-align:right}\
+.ao-rx{background:none;border:none;color:var(--text-muted,#6b6b82);cursor:pointer;\
+padding:2px;border-radius:4px;display:flex;align-items:center;justify-content:center;\
+transition:all .15s;opacity:.5}\
+.ao-rx:hover{opacity:1;color:#ef4444;background:rgba(239,68,68,.1)}\
+.ao-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;\
+height:100%;color:var(--text-muted,#6b6b82);gap:12px;padding:40px;opacity:.5}\
+.ao-foot{border-top:1px solid var(--border,#1e1e2e);padding:16px 20px;background:var(--card,#16161f)}\
+.ao-fr{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}\
+.ao-fl{font-size:12px;color:var(--text-muted,#6b6b82)}\
+.ao-ft{font-family:"Barlow Condensed",Arial,sans-serif;font-size:22px;font-weight:700;color:var(--text,#e8e8f0)}\
+.ao-chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}\
+.ao-chip{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;\
+font-family:"Barlow Condensed",Arial,sans-serif;letter-spacing:.05em}\
+.ao-export{width:100%;padding:12px;border-radius:8px;border:none;\
+background:linear-gradient(135deg,#0066cc,#0044aa);\
+color:#fff;font-family:"Barlow Condensed",Arial,sans-serif;font-size:13px;font-weight:700;\
+letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .25s;\
+display:flex;align-items:center;justify-content:center;gap:8px}\
+.ao-export:hover{background:linear-gradient(135deg,#3399ff,#0066cc);box-shadow:0 4px 16px rgba(0,102,204,.3)}\
+.ao-export:disabled{opacity:.4;cursor:not-allowed}\
+.ao-spin{display:none;width:14px;height:14px;border:2px solid rgba(255,255,255,.3);\
+border-top-color:#fff;border-radius:50%;animation:aospin .6s linear infinite}\
+@keyframes aospin{to{transform:rotate(360deg)}}\
+.ao-clear{width:100%;padding:8px;border-radius:6px;border:1px solid rgba(239,68,68,.2);\
+background:rgba(239,68,68,.06);color:#ef4444;font-family:"Barlow Condensed",Arial,sans-serif;\
+font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;\
+margin-top:8px;transition:all .2s}\
+.ao-clear:hover{background:rgba(239,68,68,.12)}\
+@media(max-width:768px){.ao-panel{width:100vw}.ao-fab{bottom:14px;right:14px;width:50px;height:50px;border-radius:12px}\
+.ao-row{grid-template-columns:80px 1fr 30px 22px}}';
+    document.head.appendChild(css);
+
+    var fab = document.createElement('button');
+    fab.className = 'ao-fab';
+    fab.title = 'All Orders';
+    fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span class="ao-badge" id="aoBadge">0</span>';
+    fab.onclick = togglePanel;
+    document.body.appendChild(fab);
+
+    var ov = document.createElement('div');
+    ov.className = 'ao-overlay'; ov.id = 'aoOverlay'; ov.onclick = togglePanel;
+    document.body.appendChild(ov);
+
+    var pn = document.createElement('div');
+    pn.className = 'ao-panel'; pn.id = 'aoPanel';
+    pn.innerHTML = '<div class="ao-head">' +
+      '<h3><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg> ALL ORDERS <span class="ao-count" id="aoCount"></span></h3>' +
+      '<button class="ao-close" id="aoClose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>' +
+      '<div class="ao-body" id="aoBody"></div>' +
+      '<div class="ao-foot" id="aoFoot">' +
+        '<div class="ao-fr"><div><div class="ao-fl">Total SKUs</div><div class="ao-chips" id="aoChips"></div></div>' +
+        '<div class="ao-ft" id="aoTotal">0</div></div>' +
+        '<button class="ao-export" id="aoExport"><span class="ao-spin" id="aoSpin"></span>' +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> EXPORT TO EXCEL</button>' +
+        '<button class="ao-clear" id="aoClear">\u2715 Clear All Orders</button>' +
+      '</div>';
+    document.body.appendChild(pn);
+
+    document.getElementById('aoClose').onclick = togglePanel;
+    document.getElementById('aoExport').onclick = doExport;
+    document.getElementById('aoClear').onclick = doClear;
+  }
+
+  function togglePanel() {
+    var ov = document.getElementById('aoOverlay'), pn = document.getElementById('aoPanel');
+    if (!ov || !pn) return;
+    var isOpen = pn.classList.contains('open');
+    ov.classList.toggle('open', !isOpen);
+    pn.classList.toggle('open', !isOpen);
+    if (!isOpen) renderPanel();
+  }
+
+  function updateBadge() {
+    var badge = document.getElementById('aoBadge');
+    if (!badge) return;
+    var t = getTotals();
+    badge.textContent = t;
+    badge.classList.toggle('vis', t > 0);
+  }
+
+  function renderPanel() {
+    var body = document.getElementById('aoBody'), chips = document.getElementById('aoChips'),
+        totalEl = document.getElementById('aoTotal'), foot = document.getElementById('aoFoot'),
+        countEl = document.getElementById('aoCount');
+    if (!body) return;
+
+    var shared = getShared(), allCount = 0, html = '', totalQty = 0;
+    var pageOrder = ['hardgoods','shoes','pedals','lazer'];
+
+    for (var p = 0; p < pageOrder.length; p++) {
+      var pg = pageOrder[p], items = shared[pg];
+      if (!items || Object.keys(items).length === 0) continue;
+      var entries = Object.entries(items), qtySum = 0;
+      for (var e = 0; e < entries.length; e++) qtySum += (entries[e][1].qty || 0);
+      allCount += entries.length;
+      totalQty += qtySum;
+      var color = PAGE_COLORS[pg] || '#888', label = PAGE_LABELS[pg] || pg.toUpperCase();
+
+      html += '<div><div class="ao-sh"><span class="ao-dot" style="background:' + color + '"></span> ' +
+        label + ' <span class="ao-sc">(' + entries.length + ' SKUs, ' + qtySum + ' pcs)</span></div>';
+
+      for (var i = 0; i < entries.length; i++) {
+        var code = entries[i][0], v = entries[i][1];
+        var desc = [v.desc1, v.desc2].filter(Boolean).join(' \u00B7 ');
+        html += '<div class="ao-row">' +
+          '<span class="ao-rc">' + code + '</span>' +
+          '<span class="ao-rd" title="' + desc.replace(/"/g,'&quot;') + '">' + desc + '</span>' +
+          '<span class="ao-rq">\u00D7' + v.qty + '</span>' +
+          '<button class="ao-rx" onclick="_aoDeleteItem(\'' + pg + '\',\'' + code.replace(/'/g,"\\'") + '\')" title="Remove">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
+          '</button></div>';
+      }
+      html += '</div>';
+    }
+
+    if (allCount === 0) {
+      body.innerHTML = '<div class="ao-empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><span style="font-size:13px">No orders yet</span><span style="font-size:11px;opacity:.7">Add items from any catalog</span></div>';
+      foot.style.display = 'none'; countEl.textContent = ''; return;
+    }
+
+    foot.style.display = '';
+    body.innerHTML = html;
+    totalEl.textContent = totalQty + ' pcs';
+    countEl.textContent = ' \u2014 ' + allCount + ' SKUs';
+
+    var chipHtml = '';
+    for (var cp = 0; cp < pageOrder.length; cp++) {
+      var cpg = pageOrder[cp], ci = shared[cpg];
+      if (!ci || Object.keys(ci).length === 0) continue;
+      var cq = 0, cv = Object.values(ci);
+      for (var cx = 0; cx < cv.length; cx++) cq += (cv[cx].qty || 0);
+      chipHtml += '<span class="ao-chip" style="background:' + PAGE_COLORS[cpg] + '22;color:' + PAGE_COLORS[cpg] + '">' + PAGE_LABELS[cpg] + ': ' + cq + '</span>';
+    }
+    chips.innerHTML = chipHtml;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     EXPORT
+     ═══════════════════════════════════════════════════════ */
+  function doExport() {
+    var allItems = collectAll();
+    if (!allItems.length) return;
+    var btn = document.getElementById('aoExport'), spin = document.getElementById('aoSpin');
+    if (btn) btn.disabled = true;
+    if (spin) spin.style.display = 'inline-block';
+    loadSheetJS().then(function() { exportSheetJS(allItems); })
+      .catch(function() { exportXML(allItems); })
+      .finally(function() { if (btn) btn.disabled = false; if (spin) spin.style.display = 'none'; });
+  }
+
+  function exportSheetJS(items) {
+    var X = window.XLSX, wb = X.utils.book_new();
+    var rows = [['Catalog','SKU','Description 1','Description 2','QTY','Price']];
+    var tq = 0;
+    for (var i = 0; i < items.length; i++) {
+      var it = items[i];
+      rows.push([it.source, it.code, it.desc1, it.desc2, it.qty, it.price===''?'':Number(it.price)||it.price]);
+      tq += it.qty;
+    }
+    rows.push([]); rows.push(['','','','TOTAL', tq, '']);
+    var ws = X.utils.aoa_to_sheet(rows);
+    ws['!cols'] = [{wch:12},{wch:20},{wch:35},{wch:30},{wch:8},{wch:12}];
+    X.utils.book_append_sheet(wb, ws, 'All Orders');
+    var d = new Date().toISOString().slice(0,10);
+    try { X.writeFile(wb,'shimano_all_orders_'+d+'.xlsm',{bookType:'xlsm'}); }
+    catch(e) { X.writeFile(wb,'shimano_all_orders_'+d+'.xlsx',{bookType:'xlsx'}); }
+  }
+
+  function exportXML(items) {
+    var tq=0; for(var t=0;t<items.length;t++) tq+=items[t].qty;
+    var x='<?xml version="1.0"?>\n<?mso-application progid="Excel.Sheet"?>\n'+
+      '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n'+
+      '<Styles><Style ss:ID="h"><Font ss:Bold="1" ss:Size="11"/><Interior ss:Color="#D9E1F2" ss:Pattern="Solid"/></Style>'+
+      '<Style ss:ID="t"><Font ss:Bold="1" ss:Size="11"/></Style><Style ss:ID="d"><Font ss:Size="10"/></Style></Styles>\n'+
+      '<Worksheet ss:Name="All Orders"><Table>\n'+
+      '<Column ss:Width="80"/><Column ss:Width="130"/><Column ss:Width="220"/><Column ss:Width="200"/><Column ss:Width="55"/><Column ss:Width="80"/>\n'+
+      '<Row ss:StyleID="h"><Cell><Data ss:Type="String">Catalog</Data></Cell><Cell><Data ss:Type="String">SKU</Data></Cell>'+
+      '<Cell><Data ss:Type="String">Description 1</Data></Cell><Cell><Data ss:Type="String">Description 2</Data></Cell>'+
+      '<Cell><Data ss:Type="String">QTY</Data></Cell><Cell><Data ss:Type="String">Price</Data></Cell></Row>\n';
+    for(var i=0;i<items.length;i++){var it=items[i];
+      x+='<Row ss:StyleID="d"><Cell><Data ss:Type="String">'+esc(it.source)+'</Data></Cell>'+
+        '<Cell><Data ss:Type="String">'+esc(it.code)+'</Data></Cell>'+
+        '<Cell><Data ss:Type="String">'+esc(it.desc1)+'</Data></Cell>'+
+        '<Cell><Data ss:Type="String">'+esc(it.desc2)+'</Data></Cell>'+
+        '<Cell><Data ss:Type="Number">'+it.qty+'</Data></Cell>'+
+        '<Cell><Data ss:Type="'+(it.price!==''&&!isNaN(Number(it.price))?'Number':'String')+'">'+esc(String(it.price||''))+'</Data></Cell></Row>\n';
+    }
+    x+='<Row/><Row ss:StyleID="t"><Cell/><Cell/><Cell/><Cell><Data ss:Type="String">TOTAL</Data></Cell>'+
+      '<Cell><Data ss:Type="Number">'+tq+'</Data></Cell><Cell/></Row>\n</Table></Worksheet></Workbook>';
+    var b=new Blob([x],{type:'application/vnd.ms-excel'}),u=URL.createObjectURL(b),a=document.createElement('a');
+    a.href=u; a.download='shimano_all_orders_'+new Date().toISOString().slice(0,10)+'.xls'; a.click();
+    setTimeout(function(){URL.revokeObjectURL(u);},1000);
+  }
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  function doClear() {
+    if (!confirm('All orders from every catalog will be cleared.\nAre you sure?')) return;
+
+    // 1. Wipe the shared cart key
+    localStorage.removeItem(SHARED_KEY);
+
+    // 2. Wipe known page-specific localStorage keys so they
+    //    cannot resurrect orders on the next page load.
+    //    (Pedals keeps its own key: shimano_pedals_order)
+    var PAGE_LS_KEYS = ['shimano_pedals_order'];
+    for (var lk = 0; lk < PAGE_LS_KEYS.length; lk++) {
+      try { localStorage.removeItem(PAGE_LS_KEYS[lk]); } catch(e){}
+    }
+
+    // 3. Empty the in-memory order objects on the current page
+    if (window.orderList) { var k=Object.keys(window.orderList); for(var i=0;i<k.length;i++) delete window.orderList[k[i]]; }
+    if (window.orderMap)  { var k2=Object.keys(window.orderMap);  for(var j=0;j<k2.length;j++) delete window.orderMap[k2[j]]; }
+
+    // 4. Persist the now-empty state through the page's own save function
+    if (typeof window.saveOrder === 'function') window.saveOrder();
+
+    // 5. Reset every qty input in the DOM so stale values
+    //    cannot leak back into the order on re-render or interaction
+    var allInputs = document.querySelectorAll('.qty-input');
+    for (var q = 0; q < allInputs.length; q++) {
+      allInputs[q].value = '';
+      allInputs[q].dataset.hasValue = 'false';
+    }
+
+    // 6. Refresh the page's own UI panels
+    if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
+    if (typeof window.updateStats === 'function') window.updateStats();
+    // Re-render catalog so inputs are rebuilt from the (now-empty) orderMap
+    if (typeof window.renderCatalog === 'function') window.renderCatalog();
+
+    // 7. Reset sync state and refresh the shared-cart UI
+    _lastHash = '';
+    updateBadge(); renderPanel();
+  }
+
+  window.addEventListener('storage', function(e) {
+    if (e.key === SHARED_KEY) { updateBadge(); var pn=document.getElementById('aoPanel'); if(pn&&pn.classList.contains('open')) renderPanel(); }
+  });
+
+  /* ─── Restore current page's orders from shared localStorage on load ── */
+  function restorePageFromShared() {
+    var pid = getPageId();
+    if (pid === 'unknown') return;
+    var shared = getShared();
+    var saved = shared[pid];
+    if (!saved || Object.keys(saved).length === 0) return;
+
+    var codes = Object.keys(saved);
+
+    // HARDGOODS: uses window.orderList + setQty()
+    if (pid === 'hardgoods' && window.orderList && typeof window.orderList === 'object') {
+      if (Object.keys(window.orderList).length > 0) return; // page already has live orders, don't overwrite
+      for (var i = 0; i < codes.length; i++) {
+        var c = codes[i], v = saved[c];
+        window.orderList[c] = { qty: v.qty||0, desc: v.desc1||c, desc2: v.desc2||'' };
+        // Also update the qty input fields in the DOM
+        var inputs = document.querySelectorAll('.qty-input[data-code="' + c + '"]');
+        for (var k = 0; k < inputs.length; k++) {
+          inputs[k].value = v.qty;
+          inputs[k].dataset.hasValue = 'true';
+        }
+      }
+      if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
+    }
+
+    // SHOES: uses window.orderMap (no own localStorage)
+    if (pid === 'shoes' && window.orderMap && typeof window.orderMap === 'object') {
+      if (Object.keys(window.orderMap).length > 0) return;
+      for (var j = 0; j < codes.length; j++) {
+        var c2 = codes[j], v2 = saved[c2];
+        window.orderMap[c2] = { qty: v2.qty||0, desc1: v2.desc1||'', desc2: v2.desc2||'', price: v2.price||'' };
+        var inputs2 = document.querySelectorAll('.qty-input[data-code="' + c2 + '"]');
+        for (var m = 0; m < inputs2.length; m++) {
+          inputs2[m].value = v2.qty;
+          inputs2[m].dataset.hasValue = 'true';
+        }
+      }
+      if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
+      if (typeof window.updateStats === 'function') window.updateStats();
+    }
+
+    // PEDALS: already has its own localStorage persistence (shimano_pedals_order),
+    // but if that key is empty and shared cart has data, restore from shared
+    if (pid === 'pedals' && window.orderMap && typeof window.orderMap === 'object') {
+      if (Object.keys(window.orderMap).length > 0) return;
+      for (var n = 0; n < codes.length; n++) {
+        var c3 = codes[n], v3 = saved[c3];
+        window.orderMap[c3] = { qty: v3.qty||0, desc1: v3.desc1||'', desc2: v3.desc2||'', price: v3.price||'' };
+        var inputs3 = document.querySelectorAll('.qty-input[data-code="' + c3 + '"]');
+        for (var p = 0; p < inputs3.length; p++) {
+          inputs3[p].value = v3.qty;
+          inputs3[p].dataset.hasValue = 'true';
+        }
+      }
+      if (typeof window.saveOrder === 'function') window.saveOrder();
+      if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
+      if (typeof window.updateStats === 'function') window.updateStats();
+    }
+
+    // LAZER: uses window.orderMap
+    if (pid === 'lazer' && window.orderMap && typeof window.orderMap === 'object') {
+      if (Object.keys(window.orderMap).length > 0) return;
+      for (var q = 0; q < codes.length; q++) {
+        var c4 = codes[q], v4 = saved[c4];
+        window.orderMap[c4] = { qty: v4.qty||0, desc1: v4.desc1||'', desc2: v4.desc2||'', price: v4.price||'' };
+      }
+      if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
+      if (typeof window.updateStats === 'function') window.updateStats();
+    }
+  }
+
+  function startPolling() { syncToShared(); setInterval(syncToShared, POLL_MS); }
+
+  function init() {
+    var oldFab = document.querySelector('.sc-fab'); if(oldFab) oldFab.remove();
+    var oldOv = document.getElementById('scOverlay'); if(oldOv) oldOv.remove();
+    var oldPn = document.getElementById('scPanel'); if(oldPn) oldPn.remove();
+    getPageId(); // initialize PAGE_ID now that body exists
+    injectUI();
+    setTimeout(function() {
+      restorePageFromShared();
+      _restored = true;
+      startPolling();
+    }, 350);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else setTimeout(init, 150);
+})();
+
+</script>
+
+<script>
+// Shared-cart badge updater for Order Summary sidebar badge
+(function(){
+  function updateSharedBadge(){
+    try{
+      var sh=JSON.parse(localStorage.getItem('shimano_all_orders')||'{}');
+      var t=0;
+      Object.keys(sh).forEach(function(k){t+=Object.keys(sh[k]).length;});
+      var badge=document.getElementById('oBdg');
+      if(badge){badge.textContent=t;badge.style.display=t>0?'':'none';}
+      var ho=document.getElementById('hOrder');
+      if(ho)ho.textContent=Object.keys(window.orderMap||{}).length;
+    }catch(e){}
+  }
+  setInterval(updateSharedBadge, 800);
+  window.addEventListener('storage',function(e){
+    if(e.key==='shimano_all_orders')updateSharedBadge();
+  });
+})();
+</script>
+
+</body>
+</html>

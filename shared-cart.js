@@ -24,8 +24,8 @@
   }
 
   var SHARED_KEY   = 'shimano_all_orders';
-  var PAGE_LABELS  = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS' };
-  var PAGE_COLORS  = { hardgoods:'#0ea5e9', shoes:'#f59e0b', pedals:'#10b981' };
+  var PAGE_LABELS  = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS', lazer:'LAZER' };
+  var PAGE_COLORS  = { hardgoods:'#0ea5e9', shoes:'#f59e0b', pedals:'#10b981', lazer:'#ff3c00' };
   var POLL_MS      = 400;
   var PAGE_ID      = null; // lazy — set in init()
 
@@ -145,7 +145,7 @@
   }
 
   function collectAll() {
-    var shared = getShared(), all = [], order = ['hardgoods','shoes','pedals'];
+    var shared = getShared(), all = [], order = ['hardgoods','shoes','pedals','lazer'];
     for (var o = 0; o < order.length; o++) {
       var pg = order[o], items = shared[pg];
       if (!items) continue;
@@ -297,7 +297,7 @@ margin-top:8px;transition:all .2s}\
     if (!body) return;
 
     var shared = getShared(), allCount = 0, html = '', totalQty = 0;
-    var pageOrder = ['hardgoods','shoes','pedals'];
+    var pageOrder = ['hardgoods','shoes','pedals','lazer'];
 
     for (var p = 0; p < pageOrder.length; p++) {
       var pg = pageOrder[p], items = shared[pg];
@@ -505,6 +505,17 @@ margin-top:8px;transition:all .2s}\
         }
       }
       if (typeof window.saveOrder === 'function') window.saveOrder();
+      if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
+      if (typeof window.updateStats === 'function') window.updateStats();
+    }
+
+    // LAZER: uses window.orderMap
+    if (pid === 'lazer' && window.orderMap && typeof window.orderMap === 'object') {
+      if (Object.keys(window.orderMap).length > 0) return;
+      for (var q = 0; q < codes.length; q++) {
+        var c4 = codes[q], v4 = saved[c4];
+        window.orderMap[c4] = { qty: v4.qty||0, desc1: v4.desc1||'', desc2: v4.desc2||'', price: v4.price||'' };
+      }
       if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
       if (typeof window.updateStats === 'function') window.updateStats();
     }
