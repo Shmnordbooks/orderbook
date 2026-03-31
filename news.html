@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHIMANO — Latest Stories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c14; --card: #16161f; --border: #1e1e2e;
+    --text: #e8e8f0; --text-muted: #6b6b82; --shimano-blue: #0066cc;
+    --text-dim: #3a3a52; --shimano-blue-glow: rgba(0,102,204,.25); --radius: 10px;
+    --sidebar-w: 160px;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+  /* ═══ SIDEBAR — identical to shoes/pedals pattern ═══ */
+  .sidebar {
+    position: fixed; left:0; top:0; bottom:0;
+    width: var(--sidebar-w);
+    background: var(--card);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    padding: 10px 0;
+    z-index: 100;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  .sidebar::-webkit-scrollbar { display:none }
+  .cat-chip {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 12px;
+    margin: 2px 8px;
+    width: calc(100% - 16px);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600; font-size: 13px;
+    letter-spacing: .04em;
+    color: var(--text-muted);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    border-left: 3px solid transparent;
+    border-radius: 6px;
+    background: none;
+  }
+  .cat-chip:hover { background: rgba(255,255,255,.04); color: var(--text); }
+  .sidebar-sep { height: 1px; background: var(--border); margin: 4px 16px; }
+  .sidebar-section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .2em; text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 8px 16px 4px;
+  }
+  .order-chip-badge {
+    background: #0082CA; color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 800;
+    border-radius: 10px; padding: 1px 6px;
+    min-width: 18px; line-height: 1.4;
+    margin-left: auto; text-align: center;
+  }
+
+  /* ═══ MAIN CONTENT ═══ */
+  .main-content { margin-left: var(--sidebar-w); }
+
+  .header { padding: 28px 40px 0; max-width: 1400px; margin: 0 auto; }
+  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .logo-area { display: flex; align-items: center; gap: 16px; }
+  .shimano-logo { height: 22px; width: auto; filter: brightness(0) invert(1); opacity: .9; }
+  .logo-sep { width: 1px; height: 20px; background: var(--border); }
+  .logo-label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted); }
+  .header-meta { font-size: 12px; color: var(--text-muted); font-weight: 500; letter-spacing: .03em; }
+  .header h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: clamp(32px, 5vw, 52px); letter-spacing: -.02em; line-height: 1.05; margin: 22px 0 6px; background: linear-gradient(135deg, var(--text) 40%, var(--shimano-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; max-width: 520px; line-height: 1.5; }
+  .divider { height: 1px; background: linear-gradient(90deg, var(--shimano-blue), var(--border) 60%, transparent); margin-bottom: 28px; }
+
+  .status-bar { max-width: 1400px; margin: 0 auto; padding: 0 40px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .status-msg { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .06em; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #00c896; box-shadow: 0 0 8px rgba(0,200,150,.4); }
+  .status-count { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; color: var(--shimano-blue); background: rgba(0,102,204,.08); border: 1px solid rgba(0,102,204,.15); padding: 3px 10px; border-radius: 20px; letter-spacing: .05em; }
+
+  .grid-wrap { max-width: 1400px; margin: 0 auto; padding: 0 40px 60px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: transform .28s, border-color .28s, box-shadow .28s; display: flex; flex-direction: column; cursor: pointer; text-decoration: none; color: inherit; }
+  .card:hover { transform: translateY(-4px); border-color: rgba(0,102,204,.3); box-shadow: 0 12px 40px rgba(0,0,0,.35), 0 0 0 1px rgba(0,102,204,.1); }
+  .card-img-wrap { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #111119; }
+  .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .45s, filter .45s; filter: brightness(.88); }
+  .card:hover .card-img-wrap img { transform: scale(1.06); filter: brightness(1); }
+  .card-img-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(12,12,20,.7) 0%, transparent 50%); pointer-events: none; }
+  .card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; flex: 1; }
+  .card-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .1em; color: var(--shimano-blue); margin-bottom: 8px; }
+  .card-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; line-height: 1.3; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-excerpt { font-size: 13px; line-height: 1.55; color: var(--text-muted); flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 14px; }
+  .card-link-row { display: inline-flex; align-items: center; gap: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .08em; color: var(--shimano-blue); transition: gap .25s, color .25s; margin-top: auto; }
+  .card:hover .card-link-row { gap:10px; color:#3399ff }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none }
+    .main-content { margin-left: 0 }
+    .header { padding: 20px 16px 0 } .status-bar { padding: 0 16px 18px } .grid-wrap { padding: 0 16px 40px } .grid { grid-template-columns: 1fr } .logo-label, .logo-sep { display: none }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ SIDEBAR ═══ -->
+<nav class="sidebar">
+  <a href="index.html" class="cat-chip" style="margin:4px 8px 4px;width:calc(100% - 16px);border-left:3px solid rgba(255,120,0,0.5);color:#ff7800;font-weight:700;">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="flex-shrink:0"><path d="M8 2L1 8h2v6h4v-4h2v4h4V8h2z"/></svg>
+    Main Page
+  </a>
+  <div class="sidebar-sep" style="margin:4px 16px"></div>
+  <a href="hardgoods.html?skip=true#openOrderSummary" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #0082CA;color:#0082CA;font-weight:800;background:rgba(0,130,202,0.08);">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0;opacity:0.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+    Order Summary <span class="order-chip-badge" id="sharedCartBadge" style="display:none">0</span>
+  </a>
+  <div class="sidebar-sep" style="margin:4px 16px"></div>
+  <a href="catalogues.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #8b5cf6;color:#8b5cf6;font-weight:700;opacity:0.7;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+    CATALOGUES
+  </a>
+  <!-- ★ News & Tec — ACTIVE on this page ★ -->
+  <button class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #06b6d4;color:#06b6d4;font-weight:700;background:rgba(6,182,212,0.12);pointer-events:none;" disabled>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01 0 2z"/><path d="M12 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>
+    News &amp; Tec <span style="font-size:9px;opacity:0.5;margin-left:auto">●</span>
+  </button>
+  <div class="sidebar-sep" style="margin:4px 16px"></div>
+  <div class="sidebar-section-label">PRODUCTS</div>
+  <a href="hardgoods.html?skip=true" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #0ea5e9;color:#0ea5e9;font-weight:700;opacity:0.7;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+    HARDGOODS
+  </a>
+  <a href="shoes.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #f59e0b;color:#f59e0b;font-weight:700;opacity:0.7;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M2 18s1-6 4-6c2 0 3 2 5 2s3-2 5-2c3 0 4 6 4 6"/><path d="M4 12l2-4 3 2 3-4 3 4 3-2"/></svg>
+    SHOES
+  </a>
+  <a href="pedals.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #10b981;color:#10b981;font-weight:700;opacity:0.7;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7"/></svg>
+    PEDALS
+  </a>
+  <a href="lazer.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #ef4444;color:#ef4444;font-weight:700;opacity:0.7;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M12 2C8 2 4 5 4 9c0 3 2 5 4 6v1a2 2 0 004 0v-1c2-1 4-3 4-6 0-4-4-7-4-7z"/><path d="M9 21h6"/></svg>
+    LAZER
+  </a>
+</nav>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<div class="main-content">
+
+<div class="header">
+  <div class="header-top">
+    <div class="logo-area">
+      <img class="shimano-logo" src="https://bike.shimano.com/content/dam/one-website/common/logo/shimano-logo.png" alt="SHIMANO" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 28%22><text x=%220%22 y=%2222%22 font-family=%22Barlow Condensed,sans-serif%22 font-weight=%22800%22 font-size=%2226%22 fill=%22white%22 letter-spacing=%220.08em%22>SHIMANO</text></svg>'">
+      <div class="logo-sep"></div>
+      <span class="logo-label">News &amp; Stories</span>
+    </div>
+    <span class="header-meta" id="fetchDate"></span>
+  </div>
+  <h1>Latest Stories</h1>
+  <p class="header-sub">Race reports, product deep-dives, trail culture and rider stories.</p>
+  <div class="divider"></div>
+</div>
+
+<div class="status-bar">
+  <span class="status-msg">
+    <span class="status-dot"></span>
+    SYSTEM ONLINE
+  </span>
+  <span class="status-count" id="statusCount"></span>
+</div>
+
+<div class="grid-wrap">
+  <div class="grid" id="grid"></div>
+</div>
+
+</div><!-- /main-content -->
+
+<script src="news-data.js"></script>
+
+<script>
+  document.getElementById('fetchDate').textContent = new Date().toLocaleDateString('en-US',{ weekday:'short', year:'numeric', month:'short', day:'numeric' });
+
+  // Shared cart badge updater
+  (function(){
+    function upd(){
+      var b = document.getElementById('sharedCartBadge'); if(!b) return;
+      try {
+        var d = JSON.parse(localStorage.getItem('shimano_all_orders'))||{}, t=0;
+        for(var k in d) t += Object.keys(d[k]).length;
+        b.textContent = t; b.style.display = t > 0 ? '' : 'none';
+      } catch(e){ b.style.display='none'; }
+    }
+    upd(); setInterval(upd, 1500);
+    window.addEventListener('storage', function(e){ if(e.key==='shimano_all_orders') upd(); });
+  })();
+
+  function renderNews() {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    
+    if (typeof SHIMANO_NEWS === 'undefined' || SHIMANO_NEWS.length === 0) {
+      grid.innerHTML = '<div style="grid-column:1/-1; padding:40px; text-align:center; color:var(--text-muted);">Haber bulunamadı.</div>';
+      return;
+    }
+
+    document.getElementById('statusCount').textContent = SHIMANO_NEWS.length + ' ARTICLES';
+
+    SHIMANO_NEWS.forEach(function(s) {
+      const card = document.createElement('a');
+      card.className = 'card';
+      card.href = s.link;
+      card.target = '_blank';
+
+      const imgHtml = s.img 
+        ? `<img src="${s.img}" alt="${s.title}" loading="lazy">` 
+        : `<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#222;">SHIMANO</div>`;
+
+      card.innerHTML = `
+        <div class="card-img-wrap">${imgHtml}</div>
+        <div class="card-body">
+          <span class="card-date">${s.date}</span>
+          <h3 class="card-title">${s.title}</h3>
+          <p class="card-excerpt">${s.excerpt}</p>
+          <span class="card-link-row">READ STORY <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', renderNews);
+</script>
+</body>
+</html>
