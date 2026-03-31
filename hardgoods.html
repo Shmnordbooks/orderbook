@@ -2860,14 +2860,27 @@ function addSummaryChip() {
     { label:'PEDALS',    href:'pedals.html',    color:'#10b981', icon:'<circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7"/>' },
     { label:'LAZER',     href:'lazer.html',     color:'#ef4444', icon:'<path d="M12 2C8 2 4 5 4 9c0 3 2 5 4 6v1a2 2 0 004 0v-1c2-1 4-3 4-6 0-4-4-7-4-7z"/><path d="M9 21h6"/>' }
   ];
-  // Reference point: insert CATALOGS section after chip
+  // Reference point: insert CATALOGUES + PRODUCTS section after chip
   var navSep = document.createElement('div');
   navSep.className = 'sidebar-sep';
   catFilters.insertBefore(navSep, chip.nextSibling);
+
+  // CATALOGUES button — above PRODUCTS title
+  var catBtn = document.createElement('a');
+  catBtn.className = 'cat-chip';
+  catBtn.href = 'catalogues.html';
+  catBtn.style.cssText = 'margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #8b5cf6;color:#8b5cf6;font-weight:700;opacity:0.7;';
+  catBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> CATALOGUES';
+  catFilters.insertBefore(catBtn, navSep.nextSibling);
+
+  var navSepCat = document.createElement('div');
+  navSepCat.className = 'sidebar-sep';
+  catFilters.insertBefore(navSepCat, catBtn.nextSibling);
+
   var navTitle = document.createElement('div');
   navTitle.className = 'sidebar-section-label';
-  navTitle.textContent = 'CATALOGS';
-  catFilters.insertBefore(navTitle, navSep.nextSibling);
+  navTitle.textContent = 'PRODUCTS';
+  catFilters.insertBefore(navTitle, navSepCat.nextSibling);
   var lastNavEl = navTitle;
   navLabels.forEach(function(n) {
     var btn = document.createElement(n.active ? 'button' : 'a');

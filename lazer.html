@@ -115,7 +115,7 @@
   .model-gallery-main { flex: 0 0 280px; height: 200px; border-radius: 8px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; }
   .model-gallery-main img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.25s; }
   .model-gallery-main img:hover { transform: scale(1.04); }
-  .model-gallery-colors { display: flex; flex-direction: column; gap: 4px; }
+  .model-gallery-colors { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
   .color-group-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); padding:1px 0; border-bottom:1px solid var(--border); margin-top:2px; }
   .color-group-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
   .model-gallery-thumb { width: 68px; height: 50px; border-radius: 6px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; flex-shrink: 0; transition: border-color 0.15s; }
@@ -321,7 +321,12 @@
       Order Summary <span id="oBdg" style="background:#0082CA;color:white;font-family:Barlow Condensed,sans-serif;font-size:10px;font-weight:800;border-radius:10px;padding:1px 6px;min-width:18px;line-height:1.4;margin-left:auto;text-align:center;">0</span>
     </a>
     <div class="sidebar-sep" style="margin:4px 16px"></div>
-    <div class="sidebar-section-label">CATALOGS</div>
+    <a href="catalogues.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #8b5cf6;color:#8b5cf6;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      CATALOGUES
+    </a>
+    <div class="sidebar-sep" style="margin:4px 16px"></div>
+    <div class="sidebar-section-label">PRODUCTS</div>
     <a href="hardgoods.html?skip=true" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0ea5e9;color:#0ea5e9;font-weight:700;opacity:0.7;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
       HARDGOODS
@@ -397,9 +402,20 @@
     </div>
   </div>
 </div>
-@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}
+<style>@keyframes slideIn{from{transform:translateX(100%)}to{transform:translateX(0)}}</style>
 
 <div class="toast-container" id="toastContainer"></div>
+
+<div class="lightbox-overlay" id="lbOverlay" onclick="if(event.target===this)closeLightbox()">
+  <div class="lightbox-box">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img class="lightbox-img" src="" alt="">
+    <div class="lightbox-info">
+      <span class="lightbox-model"></span>
+      <span class="lightbox-color" style="font-family:'Barlow Condensed',sans-serif;font-size:14px;color:var(--text-muted);letter-spacing:0.05em"></span>
+    </div>
+  </div>
+</div>
 
 <script>
 // Theme toggle
@@ -514,6 +530,90 @@ function getColorStyle(desc) {
   return '';
 }
 
+// ── Model Image URLs (lazersport.com CDN) ──
+// URL patterns vary per model/year, so we try multiple patterns via onerror fallback
+var MODEL_SLUG = {
+  "VOLANTE":"volante-kineticore","VICTOR":"victor-kineticore","VENTO":"vento-kineticore","Z1":"z1-kineticore",
+  "Sphere":"sphere-kineticore","Strada":"strada-kineticore","Tonic":"tonic-kineticore","Tempo":"tempo-kineticore",
+  "Jackal":"jackal-kineticore","Coyote":"coyote-kineticore","Lupo":"lupo-kineticore","Finch":"finch-kineticore",
+  "Cage":"cage-kineticore","Chase":"chase-kineticore","Cerro":"cerro-kineticore","Codax":"codax-kineticore",
+  "Verde":"verde-kineticore","CityZen":"cityzen-kineticore","MAZE":"maze-kineticore","Nutz":"nutz-kineticore",
+  "Pnut":"pnut-kineticore","MAZE JR":"maze-jr-kineticore"
+};
+// Short model slug for filename part
+var MODEL_FSLUG = {
+  "VOLANTE":"volante-kineticore","VICTOR":"victor-kineticore","VENTO":"vento","Z1":"z1_kineticore",
+  "Sphere":"sphere_kineticore","Strada":"strada_kineticore","Tonic":"tonic_kineticore","Tempo":"tempo_kineticore",
+  "Jackal":"jackal_kineticore","Coyote":"coyote_kineticore","Lupo":"lupo_kineticore","Finch":"finch_kineticore",
+  "Cage":"cage_kineticore","Chase":"chase_kineticore","Cerro":"cerro_kineticore","Codax":"codax_kineticore",
+  "Verde":"verde_kineticore","CityZen":"cityzen_kineticore","MAZE":"maze_kineticore","Nutz":"nutz_kineticore",
+  "Pnut":"pnut_kineticore","MAZE JR":"maze-jr_kineticore"
+};
+
+var _BASE='https://www.lazersport.com/_assets/images/kineticore/helmets/';
+
+function colorToFolder(c){
+  return c.replace(/\s+(XXS|XS|S|M|L|XL|XXL|Uni|S-M|M-L)$/i,'')
+    .replace(/\s*\(Turnfit\)/i,'').replace(/\s*\+\S+/g,'')
+    .trim().toLowerCase().replace(/[\s&]+/g,'-').replace(/[^a-z0-9-]/g,'');
+}
+function colorToFile(c){
+  return colorToFolder(c).replace(/-/g,'_');
+}
+function colorToFileNoPfx(c){
+  return colorToFile(c).replace(/^matte_/,'').replace(/^full_/,'');
+}
+
+// Generate candidate URLs to try (first match wins via onerror chain)
+function imgCandidates(mn,colorName,sz){
+  var ms=MODEL_SLUG[mn], fs=MODEL_FSLUG[mn];
+  if(!ms)return[];
+  var cf=colorToFolder(colorName||'');
+  var cu=colorToFile(colorName||'');
+  var cu2=colorToFileNoPfx(colorName||'');
+  if(!cf)return[];
+  var dim=sz==='thumb'?'800x600':'1400x1011';
+  var p=_BASE+ms+'/product-images/'+cf+'/thumbs/';
+  var g=_BASE+ms+'/gallery/'+cf+'/';
+  // Also try without -kineticore in path
+  var ms2=ms.replace('-kineticore','');
+  var p2=_BASE+ms2+'/product-images/'+cf+'/thumbs/';
+  var g2=_BASE+ms2+'/gallery/'+cf+'/';
+  return [
+    p+'my2026_'+fs+'_'+cu+'_angle_1400x1011'+dim+'.jpg',
+    p+'my2025_'+fs+'_'+cu+'_angle_1400x1011'+dim+'.jpg',
+    p+'my2025_'+fs+'_'+cu+'_45_1400x1011'+dim+'.jpg',
+    p+'my2023_'+fs+'-'+cf+'_right_1400x1011'+dim+'.jpg',
+    p+'2025_'+ms2+'_'+cu2+'_45_1400x1011'+dim+'.jpg',
+    g+'my2025_'+ms2+'_'+cf+'_45_1400x1011.jpg',
+    g2+'my2025_'+ms2+'_'+cf+'_45_1400x1011.jpg',
+    p2+'my2025_'+fs+'_'+cu+'_angle_1400x1011'+dim+'.jpg'
+  ];
+}
+
+function getModelImg(mn,colorName){
+  var c=imgCandidates(mn,colorName,'thumb');
+  return c.length?c[0]:null;
+}
+function getModelImgHi(mn,colorName){
+  var c=imgCandidates(mn,colorName,'full');
+  return c.length?c[0]:null;
+}
+// onerror handler: try next candidate URL
+function tryNextImg(img){
+  var tries=JSON.parse(img.getAttribute('data-tries')||'[]');
+  var idx=parseInt(img.getAttribute('data-tidx')||'0')+1;
+  if(idx<tries.length){
+    img.setAttribute('data-tidx',idx);
+    img.src=tries[idx];
+  } else {
+    // All failed - show placeholder
+    img.style.display='none';
+    var ph=img.parentNode.querySelector('.img-placeholder');
+    if(ph)ph.style.display='flex';
+  }
+}
+
 function toggleModel(mn){
   if(openModels.has(mn))openModels.delete(mn);else openModels.add(mn);
   render();
@@ -557,6 +657,38 @@ function render(){
       // Detail panel with items-grid (shoes style)
       if(isOpen){
         cHTML+='<div class="model-items" style="display:block">';
+
+        // ── Photo Gallery ──
+        var colorKeys = Object.keys(md.colors||{});
+        var firstColor = colorKeys[0]||'';
+        var mainCands = imgCandidates(mn, firstColor, 'thumb');
+        if(mainCands.length){
+          cHTML+='<div class="model-gallery">';
+          cHTML+='<div class="model-gallery-main" onclick="openLightbox(&quot;'+mn+'&quot;,&quot;'+firstColor.replace(/"/g,'&amp;quot;')+'&quot;)">';
+          cHTML+='<img src="'+mainCands[0]+'" alt="'+mn+'" loading="lazy" data-tries=\''+JSON.stringify(mainCands)+'\' data-tidx="0" onerror="tryNextImg(this)">';
+          cHTML+='<div class="img-placeholder" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-family:Barlow Condensed,sans-serif;font-size:24px;font-weight:800;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase;opacity:0.4">'+mn+'</div>';
+          cHTML+='</div>';
+          // Color thumbnails
+          if(colorKeys.length>1){
+            cHTML+='<div class="model-gallery-colors">';
+            colorKeys.forEach(function(ck){
+              var tc=imgCandidates(mn,ck,'thumb');
+              if(tc.length){
+                cHTML+='<div class="model-gallery-thumb" onclick="swapGallery(this,&quot;'+mn+'&quot;,&quot;'+ck.replace(/"/g,'&amp;quot;')+'&quot;)">';
+                cHTML+='<img src="'+tc[0]+'" alt="'+ck+'" loading="lazy" data-tries=\''+JSON.stringify(tc)+'\' data-tidx="0" onerror="tryNextImg(this)">';
+                cHTML+='</div>';
+              }
+            });
+            cHTML+='</div>';
+          }
+          cHTML+='</div>';
+        } else {
+          // Placeholder - model name as visual
+          cHTML+='<div class="model-gallery" style="padding:12px 0 10px">';
+          cHTML+='<div style="flex:0 0 280px;height:120px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:Barlow Condensed,sans-serif;font-size:28px;font-weight:800;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase;opacity:0.5">'+mn+'</div>';
+          cHTML+='</div>';
+        }
+
         var colors=md.colors||{};
         Object.keys(colors).forEach(function(clr){
           var items=colors[clr].filter(function(it){return !sT||it.sku.toLowerCase().includes(sT)||it.desc1.toLowerCase().includes(sT)||it.desc2.toLowerCase().includes(sT)||mn.toLowerCase().includes(sT);});
@@ -595,6 +727,46 @@ function render(){
   var sh='<strong>'+tMod+'</strong> model, <strong>'+tSKU+'</strong> SKU';
   Object.keys(cCnts).forEach(function(ck){sh+=' &nbsp;|&nbsp; <span style="color:'+CC[ck]+'">\u25cf '+CL[ck]+': <strong>'+cCnts[ck]+'</strong></span>';});
   document.getElementById('sBar').innerHTML=sh;
+}
+
+function swapGallery(thumbEl, mn, colorName){
+  var card = thumbEl.closest('.model-card');
+  if(!card) return;
+  var mainImg = card.querySelector('.model-gallery-main img');
+  var cands = imgCandidates(mn, colorName, 'thumb');
+  if(mainImg && cands.length){
+    mainImg.setAttribute('data-tries', JSON.stringify(cands));
+    mainImg.setAttribute('data-tidx','0');
+    mainImg.src = cands[0];
+    mainImg.style.display='';
+    var ph=mainImg.parentNode.querySelector('.img-placeholder');
+    if(ph)ph.style.display='none';
+  }
+  var mainDiv = card.querySelector('.model-gallery-main');
+  if(mainDiv) mainDiv.setAttribute('onclick','openLightbox("'+mn+'","'+colorName.replace(/"/g,'&quot;')+'")');
+  card.querySelectorAll('.model-gallery-thumb').forEach(function(t){t.classList.remove('active')});
+  thumbEl.classList.add('active');
+}
+
+function openLightbox(mn, colorName){
+  var cands = imgCandidates(mn, colorName, 'full');
+  if(!cands.length) return;
+  var ov = document.getElementById('lbOverlay');
+  if(!ov) return;
+  var img = ov.querySelector('.lightbox-img');
+  img.setAttribute('data-tries', JSON.stringify(cands));
+  img.setAttribute('data-tidx','0');
+  img.onerror = function(){ tryNextImg(this); };
+  img.src = cands[0];
+  ov.querySelector('.lightbox-model').textContent = mn;
+  var infoColor = ov.querySelector('.lightbox-color');
+  if(infoColor) infoColor.textContent = colorName;
+  ov.classList.add('active');
+}
+
+function closeLightbox(){
+  var ov = document.getElementById('lbOverlay');
+  if(ov) { ov.classList.remove('active'); ov.querySelector('.lightbox-img').src=''; }
 }
 
 function handleQty(inp){
