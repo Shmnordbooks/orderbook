@@ -105,6 +105,275 @@
     .main-content { margin-left: 0 }
     .header { padding: 20px 16px 0 } .status-bar { padding: 0 16px 18px } .grid-wrap { padding: 0 16px 40px } .grid { grid-template-columns: 1fr } .logo-label, .logo-sep { display: none }
   }
+
+
+/* ══════════════════════════════════════════
+   UNIFIED NAV — aynı konum, aynı font, aynı renk
+   ══════════════════════════════════════════ */
+.sidebar, nav.sidebar, aside.sidebar {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 160px !important;
+  min-width: 160px !important;
+  max-width: 160px !important;
+  background: #0f1520 !important;
+  border-right: 1px solid #1c2538 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 10px 0 !important;
+  z-index: 100 !important;
+  overflow-y: auto !important;
+  scrollbar-width: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+}
+.sidebar::-webkit-scrollbar { display: none !important; }
+
+/* Ana içerik — sidebar genişliği kadar sola margin */
+.main-content, .catalog-layout, .layout {
+  margin-left: 160px !important;
+}
+
+/* Tüm sidebar linkleri — aynı font, aynı boyut */
+.sidebar .cat-chip,
+.sidebar a.cat-chip,
+.sidebar button.cat-chip,
+.sidebar .sb-chip,
+.sidebar a.sb-chip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 12px !important;
+  margin: 2px 8px !important;
+  width: calc(100% - 16px) !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  letter-spacing: .04em !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  border: 1px solid transparent !important;
+  border-left: 3px solid transparent !important;
+  border-radius: 6px !important;
+  background: none !important;
+  transition: background .15s, color .15s !important;
+  text-transform: none !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  box-sizing: border-box !important;
+  line-height: 1.4 !important;
+}
+.sidebar .cat-chip:hover,
+.sidebar .sb-chip:hover {
+  background: rgba(255,255,255,.04) !important;
+}
+
+/* SVG ikonlar */
+.sidebar .cat-chip svg,
+.sidebar .sb-chip svg,
+.sidebar .cat-chip .cat-chip-svg {
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Ayırıcı çizgiler */
+.sidebar .sidebar-sep,
+.sidebar .sb-sep {
+  height: 1px !important;
+  background: #1c2538 !important;
+  margin: 4px 16px !important;
+}
+
+/* Section başlıkları */
+.sidebar .sidebar-section-label,
+.sidebar .sb-heading {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .2em !important;
+  text-transform: uppercase !important;
+  color: #3e4f6e !important;
+  padding: 8px 16px 4px !important;
+}
+
+/* Badge */
+.sidebar .order-chip-badge {
+  background: #0082CA !important;
+  color: white !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  border-radius: 10px !important;
+  padding: 1px 6px !important;
+  min-width: 18px !important;
+  line-height: 1.4 !important;
+  margin-left: auto !important;
+  text-align: center !important;
+}
+
+/* Donut chart kompakt */
+.sidebar .sidebar-donut-wrap {
+  padding: 8px 10px 4px !important;
+  gap: 6px !important;
+}
+.sidebar .sidebar-donut-canvas {
+  width: 48px !important;
+  height: 48px !important;
+}
+.sidebar .sidebar-donut-item {
+  font-size: 10px !important;
+}
+.sidebar .sidebar-donut-dot {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+@media (max-width: 768px) {
+  .sidebar, nav.sidebar, aside.sidebar { display: none !important; }
+  .main-content, .catalog-layout, .layout { margin-left: 0 !important; }
+}
+
+
+
+/* ══════════════════════════════════════════
+   UNIFIED NAV COLORS — soluk tek ton, rengarenk değil
+   ══════════════════════════════════════════ */
+.sidebar .cat-chip,
+.sidebar a.cat-chip,
+.sidebar button.cat-chip,
+.sidebar .sb-chip,
+.sidebar a.sb-chip,
+.sidebar a[style],
+.sidebar button[style] {
+  color: #7a8ba8 !important;
+  border-left-color: transparent !important;
+}
+.sidebar .cat-chip:hover,
+.sidebar .sb-chip:hover,
+.sidebar a[style]:hover {
+  color: #c0cde0 !important;
+  background: rgba(255,255,255,.04) !important;
+}
+.sidebar .cat-chip.active,
+.sidebar .sb-chip.active,
+.sidebar button.cat-chip:disabled {
+  color: #a0b4cc !important;
+  background: rgba(120,160,200,.08) !important;
+  border-left-color: #4a6a8a !important;
+}
+/* Active sayfa dot işareti */
+.sidebar .cat-chip.active span[style*="opacity"],
+.sidebar button:disabled span[style*="opacity"] {
+  color: #4a6a8a !important;
+}
+/* Order Summary — biraz daha belirgin ama yine soluk */
+.sidebar #sharedOrderSummaryBtn {
+  color: #7a8ba8 !important;
+  border-left-color: transparent !important;
+  background: none !important;
+}
+.sidebar #sharedOrderSummaryBtn:hover {
+  color: #c0cde0 !important;
+}
+/* Section başlıkları */
+.sidebar .sidebar-section-label,
+.sidebar .sb-heading {
+  color: #3e4f6e !important;
+}
+
+
+
+
+/* ══════════════════════════════════════════
+   PARLAK BEYAZ ANA BAŞLIKLAR
+   ══════════════════════════════════════════ */
+
+/* Tüm sidebar nav linklerini parlak yap */
+.sidebar .cat-chip,
+.sidebar a.cat-chip,
+.sidebar button.cat-chip,
+.sidebar .sb-chip,
+.sidebar a.sb-chip,
+.sidebar a[style],
+.sidebar button[style],
+.sidebar #sharedOrderSummaryBtn {
+  color: #e0e8f2 !important;
+  font-weight: 700 !important;
+}
+
+/* Main Page — soluk bırak */
+.sidebar a.cat-chip[href="index.html"],
+.sidebar a.cat-chip[href="Pedalindex.html"],
+.sidebar a.sb-chip[href="index.html"],
+.sidebar a.sb-chip[href="Pedalindex.html"] {
+  color: #7a8ba8 !important;
+  font-weight: 600 !important;
+}
+
+/* Alt kategori butonları (Bottom Brackets, Road, MTB vb.) — soluk */
+.sidebar .cat-chip[data-cat],
+.sidebar .cat-chip[onclick*="setCat"],
+.sidebar #catFilters .cat-chip,
+.sidebar button.cat-chip[id^="cat-"] {
+  color: #7a8ba8 !important;
+  font-weight: 500 !important;
+}
+.sidebar .cat-chip[data-cat].active,
+.sidebar #catFilters .cat-chip.active,
+.sidebar button.cat-chip[id^="cat-"].active {
+  color: #a0b4cc !important;
+  font-weight: 600 !important;
+}
+
+/* Cover Page butonu — soluk */
+.sidebar .cover-page-btn,
+.sidebar .cat-chip.cover-page-btn {
+  color: #7a8ba8 !important;
+  font-weight: 500 !important;
+}
+
+/* Hover — hepsi için */
+.sidebar .cat-chip:hover,
+.sidebar .sb-chip:hover,
+.sidebar a:hover {
+  color: #ffffff !important;
+}
+
+/* Light mode */
+html.light .sidebar .cat-chip,
+html.light .sidebar a.cat-chip,
+html.light .sidebar button.cat-chip,
+html.light .sidebar .sb-chip,
+html.light .sidebar a.sb-chip,
+html.light .sidebar a[style],
+html.light .sidebar button[style],
+html.light .sidebar #sharedOrderSummaryBtn {
+  color: #1a2a44 !important;
+}
+html.light .sidebar a.cat-chip[href="index.html"],
+html.light .sidebar a.cat-chip[href="Pedalindex.html"],
+html.light .sidebar a.sb-chip[href="index.html"],
+html.light .sidebar a.sb-chip[href="Pedalindex.html"] {
+  color: #6b7a90 !important;
+}
+html.light .sidebar .cat-chip[data-cat],
+html.light .sidebar .cat-chip[onclick*="setCat"],
+html.light .sidebar #catFilters .cat-chip,
+html.light .sidebar button.cat-chip[id^="cat-"],
+html.light .sidebar .cover-page-btn {
+  color: #6b7a90 !important;
+}
+html.light .sidebar .cat-chip:hover,
+html.light .sidebar .sb-chip:hover,
+html.light .sidebar a:hover {
+  color: #0a1525 !important;
+}
 </style>
 </head>
 <body>

@@ -19,7 +19,7 @@
     }
   })();
 </script>
-<title>Shimano — Pedals | March 2026</title>
+<title>Shimano — Pedals | April 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -255,6 +255,275 @@
     .items-grid { grid-template-columns: 1fr !important; }
   }
 
+
+
+/* ══════════════════════════════════════════
+   UNIFIED NAV — aynı konum, aynı font, aynı renk
+   ══════════════════════════════════════════ */
+.sidebar, nav.sidebar, aside.sidebar {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 160px !important;
+  min-width: 160px !important;
+  max-width: 160px !important;
+  background: #0f1520 !important;
+  border-right: 1px solid #1c2538 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 10px 0 !important;
+  z-index: 100 !important;
+  overflow-y: auto !important;
+  scrollbar-width: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+}
+.sidebar::-webkit-scrollbar { display: none !important; }
+
+/* Ana içerik — sidebar genişliği kadar sola margin */
+.main-content, .catalog-layout, .layout {
+  margin-left: 160px !important;
+}
+
+/* Tüm sidebar linkleri — aynı font, aynı boyut */
+.sidebar .cat-chip,
+.sidebar a.cat-chip,
+.sidebar button.cat-chip,
+.sidebar .sb-chip,
+.sidebar a.sb-chip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 12px !important;
+  margin: 2px 8px !important;
+  width: calc(100% - 16px) !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  letter-spacing: .04em !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  border: 1px solid transparent !important;
+  border-left: 3px solid transparent !important;
+  border-radius: 6px !important;
+  background: none !important;
+  transition: background .15s, color .15s !important;
+  text-transform: none !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  box-sizing: border-box !important;
+  line-height: 1.4 !important;
+}
+.sidebar .cat-chip:hover,
+.sidebar .sb-chip:hover {
+  background: rgba(255,255,255,.04) !important;
+}
+
+/* SVG ikonlar */
+.sidebar .cat-chip svg,
+.sidebar .sb-chip svg,
+.sidebar .cat-chip .cat-chip-svg {
+  width: 14px !important;
+  height: 14px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Ayırıcı çizgiler */
+.sidebar .sidebar-sep,
+.sidebar .sb-sep {
+  height: 1px !important;
+  background: #1c2538 !important;
+  margin: 4px 16px !important;
+}
+
+/* Section başlıkları */
+.sidebar .sidebar-section-label,
+.sidebar .sb-heading {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: .2em !important;
+  text-transform: uppercase !important;
+  color: #3e4f6e !important;
+  padding: 8px 16px 4px !important;
+}
+
+/* Badge */
+.sidebar .order-chip-badge {
+  background: #0082CA !important;
+  color: white !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  border-radius: 10px !important;
+  padding: 1px 6px !important;
+  min-width: 18px !important;
+  line-height: 1.4 !important;
+  margin-left: auto !important;
+  text-align: center !important;
+}
+
+/* Donut chart kompakt */
+.sidebar .sidebar-donut-wrap {
+  padding: 8px 10px 4px !important;
+  gap: 6px !important;
+}
+.sidebar .sidebar-donut-canvas {
+  width: 48px !important;
+  height: 48px !important;
+}
+.sidebar .sidebar-donut-item {
+  font-size: 10px !important;
+}
+.sidebar .sidebar-donut-dot {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+@media (max-width: 768px) {
+  .sidebar, nav.sidebar, aside.sidebar { display: none !important; }
+  .main-content, .catalog-layout, .layout { margin-left: 0 !important; }
+}
+
+
+
+/* ══════════════════════════════════════════
+   UNIFIED NAV COLORS — soluk tek ton, rengarenk değil
+   ══════════════════════════════════════════ */
+.sidebar .cat-chip,
+.sidebar a.cat-chip,
+.sidebar button.cat-chip,
+.sidebar .sb-chip,
+.sidebar a.sb-chip,
+.sidebar a[style],
+.sidebar button[style] {
+  color: #7a8ba8 !important;
+  border-left-color: transparent !important;
+}
+.sidebar .cat-chip:hover,
+.sidebar .sb-chip:hover,
+.sidebar a[style]:hover {
+  color: #c0cde0 !important;
+  background: rgba(255,255,255,.04) !important;
+}
+.sidebar .cat-chip.active,
+.sidebar .sb-chip.active,
+.sidebar button.cat-chip:disabled {
+  color: #a0b4cc !important;
+  background: rgba(120,160,200,.08) !important;
+  border-left-color: #4a6a8a !important;
+}
+/* Active sayfa dot işareti */
+.sidebar .cat-chip.active span[style*="opacity"],
+.sidebar button:disabled span[style*="opacity"] {
+  color: #4a6a8a !important;
+}
+/* Order Summary — biraz daha belirgin ama yine soluk */
+.sidebar #sharedOrderSummaryBtn {
+  color: #7a8ba8 !important;
+  border-left-color: transparent !important;
+  background: none !important;
+}
+.sidebar #sharedOrderSummaryBtn:hover {
+  color: #c0cde0 !important;
+}
+/* Section başlıkları */
+.sidebar .sidebar-section-label,
+.sidebar .sb-heading {
+  color: #3e4f6e !important;
+}
+
+
+
+
+/* ══════════════════════════════════════════
+   PARLAK BEYAZ ANA BAŞLIKLAR
+   ══════════════════════════════════════════ */
+
+/* Tüm sidebar nav linklerini parlak yap */
+.sidebar .cat-chip,
+.sidebar a.cat-chip,
+.sidebar button.cat-chip,
+.sidebar .sb-chip,
+.sidebar a.sb-chip,
+.sidebar a[style],
+.sidebar button[style],
+.sidebar #sharedOrderSummaryBtn {
+  color: #e0e8f2 !important;
+  font-weight: 700 !important;
+}
+
+/* Main Page — soluk bırak */
+.sidebar a.cat-chip[href="index.html"],
+.sidebar a.cat-chip[href="Pedalindex.html"],
+.sidebar a.sb-chip[href="index.html"],
+.sidebar a.sb-chip[href="Pedalindex.html"] {
+  color: #7a8ba8 !important;
+  font-weight: 600 !important;
+}
+
+/* Alt kategori butonları (Bottom Brackets, Road, MTB vb.) — soluk */
+.sidebar .cat-chip[data-cat],
+.sidebar .cat-chip[onclick*="setCat"],
+.sidebar #catFilters .cat-chip,
+.sidebar button.cat-chip[id^="cat-"] {
+  color: #7a8ba8 !important;
+  font-weight: 500 !important;
+}
+.sidebar .cat-chip[data-cat].active,
+.sidebar #catFilters .cat-chip.active,
+.sidebar button.cat-chip[id^="cat-"].active {
+  color: #a0b4cc !important;
+  font-weight: 600 !important;
+}
+
+/* Cover Page butonu — soluk */
+.sidebar .cover-page-btn,
+.sidebar .cat-chip.cover-page-btn {
+  color: #7a8ba8 !important;
+  font-weight: 500 !important;
+}
+
+/* Hover — hepsi için */
+.sidebar .cat-chip:hover,
+.sidebar .sb-chip:hover,
+.sidebar a:hover {
+  color: #ffffff !important;
+}
+
+/* Light mode */
+html.light .sidebar .cat-chip,
+html.light .sidebar a.cat-chip,
+html.light .sidebar button.cat-chip,
+html.light .sidebar .sb-chip,
+html.light .sidebar a.sb-chip,
+html.light .sidebar a[style],
+html.light .sidebar button[style],
+html.light .sidebar #sharedOrderSummaryBtn {
+  color: #1a2a44 !important;
+}
+html.light .sidebar a.cat-chip[href="index.html"],
+html.light .sidebar a.cat-chip[href="Pedalindex.html"],
+html.light .sidebar a.sb-chip[href="index.html"],
+html.light .sidebar a.sb-chip[href="Pedalindex.html"] {
+  color: #6b7a90 !important;
+}
+html.light .sidebar .cat-chip[data-cat],
+html.light .sidebar .cat-chip[onclick*="setCat"],
+html.light .sidebar #catFilters .cat-chip,
+html.light .sidebar button.cat-chip[id^="cat-"],
+html.light .sidebar .cover-page-btn {
+  color: #6b7a90 !important;
+}
+html.light .sidebar .cat-chip:hover,
+html.light .sidebar .sb-chip:hover,
+html.light .sidebar a:hover {
+  color: #0a1525 !important;
+}
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -264,7 +533,7 @@
   <div class="header-inner">
     <div class="logo"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAA3AMoDASIAAhEBAxEB/8QAHAABAAMBAQEBAQAAAAAAAAAAAAUGBwQDAggB/8QARxAAAAUDAQQDCgoHCQAAAAAAAAECAwQFBhEHEhMhMQg3cRYiQVFhcoGisdEUFRcyVnSRobKzMzQ1NnPBwiNESFV1gpKU4f/EABwBAAIDAQEBAQAAAAAAAAAAAAADAQIEBQYHCP/EADURAAEDAwICCAMHBQAAAAAAAAEAAgMEESEFEjFRBhMUI0FhcZEVMtEWIkNygZLhRUaxssL/2gAMAwEAAhEDEQA/AI0AAfY1+ekASlFt6t1pK1UqmSJaUcFKQngXpMSfcBef0emer7wh9VAw7XPAPqFqjoamRu5kbiOYBVYAWCfZd1QIbsyZRJTMdlJqccVjCSLw8x40e1LjrEMplMpEiVHNRpJxGMZLnzMHaoNu7eLc7hHYanfs6t1+NrG9lCgPWSw9GkOR5DZtutqNK0nzSZeATFMs+5qnCRNgUaTIjufNcRjB/eLvmjjG57gB5lLjp5ZXFjGkkeABKggEjSqJVarOcg0+C7Jkt5NbaMZLHMfVdoNYoZtFV6e9DN3O73mO+xz5H5SB10e/ZuF+V8o7NNsMmw7R42NvdRgCyM2Jd7zKHmqBLW2tJKSotniR8j5j77gLz+j0z1feFdspx+I33CeNNrD+E79p+irACz9wF5/R6Z6vvETWqJVqM6luq09+IpRZTvE8D9IuyphkO1jwT5EKklFUxN3SRuA5kEKOAd9Go9UrL6maXBeluJLJk2nl6RMdwF5/R6Z6vvA+phjO17wD5kKIqKolbujjJHkCVWAE7U7QuamRTlTqLLYZTzWaSMi+wxxUSi1WtvrYpMF2W42nbWlvGSLOM8e0SKiItLw4WHjcWUOpJ2vEZYdx8LG/so8BZ+4C8/o9M9X3jyk2PdsZhT79AmIbQWVHgjx9hhYrKc4Eg9wmnTqwC5id+0/RV0B/dlW1sbJ7WcYxxz4hYYtj3bJYQ+xQZi21llKsEWS9Jhsk0cWXuA9TZIip5piRGwutyBKroCzHYN5EWTt6Z6vvFelxn4klcaUytl5s8LQssGRiI54pTZjgfQ3VpqWeAXlYW+oIXkAAGrOgAAEL9SWEz8XaZQ1U1hKnihqdQgi+e5gz49p4IZqu/tUiWZfERlx5fF7h4+8ctgasO2/RG6TUICpbTGSZcbURKIs5weRY/lxpvhosv/kn3jxQ0+qgmkLoBJc3BJX0o6rRVNPEGVRi2ixAHoqddOoF8v0p+mVmC1FYltm2rbiLbMyPngzMaX0fur5v6w57RL3kzAubTuTKU0RtvRN+ypae+QeMkfkMRHR96vm/rDntGerqYptOcGRhhDhcD0K10NHNT6u0ySmQOYbE+oWE3p+9tV+tL9o/Qui/VzT+xQrVZ0ZaqNVlTzrjjZyHVObJMkeMny5jQLOoZW5bjFITIOQTJH/aGnGfQGaxqVNU0bIo3XIt4Hkk9H9Hq6OvlmmbZpBtkc7rIND+suqea5+Ix29Jv9LRPNe/pHFof1l1TzXPxGO3pN/paJ5r39I2f1uP8v8AyVg/tyX8x/2C0t6Y9TtPFT4+zvo1L3re0WS2kt5LP2CraM3nWbrenpqvwbDCUmjdNmnn48mYsNZ6q5f+jK/KGd9Gf9Yq3mJHHhgjdQ1Ehb94EWP6rvVFTKzU6WJriGuabjnhS+ouoNaty+2KVFbiuQ1E2a0rQe0e1z45/kJ3W2LHmabTpLrZGuOSHWjMuKTNRF7FGMz1x60I/mse0hqWr3VZVv4Lf5iBodDHEaJ7BYutfzyFlbUSzjUI5Ddrb2B8MFcWg0GPFsJmQ2gidkuKW4vHE/EXoGf17V66WK1MYitwG2G3lIQlTRqMiI/Ce0WRpWiXV1A/3e0VeoaKNS5z8o664k3XDXs7kuGT7RaCajbXTmsznFwT4qtTT6g/TaZunm2BexA8Arpp5WXbtslmdUmGicfJbbyUF3qsGZcj8gzvQlhEbUK4I7RYbbQ4lJeIidLBDULDt0rWt1qkJknJJtalbw07OcmZ8vSM00T6y7k7HPzSCIXMMVX1XyYt7p9QyUT0HX/Pm/rtypLWC/K9a9ejw6X8F3TjO2retmo858hkJrR276jdtLmLqjTBPR3dglNJMiURkR8jMxnnSO/eyH9W/mLB0af2XVf46fwkNc9HANHbMGjdjPjxWKm1Cpd0gfTl52Zx4cFCHR4J9IRcHcp+DE+T27xwybRK/EeRf9YrvqNpUmGultMG9Ie2Np1JmlKSIz5EZCof4knO1P5KR2dJf9kUnh/eFfhMS9gqKylZLkFg/wAFVZI6l0+tkh+64SOyPUL70k1Frlx3KdKqrcVTa2lLQppBpNJlx8JnkQvSSgx2qzTpzaCS8+0aHDIvnYPgZ+XwegQ/R+I/lAbPHAo7nsMWLpL/AKxSPNX7RpEMdPrTGRCwI8PQrGaiWs6OSSTnc4O4n1H1WNAAD1q8CgAAELU7NrmmUW2YUeuUpt6ooSon1nD2zM9ozLjjjwwJfuk0c/yNr/of+DFQHIk0eN7y4yPzn5l6CHpFNFG1giYbADLc4/VbPf8AqnRpdsvUe3mXcvt7o1qb2Eto5cCHjpPqDblt2mim1N2QmQTy1GSGTUWDPhxIY8Aj4HS9n6jNib8c3U/aat7V2o23AWAtgD3UzcNakzK5NlRZskmHXlLbLbMu9M+HAarp7qZbtHtOLT6pJlnLbI9syZUr7xiIDRVaZBVRCJ/AcllodbqqKd00diXc8jOeavmmV00qgXnNqtQW6mM8SyQaGzUfEzxwHTrVd9HutdNOkLeUUcnCc3jZp+ds459hjOgE/DYe0ipzuAt5cLKPjNR2N1HYbCb+fG/NbnUtTrWfsV+kNuyjlLpxxyI2Dxtm3s8+0VHRe7qNars9VWceQT6Ukjdtmrl2DOgCGaNTshfCL2cbnP8AC0ydI6t9RHUEDcwWGMZ55V11OuOmV+92atTluKjJS0RmtBpPvTLPAXfUHUm2K1Y0+kQXpKpT7aEoJTBkWSWkz49hGMTAXdpMDhEDfu+H8+yWzX6phnIA735seoxnzW1aaakWzQbQiUyoPSUyGs7RIZNRfaMpqtXlv1OS8xNkk0t1Skd+ZcDPgIsAyn02GCV8reLuN0qr1mpqoY4X2AZwtjyzlbRpjqTQKHabFPq8mWqWlazUZNKXwNRmXHsFe01vCjUG86zVag48mNLJe6NDZqM8rJRZLwcBnABPwen73j3nH3vjCf8AaGr7nh3XDHlbOVeNYblpdz16PMpS3VNNs7CttBpPOfKJbRi9KHasGe1VnHkqfdJSN20auGCLwDMQDX6bC+lFKb7R7pEes1DK41wA3nyxwtzV1uO7mT1SXddI2nGkuIWglpNJqIkElRGX2jSJup1g1umoYrcN10sko2XY28JKvIMCAKn0anmDAbgsFgQc2C0UvSKrpnSFoBDySQRcXK3mjX9phRXFvUqAcR1adlSmoRpMy8WRmmqN3nd9dTJZaUzEYRu2UKPiZZyaj8piogJpdIgppeuBJdzJuq12v1VZB2dwa1nGzRZAAB1Fw0AAAhAAAIQAACEAAAhAAAIQAACEAAAhAAAIQAACEAAAhAAAIQAACEAAAhf/2Q==" alt="Shimano" style="height:28px;vertical-align:middle;margin-right:10px;"><img id="dealerLogo" src="" alt="" style="height:32px;vertical-align:middle;display:none;"></div>
     <div class="header-divider"></div>
-    <div class="header-date">March 2026</div>
+    <div class="header-date">April 2026</div>
     <div class="header-search">
       <span class="search-icon">&#x2315;</span>
       <input type="text" id="searchInput" placeholder="Search by code, description...">
@@ -333,7 +602,7 @@
     <div class="hero-strip" id="heroStrip">
       <div class="pedals-hero-left">
         <h2>SHIMANO <span>PEDALS</span></h2>
-        <p>Order Book &mdash; March 2026</p>
+        <p>Order Book &mdash; April 2026</p>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
