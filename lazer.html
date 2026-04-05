@@ -123,9 +123,10 @@
   .model-gallery-main { flex: 0 0 280px; height: 200px; border-radius: 8px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; }
   .model-gallery-main img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.25s; }
   .model-gallery-main img:hover { transform: scale(1.04); }
-  .model-gallery-colors { display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px; }
+  .model-gallery-right { flex: 1; min-width: 0; overflow-y: auto; max-height: 220px; display: flex; flex-direction: column; gap: 4px; }
+  .model-gallery-colors { display: flex; flex-direction: column; gap: 4px; }
   .color-group-label { font-family:'Barlow Condensed',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); padding:1px 0; border-bottom:1px solid var(--border); margin-top:2px; }
-  .color-group-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .color-group-grid { display: flex; flex-wrap: wrap; gap: 5px; padding: 3px 0; }
   .model-gallery-thumb { width: 68px; height: 50px; border-radius: 6px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; flex-shrink: 0; transition: border-color 0.15s; }
   .model-gallery-thumb img { width: 100%; height: 100%; object-fit: contain; }
   .model-gallery-thumb.active { border-color: #0082CA; }
@@ -136,6 +137,18 @@
   .gallery-skel-thumb { width: 68px; height: 50px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); animation: skel-pulse 1.4s ease-in-out infinite; }
   @keyframes skel-pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
   .model-gallery-none { display:none; }
+
+  /* ── Product Detail Panel ── */
+  .model-detail-side { flex: 1; min-width: 180px; padding: 4px 0 4px 10px; border-left: 1px solid var(--border); overflow-y: auto; max-height: 220px; }
+  .product-detail { padding: 0 4px 12px; font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .product-detail-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; margin-bottom: 6px; }
+  .product-detail-desc { margin-bottom: 10px; font-size: 12px; line-height: 1.55; }
+  .product-detail-weight { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; color: var(--avail); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .product-detail-weight svg { opacity: 0.6; }
+  .product-detail-features { display: flex; flex-wrap: wrap; gap: 4px; }
+  .product-detail-feat { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.03em; }
+  .product-detail-feat::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--shimano-blue); opacity: 0.5; }
+  html.light .product-detail-feat { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
 
   /* ── Lightbox ── */
   .lightbox-overlay { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.88); backdrop-filter:blur(12px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s; }
@@ -620,6 +633,10 @@ html.light .sidebar a:hover {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="5" r="3"/><path d="M12 8v14"/><path d="M5 15l7-3 7 3"/></svg>
       LAZER <span style="font-size:9px;opacity:0.5;margin-left:auto">&#9679;</span>
     </button>
+    <a href="pro.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #ff6b35;color:#ff6b35;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      PRO
+    </a>
     <div class="sidebar-sep" style="margin:4px 16px"></div>
     <div class="sidebar-section-label">CATEGORIES</div>
     <button class="cat-chip active" data-cat="all" onclick="fCat('all',this)">
@@ -686,7 +703,9 @@ html.light .sidebar a:hover {
 <div class="lightbox-overlay" id="lbOverlay" onclick="if(event.target===this)closeLightbox()">
   <div class="lightbox-box">
     <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav prev" onclick="lbNav(-1)">&lsaquo;</button>
     <img class="lightbox-img" src="" alt="">
+    <button class="lightbox-nav next" onclick="lbNav(1)">&rsaquo;</button>
     <div class="lightbox-info">
       <span class="lightbox-model"></span>
       <span class="lightbox-color" style="font-family:'Barlow Condensed',sans-serif;font-size:14px;color:var(--text-muted);letter-spacing:0.05em"></span>
@@ -807,88 +826,357 @@ function getColorStyle(desc) {
   return '';
 }
 
-// ── Model Image URLs (lazersport.com CDN) ──
-// URL patterns vary per model/year, so we try multiple patterns via onerror fallback
-var MODEL_SLUG = {
-  "VOLANTE":"volante-kineticore","VICTOR":"victor-kineticore","VENTO":"vento-kineticore","Z1":"z1-kineticore",
-  "Sphere":"sphere-kineticore","Strada":"strada-kineticore","Tonic":"tonic-kineticore","Tempo":"tempo-kineticore",
-  "Jackal":"jackal-kineticore","Coyote":"coyote-kineticore","Lupo":"lupo-kineticore","Finch":"finch-kineticore",
-  "Cage":"cage-kineticore","Chase":"chase-kineticore","Cerro":"cerro-kineticore","Codax":"codax-kineticore",
-  "Verde":"verde-kineticore","CityZen":"cityzen-kineticore","MAZE":"maze-kineticore","Nutz":"nutz-kineticore",
-  "Pnut":"pnut-kineticore","MAZE JR":"maze-jr-kineticore"
-};
-// Short model slug for filename part
-var MODEL_FSLUG = {
-  "VOLANTE":"volante-kineticore","VICTOR":"victor-kineticore","VENTO":"vento","Z1":"z1_kineticore",
-  "Sphere":"sphere_kineticore","Strada":"strada_kineticore","Tonic":"tonic_kineticore","Tempo":"tempo_kineticore",
-  "Jackal":"jackal_kineticore","Coyote":"coyote_kineticore","Lupo":"lupo_kineticore","Finch":"finch_kineticore",
-  "Cage":"cage_kineticore","Chase":"chase_kineticore","Cerro":"cerro_kineticore","Codax":"codax_kineticore",
-  "Verde":"verde_kineticore","CityZen":"cityzen_kineticore","MAZE":"maze_kineticore","Nutz":"nutz_kineticore",
-  "Pnut":"pnut_kineticore","MAZE JR":"maze-jr_kineticore"
-};
-
-var _BASE='https://www.lazersport.com/_assets/images/kineticore/helmets/';
-
-function colorToFolder(c){
-  return c.replace(/\s+(XXS|XS|S|M|L|XL|XXL|Uni|S-M|M-L)$/i,'')
-    .replace(/\s*\(Turnfit\)/i,'').replace(/\s*\+\S+/g,'')
-    .trim().toLowerCase().replace(/[\s&]+/g,'-').replace(/[^a-z0-9-]/g,'');
-}
-function colorToFile(c){
-  return colorToFolder(c).replace(/-/g,'_');
-}
-function colorToFileNoPfx(c){
-  return colorToFile(c).replace(/^matte_/,'').replace(/^full_/,'');
-}
-
-// Generate candidate URLs to try (first match wins via onerror chain)
-function imgCandidates(mn,colorName,sz){
-  var ms=MODEL_SLUG[mn], fs=MODEL_FSLUG[mn];
-  if(!ms)return[];
-  var cf=colorToFolder(colorName||'');
-  var cu=colorToFile(colorName||'');
-  var cu2=colorToFileNoPfx(colorName||'');
-  if(!cf)return[];
-  var dim=sz==='thumb'?'800x600':'1400x1011';
-  var p=_BASE+ms+'/product-images/'+cf+'/thumbs/';
-  var g=_BASE+ms+'/gallery/'+cf+'/';
-  // Also try without -kineticore in path
-  var ms2=ms.replace('-kineticore','');
-  var p2=_BASE+ms2+'/product-images/'+cf+'/thumbs/';
-  var g2=_BASE+ms2+'/gallery/'+cf+'/';
-  return [
-    p+'my2026_'+fs+'_'+cu+'_angle_1400x1011'+dim+'.jpg',
-    p+'my2025_'+fs+'_'+cu+'_angle_1400x1011'+dim+'.jpg',
-    p+'my2025_'+fs+'_'+cu+'_45_1400x1011'+dim+'.jpg',
-    p+'my2023_'+fs+'-'+cf+'_right_1400x1011'+dim+'.jpg',
-    p+'2025_'+ms2+'_'+cu2+'_45_1400x1011'+dim+'.jpg',
-    g+'my2025_'+ms2+'_'+cf+'_45_1400x1011.jpg',
-    g2+'my2025_'+ms2+'_'+cf+'_45_1400x1011.jpg',
-    p2+'my2025_'+fs+'_'+cu+'_angle_1400x1011'+dim+'.jpg'
-  ];
-}
-
-function getModelImg(mn,colorName){
-  var c=imgCandidates(mn,colorName,'thumb');
-  return c.length?c[0]:null;
-}
-function getModelImgHi(mn,colorName){
-  var c=imgCandidates(mn,colorName,'full');
-  return c.length?c[0]:null;
-}
-// onerror handler: try next candidate URL
-function tryNextImg(img){
-  var tries=JSON.parse(img.getAttribute('data-tries')||'[]');
-  var idx=parseInt(img.getAttribute('data-tidx')||'0')+1;
-  if(idx<tries.length){
-    img.setAttribute('data-tidx',idx);
-    img.src=tries[idx];
-  } else {
-    // All failed - show placeholder
-    img.style.display='none';
-    var ph=img.parentNode.querySelector('.img-placeholder');
-    if(ph)ph.style.display='flex';
+// ── KESİN RESİM LİNKLERİ (MANUEL EŞLEŞTİRME) ──
+const LAZER_IMAGES = {
+  "VOLANTE": {
+    "Matte White Silver": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/volante-kineticore/matte-white-silver/my2023_volante-kineticore-matte-white-silver_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/volante-kineticore/matte-white-silver/my2023_volante-kineticore-matte-white-silver_front_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/volante-kineticore/matte-white-silver/my2023_volante-kineticore-matte-white-silver_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/volante-kineticore/matte-white-silver/my2023_volante-kineticore-matte-white-silver_rear_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/volante-kineticore/features/volante-kineticore_feature_images_dinamic-bewerkt_540x242.jpg"
+    ]
+  },
+  "VICTOR": {
+    "Matte White Silver": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/victor-kineticore/product-images/white-silver/my2023_victor-kineticore-white-silver_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/victor-kineticore/product-images/white-silver/my2023_victor-kineticore-white-silver_front_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/victor-kineticore/product-images/white-silver/my2023_victor-kineticore-white-silver_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/victor-kineticore/product-images/white-silver/my2023_victor-kineticore-white-silver_rear_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/victor-kineticore/product-images/white-silver/my2023_victor-kineticore-white-silver_inside_1400x1011.jpg"
+    ]
+  },
+  "VENTO": {
+    "Pure White": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/pure-white/my2025_vento_pure-white_45_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/pure-white/my2025_vento_pure-white_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/pure-white/thumbs/my2025_vento_pure-white_left_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/pure-white/thumbs/my2025_vento_pure-white_top_1400x1011800x600.jpg"
+    ],
+    "Matte Black": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery-new-straps/matte-black/thumbs/my2023_vento-kineticore-matte-black_sider_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery-new-straps/matte-black/thumbs/my2023_vento-kineticore-matte-black_sidel_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/matte-black/thumbs/vento-kineticore-matte-black-1800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery-new-straps/matte-black/thumbs/my2023_vento-kineticore-matte-black_rear_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/matte-black/thumbs/vento-kineticore-matte-black-3800x600.jpg"
+    ],
+    "Salt & Pepper": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/salt-and-pepper/thumbs/my2025_vento_saltpepper_right_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/salt-and-pepper/thumbs/my2025_vento_saltpepper_left_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/salt-and-pepper/thumbs/my2025_vento_saltpepper_rear_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/vento/gallery/salt-and-pepper/thumbs/my2025_vento_saltpepper_top_1400x1011800x600.jpg"
+    ]
+  },
+  "Z1": {
+    "Matte Black": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/matte-black/thumbs/my2024_z1_black_right_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/matte-black/thumbs/my2024_z1_black_left_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/matte-black/thumbs/my2024_z1_black_top_1400x1011800x600.jpg"
+    ],
+    "Metallic Red": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/metallic-red/thumbs/my2024_z1_metallic_red_right_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/metallic-red/thumbs/my2024_z1_metallic_red_left_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/metallic-red/thumbs/my2024_z1_metallic_red_rear_1400x1011800x600.jpg"
+    ],
+    "Matte Full White": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/matte-full-white/thumbs/my2026_z1_kineticore_matte_full_white_right_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/matte-full-white/thumbs/my2026_z1_kineticore_matte_full_white_left_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/matte-full-white/thumbs/my2026_z1_kineticore_matte_full_white_rear_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/lifestyle-images/thumbs/z1-kineticore-matte-black-lifestyle-image800x600.png"
+    ],
+    "Harbor Grey": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/harbor-grey/thumbs/2025_z1_harbor-grey_right_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/harbor-grey/thumbs/2025_z1_harbor-grey_left_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/harbor-grey/thumbs/2025_z1_harbor-grey_rear_1400x1011800x600.jpg"
+    ],
+    "Matte Pine Green": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/pine-green/thumbs/my2025_z1_pinegreen_right_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/pine-green/thumbs/my2025_z1_pinegreen_left_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/pine-green/thumbs/my2025_z1_pinegreen_back_1400x1011800x600.jpg"
+    ],
+    "Stone Blue": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/stone-blue/thumbs/2025_z1_stoneblue_right_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/stone-blue/thumbs/2025_z1_stoneblue_left_1400x1011800x600.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/z1-kineticore/product-images/stone-blue/thumbs/2025_z1_stoneblue_back_1400x1011800x600.jpg"
+    ]
+  },
+  "Sphere": {
+    "White Silver": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/white-silver/my26_sphere_kineticore_white-silver_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/white-silver/my26_sphere_kineticore_white-silver_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/lifestyle-images/2025_sphere_kineticore_-lazer-highres-matspalinckx-241-white-silver_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/lifestyle-images/2025_sphere_kineticore_-lazer-highres-matspalinckx-259-white-silver_1400x1011.jpg"
+    ],
+    "Black Red": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/black-red/2025_sphere_kineticore_black-red_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/black-red/2025_sphere_kineticore_black-red_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/black-red/2025_sphere_kineticore_black-red_front_1400x1011.jpg"
+    ],
+    "Electric Blue": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/electric-blue/my26_sphere_kineticore_electric-blue_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/electric-blue/my26_sphere_kineticore_electric-blue_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/electric-blue/my26_sphere_kineticore_electric-blue_front_1400x1011.jpg"
+    ],
+    "Matte Black": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/matte-black/2025_sphere_kineticore_matte-black_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/matte-black/2025_sphere_kineticore_matte-black_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/matte-black/2025_sphere_kineticore_matte-black_front_1400x1011.jpg"
+    ],
+    "Tyrian": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/tyrian/my26_sphere_kineticore_tyrian_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/tyrian/my26_sphere_kineticore_tyrian_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/sphere-kineticore/product-images/tyrian/my26_sphere_kineticore_tyrian_top_1400x1011.jpg"
+    ]
+  },
+  "Strada": {
+    "Matte Full White": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/matte-full-white/my2025_stradakc_full_white_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/matte-full-white/my2025_stradakc_full_white_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/matte-full-white/my2025_stradakc_full_white_back_1400x1011.jpg"
+    ],
+    "Full Matte Black": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery-new-straps/matte-black/thumbs/my2023_strada-kineticore-matte-full-black_right_1400x1011100x100.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery-new-straps/matte-black/my2023_strada-kineticore-matte-full-black_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery-new-straps/matte-black/my2023_strada-kineticore-matte-full-black_back_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/matte-full-black/strada-kineticore-matte-full-black-7.jpg"
+    ],
+    "Matte Titanium": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery-new-straps/matte-titanium/my2023_strada-kineticore-matte-titanium_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery-new-straps/matte-titanium/my2023_strada-kineticore-matte-titanium_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery-new-straps/matte-titanium/my2023_strada-kineticore-matte-titanium_back_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/matte-titanium/strada-kineticore-matte-titanium-1.jpg"
+    ],
+    "Matte Pine Green": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/matte-pine-green/my2025_stradakc_pinegreen_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/matte-pine-green/my2025_stradakc_pinegreen_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/matte-pine-green/my2025_stradakc_pinegreen_back_1400x1011.jpg"
+    ],
+    "Stone Blue": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/stone-blue/my2025_stradakc_stoneblue_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/stone-blue/my2025_stradakc_stoneblue_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/strada/gallery/stone-blue/my2025_stradakc_stoneblue_rear_1400x1011.jpg"
+    ]
+  },
+  "Tonic": {
+    "White": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/white/my2023_tonic-kineticore_white_right.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/white/my2023_tonic-kineticore_white_left.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/white/my2023_tonic-kineticore_white_back.jpg"
+    ],
+    "Matte Black": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/matte-black/my2023_tonic-kineticore-matte-black_right.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/matte-black/my2023_tonic-kineticore-matte-black_left.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/lifestyle-images/tonic_kineticore_black_lifestyle_images_13.jpg"
+    ],
+    "Ice Grey": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/ice-grey/my2023_tonic-kineticore_ice-grey_right.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/ice-grey/my2023_tonic-kineticore_ice-grey_left.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/lifestyle-images/tonic_kineticore_ice_grey_lifestyle_image_9.jpg"
+    ],
+    "Pine Green": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/pine-green/lzh_r101_tonic_kc_pine_green_right_1400x1011.jpg"
+    ],
+    "Stone Blue": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/stone-blue/lzh_r101_tonic_kc_stone_blue_right_1400x1011.jpg"
+    ],
+    "Latte": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/latte/my2025_tonic_latte_right_1400x1011.jpg"
+    ],
+    "Deep Green Flash": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/deep-green-flash/my2026_tonic_kineticore_deep_green_flash_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/deep-green-flash/my2026_tonic_kineticore_deep_green_flash_left_1400x1011.jpg"
+    ],
+    "Matte Tyrian": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/matte-tyrian/my2026_tonic_kineticore_tyrian_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tonic-kineticore/product-pictures/matte-tyrian/my2026_tonic_kineticore_tyrian_left_1400x1011.jpg"
+    ]
+  },
+  "Tempo": {
+    "White": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/white/my2023_tempo-kineticore-white_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/white/my2023_tempo-kineticore-white_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/white/thumbs/my2023_tempo-kineticore-white_front_1400x1011100x100.jpg"
+    ],
+    "Black": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/black/my2023_tempo-kineticore-black_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/black/my2023_tempo-kineticore-black_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/lifestyle-images/tempo_kineticore_titanium_lifestyle_images_2.jpg"
+    ],
+    "Blue": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/blue/my2023_tempo-kineticore-blue_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/blue/my2023_tempo-kineticore-blue_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/blue/my2023_tempo-kineticore-blue_rear_1400x1011.jpg"
+    ],
+    "Titanium": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/titanium/my2023_tempo-kineticore-titanium_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/titanium/my2023_tempo-kineticore-titanium_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/lifestyle-images/tempo_kineticore_titanium_lifestyle_images_4.jpg"
+    ],
+    "Flash Yellow": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/flash-yellow/my2023_tempo-kineticore-flash-yellow_right_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/flash-yellow/my2023_tempo-kineticore-flash-yellow_left_1400x1011.jpg",
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/flash-yellow/my2023_tempo-kineticore-flash-yellow_rear_1400x1011.jpg"
+    ],
+    "Red": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/red/my2023_tempo-kineticore-red_right_1400x1011.jpg"
+    ],
+    "Latte": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/latte/my2025_tempo_latte_right_1400x1011.jpg"
+    ],
+    "Mulberry": [
+      "https://www.lazersport.com/_assets/images/kineticore/helmets/tempo-kineticore/product-pictures/mulberry/lzh-s101_tempokc_mulberry_right_1400x1011.jpg"
+    ]
   }
+};
+
+// ─── PRODUCT DETAILS (from lazersport.com) ──────────────────────────────────
+const LAZER_DETAILS = {
+  "VOLANTE": {
+    tagline: "Ultralight TT, track & triathlon helmet. Shaped by air.",
+    desc: "The Volante KinetiCore is 4.4% more aerodynamic than its predecessor. Its long tail has been optimized for exceptional aerodynamics. The magnetic smoked panoramic lens is convex shaped to reduce drag.",
+    weight: "350g (M CE, without lens)",
+    features: ["KinetiCore rotational impact protection","Advanced TurnSys fit system","Magnetic panoramic lens (anti-scratch)","Polygiene StayFresh padding","Sunglasses recess","Ponytail compatible"]
+  },
+  "VICTOR": {
+    tagline: "Aero TT helmet with shorter tail for head movement freedom.",
+    desc: "Victor features a shorter tail to allow head movement without disrupting aerodynamic performance. A small, narrow frontal area and a stubby tail at the rear provide optimal aero efficiency.",
+    weight: "~380g (M CE)",
+    features: ["KinetiCore rotational impact protection","Advanced TurnSys fit system","Magnetic panoramic lens","Shorter aero tail design","Polygiene StayFresh padding","Sunglasses recess"]
+  },
+  "VENTO": {
+    tagline: "Lazer's fastest road helmet. Pro-developed aero performance.",
+    desc: "Developed with pro riders, the Vento is 2.3% more aerodynamic and 5.4% more ventilated than its predecessor. Designed fastest in sprint position at 15\u00b0 with Venturi Effect Ventilation.",
+    weight: "~230g (M CE)",
+    features: ["KinetiCore rotational impact protection","ScrollSys fit system","Venturi Effect Ventilation","Floating front headband","Eyewear docking","Universal LED mount"]
+  },
+  "Z1": {
+    tagline: "Featherweight road helmet with best-in-class ventilation.",
+    desc: "The iconic Z1 KinetiCore weighs only 220g with rotational impact protection built-in. 103% cooling efficiency. Aeroshell compatible for aero advantage.",
+    weight: "220g (M CE)",
+    features: ["KinetiCore rotational impact protection","Advanced RollSys fit system","103% cooling efficiency","Aeroshell compatible","Floating headband","Eyewear docking"]
+  },
+  "Sphere": {
+    tagline: "Multi-purpose helmet balancing aero looks and comfort.",
+    desc: "The go-to helmet for every cyclist. Slim profile and closed-off design creates a fast look while big front vents keep your head cool. Built-in LED port for visibility.",
+    weight: "~260g (M CE)",
+    features: ["KinetiCore rotational impact protection","Advanced TurnSys fit system","Eyewear docking","Universal LED mount","Polygiene StayFresh padding","Stitched recycled straps"]
+  },
+  "Strada": {
+    tagline: "Fast, light, secure \u2014 all-round performer for every rider.",
+    desc: "The Strada offers extensive protection with ScrollSys tailored fit and advanced ventilation. A versatile performer for all riding styles.",
+    weight: "~250g (M CE)",
+    features: ["KinetiCore rotational impact protection","ScrollSys fit system","Advanced ventilation","Eyewear docking","Universal LED mount","Lightweight design"]
+  },
+  "Tonic": {
+    tagline: "Lightweight helmet for recreational road cyclists.",
+    desc: "Sleek and comfortable for recreational cyclists who want lightweight protection. 18 vents for excellent airflow. Available in 4 sizes.",
+    weight: "240g (M CE)",
+    features: ["KinetiCore rotational impact protection","Advanced TurnSys (vertical adj.)","18 vents for airflow","Eyewear docking","Universal LED Direct Mount","Winter kit compatible"]
+  },
+  "Tempo": {
+    tagline: "Stylish entry-level helmet for recreational cyclists.",
+    desc: "Built for recreational cyclists who want a stylish, comfortable entry-level helmet that tackles it all without skimping on protection.",
+    weight: "~290g (M CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Good ventilation","Universal LED mount","Comfortable padding","Affordable performance"]
+  },
+  "Cage": {
+    tagline: "Feature-loaded MTB helmet for challenging trails.",
+    desc: "Everything needed to seek your limits on the most challenging trails. Extended rear coverage and integrated visor.",
+    weight: "~330g (M CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Integrated visor","Extended rear coverage","Goggle strap grip","Universal LED mount"]
+  },
+  "Jackal": {
+    tagline: "Confidence to tackle technical MTB trails.",
+    desc: "Push yourself harder knowing you have maximum protection on technical trails. Extended coverage with camera mount ready.",
+    weight: "~350g (M CE)",
+    features: ["KinetiCore rotational impact protection","Advanced TurnSys fit system","Extended coverage","Integrated visor","Goggle compatible","Camera mount ready"]
+  },
+  "Coyote": {
+    tagline: "Trail-ready MTB helmet. Virginia Tech 5-star rated.",
+    desc: "Drop into technical terrain with confidence. Integrated visor and no-slip grip for goggles. Virginia Tech 5-star safety rated.",
+    weight: "~320g (M CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Integrated visor","No-slip goggle grip","Virginia Tech 5-star rated","Deep rear coverage"]
+  },
+  "Chase": {
+    tagline: "Enduro-ready full-face convertible MTB helmet.",
+    desc: "Full-face protection with a removable chin bar for versatile trail riding from enduro to XC.",
+    weight: "~450g (M CE)",
+    features: ["KinetiCore rotational impact protection","Removable chin bar","TurnSys fit system","Extended coverage","Goggle compatible","Enduro ready"]
+  },
+  "Cerro": {
+    tagline: "Lightweight trail helmet with extended coverage.",
+    desc: "Trail-ready protection with extended rear coverage in a lightweight package for confident off-road riding.",
+    weight: "~310g (M CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Extended rear coverage","Good ventilation","Lightweight design","Visor included"]
+  },
+  "Verde": {
+    tagline: "Urban helmet for stylish city cycling.",
+    desc: "Combines urban style with cycling performance for commuters and city riders who value both looks and protection.",
+    weight: "~350g (M CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Urban styling","LED light mount","Reflective elements","Comfortable padding"]
+  },
+  "CityZen": {
+    tagline: "Double-layer protection for city commuting.",
+    desc: "Commute with confidence thanks to double layer KinetiCore impact protection. Upgraded visibility via LED light capability.",
+    weight: "~380g (M CE)",
+    features: ["Double-layer KinetiCore protection","TurnSys fit system","LED light capability","Urban design","Reflective elements","Rain cover compatible"]
+  },
+  "Lupo": {
+    tagline: "Crafted for true trail riding with comfort and style.",
+    desc: "Integrated fixed visor, brow vents for ventilation, and deep side coverage. One size fits all design.",
+    weight: "350g (CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Integrated fixed visor","One size fits all","Polygiene StayFresh straps","Winter kit compatible"]
+  },
+  "Finch": {
+    tagline: "Youth trail helmet with professional features.",
+    desc: "Blurring the lines between youth and adult trail helmets with integrated visor, brow vents, and deep side coverage.",
+    weight: "330g (Uni CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Integrated visor","Deep side coverage","One size fits all","Winter kit compatible"]
+  },
+  "Codax": {
+    tagline: "Comfortable leisure helmet for everyday cycling.",
+    desc: "Designed for everyday leisure cycling with comfortable fit and reliable KinetiCore protection.",
+    weight: "~310g (M CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Comfortable padding","LED light mount","Visor included","Easy adjustment"]
+  },
+  "MAZE": {
+    tagline: "Versatile leisure helmet for all-round cycling.",
+    desc: "Versatile protection for leisure cycling with comfortable fit system and good ventilation.",
+    weight: "~300g (M CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Integrated visor","Good ventilation","Comfortable fit","Versatile design"]
+  },
+  "Nutz": {
+    tagline: "Kids helmet for young adventurers.",
+    desc: "Keeps young riders safe with built-in rotational impact protection in fun, colorful designs.",
+    weight: "~240g (Uni CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Fun colorful designs","Lightweight","Bug net","Easy-to-use buckle"]
+  },
+  "Pnut": {
+    tagline: "First helmet for the littlest riders.",
+    desc: "Designed as a first helmet for toddlers with KinetiCore protection built in. Ultra lightweight for small heads.",
+    weight: "~210g (Uni CE)",
+    features: ["KinetiCore rotational impact protection","Simple fit system","Ultra lightweight","Toddler-friendly design","Ventilation holes","Fun designs"]
+  },
+  "MAZE JR": {
+    tagline: "Junior version of the versatile Maze helmet.",
+    desc: "Same great protection and features as the adult Maze in a size designed for younger heads.",
+    weight: "~270g (Uni CE)",
+    features: ["KinetiCore rotational impact protection","TurnSys fit system","Integrated visor","Junior sizing","Comfortable padding","Easy adjustment"]
+  }
+};
+
+function imgCandidates(mn, colorName, sz) {
+  if (LAZER_IMAGES[mn] && LAZER_IMAGES[mn][colorName]) {
+    let imgs = LAZER_IMAGES[mn][colorName];
+    return Array.isArray(imgs) ? imgs : [ imgs ]; 
+  }
+  return []; 
+}
+
+function tryNextImg(img) {
+  img.style.display = 'none';
+  var ph = img.parentNode.querySelector('.img-placeholder');
+  if (ph) ph.style.display = 'flex';
 }
 
 function toggleModel(mn){
@@ -938,31 +1226,69 @@ function render(){
         // ── Photo Gallery ──
         var colorKeys = Object.keys(md.colors||{});
         var firstColor = colorKeys[0]||'';
+        // Collect ALL images across all colors for this model
+        var allModelImgs = [];
+        colorKeys.forEach(function(ck){
+          var imgs = imgCandidates(mn, ck, 'thumb');
+          imgs.forEach(function(src){ allModelImgs.push({src:src, color:ck}); });
+        });
         var mainCands = imgCandidates(mn, firstColor, 'thumb');
-        if(mainCands.length){
+        var hasAnyImg = allModelImgs.length > 0;
+
+        if(hasAnyImg){
           cHTML+='<div class="model-gallery">';
-          cHTML+='<div class="model-gallery-main" onclick="openLightbox(&quot;'+mn+'&quot;,&quot;'+firstColor.replace(/"/g,'&amp;quot;')+'&quot;)">';
-          cHTML+='<img src="'+mainCands[0]+'" alt="'+mn+'" loading="lazy" data-tries=\''+JSON.stringify(mainCands)+'\' data-tidx="0" onerror="tryNextImg(this)">';
+          cHTML+='<div class="model-gallery-main" data-model="'+mn+'" data-color="'+firstColor.replace(/"/g,'&quot;')+'" onclick="openLightbox(&quot;'+mn+'&quot;,0)">';
+          cHTML+='<img src="'+(mainCands[0]||allModelImgs[0].src)+'" alt="'+mn+'" loading="lazy" data-tries=\''+JSON.stringify(mainCands)+'\' data-tidx="0" onerror="tryNextImg(this)">';
           cHTML+='<div class="img-placeholder" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;font-family:Barlow Condensed,sans-serif;font-size:24px;font-weight:800;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase;opacity:0.4">'+mn+'</div>';
           cHTML+='</div>';
-          // Color thumbnails
-          if(colorKeys.length>1){
-            cHTML+='<div class="model-gallery-colors">';
-            colorKeys.forEach(function(ck){
-              var tc=imgCandidates(mn,ck,'thumb');
-              if(tc.length){
-                cHTML+='<div class="model-gallery-thumb" onclick="swapGallery(this,&quot;'+mn+'&quot;,&quot;'+ck.replace(/"/g,'&amp;quot;')+'&quot;)">';
-                cHTML+='<img src="'+tc[0]+'" alt="'+ck+'" loading="lazy" data-tries=\''+JSON.stringify(tc)+'\' data-tidx="0" onerror="tryNextImg(this)">';
-                cHTML+='</div>';
-              }
+          // Thumbnails grouped by color
+          cHTML+='<div class="model-gallery-right">';
+          colorKeys.forEach(function(ck){
+            var tc = imgCandidates(mn, ck, 'thumb');
+            if(!tc.length) return;
+            cHTML+='<div class="color-group-label" style="'+getColorStyle(ck)+'">'+ck+'</div>';
+            cHTML+='<div class="color-group-grid">';
+            tc.forEach(function(src, idx){
+              var globalIdx = allModelImgs.findIndex(function(a){ return a.src===src; });
+              var isFirst = (ck===firstColor && idx===0);
+              cHTML+='<div class="model-gallery-thumb'+(isFirst?' active':'')+'" data-gidx="'+globalIdx+'" onclick="setLazerGalImg(this,&quot;'+mn+'&quot;,'+globalIdx+')">';
+              cHTML+='<img src="'+src+'" alt="'+ck+'" loading="lazy" data-tries=\''+JSON.stringify([src])+'\' data-tidx="0" onerror="tryNextImg(this)">';
+              cHTML+='</div>';
             });
+            cHTML+='</div>';
+          });
+          cHTML+='</div>';
+          // Product details (right side of gallery row)
+          var dg = LAZER_DETAILS[mn];
+          if(dg){
+            cHTML+='<div class="model-detail-side">';
+            cHTML+='<div class="product-detail-tagline">'+dg.tagline+'</div>';
+            cHTML+='<div class="product-detail-desc">'+dg.desc+'</div>';
+            cHTML+='<div class="product-detail-weight"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5.5 8.5l13 0M3 21h18"/><circle cx="12" cy="3" r="1"/></svg> '+dg.weight+'</div>';
+            cHTML+='<div class="product-detail-features">';
+            dg.features.forEach(function(f){ cHTML+='<span class="product-detail-feat">'+f+'</span>'; });
+            cHTML+='</div>';
             cHTML+='</div>';
           }
           cHTML+='</div>';
+          // Store all images for lightbox
+          if(!window._lazerGalAll) window._lazerGalAll={};
+          window._lazerGalAll[mn] = allModelImgs;
         } else {
-          // Placeholder - model name as visual
+          // No images — placeholder + details side by side
           cHTML+='<div class="model-gallery" style="padding:12px 0 10px">';
           cHTML+='<div style="flex:0 0 280px;height:120px;border-radius:8px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:Barlow Condensed,sans-serif;font-size:28px;font-weight:800;color:var(--text-muted);letter-spacing:0.05em;text-transform:uppercase;opacity:0.5">'+mn+'</div>';
+          var dn = LAZER_DETAILS[mn];
+          if(dn){
+            cHTML+='<div class="model-detail-side">';
+            cHTML+='<div class="product-detail-tagline">'+dn.tagline+'</div>';
+            cHTML+='<div class="product-detail-desc">'+dn.desc+'</div>';
+            cHTML+='<div class="product-detail-weight"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5.5 8.5l13 0M3 21h18"/><circle cx="12" cy="3" r="1"/></svg> '+dn.weight+'</div>';
+            cHTML+='<div class="product-detail-features">';
+            dn.features.forEach(function(f){ cHTML+='<span class="product-detail-feat">'+f+'</span>'; });
+            cHTML+='</div>';
+            cHTML+='</div>';
+          }
           cHTML+='</div>';
         }
 
@@ -1006,45 +1332,83 @@ function render(){
   document.getElementById('sBar').innerHTML=sh;
 }
 
+function setLazerGalImg(thumbEl, mn, globalIdx){
+  var card = thumbEl.closest('.model-card');
+  if(!card) return;
+  var allImgs = (window._lazerGalAll||{})[mn] || [];
+  if(!allImgs[globalIdx]) return;
+  var mainImg = card.querySelector('.model-gallery-main img');
+  if(mainImg){
+    mainImg.src = allImgs[globalIdx].src;
+    mainImg.style.display='';
+    var ph=mainImg.parentNode.querySelector('.img-placeholder');
+    if(ph)ph.style.display='none';
+  }
+  var mainDiv = card.querySelector('.model-gallery-main');
+  if(mainDiv) mainDiv.setAttribute('onclick','openLightbox("'+mn+'",'+globalIdx+')');
+  card.querySelectorAll('.model-gallery-thumb').forEach(function(t){t.classList.remove('active')});
+  thumbEl.classList.add('active');
+}
+
+// Keep old swapGallery as alias for backward compat
 function swapGallery(thumbEl, mn, colorName){
   var card = thumbEl.closest('.model-card');
   if(!card) return;
   var mainImg = card.querySelector('.model-gallery-main img');
   var cands = imgCandidates(mn, colorName, 'thumb');
   if(mainImg && cands.length){
-    mainImg.setAttribute('data-tries', JSON.stringify(cands));
-    mainImg.setAttribute('data-tidx','0');
     mainImg.src = cands[0];
     mainImg.style.display='';
     var ph=mainImg.parentNode.querySelector('.img-placeholder');
     if(ph)ph.style.display='none';
   }
-  var mainDiv = card.querySelector('.model-gallery-main');
-  if(mainDiv) mainDiv.setAttribute('onclick','openLightbox("'+mn+'","'+colorName.replace(/"/g,'&quot;')+'")');
   card.querySelectorAll('.model-gallery-thumb').forEach(function(t){t.classList.remove('active')});
   thumbEl.classList.add('active');
 }
 
-function openLightbox(mn, colorName){
-  var cands = imgCandidates(mn, colorName, 'full');
-  if(!cands.length) return;
+var _lbImgs=[], _lbIdx=0, _lbMn='';
+
+function openLightbox(mn, startIdx){
+  var allImgs = (window._lazerGalAll||{})[mn] || [];
+  if(!allImgs.length) return;
+  _lbImgs = allImgs;
+  _lbIdx = startIdx || 0;
+  _lbMn = mn;
   var ov = document.getElementById('lbOverlay');
   if(!ov) return;
   var img = ov.querySelector('.lightbox-img');
-  img.setAttribute('data-tries', JSON.stringify(cands));
-  img.setAttribute('data-tidx','0');
+  img.src = _lbImgs[_lbIdx].src;
   img.onerror = function(){ tryNextImg(this); };
-  img.src = cands[0];
   ov.querySelector('.lightbox-model').textContent = mn;
   var infoColor = ov.querySelector('.lightbox-color');
-  if(infoColor) infoColor.textContent = colorName;
+  if(infoColor) infoColor.textContent = _lbImgs[_lbIdx].color || '';
   ov.classList.add('active');
+  document.body.style.overflow='hidden';
+}
+
+function lbNav(dir){
+  if(!_lbImgs.length) return;
+  _lbIdx = (_lbIdx + dir + _lbImgs.length) % _lbImgs.length;
+  var ov = document.getElementById('lbOverlay');
+  if(!ov) return;
+  ov.querySelector('.lightbox-img').src = _lbImgs[_lbIdx].src;
+  var infoColor = ov.querySelector('.lightbox-color');
+  if(infoColor) infoColor.textContent = _lbImgs[_lbIdx].color || '';
 }
 
 function closeLightbox(){
   var ov = document.getElementById('lbOverlay');
   if(ov) { ov.classList.remove('active'); ov.querySelector('.lightbox-img').src=''; }
+  document.body.style.overflow='';
 }
+
+document.addEventListener('keydown', function(e){
+  var ov = document.getElementById('lbOverlay');
+  if(!ov || !ov.classList.contains('active')) return;
+  if(e.key==='Escape') closeLightbox();
+  if(e.key==='ArrowLeft') lbNav(-1);
+  if(e.key==='ArrowRight') lbNav(1);
+});
 
 function handleQty(inp){
   var v=parseInt(inp.value)||0;
