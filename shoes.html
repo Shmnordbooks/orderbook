@@ -144,6 +144,16 @@
   @keyframes skel-pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
   .model-gallery-none { display:none; }
 
+  /* ── Product Detail Panel ── */
+  .model-detail-side { flex: 1; min-width: 180px; padding: 4px 0 4px 10px; border-left: 1px solid var(--border); overflow-y: auto; max-height: 220px; }
+  .product-detail-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; margin-bottom: 6px; }
+  .product-detail-desc { margin-bottom: 10px; font-size: 12px; line-height: 1.55; color: var(--text-muted); }
+  .product-detail-weight { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; color: var(--avail); margin-bottom: 8px; }
+  .product-detail-features { display: flex; flex-wrap: wrap; gap: 4px; }
+  .product-detail-feat { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.03em; }
+  .product-detail-feat::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--shimano-blue); opacity: 0.5; }
+  html.light .product-detail-feat { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
+
   /* ── Lightbox ── */
   .lightbox-overlay { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.88); backdrop-filter:blur(12px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s; }
   .lightbox-overlay.active { opacity:1; pointer-events:all; }
@@ -629,6 +639,10 @@ html.light .sidebar a:hover {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M12 2C8 2 4 5 4 9c0 3 2 5 4 6v1a2 2 0 004 0v-1c2-1 4-3 4-6 0-4-4-7-4-7z"/><path d="M9 21h6"/></svg>
       LAZER
     </a>
+    <a href="pro.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #ff6b35;color:#ff6b35;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      PRO
+    </a>
     <div class="sidebar-sep" style="margin:4px 16px"></div>
     <button class="cat-chip cover-page-btn" id="coverPageBtn" onclick="showCoverPage(this)" style="margin: 2px 8px 8px; width: calc(100% - 16px);">
       <svg class="cat-chip-svg" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1" width="12" height="14" rx="1"/><path d="M5 5h6M5 8h6M5 11h4"/></svg>
@@ -677,7 +691,7 @@ html.light .sidebar a:hover {
   <div class="sidebar-sep"></div>
   <div id="stockUpdatedBlock" style="padding: 12px 16px 16px;">
     <div style="font-size:9px;letter-spacing:0.12em;color:var(--text3,#555);text-transform:uppercase;margin-bottom:5px;">Stock Updated</div>
-    <div id="stockUpdatedTime" style="font-size:11px;font-weight:600;color:var(--text2,#aaa);letter-spacing:0.03em;">01 Apr 2026  17:35</div>
+    <div id="stockUpdatedTime" style="font-size:11px;font-weight:600;color:var(--text2,#aaa);letter-spacing:0.03em;">02 Apr 2026  17:57</div>
   </div>
   </nav>
 
@@ -1120,6 +1134,41 @@ const SHIMANO_HANDLES = {
   'Shoe Cleats & Others':null
 };
 
+const SHOE_DETAILS = {
+  "RC903PWR": { tagline:"S-PHYRE flagship — single BOA, ultimate power.", desc:"Reinforced surround wrapping upper delivers glove-like fit. Carbon sole stiffness 12, low stack height for max efficiency.", weight:"~225g (42)", features:["Single BOA Li2","Carbon sole (12)","DYNALAST","Anti-twist heel","SPD-SL"] },
+  "RC903": { tagline:"S-PHYRE elite — dual BOA, 360° wrapping.", desc:"Dual BOA Li2 dials with crossover lacing. Anti-twist heel cup for sprints. DYNALAST reduces power loss.", weight:"~230g (42)", features:["Dual BOA Li2","Carbon sole (12)","DYNALAST","Anti-twist heel","Wide option"] },
+  "RC703": { tagline:"High-performance road, carbon composite sole.", desc:"BOA L6 closure, carbon composite sole (stiffness 10) for excellent power transfer.", weight:"~245g (42)", features:["BOA L6","Carbon composite (10)","DYNALAST","Lightweight","Wide option"] },
+  "RC503": { tagline:"Versatile road — performance meets value.", desc:"BOA L6 + glass fiber reinforced sole (stiffness 8). Great balance for enthusiasts.", weight:"~265g (42)", features:["BOA L6","Glass fiber sole (8)","DYNALAST","Women's option","Multi-color"] },
+  "RC302": { tagline:"Entry road with BOA dial convenience.", desc:"BOA L6 dial, glass fiber nylon sole (stiffness 6). Ideal for starting road cycling.", weight:"~275g (42)", features:["BOA L6","GF nylon sole (6)","Wide option","Women's option","3-hole cleat"] },
+  "RC102": { tagline:"Comfortable road for recreational cyclists.", desc:"Strap closure, fiberglass nylon sole. Perfect for fitness and commuting.", weight:"~290g (42)", features:["Velcro strap","FG nylon sole","SPD-SL","Breathable","Women's option"] },
+  "RP101": { tagline:"Budget-friendly road for everyday riding.", desc:"Simple strap closure, lightweight nylon sole. Great value for casual riders.", weight:"~280g (42)", features:["Strap closure","Nylon sole","SPD-SL","Multi-color","Lightweight"] },
+  "XC903": { tagline:"S-PHYRE XC — maximum off-road performance.", desc:"Carbon sole (12), dual BOA Li2, Michelin rubber outsole for supreme grip.", weight:"~310g (42)", features:["Dual BOA Li2","Carbon sole (12)","Michelin rubber","DYNALAST","Mud shedding"] },
+  "XC703": { tagline:"High-performance XC, carbon composite.", desc:"BOA L6, carbon composite sole (10), grippy rubber for confident trails.", weight:"~330g (42)", features:["BOA L6","Carbon composite (10)","Rubber outsole","DYNALAST","Multi-color"] },
+  "XC503": { tagline:"Versatile MTB for trail and XC.", desc:"BOA L6 + fiberglass sole (stiffness 8). Good for XC racing and trail.", weight:"~355g (42)", features:["BOA L6","FG sole (8)","Rubber outsole","Walk-friendly","Wide option"] },
+  "XC302": { tagline:"Entry MTB with BOA and solid grip.", desc:"BOA L6, fiberglass nylon sole (6). Good grip and comfort on trails.", weight:"~370g (42)", features:["BOA L6","FG nylon sole (6)","Rubber outsole","Wide option","Trail grip"] },
+  "XC102": { tagline:"Budget MTB for casual trail riding.", desc:"Strap closure, nylon sole, durable rubber outsole.", weight:"~380g (42)", features:["Strap closure","Nylon sole","SPD","Rubber outsole","Women's option"] },
+  "MX100": { tagline:"MTB/gravel shoe with casual styling.", desc:"Flat pedal compatible with optional SPD cleat. Bridges cycling and casual use.", weight:"~385g (42)", features:["Flat pedal OK","SPD optional","Casual look","Multi-color","Strap closure"] },
+  "TR903": { tagline:"S-PHYRE triathlon — fastest transitions.", desc:"Single pull strap for lightning T1/T2. Carbon sole (12) max power.", weight:"~235g (42)", features:["Pull strap","Carbon sole (12)","Quick-entry","Drainage","SPD-SL"] },
+  "TR501": { tagline:"Triathlon shoe — fast transitions, comfort.", desc:"Strap closure, fiberglass sole. Quick T1/T2 transitions.", weight:"~265g (42)", features:["Strap closure","FG nylon sole","Quick-entry","Drainage","Women's option"] },
+  "RX910": { tagline:"S-PHYRE gravel — top mixed terrain.", desc:"Carbon sole (10), dual BOA, Michelin rubber for aggressive gravel.", weight:"~300g (42)", features:["Dual BOA Li2","Carbon sole (10)","Michelin rubber","DYNALAST","Wide option"] },
+  "RX801": { tagline:"High-performance gravel, carbon composite.", desc:"BOA L6 + carbon composite sole. Demanding gravel racing and adventure.", weight:"~325g (42)", features:["BOA L6","Carbon composite","Rubber outsole","Walk-friendly","Multi-color"] },
+  "RX600": { tagline:"Versatile gravel for adventure riding.", desc:"BOA L6, fiberglass sole. Long gravel rides and commuting.", weight:"~350g (42)", features:["BOA L6","FG sole","Walk comfort","Wide option","Women's option"] },
+  "GE900": { tagline:"Premium gravity flat pedal shoe.", desc:"Ultread Michelin rubber outsole. Max grip and pedal feel.", weight:"~380g (42)", features:["Michelin rubber","Max grip","Reinforced toe","GTX option","Ankle protection"] },
+  "GE700": { tagline:"Performance gravity flat pedal.", desc:"Sticky rubber outsole for excellent flat pedal grip.", weight:"~395g (42)", features:["Sticky rubber","Reinforced toe","Ankle support","Multi-color","Durable"] },
+  "GE500": { tagline:"Versatile gravity for trail and enduro.", desc:"Flat pedal shoe with good grip. Trail, bike parks, casual MTB.", weight:"~405g (42)", features:["Rubber outsole","Flat pedal grip","Reinforced toe","Women's option","Durable"] },
+  "GF600": { tagline:"Clipless gravity with SPD.", desc:"SPD cleat + flat pedal-like grip. Enduro styling.", weight:"~410g (42)", features:["SPD compatible","Rubber outsole","Gravity style","Walk-friendly","Multi-color"] },
+  "GF400": { tagline:"Entry clipless gravity shoe.", desc:"Affordable gravity-style with SPD. Bike parks and trails.", weight:"~415g (42)", features:["SPD compatible","Rubber outsole","Casual style","Women's option","Durable"] },
+  "SD5": { tagline:"SPD sandal for warm-weather cycling.", desc:"Open sandal with SPD. Maximum ventilation for hot weather.", weight:"~350g (42)", features:["SPD compatible","Open sandal","Max ventilation","Quick-dry","Walk comfort"] },
+  "EX900": { tagline:"Premium explorer for bikepacking.", desc:"BOA L6 + Vibram outsole. Long-distance bikepacking comfort.", weight:"~380g (42)", features:["BOA L6","Vibram outsole","SPD","Waterproof","Walk-friendly"] },
+  "EX700": { tagline:"High-performance explorer shoe.", desc:"BOA L6, durable rubber. GTX waterproof option.", weight:"~395g (42)", features:["BOA L6","Rubber outsole","SPD","GTX option","Multi-color"] },
+  "EX500": { tagline:"Versatile explorer for touring.", desc:"Strap closure, comfortable walking outsole. SPD compatible.", weight:"~405g (42)", features:["Strap closure","Rubber outsole","SPD","Walk-friendly","Women's option"] },
+  "EX300": { tagline:"Entry explorer for casual cycling.", desc:"Casual styling with SPD. Commuting and weekend rides.", weight:"~395g (42)", features:["Strap closure","SPD","Casual look","Women's option","Comfortable"] },
+  "ET701": { tagline:"Premium e-bike touring shoe.", desc:"Reinforced sole for e-bike. All-day walk comfort.", weight:"~410g (42)", features:["SPD","E-bike optimized","Walk comfort","Women's option","Reinforced sole"] },
+  "ET501": { tagline:"Versatile e-bike touring shoe.", desc:"Comfortable e-bike touring with SPD. Durable.", weight:"~400g (42)", features:["SPD","E-bike ready","Strap closure","Women's option","Durable"] },
+  "IC500": { tagline:"Indoor cycling shoe with easy clip-in.", desc:"IC501 Fuze — SPD with recessed cleat for easy walking.", weight:"~290g (42)", features:["SPD","Recessed cleat","Indoor optimized","FG sole","Breathable"] },
+  "IC100": { tagline:"Entry indoor cycling shoe.", desc:"Affordable SPD indoor shoe for spin classes.", weight:"~295g (42)", features:["SPD","Recessed cleat","Nylon sole","Comfortable","Easy to walk"] }
+};
+
 const galCache = {};
 
 // ─── LIGHTBOX ────────────────────────────────────────────────────────────────
@@ -1179,11 +1228,24 @@ function buildGallery(group, colorGroups) {
     return `<div class="color-group-label" style="${getColorStyle(label)}">${label}</div><div class="color-group-grid">${thumbs}</div>`;
   }).join('');
 
+  // Build detail HTML if available
+  let detailHtml = '';
+  const det = SHOE_DETAILS[group];
+  if (det) {
+    let featsHtml = det.features.map(f => `<span class="product-detail-feat">${f}</span>`).join('');
+    detailHtml = `<div class="model-detail-side">
+      <div class="product-detail-tagline">${det.tagline}</div>
+      <div class="product-detail-desc">${det.desc}</div>
+      <div class="product-detail-weight">${det.weight}</div>
+      <div class="product-detail-features">${featsHtml}</div>
+    </div>`;
+  }
+
   galEl.innerHTML = `
     <div class="model-gallery-main" id="gal-main-${group}" onclick="openLightbox('${group}',0)">
       <img src="${allImgs[0]}" alt="shoe" id="gal-mainimg-${group}" loading="lazy">
     </div>
-    <div class="model-gallery-colors">${colorsHtml}</div>`;
+    <div class="model-gallery-colors">${colorsHtml}</div>${detailHtml}`;
   document.getElementById('gal-skel-' + group).style.display = 'none';
   galEl.style.display = 'flex';
 }
