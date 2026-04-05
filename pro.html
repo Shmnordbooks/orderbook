@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-R5E515WN5S"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-R5E515WN5S');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function(){
+    if (sessionStorage.getItem('isAuthenticated') !== 'true') {
+      window.location.replace('login.html');
+    }
+  })();
+</script>
+<title>PRO Bikegear — B2B Dealer Portal | April 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #1e1e2e;
+    --border-hover: #2a2a3e;
+    --accent: #0082CA;
+    --accent2: #e85d2c;
+    --text: #e8e8f0;
+    --text-muted: #6b6b82;
+    --text-dim: #3a3a52;
+    --avail: #00c896;
+    --etd: #ff9500;
+    --unavail: #ff3b5c;
+    --avail-bg: rgba(0,200,150,0.08);
+    --etd-bg: rgba(255,149,0,0.08);
+    --unavail-bg: rgba(255,59,92,0.08);
+    --shimano-blue: #0082CA;
+    --pro-orange: #0082CA;
+  }
+  html.light {
+    --bg: #f0f2f5; --surface: #ffffff; --card: #f8f9fb;
+    --border: #dde1ea; --border-hover: #b8bfcc;
+    --text: #12131a; --text-muted: #6b7280; --text-dim: #b0b8c8;
+    --avail: #00a878; --etd: #d97706; --unavail: #dc2626;
+    --avail-bg: rgba(0,168,120,0.08); --etd-bg: rgba(217,119,6,0.08); --unavail-bg: rgba(220,38,38,0.08);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0;
+    transition-property: background-color, border-color, color; transition-duration: 0.18s; }
+  html { scroll-behavior: smooth; font-size: 130%; }
+  body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+  /* HEADER */
+  header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; }
+  html.light header { background: rgba(240,242,245,0.95); }
+  .header-inner { max-width: 1500px; margin: 0 auto; display: flex; align-items: center; gap: 16px; height: 64px; }
+  .logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: 0.05em; color: var(--text); white-space: nowrap; display:flex; align-items:center; gap:8px; }
+  .logo span { color: var(--pro-orange); }
+  .header-divider { width: 1px; height: 28px; background: var(--border); }
+  .header-date { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.15em; text-transform: uppercase; white-space:nowrap; }
+  .header-search { flex: 1; position: relative; }
+  .header-search input { width: 100%; padding: 9px 16px 9px 40px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; }
+  .header-search input:focus { border-color: var(--pro-orange); }
+  .header-search input::placeholder { color: var(--text-muted); }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; pointer-events: none; }
+  .search-clear { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: var(--border); border: none; color: var(--text-muted); width: 20px; height: 20px; border-radius: 50%; cursor: pointer; font-size: 13px; line-height: 1; display: none; align-items: center; justify-content: center; transition: background 0.15s, color 0.15s; }
+  .search-clear:hover { background: var(--accent); color: #fff; }
+  .search-clear.visible { display: flex; }
+
+  /* THEME TOGGLE */
+  .theme-toggle { display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 5px 14px 5px 6px; cursor: pointer; flex-shrink: 0; user-select: none; }
+  .theme-toggle:hover { border-color: var(--pro-orange); }
+  .theme-toggle-track { position: relative; width: 32px; height: 18px; background: var(--border); border-radius: 9px; transition: background 0.25s; flex-shrink: 0; }
+  html.light .theme-toggle-track { background: var(--pro-orange); }
+  .theme-toggle-thumb { position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.3); transition: transform 0.25s cubic-bezier(0.4,0,0.2,1); }
+  html.light .theme-toggle-thumb { transform: translateX(14px); }
+  .theme-toggle-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; color: var(--text-muted); text-transform: uppercase; white-space: nowrap; }
+  html.light .theme-toggle-label { color: var(--pro-orange); }
+  .theme-toggle-icon { font-size: 14px; line-height: 1; transition: transform 0.4s ease; }
+  html.light .theme-toggle-icon { transform: rotate(360deg); }
+
+  /* LAYOUT */
+  .catalog-layout { display: flex; gap: 0; max-width: 1500px; margin: 0 auto; padding: 0 0 60px; align-items: flex-start; }
+  .sidebar { width: 140px; flex-shrink: 0; position: sticky; top: 64px; max-height: calc(100vh - 80px); overflow-y: auto; padding: 12px 0 24px; border-right: 1px solid var(--border); scrollbar-width: thin; scrollbar-color: var(--border) transparent; background: var(--surface); }
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .sidebar-section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); padding: 8px 16px 4px; }
+  .sidebar-sep { height: 1px; background: var(--border); margin: 6px 16px; }
+  .cat-chip { display: flex; align-items: center; gap: 6px; width: 100%; padding: 7px 12px; border: none; border-left: 3px solid transparent; border-radius: 0; background: transparent; color: rgba(255,255,255,0.85); font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: all 0.15s; }
+  .cat-chip:hover { background: rgba(0,130,202,0.07); color: var(--text); border-left-color: rgba(0,130,202,0.35); }
+  .cat-chip.active { background: rgba(0,130,202,0.12); border-left-color: var(--pro-orange); color: var(--pro-orange); font-weight: 600; }
+  html.light .cat-chip { background: var(--surface); color: rgba(30,40,60,0.85); }
+  .main { flex: 1; min-width: 0; padding: 20px 24px 0; }
+
+  /* HERO STRIP */
+  .pro-hero { background: linear-gradient(135deg, rgba(0,130,202,0.12) 0%, rgba(0,130,202,0.04) 100%); border: 1px solid rgba(0,130,202,0.2); border-radius: 12px; padding: 20px 28px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .pro-hero-left h2 { font-family: 'Barlow Condensed', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); letter-spacing: -0.01em; margin-bottom: 4px; }
+  .pro-hero-left h2 span { color: var(--pro-orange); }
+  .pro-hero-left p { font-size: 13px; color: var(--text-muted); }
+  .pro-hero-stats { display: flex; gap: 20px; }
+  .hero-stat { text-align: center; }
+  .hero-stat-val { font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 800; color: var(--pro-orange); }
+  .hero-stat-lbl { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
+
+  /* MODEL CARDS */
+  .model-section { margin-bottom: 32px; }
+  .section-header { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-dim); padding: 6px 0 10px; border-bottom: 1px solid var(--border); margin-bottom: 12px; }
+  .model-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 12px; overflow: hidden; transition: border-color 0.15s; }
+  .model-card:hover { border-color: var(--border-hover); }
+  .model-card-header { display: flex; align-items: center; gap: 14px; padding: 14px 16px; cursor: pointer; }
+  .model-card-header:hover { background: rgba(255,255,255,0.02); }
+  .model-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 800; color: var(--text); letter-spacing: 0.04em; min-width: 80px; }
+  .model-name { font-size: 13px; color: var(--text-muted); flex: 1; }
+  .model-price { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: var(--text); }
+  .model-srp { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; color: rgba(255,255,255,0.55); margin-left: 8px; }
+  .model-toggle { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 12px; transition: transform 0.2s; }
+  .model-card.open .model-toggle { transform: rotate(180deg); }
+  .model-items { display: none; padding: 0 16px 14px; border-top: 1px solid var(--border); }
+  .model-card.open .model-items { display: block; }
+  .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 5px; padding-top: 10px; }
+
+  /* ── Photo Gallery ── */
+  .model-gallery { display: flex; gap: 10px; padding: 12px 0 10px; overflow: hidden; }
+  .model-gallery-main { flex: 0 0 280px; height: 200px; border-radius: 8px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; display:flex; align-items:center; justify-content:center; }
+  .model-gallery-main img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.25s; }
+  .model-gallery-main img:hover { transform: scale(1.04); }
+  .model-gallery-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; align-content: start; }
+  .model-gallery-thumb { width: 68px; height: 50px; border-radius: 6px; overflow: hidden; background: var(--surface); border: 1px solid var(--border); cursor: pointer; flex-shrink: 0; transition: border-color 0.15s; display:flex; align-items:center; justify-content:center; }
+  .model-gallery-thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .model-gallery-thumb.active { border-color: var(--pro-orange); }
+  .model-gallery-thumb:hover { border-color: var(--border-hover); }
+  .model-gallery-skeleton { display: flex; gap: 10px; padding: 12px 0 10px; }
+  .gallery-skel-main { flex: 0 0 280px; height: 200px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); animation: skel-pulse 1.4s ease-in-out infinite; display:flex; align-items:center; justify-content:center; }
+  .gallery-skel-main svg { opacity: 0.15; }
+  .gallery-skel-thumbs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .gallery-skel-thumb { width: 68px; height: 50px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); animation: skel-pulse 1.4s ease-in-out infinite; }
+  @keyframes skel-pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .model-gallery-none { display:none; }
+  .gallery-placeholder { color: var(--text-dim); font-size: 11px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ── Product Detail Panel ── */
+  .model-detail-side { flex: 1; min-width: 180px; padding: 4px 0 4px 10px; border-left: 1px solid var(--border); overflow-y: auto; max-height: 220px; }
+  .product-detail-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; margin-bottom: 6px; }
+  .product-detail-desc { margin-bottom: 10px; font-size: 12px; line-height: 1.55; color: var(--text-muted); }
+  .product-detail-weight { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; color: var(--avail); margin-bottom: 8px; }
+  .product-detail-features { display: flex; flex-wrap: wrap; gap: 4px; }
+  .product-detail-feat { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.03em; }
+  .product-detail-feat::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--shimano-blue); opacity: 0.5; }
+  html.light .product-detail-feat { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
+
+  /* ── Lightbox ── */
+  .lightbox-overlay { position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.88); backdrop-filter:blur(12px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+  .lightbox-overlay.active { opacity:1; pointer-events:all; }
+  .lightbox-box { position:relative; max-width:800px; width:90vw; max-height:90vh; display:flex; flex-direction:column; align-items:center; gap:16px; }
+  .lightbox-close { position:absolute; top:-40px; right:0; background:rgba(255,255,255,0.12); border:none; color:#fff; width:36px; height:36px; border-radius:50%; font-size:20px; cursor:pointer; transition:background 0.15s; display:flex; align-items:center; justify-content:center; }
+  .lightbox-close:hover { background:rgba(255,255,255,0.25); }
+  .lightbox-img { max-width:100%; max-height:65vh; object-fit:contain; border-radius:10px; background:var(--surface); }
+  .lightbox-info { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px 20px; width:100%; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .lightbox-model { font-family:'Barlow Condensed',sans-serif; font-size:24px; font-weight:800; color:var(--text); letter-spacing:0.03em; }
+  .lightbox-name { font-size:14px; color:var(--text-muted); flex:1; }
+  .lightbox-nav { position:absolute; top:50%; transform:translateY(-50%); background:rgba(255,255,255,0.1); border:none; color:#fff; width:44px; height:44px; border-radius:50%; font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.15s; }
+  .lightbox-nav:hover { background:rgba(255,255,255,0.25); }
+  .lightbox-nav.prev { left:-56px; }
+  .lightbox-nav.next { right:-56px; }
+  @media(max-width:900px) { .lightbox-nav.prev{left:4px;} .lightbox-nav.next{right:4px;} }
+
+  /* ITEM ROWS */
+  .item-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); transition: border-color 0.12s; min-width: 0; }
+  .item-row.item-row-priced { grid-template-columns: 1fr auto auto auto; }
+  .item-row:hover { border-color: var(--border-hover); }
+  .item-price { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; color: var(--text); white-space: nowrap; }
+  .item-info { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .item-code { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); letter-spacing: 0.04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .item-desc { font-size: 11px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .badge-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; }
+  .badge.avail { color: var(--avail); background: var(--avail-bg); border: 1px solid rgba(0,200,150,0.2); }
+  .badge.etd { color: var(--etd); background: var(--etd-bg); border: 1px solid rgba(255,149,0,0.2); }
+  .badge.unavail { color: var(--unavail); background: var(--unavail-bg); border: 1px solid rgba(255,59,92,0.2); }
+  .qty-input { width: 54px; padding: 4px 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 600; text-align: center; outline: none; transition: border-color 0.15s; }
+  .qty-input:focus { box-shadow: inset 0 0 0 2px var(--avail), 0 0 8px rgba(0,200,150,0.15); border-color: transparent !important; }
+  .qty-input[data-has-value="true"] { border-color: rgba(0,200,150,0.4); }
+
+  /* SUB CATEGORY BADGES */
+  .sub-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* TOAST */
+  .toast-container { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 9000; pointer-events: none; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .toast { background: #1a1a24; color: #fff; padding: 8px 16px; border-radius: 4px; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.4); border-left: 3px solid var(--pro-orange); font-size: 13px; font-weight: 500; pointer-events: none; animation: toastIn 0.3s ease forwards; white-space: nowrap; }
+  .toast.removing { animation: toastOut 0.3s ease forwards; }
+  @keyframes toastIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes toastOut { from { opacity:1; transform:translateY(0); } to { opacity:0; transform:translateY(-12px); } }
+
+  /* RESULTS INFO */
+  .results-info { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+  .results-info strong { color: var(--text); }
+
+  /* SUB-FILTER CHIPS */
+  .sub-filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .sub-chip { display: inline-flex; align-items: center; gap: 4px; padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); color: #c0c8d8; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+  .sub-chip:hover { border-color: rgba(255,255,255,0.35); color: #fff; background: rgba(255,255,255,0.08); }
+  .sub-chip.active { border-color: #0082CA; color: #fff; background: rgba(0,130,202,0.2); font-weight: 700; }
+  .sub-chip .sub-chip-count { font-size: 10px; font-weight: 500; opacity: 0.5; }
+  html.light .sub-chip { border-color: rgba(0,0,0,0.12); background: rgba(0,0,0,0.03); color: #3a4560; }
+  html.light .sub-chip:hover { border-color: rgba(0,0,0,0.25); color: #111; background: rgba(0,0,0,0.06); }
+  html.light .sub-chip.active { border-color: #0082CA; color: #0082CA; background: rgba(0,130,202,0.1); }
+
+  /* ORDER PANEL (hidden — uses shared-cart slide-out) */
+  .order-panel { display: none !important; }
+
+  @media (max-width: 900px) {
+    .pro-hero-stats { display: none; }
+  }
+  @media (max-width: 768px) {
+    .items-grid { grid-template-columns: 1fr 1fr !important; gap: 6px !important; }
+    .item-row, .item-row.item-row-priced { grid-template-columns: 1fr !important; gap: 4px !important; padding: 8px 8px !important; }
+    .item-code { font-size: 11px !important; white-space: normal !important; word-break: break-all; line-height: 1.3; }
+    .item-desc { font-size: 10px !important; }
+    .item-price { font-size: 11px !important; }
+    .item-row .badge { font-size: 9px !important; padding: 2px 5px !important; }
+    .item-row .qty-input { width: 100% !important; max-width: 64px; padding: 6px 4px !important; font-size: 14px !important; min-height: 36px; }
+    .model-card-header { padding: 10px 12px !important; gap: 8px !important; flex-wrap: wrap; }
+    .model-tag { font-size: 14px !important; min-width: 60px !important; }
+    .model-name { font-size: 11px !important; }
+    .model-price, .model-srp { font-size: 13px !important; }
+    .model-items { padding: 0 8px 10px !important; }
+    .model-gallery-main { flex: 0 0 160px !important; height: 120px !important; }
+    .model-gallery { gap: 6px !important; padding: 8px 0 6px !important; }
+    .model-gallery-thumb { width: 48px !important; height: 36px !important; }
+  }
+  @media (max-width: 420px) {
+    .items-grid { grid-template-columns: 1fr !important; }
+  }
+
+/* ══════════════════════════════════════════
+   UNIFIED NAV
+   ══════════════════════════════════════════ */
+.sidebar, nav.sidebar, aside.sidebar {
+  position: fixed !important;
+  left: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 160px !important;
+  min-width: 160px !important;
+  max-width: 160px !important;
+  background: #0f1520 !important;
+  border-right: 1px solid #1c2538 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 10px 0 !important;
+  z-index: 100 !important;
+  overflow-y: auto !important;
+  scrollbar-width: none !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+}
+.sidebar::-webkit-scrollbar { display: none !important; }
+.main-content, .catalog-layout, .layout { margin-left: 160px !important; }
+
+.sidebar .cat-chip,
+.sidebar a.cat-chip,
+.sidebar button.cat-chip,
+.sidebar .sb-chip,
+.sidebar a.sb-chip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 12px !important;
+  margin: 2px 8px !important;
+  width: calc(100% - 16px) !important;
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  letter-spacing: .04em !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  border: 1px solid transparent !important;
+  border-left: 3px solid transparent !important;
+  border-radius: 6px !important;
+  background: none !important;
+  transition: background .15s, color .15s !important;
+  text-transform: none !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  box-sizing: border-box !important;
+  line-height: 1.4 !important;
+}
+.sidebar .cat-chip:hover,
+.sidebar .sb-chip:hover { background: rgba(255,255,255,.04) !important; }
+.sidebar .cat-chip svg,
+.sidebar .sb-chip svg { width: 14px !important; height: 14px !important; flex-shrink: 0 !important; }
+.sidebar .sidebar-sep, .sidebar .sb-sep { height: 1px !important; background: #1c2538 !important; margin: 4px 16px !important; }
+.sidebar .sidebar-section-label, .sidebar .sb-heading { font-family: 'Barlow Condensed', sans-serif !important; font-size: 10px !important; font-weight: 700 !important; letter-spacing: .2em !important; text-transform: uppercase !important; color: #3e4f6e !important; padding: 8px 16px 4px !important; }
+.sidebar .order-chip-badge { background: #0082CA !important; color: white !important; font-family: 'Barlow Condensed', sans-serif !important; font-size: 10px !important; font-weight: 800 !important; border-radius: 10px !important; padding: 1px 6px !important; min-width: 18px !important; line-height: 1.4 !important; margin-left: auto !important; text-align: center !important; }
+
+/* Parlak beyaz ana başlıklar */
+.sidebar .cat-chip, .sidebar a.cat-chip, .sidebar button.cat-chip, .sidebar .sb-chip, .sidebar a.sb-chip, .sidebar a[style], .sidebar button[style], .sidebar #sharedOrderSummaryBtn { color: #e0e8f2 !important; font-weight: 700 !important; }
+.sidebar a.cat-chip[href="index.html"], .sidebar a.sb-chip[href="index.html"] { color: #7a8ba8 !important; font-weight: 600 !important; }
+.sidebar .cat-chip[data-cat], .sidebar #catFilters .cat-chip, .sidebar button.cat-chip[id^="cat-"] { color: #7a8ba8 !important; font-weight: 500 !important; }
+.sidebar .cat-chip[data-cat].active, .sidebar #catFilters .cat-chip.active, .sidebar button.cat-chip[id^="cat-"].active { color: #a0b4cc !important; font-weight: 600 !important; }
+.sidebar .cover-page-btn, .sidebar .cat-chip.cover-page-btn { color: #7a8ba8 !important; font-weight: 500 !important; }
+.sidebar .cat-chip:hover, .sidebar .sb-chip:hover, .sidebar a:hover { color: #ffffff !important; }
+html.light .sidebar .cat-chip, html.light .sidebar a.cat-chip, html.light .sidebar button.cat-chip, html.light .sidebar .sb-chip, html.light .sidebar a.sb-chip, html.light .sidebar a[style], html.light .sidebar button[style], html.light .sidebar #sharedOrderSummaryBtn { color: #1a2a44 !important; }
+
+@media (max-width: 768px) {
+  .sidebar, nav.sidebar, aside.sidebar { display: none !important; }
+  .main-content, .catalog-layout, .layout { margin-left: 0 !important; }
+}
+</style>
+</head>
+<body data-catalog="pro">
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAA3AMoDASIAAhEBAxEB/8QAHAABAAMBAQEBAQAAAAAAAAAAAAUGBwQDAggB/8QARxAAAAUDAQQDCgoHCQAAAAAAAAECAwQFBhEHEhMhMQg3cRYiQVFhcoGisdEUFRcyVnSRobKzMzQ1NnPBwiNESFV1gpKU4f/EABwBAAIDAQEBAQAAAAAAAAAAAAADAQIEBQYHCP/EADURAAEDAwICCAMHBQAAAAAAAAEAAgMEESEFEjFRBhMUI0FhcZEVMtEWIkNygZLhRUaxssL/2gAMAwEAAhEDEQA/AI0AAfY1+ekASlFt6t1pK1UqmSJaUcFKQngXpMSfcBef0emer7wh9VAw7XPAPqFqjoamRu5kbiOYBVYAWCfZd1QIbsyZRJTMdlJqccVjCSLw8x40e1LjrEMplMpEiVHNRpJxGMZLnzMHaoNu7eLc7hHYanfs6t1+NrG9lCgPWSw9GkOR5DZtutqNK0nzSZeATFMs+5qnCRNgUaTIjufNcRjB/eLvmjjG57gB5lLjp5ZXFjGkkeABKggEjSqJVarOcg0+C7Jkt5NbaMZLHMfVdoNYoZtFV6e9DN3O73mO+xz5H5SB10e/ZuF+V8o7NNsMmw7R42NvdRgCyM2Jd7zKHmqBLW2tJKSotniR8j5j77gLz+j0z1feFdspx+I33CeNNrD+E79p+irACz9wF5/R6Z6vvETWqJVqM6luq09+IpRZTvE8D9IuyphkO1jwT5EKklFUxN3SRuA5kEKOAd9Go9UrL6maXBeluJLJk2nl6RMdwF5/R6Z6vvA+phjO17wD5kKIqKolbujjJHkCVWAE7U7QuamRTlTqLLYZTzWaSMi+wxxUSi1WtvrYpMF2W42nbWlvGSLOM8e0SKiItLw4WHjcWUOpJ2vEZYdx8LG/so8BZ+4C8/o9M9X3jyk2PdsZhT79AmIbQWVHgjx9hhYrKc4Eg9wmnTqwC5id+0/RV0B/dlW1sbJ7WcYxxz4hYYtj3bJYQ+xQZi21llKsEWS9Jhsk0cWXuA9TZIip5piRGwutyBKroCzHYN5EWTt6Z6vvFelxn4klcaUytl5s8LQssGRiI54pTZjgfQ3VpqWeAXlYW+oIXkAAGrOgAAEL9SWEz8XaZQ1U1hKnihqdQgi+e5gz49p4IZqu/tUiWZfERlx5fF7h4+8ctgasO2/RG6TUICpbTGSZcbURKIs5weRY/lxpvhosv/kn3jxQ0+qgmkLoBJc3BJX0o6rRVNPEGVRi2ixAHoqddOoF8v0p+mVmC1FYltm2rbiLbMyPngzMaX0fur5v6w57RL3kzAubTuTKU0RtvRN+ypae+QeMkfkMRHR96vm/rDntGerqYptOcGRhhDhcD0K10NHNT6u0ySmQOYbE+oWE3p+9tV+tL9o/Qui/VzT+xQrVZ0ZaqNVlTzrjjZyHVObJMkeMny5jQLOoZW5bjFITIOQTJH/aGnGfQGaxqVNU0bIo3XIt4Hkk9H9Hq6OvlmmbZpBtkc7rIND+suqea5+Ix29Jv9LRPNe/pHFof1l1TzXPxGO3pN/paJ5r39I2f1uP8v8AyVg/tyX8x/2C0t6Y9TtPFT4+zvo1L3re0WS2kt5LP2CraM3nWbrenpqvwbDCUmjdNmnn48mYsNZ6q5f+jK/KGd9Gf9Yq3mJHHhgjdQ1Ehb94EWP6rvVFTKzU6WJriGuabjnhS+ouoNaty+2KVFbiuQ1E2a0rQe0e1z45/kJ3W2LHmabTpLrZGuOSHWjMuKTNRF7FGMz1x60I/mse0hqWr3VZVv4Lf5iBodDHEaJ7BYutfzyFlbUSzjUI5Ddrb2B8MFcWg0GPFsJmQ2gidkuKW4vHE/EXoGf17V66WK1MYitwG2G3lIQlTRqMiI/Ce0WRpWiXV1A/3e0VeoaKNS5z8o664k3XDXs7kuGT7RaCajbXTmsznFwT4qtTT6g/TaZunm2BexA8Arpp5WXbtslmdUmGicfJbbyUF3qsGZcj8gzvQlhEbUK4I7RYbbQ4lJeIidLBDULDt0rWt1qkJknJJtalbw07OcmZ8vSM00T6y7k7HPzSCIXMMVX1XyYt7p9QyUT0HX/Pm/rtypLWC/K9a9ejw6X8F3TjO2retmo858hkJrR276jdtLmLqjTBPR3dglNJMiURkR8jMxnnSO/eyH9W/mLB0af2XVf46fwkNc9HANHbMGjdjPjxWKm1Cpd0gfTl52Zx4cFCHR4J9IRcHcp+DE+T27xwybRK/EeRf9YrvqNpUmGultMG9Ie2Np1JmlKSIz5EZCof4knO1P5KR2dJf9kUnh/eFfhMS9gqKylZLkFg/wAFVZI6l0+tkh+64SOyPUL70k1Frlx3KdKqrcVTa2lLQppBpNJlx8JnkQvSSgx2qzTpzaCS8+0aHDIvnYPgZ+XwegQ/R+I/lAbPHAo7nsMWLpL/AKxSPNX7RpEMdPrTGRCwI8PQrGaiWs6OSSTnc4O4n1H1WNAAD1q8CgAAELU7NrmmUW2YUeuUpt6ooSon1nD2zM9ozLjjjwwJfuk0c/yNr/of+DFQHIk0eN7y4yPzn5l6CHpFNFG1giYbADLc4/VbPf8AqnRpdsvUe3mXcvt7o1qb2Eto5cCHjpPqDblt2mim1N2QmQTy1GSGTUWDPhxIY8Aj4HS9n6jNib8c3U/aat7V2o23AWAtgD3UzcNakzK5NlRZskmHXlLbLbMu9M+HAarp7qZbtHtOLT6pJlnLbI9syZUr7xiIDRVaZBVRCJ/AcllodbqqKd00diXc8jOeavmmV00qgXnNqtQW6mM8SyQaGzUfEzxwHTrVd9HutdNOkLeUUcnCc3jZp+ds459hjOgE/DYe0ipzuAt5cLKPjNR2N1HYbCb+fG/NbnUtTrWfsV+kNuyjlLpxxyI2Dxtm3s8+0VHRe7qNars9VWceQT6Ukjdtmrl2DOgCGaNTshfCL2cbnP8AC0ydI6t9RHUEDcwWGMZ55V11OuOmV+92atTluKjJS0RmtBpPvTLPAXfUHUm2K1Y0+kQXpKpT7aEoJTBkWSWkz49hGMTAXdpMDhEDfu+H8+yWzX6phnIA735seoxnzW1aaakWzQbQiUyoPSUyGs7RIZNRfaMpqtXlv1OS8xNkk0t1Skd+ZcDPgIsAyn02GCV8reLuN0qr1mpqoY4X2AZwtjyzlbRpjqTQKHabFPq8mWqWlazUZNKXwNRmXHsFe01vCjUG86zVag48mNLJe6NDZqM8rJRZLwcBnABPwen73j3nH3vjCf8AaGr7nh3XDHlbOVeNYblpdz16PMpS3VNNs7CttBpPOfKJbRi9KHasGe1VnHkqfdJSN20auGCLwDMQDX6bC+lFKb7R7pEes1DK41wA3nyxwtzV1uO7mT1SXddI2nGkuIWglpNJqIkElRGX2jSJup1g1umoYrcN10sko2XY28JKvIMCAKn0anmDAbgsFgQc2C0UvSKrpnSFoBDySQRcXK3mjX9phRXFvUqAcR1adlSmoRpMy8WRmmqN3nd9dTJZaUzEYRu2UKPiZZyaj8piogJpdIgppeuBJdzJuq12v1VZB2dwa1nGzRZAAB1Fw0AAAhAAAIQAACEAAAhAAAIQAACEAAAhAAAIQAACEAAAhAAAIQAACEAAAhf/2Q==" alt="Shimano" style="height:26px;">
+      <span>PRO</span>
+    </div>
+    <div class="header-divider"></div>
+    <span class="header-date">April 2026</span>
+    <div class="header-search">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search by code, description, size...">
+      <button class="search-clear" id="searchClear" onclick="clearSearch()" title="Clear search">✕</button>
+    </div>
+    <div class="header-divider"></div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
+      <span class="theme-toggle-icon" id="themeIcon">🌙</span>
+      <div class="theme-toggle-track"><div class="theme-toggle-thumb"></div></div>
+      <span class="theme-toggle-label" id="themeLabel">Dark</span>
+    </button>
+  </div>
+</header>
+
+<div class="catalog-layout">
+  <!-- ═══ SIDEBAR ═══ -->
+  <nav class="sidebar" id="sidebar">
+    <a href="index.html" class="cat-chip" style="margin:4px 8px 4px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid rgba(255,120,0,0.5);color:#ff7800;font-weight:700;">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="14" height="14" style="flex-shrink:0"><path d="M8 2L1 8h2v6h4v-4h2v4h4V8h2z"/></svg>
+      Main Page
+    </a>
+    <div class="sidebar-sep" style="margin:4px 16px"></div>
+    <a href="hardgoods.html?skip=true#openOrderSummary" id="sharedOrderSummaryBtn" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0082CA;color:#0082CA;font-weight:800;background:rgba(0,130,202,0.08);">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0;opacity:0.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Order Summary <span class="order-chip-badge" id="sharedCartBadge" style="display:none;background:#0082CA;color:white;font-family:Barlow Condensed,sans-serif;font-size:10px;font-weight:800;border-radius:10px;padding:1px 6px;min-width:18px;line-height:1.4;margin-left:auto;text-align:center;">0</span>
+    </a>
+    <div class="sidebar-sep" style="margin:4px 16px"></div>
+    <a href="catalogues.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #8b5cf6;color:#8b5cf6;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      CATALOGUES
+    </a>
+    <a href="news.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #06b6d4;color:#06b6d4;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01 0 2z"/><path d="M12 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>
+      News &amp; Tec
+    </a>
+    <div class="sidebar-sep" style="margin:4px 16px"></div>
+    <div class="sidebar-section-label">PRODUCTS</div>
+    <a href="hardgoods.html?skip=true" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #0ea5e9;color:#0ea5e9;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      HARDGOODS
+    </a>
+    <a href="shoes.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #f59e0b;color:#f59e0b;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M2 18s1-4 3-5c2-1 4 0 6-1s3-4 6-4 5 2 5 4v1c0 1.5-1 3-3 3H2z"/></svg>
+      SHOES
+    </a>
+    <a href="pedals.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #10b981;color:#10b981;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4M1 12h4m14 0h4"/></svg>
+      PEDALS
+    </a>
+    <a href="lazer.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #ef4444;color:#ef4444;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M12 2C6.48 2 2 6 2 10c0 2.5 1.5 4.5 3.5 5.5L4 22h16l-1.5-6.5C20.5 14.5 22 12.5 22 10c0-4-4.48-8-10-8z"/></svg>
+      LAZER
+    </a>
+    <button class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #0082CA;color:#0082CA;font-weight:700;background:rgba(0,130,202,0.12);pointer-events:none;" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      PRO <span style="opacity:.4;font-size:9px;margin-left:2px">●</span>
+    </button>
+    <div class="sidebar-sep" style="margin:4px 16px"></div>
+    <div class="sidebar-section-label">CATEGORIES</div>
+    <button class="cat-chip active" id="cat-ALL" data-cat="ALL" onclick="setCat('ALL',this)">All</button>
+    <button class="cat-chip" id="cat-road" data-cat="road" onclick="setCat('road',this)">Road</button>
+    <button class="cat-chip" id="cat-mtb" data-cat="mtb" onclick="setCat('mtb',this)">MTB</button>
+    <button class="cat-chip" id="cat-gravel" data-cat="gravel" onclick="setCat('gravel',this)">Gravel</button>
+    <button class="cat-chip" id="cat-triathlon" data-cat="triathlon" onclick="setCat('triathlon',this)">Triathlon</button>
+    <button class="cat-chip" id="cat-accessories" data-cat="accessories" onclick="setCat('accessories',this)">Accessories</button>
+    <button class="cat-chip" id="cat-tools" data-cat="tools" onclick="setCat('tools',this)">Tools</button>
+  </nav>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <div class="main" id="mainContent">
+    <!-- Hero -->
+    <div class="pro-hero" id="proHero">
+      <div class="pro-hero-left">
+        <h2><span>PRO</span></h2>
+        <p>Order Book — April 2026</p>
+      </div>
+      <div class="pro-hero-stats">
+        <div class="hero-stat"><div class="hero-stat-val" id="statModels">0</div><div class="hero-stat-lbl">MODELS</div></div>
+        <div class="hero-stat"><div class="hero-stat-val" id="statItems">0</div><div class="hero-stat-lbl">SKUS</div></div>
+        <div class="hero-stat"><div class="hero-stat-val" id="statOrdered">0</div><div class="hero-stat-lbl">IN ORDER</div></div>
+      </div>
+    </div>
+
+    <div class="results-info" id="resultsInfo"></div>
+    <div class="sub-filter-bar" id="subFilterBar"></div>
+    <div id="catalogContent"></div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox-overlay" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <div class="lightbox-box">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav prev" onclick="lbNav(-1)">‹</button>
+    <img class="lightbox-img" id="lbImg" src="" alt="Product">
+    <button class="lightbox-nav next" onclick="lbNav(1)">›</button>
+    <div class="lightbox-info">
+      <span class="lightbox-model" id="lbModel"></span>
+      <span class="lightbox-name" id="lbName"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ═══ PRODUCT DATA ═══ -->
+<script>
+var PRO_DATA=[
+{s:"PRSA0352",d1:"PRO Saddle Stealth Team",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.8,srp:239.99},
+{s:"PRSA0353",d1:"PRO Saddle Stealth Team",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.8,srp:239.99},
+{s:"PRSA0350",d1:"PRO Saddle Stealth Performance",d2:"Black 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:73.9,srp:159.99},
+{s:"PRSA0351",d1:"PRO Saddle Stealth Performance",d2:"Black 152mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:73.9,srp:159.99},
+{s:"PRSA0378",d1:"PRO Saddle Stealth Superlight",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:209.5,srp:329.99},
+{s:"PRSA0379",d1:"PRO Saddle Stealth Superlight",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:209.5,srp:329.99},
+{s:"PRSA0356",d1:"PRO Saddle Stealth Curved Team",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.9,srp:229.99},
+{s:"PRSA0357",d1:"PRO Saddle Stealth Curved Team",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.9,srp:229.99},
+{s:"PRSA0354",d1:"PRO Saddle Stealth Curved Perf",d2:"Black 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:71.2,srp:159.99},
+{s:"PRSA0355",d1:"PRO Saddle Stealth Curved Perf",d2:"Black 152mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:71.2,srp:159.99},
+{s:"PRSA0320",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:79.8,srp:169.9},
+{s:"PRSA0321",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:79.8,srp:169.9},
+{s:"PRSA0368",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:55.97,srp:109.99},
+{s:"PRSA0369",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"e",p:55.97,srp:109.99},
+{s:"PRSA0374",d1:"E-BIKE SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:67.88,srp:134.99},
+{s:"PRSA0375",d1:"E-BIKE SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:67.88,srp:134.99},
+{s:"PRSA0372",d1:"ENDURO SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:67.29,srp:134.99},
+{s:"PRSA0373",d1:"ENDURO SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:67.29,srp:134.99},
+{s:"PRSA0376",d1:"PRO TSA 1.1",d2:"BLACK 132 MM, AF,CARBON RAILS",disc:"triathlon",sub:"saddles",st:"a",p:76.93,srp:154.99},
+{s:"PRSA0377",d1:"PRO TSA 1.2",d2:"BLACK 132 MM, AF, STAINLESS RAILS",disc:"triathlon",sub:"saddles",st:"a",p:109.83,srp:219.99},
+{s:"PRSA0196",d1:"PRO Saddle Stealth Sport",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"e",p:51.2,srp:119.99},
+{s:"PRSA0197",d1:"PRO Saddle Stealth Sport",d2:"Black 152mm, AF",disc:"road",sub:"saddles",st:"e",p:51.2,srp:119.99},
+{s:"PRSA0332",d1:"PRO Saddle Griffon Team",d2:"Black 142mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:102.9,srp:219.99},
+{s:"PRSA0333",d1:"PRO Saddle Griffon Team",d2:"Black 152mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:102.9,srp:219.99},
+{s:"PRSA0330",d1:"PRO Saddle Griffon Performance",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"a",p:59.9,srp:149.99},
+{s:"PRSA0331",d1:"PRO Saddle Griffon Performance",d2:"Black 152mm, AF",disc:"road",sub:"saddles",st:"a",p:59.9,srp:149.99},
+{s:"PRSA0343",d1:"PRO Saddle Turnix Team",d2:"Black 132mm, AF, carb.rail",disc:"gravel",sub:"saddles",st:"a",p:100.9,srp:219.99},
+{s:"PRSA0344",d1:"PRO Saddle Turnix Team",d2:"Black 142mm, AF, carb.rail",disc:"gravel",sub:"saddles",st:"a",p:100.9,srp:219.99},
+{s:"PRSA0345",d1:"PRO Saddle Turnix Team",d2:"Black 152mm, AF, carb.rail",disc:"gravel",sub:"saddles",st:"a",p:100.9,srp:219.99},
+{s:"PRSA0337",d1:"PRO Saddle Turnix Performance",d2:"Black 132mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
+{s:"PRSA0338",d1:"PRO Saddle Turnix Performance",d2:"Black 142mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
+{s:"PRSA0339",d1:"PRO Saddle Turnix Performance",d2:"Black 152mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
+{s:"PRSA0328",d1:"PRO Saddle Falcon Team",d2:"Black 132mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:95.2,srp:219.99},
+{s:"PRSA0329",d1:"PRO Saddle Falcon Team",d2:"Black 142mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:95.2,srp:219.99},
+{s:"PRSA0326",d1:"PRO Saddle Falcon Performance",d2:"Black 132mm, AF",disc:"road",sub:"saddles",st:"a",p:60.4,srp:149.99},
+{s:"PRSA0327",d1:"PRO Saddle Falcon Performance",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"a",p:60.4,srp:149.99},
+{s:"PRSA0307",d1:"PRO Saddle Griffon Crmo",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:30.9,srp:79.99},
+{s:"PRSA0306",d1:"PRO Saddle Griffon Crmo",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:30.9,srp:79.99},
+{s:"PRSA0297",d1:"PRO Saddle Griffon Gel",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:37.4,srp:119.99},
+{s:"PRSA0298",d1:"PRO Saddle Griffon Gel",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:37.4,srp:119.99},
+{s:"PRSA0301",d1:"PRO Saddle Turnix Crmo",d2:"Black 152mm",disc:"gravel",sub:"saddles",st:"a",p:28.7,srp:79.99},
+{s:"PRSA0300",d1:"PRO Saddle Turnix Crmo",d2:"Black 142mm",disc:"gravel",sub:"saddles",st:"a",p:28.7,srp:79.99},
+{s:"PRSA0291",d1:"PRO Saddle Turnix Gel",d2:"Black 142mm",disc:"gravel",sub:"saddles",st:"a",p:50.2,srp:119.99},
+{s:"PRSA0292",d1:"PRO Saddle Turnix Gel",d2:"Black 152mm",disc:"gravel",sub:"saddles",st:"e",p:50.2,srp:119.99},
+{s:"PRSA0304",d1:"PRO Saddle Falcon Crmo",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:35.2,srp:79.99},
+{s:"PRSA0303",d1:"PRO Saddle Falcon Crmo",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:35.2,srp:79.99},
+{s:"PRSA0294",d1:"PRO Saddle Falcon Gel",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:51.66,srp:119.99},
+{s:"PRSA0295",d1:"PRO Saddle Falcon Gel",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:51.66,srp:119.99},
+{s:"PRSA0350T",d1:"PRO TEST Saddle Stealth Perfo.",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"e",p:39.31,srp:0},
+{s:"PRSA0354T",d1:"PRO TEST Saddle Stealth Curv P",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"e",p:39.34,srp:0},
+{s:"PRSA0338T",d1:"PRO TEST Saddle Turnix Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.4,srp:0},
+{s:"PRSA0327T",d1:"PRO TEST Saddle Falcon Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.34,srp:0},
+{s:"PRSA0330T",d1:"PRO TEST Saddle Griffon Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.34,srp:0},
+{s:"PRSA0320T",d1:"PRO TEST Stealth Offroad saddl",d2:"Blue 142mm",disc:"road",sub:"saddles",st:"a",p:55.78,srp:0},
+{s:"PRSA0374T",d1:"PRO TEST Saddle MSU 1.3",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:40.43,srp:0},
+{s:"PRSA0372T",d1:"PRO TEST Saddle MSN 1.3",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:39.73,srp:0},
+{s:"PRAB0028",d1:"PRO Missile Evo Brackets",d2:"Black Brackets Only",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRAB0042",d1:"PRO Aerobar Missile Evo Carbon",d2:"Black J Bend XL Armrest",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRAB0043",d1:"PRO Basebar Missile Evo",d2:"Black",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0604",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 115mm/40cm Carbon",disc:"road",sub:"handlebars",st:"a",p:448.9,srp:799.0},
+{s:"PRHA0607",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 115mm/42cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0602",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 125mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0605",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 125mm/40cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0601",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 115mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0603",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 105mm/40cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0606",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 105mm/42cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0608",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 125mm/42cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0600",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 105mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0488",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 95mm/40cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0493",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 95mm/42cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0483",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 95mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0617",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 41cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:299.9,srp:459.99},
+{s:"PRHA0616",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 39cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0615",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 37cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0582",d1:"PRO Handlebar Vibe Superlight",d2:"Black 44cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"u",p:259.9,srp:439.99},
+{s:"PRHA0579",d1:"PRO Handlebar Vibe Superlight",d2:"Black 38cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0581",d1:"PRO Handlebar Vibe Superlight",d2:"Black 42cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0580",d1:"PRO Handlebar Vibe Superlight",d2:"Black 40cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0376",d1:"PRO Handlebar Vibe Carb. Comp.",d2:"Black 44cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:217.9,srp:399.0},
+{s:"PRHA0374",d1:"PRO Handlebar Vibe Carb. Comp.",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0375",d1:"PRO Handlebar Vibe Carb. Comp.",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0405",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 38cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:59.9,srp:199.99},
+{s:"PRHA0366",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0406",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0367",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0407",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0365",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 38cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0467",d1:"PRO Handlebar Vibe aero",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:66.9,srp:139.99},
+{s:"PRHA0466",d1:"PRO Handlebar Vibe aero",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0465",d1:"PRO Handlebar Vibe aero",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0472",d1:"PRO Handlebar Vibe aero purs.",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:67.49,srp:139.99},
+{s:"PRHA0471",d1:"PRO Handlebar Vibe aero purs.",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0470",d1:"PRO Handlebar Vibe aero purs.",d2:"Black 36cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0475",d1:"PRO Handlebar PLT ergo",d2:"Black 38cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:143.5,srp:289.99},
+{s:"PRHA0478",d1:"PRO Handlebar PLT ergo",d2:"Black 44cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0476",d1:"PRO Handlebar PLT ergo",d2:"Black 40cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0474",d1:"PRO Handlebar PLT ergo",d2:"Black 36cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0479",d1:"PRO Handlebar PLT ergo",d2:"Black 46cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0477",d1:"PRO Handlebar PLT ergo",d2:"Black 42cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0433",d1:"PRO Handlebar PLT Carbon",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:139.99,srp:279.99},
+{s:"PRHA0434",d1:"PRO Handlebar PLT Carbon",d2:"Black 44cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0431",d1:"PRO Handlebar PLT Carbon",d2:"Black 38cm/31.8mm",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0432",d1:"PRO Handlebar PLT Carbon",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0346",d1:"PRO Handlebar PLT Compact Ergo",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:35.9,srp:74.99},
+{s:"PRHA0349",d1:"PRO Handlebar PLT Compact Ergo",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0347",d1:"PRO Handlebar PLT Compact Ergo",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0348",d1:"PRO Handlebar PLT Compact Ergo",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0343",d1:"PRO Handlebar PLT Compact",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:33.9,srp:69.99},
+{s:"PRHA0340",d1:"PRO Handlebar PLT Compact",d2:"Black 36cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0341",d1:"PRO Handlebar PLT Compact",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
+{s:"PRHA0344",d1:"PRO Handlebar PLT Compact",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0342",d1:"PRO Handlebar PLT Compact",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0345",d1:"PRO Handlebar PLT Compact",d2:"Black 46cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0287",d1:"PRO Handlebar LT Ergo",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:23.59,srp:54.99},
+{s:"PRHA0285",d1:"PRO Handlebar LT Ergo",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0286",d1:"PRO Handlebar LT Ergo",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0284",d1:"PRO Handlebar LT Compact",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:19.99,srp:49.99},
+{s:"PRHA0282",d1:"PRO Handlebar LT Compact",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0283",d1:"PRO Handlebar LT Compact",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0281",d1:"PRO Handlebar LT Compact",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0505",d1:"PRO Handlebar Tharsis flat",d2:"Blk 720mm/0r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:102.43,srp:209.99},
+{s:"PRHA0506",d1:"PRO Handlebar Tharsis flat top",d2:"Blk 740mm/5r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:107.99,srp:209.99},
+{s:"PRHA0508",d1:"PRO Handlebar Tharsis minirise",d2:"Blk 780mm/10r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:93.64,srp:189.99},
+{s:"PRHA0507",d1:"PRO Handlebar Tharsis highrise",d2:"Blk 800mm/30r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"u",p:94.03,srp:189.99},
+{s:"PRHA0435",d1:"Tharsis Carbon",d2:"800mm/35/20mm/UD carbon",disc:"mtb",sub:"handlebars",st:"u",p:100.4,srp:189.99},
+{s:"PRHA0437",d1:"Tharsis Alloy",d2:"800mm/35/20mm/alloy",disc:"mtb",sub:"handlebars",st:"a",p:50.34,srp:109.99},
+{s:"PRHA0460",d1:"KORYAK E-PERFORMANCE CARBON",d2:"800MM/ 20MM RISE 11D SWEEP / 65MM REACH",disc:"mtb",sub:"handlebars",st:"a",p:415.99,srp:659.99},
+{s:"PRHA0574",d1:"E-PERFORMANCE CARBON HB",d2:"800MM / 35MM / 20MM RISE",disc:"mtb",sub:"handlebars",st:"u",p:113.01,srp:209.99},
+{s:"PRHA0573",d1:"E-PERFORMANCE ALLOY HB",d2:"800MM / 35MM / 20MM RISE",disc:"mtb",sub:"handlebars",st:"a",p:39.65,srp:94.99},
+{s:"PRHA0546",d1:"KORYAK FLAT TOP CARBON",d2:"740MM/31.8MM/5 RISE/9D SW",disc:"mtb",sub:"handlebars",st:"u",p:80.36,srp:149.99},
+{s:"PRHA0547",d1:"KORYAK RISER CARBON",d2:"800MM/31.8MM/20 RISE/9D SW",disc:"mtb",sub:"handlebars",st:"u",p:67.26,srp:149.99},
+{s:"PRHA0456",d1:"KORYAK LOW RISE HANDLEBA",d2:"BLACK 780MM / 31.8MM / 8MM RISE",disc:"mtb",sub:"handlebars",st:"u",p:30.71,srp:61.99},
+{s:"PRHA0457",d1:"KORYAK RISER HANDLEBAR",d2:"BLACK 800MM / 31.8MM / 20MM RISE",disc:"mtb",sub:"handlebars",st:"e",p:27.0,srp:61.99},
+{s:"PRHA0576",d1:"LT HIGH RISE HANDLEBAR",d2:"BLACK, 800MM, 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:26.9,srp:56.99},
+{s:"PRHA0577",d1:"LT RISER HANDLEBAR",d2:"BLACK, 800MM, 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:21.72,srp:52.99},
+{s:"PRHA0510",d1:"LT FLAT HANDLEBAR",d2:"BLACK 720MM 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:18.46,srp:47.99},
+{s:"PRHA0512",d1:"LT HIGH RISE 40 HANDLEBAR",d2:"BLACK 740MM 31.8MM",disc:"mtb",sub:"handlebars",st:"e",p:22.35,srp:47.99},
+{s:"PRHA0289",d1:"LT LOW RISE 20 HANDLEBAR",d2:"LACK 720MM 31.8MM",disc:"mtb",sub:"handlebars",st:"e",p:19.48,srp:47.99},
+{s:"PRSS0561",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 90mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:89.99,srp:199.99},
+{s:"PRSS0573",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 110mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0564",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 120mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0570",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 80mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0562",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 100mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0571",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 90mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0565",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 130mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0559",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 70mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0560",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 80mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0563",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 110mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0569",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 70mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0574",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 120mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0575",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 130mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0572",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 100mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0502",d1:"PRO Stem Vibe carbon",d2:"UD carbon 80mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:196.0,srp:359.99},
+{s:"PRSS0507",d1:"PRO Stem Vibe carbon",d2:"UD carbon 130mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0503",d1:"PRO Stem Vibe carbon",d2:"UD carbon 90mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0504",d1:"PRO Stem Vibe carbon",d2:"UD carbon 80mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0505",d1:"PRO Stem Vibe carbon",d2:"UD carbon 18mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0506",d1:"PRO Stem Vibe carbon",d2:"UD carbon 120mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0580",d1:"PRO Stem Vibe",d2:"Black 80mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:62.9,srp:129.99},
+{s:"PRSS0581",d1:"PRO Stem Vibe",d2:"Black 90mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0582",d1:"PRO Stem Vibe",d2:"Black 100mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0583",d1:"PRO Stem Vibe",d2:"Black 110mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0584",d1:"PRO Stem Vibe",d2:"Black 120mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0585",d1:"PRO Stem Vibe",d2:"Black 130mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0590",d1:"PRO Stem Vibe 1 1/4",d2:"Black 80mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0591",d1:"PRO Stem Vibe 1 1/4",d2:"Black 90mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0592",d1:"PRO Stem Vibe 1 1/4",d2:"Black 100mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0593",d1:"PRO Stem Vibe 1 1/4",d2:"Black 110mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0594",d1:"PRO Stem Vibe 1 1/4",d2:"Black 120mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0595",d1:"PRO Stem Vibe 1 1/4",d2:"Black 130mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0601",d1:"PRO Stem Vibe",d2:"Black 90mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"e",p:0,srp:0},
+{s:"PRSS0602",d1:"PRO Stem Vibe",d2:"Black 100mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0603",d1:"PRO Stem Vibe",d2:"Black 110mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0604",d1:"PRO Stem Vibe",d2:"Black 120mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0605",d1:"PRO Stem Vibe",d2:"Black 130mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0614",d1:"PRO Stem Vibe 1 1/4",d2:"Black 120mm/ 31.8mm/ -17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0615",d1:"PRO Stem Vibe 1 1/4",d2:"Black 130mm/ 31.8mm/ -17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0335",d1:"PRO Stem LT Adjustable",d2:"Black 90mm/31.8mm",disc:"road",sub:"stems",st:"a",p:20.99,srp:54.99},
+{s:"PRSS0336",d1:"PRO Stem LT Adjustable",d2:"Black 110mm/31.8mm",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0334",d1:"PRO Stem LT",d2:"Black 120mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:14.9,srp:44.99},
+{s:"PRSS0322",d1:"PRO Stem LT",d2:"Black 70mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0325",d1:"PRO Stem LT",d2:"Black 100mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0329",d1:"PRO Stem LT",d2:"Black 70mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0332",d1:"PRO Stem LT",d2:"Black 100mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0319",d1:"PRO Stem LT",d2:"Black 70mm/31.8mm/+-35degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0326",d1:"PRO Stem LT",d2:"Black 110mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0330",d1:"PRO Stem LT",d2:"Black 80mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0323",d1:"PRO Stem LT",d2:"Black 80mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0333",d1:"PRO Stem LT",d2:"Black 110mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0324",d1:"PRO Stem LT",d2:"Black 90mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0320",d1:"PRO Stem LT",d2:"Black 90mm/31.8mm/+-35degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0328",d1:"PRO Stem LT",d2:"Black 60mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0331",d1:"PRO Stem LT",d2:"Black 90mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0547",d1:"PRO Stem LT",d2:"Black 60mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0545",d1:"PRO Stem LT",d2:"Black 40mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0546",d1:"PRO Stem LT",d2:"Black 50mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0519",d1:"THARSIS ALLOY STEM",d2:"154G / 60MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:58.85,srp:129.99},
+{s:"PRSS0520",d1:"THARSIS ALLOY STEM",d2:"158G / 70MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:63.07,srp:129.99},
+{s:"PRSS0521",d1:"THARSIS ALLOY STEM",d2:"161G / 80MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:64.05,srp:129.99},
+{s:"PRSS0522",d1:"THARSIS ALLOY STEM",d2:"164G / 90MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:62.79,srp:129.99},
+{s:"PRSS0523",d1:"THARSIS ALLOY STEM",d2:"168G / 100MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:61.95,srp:129.99},
+{s:"PRSS0390",d1:"THARSIS CNC STEM",d2:"BLACK 35MM / 35MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"u",p:73.38,srp:139.99},
+{s:"PRSS0391",d1:"THARSIS CNC STEM",d2:"BLACK 45MM / 35MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"u",p:65.86,srp:139.99},
+{s:"PRSS0392",d1:"THARSIS CNC STEM",d2:"BLACK 55MM / 35MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"a",p:73.38,srp:139.99},
+{s:"PRSS0395",d1:"THARSIS DM STEM",d2:"BLACK 45-50MM / 35MM",disc:"mtb",sub:"stems",st:"a",p:61.23,srp:129.99},
+{s:"PRSS0539",d1:"E-PERFORMANCE ALLOY STEM",d2:"35MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:44.41,srp:94.99},
+{s:"PRSS0540",d1:"E-PERFORMANCE ALLOY STEM",d2:"45MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:41.29,srp:94.99},
+{s:"PRSS0541",d1:"E-PERFORMANCE ALLOY STEM",d2:"55MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"u",p:41.47,srp:94.99},
+{s:"PRSS0530",d1:"PRO KORYAK STEM",d2:"BLACK 35 MM / 31.8MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"u",p:35.56,srp:74.99},
+{s:"PRSS0531",d1:"PRO KORYAK STEM",d2:"BLACK 40 MM/31.8MM/0DEGR",disc:"mtb",sub:"stems",st:"u",p:36.8,srp:74.99},
+{s:"PRSS0532",d1:"PRO KORYAK STEM",d2:"BLACK 50MM/31.8MM/0DEGR",disc:"mtb",sub:"stems",st:"u",p:35.4,srp:74.99},
+{s:"PRSS0533",d1:"PRO KORYAK STEM",d2:"BLACK 60MM/31.8MM/0DEGR.",disc:"mtb",sub:"stems",st:"a",p:34.16,srp:74.99},
+{s:"PRSS0534",d1:"PRO KORYAK STEM",d2:"BLACK 70MM/31.8MM/-6DEGR.",disc:"mtb",sub:"stems",st:"u",p:36.15,srp:74.99},
+{s:"PRSS0535",d1:"PRO KORYAK STEM",d2:"BLACK 80MM/31.8MM/-6DEGR",disc:"mtb",sub:"stems",st:"a",p:33.91,srp:74.99},
+{s:"PRSS0536",d1:"PRO KORYAK STEM",d2:"BLACK 90MM/31.8MM/-6DEGR",disc:"mtb",sub:"stems",st:"u",p:34.42,srp:74.99},
+{s:"PRSS0537",d1:"PRO KORYAK STEM",d2:"BLACK 100MM/31.8MM/-6DEGR.",disc:"mtb",sub:"stems",st:"u",p:35.03,srp:74.99},
+{s:"PRSS0545",d1:"LT STEM",d2:"BLACK, 40MM / 31.8MM / 0 DEG",disc:"mtb",sub:"stems",st:"a",p:16.1,srp:41.99},
+{s:"PRSS0546",d1:"LT STEM",d2:"BLACK, 50MM / 31.8MM / 0 DEG",disc:"mtb",sub:"stems",st:"a",p:17.24,srp:41.99},
+{s:"PRSS0547",d1:"LT STEM",d2:"BLACK, 60MM / 31.8MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:16.65,srp:41.99},
+{s:"PRSS0319",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 35°",disc:"mtb",sub:"stems",st:"a",p:17.74,srp:39.99},
+{s:"PRSS0320",d1:"LT STEM",d2:"BLACK 90MM / 31.8MM / ± 35°",disc:"mtb",sub:"stems",st:"a",p:17.9,srp:39.99},
+{s:"PRSS0322",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 17",disc:"mtb",sub:"stems",st:"a",p:19.28,srp:39.99},
+{s:"PRSS0323",d1:"LT STEM",d2:"BLACK 80MM / 31.8MM / ± 17",disc:"mtb",sub:"stems",st:"a",p:19.58,srp:39.99},
+{s:"PRSS0324",d1:"LT STEM",d2:"BLACK 90MM / 31.8MM / ± 17°",disc:"mtb",sub:"stems",st:"a",p:15.03,srp:39.99},
+{s:"PRSS0325",d1:"LT STEM",d2:"BLACK 100MM / 31.8MM / ± 17°",disc:"mtb",sub:"stems",st:"a",p:19.39,srp:39.99},
+{s:"PRSS0326",d1:"LT STEM",d2:"BLACK 110MM / 31.8MM / ± 17",disc:"mtb",sub:"stems",st:"a",p:18.34,srp:39.99},
+{s:"PRSS0328",d1:"LT STEM",d2:"BLACK 60MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:14.4,srp:39.99},
+{s:"PRSS0329",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:14.82,srp:39.99},
+{s:"PRSS0330",d1:"LT STEM",d2:"BLACK 80MM / 31.8MM / ± 6",disc:"mtb",sub:"stems",st:"a",p:18.01,srp:39.99},
+{s:"PRSS0331",d1:"LT STEM",d2:"BLACK 90MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:19.63,srp:39.99},
+{s:"PRSS0332",d1:"LT STEM",d2:"BLACK 100MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"u",p:19.62,srp:39.99},
+{s:"PRSS0333",d1:"LT STEM",d2:"BLACK 110MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:18.9,srp:39.99},
+{s:"PRSS0334",d1:"LT STEM",d2:"BLACK 120MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:19.65,srp:39.99},
+{s:"PRSS0335",d1:"LT ADJUSTABLE STEM",d2:"BLACK 90MM / 31.8MM",disc:"mtb",sub:"stems",st:"a",p:18.2,srp:49.99},
+{s:"PRSS0336",d1:"LT ADJUSTABLE STEM",d2:"BLACK 110MM / 31.8MM",disc:"mtb",sub:"stems",st:"a",p:21.73,srp:49.99},
+{s:"PRSS0416",d1:"PRO Stem PLT",d2:"Black 60mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:25.9,srp:59.99},
+{s:"PRSS0419",d1:"PRO Stem PLT",d2:"Black 90mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
+{s:"PRSS0422",d1:"PRO Stem PLT",d2:"Black 120mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
+{s:"PRSS0420",d1:"PRO Stem PLT",d2:"Black 100mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
+{s:"PRSS0417",d1:"PRO Stem PLT",d2:"Black 70mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
+{s:"PRSS0423",d1:"PRO Stem PLT",d2:"Black 130mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
+{s:"PRSS0415",d1:"PRO Stem PLT",d2:"Black 50mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
+{s:"PRSS0418",d1:"PRO Stem PLT",d2:"Black 80mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
+{s:"PRSS0421",d1:"PRO Stem PLT",d2:"Black 110mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
+{s:"PRSP0114",d1:"PRO Seatpost LT",d2:"Black 27.2mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:18.49,srp:49.99},
+{s:"PRSP0117",d1:"PRO Seatpost LT",d2:"Black 31.6mm/20mm/alloy",disc:"road",sub:"seatposts",st:"a",p:0,srp:0},
+{s:"PRSP0115",d1:"PRO Seatpost LT",d2:"Black 31.6mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
+{s:"PRSP0118",d1:"PRO Seatpost LT",d2:"Black 30.9mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
+{s:"PRSP0116",d1:"PRO Seatpost LT",d2:"Black 27.2mm/20mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
+{s:"PRSP0119",d1:"PRO Seatpost LT",d2:"Black 30.9mm/20mm/alloy",disc:"road",sub:"seatposts",st:"a",p:0,srp:0},
+{s:"PRSP0142",d1:"PRO Seatpost PLT",d2:"Black 31.6mm/0mm/alloy",disc:"road",sub:"seatposts",st:"a",p:32.9,srp:69.99},
+{s:"PRSP0145",d1:"PRO Seatpost PLT",d2:"Black 27.2mm/20mm/alloy",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
+{s:"PRSP0146",d1:"PRO Seatpost PLT",d2:"Black 31.6mm/20mm/alloy",disc:"road",sub:"seatposts",st:"a",p:0,srp:0},
+{s:"PRSP0141",d1:"PRO Seatpost PLT",d2:"Black 27.2mm/0mm/alloy",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
+{s:"PRSP0107",d1:"THARSIS XC SEATPOST",d2:"27.2MM / 400MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:136.77,srp:259.99},
+{s:"PRSP0109",d1:"THARSIS XC SEATPOST",d2:"31.6MM / 400MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:120.29,srp:259.99},
+{s:"PRSP0250",d1:"THARSIS DROPPER POST 160",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:212.22,srp:429.99},
+{s:"PRSP0251",d1:"THARSIS DROPPER POST 160",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:191.59,srp:429.99},
+{s:"PRSP0252",d1:"THARSIS DROPPER POST 160",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:194.48,srp:439.99},
+{s:"PRSP0237",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 27.2MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:173.79,srp:379.99},
+{s:"PRSP0238",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 30.9MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:132.21,srp:379.99},
+{s:"PRSP0239",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 31.6MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:176.71,srp:379.99},
+{s:"PRSP0253",d1:"THARSIS DROPPER POST 200",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:243.16,srp:449.99},
+{s:"PRSP0254",d1:"THARSIS DROPPER POST 201",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"u",p:237.26,srp:449.99},
+{s:"PRSP0255",d1:"THARSIS DROPPER POST 202",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:232.42,srp:469.99},
+{s:"PRSP0272",d1:"KORYAK DROPPER POST 170",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:142.58,srp:219.95},
+{s:"PRSP0273",d1:"KORYAK DROPPER POST 171",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:148.12,srp:219.95},
+{s:"PRSP0275",d1:"KORYAK DROPPER POST 172",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:142.58,srp:219.95},
+{s:"PRSP0270",d1:"KORYAK DROPPER POST 150",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:136.46,srp:219.95},
+{s:"PRSP0271",d1:"KORYAK DROPPER POST 150",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:135.15,srp:219.95},
+{s:"PRSP0274",d1:"KORYAK DROPPER POST 150",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:136.17,srp:219.95},
+{s:"PRSP0276",d1:"KORYAK DROPPER POST 120",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:118.71,srp:219.95},
+{s:"PRSP0277",d1:"KORYAK DROPPER POST 120",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:118.81,srp:219.95},
+{s:"PRSP0132",d1:"KORYAK SEATPOST",d2:"27.2MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:32.53,srp:69.99},
+{s:"PRSP0133",d1:"KORYAK SEATPOST",d2:"30.9MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:37.23,srp:69.99},
+{s:"PRSP0134",d1:"KORYAK SEATPOST",d2:"31.6MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:32.62,srp:69.99},
+{s:"PRSP0135",d1:"KORYAK SEATPOST",d2:"27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:33.69,srp:69.99},
+{s:"PRSP0136",d1:"KORYAK SEATPOST",d2:"30.9MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:32.69,srp:69.99},
+{s:"PRSP0137",d1:"KORYAK SEATPOST",d2:"31.6MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:33.44,srp:69.99},
+{s:"PRSP0247",d1:"LT DROPPER POST 150",d2:"30.9MM / EXTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:111.79,srp:244.99},
+{s:"PRSP0248",d1:"LT DROPPER POST 150",d2:"31.6MM / EXTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:110.27,srp:244.99},
+{s:"PRSP0245",d1:"LT DROPPER POST 150",d2:"30.9MM / INTERNA",disc:"mtb",sub:"seatposts",st:"a",p:106.5,srp:244.99},
+{s:"PRSP0246",d1:"LT DROPPER POST 150",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:105.66,srp:244.99},
+{s:"PRSP0114",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.22,srp:44.99},
+{s:"PRSP0115",d1:"LT SEATPOST",d2:"400MM / 31.6MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.15,srp:44.99},
+{s:"PRSP0118",d1:"LT SEATPOST",d2:"400MM / 30.9MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.76,srp:44.99},
+{s:"PRSP0116",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.74,srp:44.99},
+{s:"PRSP0117",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:18.32,srp:44.99},
+{s:"PRSP0119",d1:"LT SEATPOST",d2:"400MM / 31.6MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:18.44,srp:44.99},
+{s:"PRPU0110",d1:"PRO Floorpump Team Tubeless",d2:"Pump and Compressor Integrated",disc:"accessories",sub:"pumps",st:"a",p:75.74,srp:169.99},
+{s:"PRPU0102",d1:"PRO Floorpump Team",d2:"Alloy barrel, base, dual gauge",disc:"accessories",sub:"pumps",st:"a",p:63.55,srp:139.99},
+{s:"PRPU0101",d1:"PRO Floorpump Digital Team",d2:"Alloy barrel, digital gauge",disc:"accessories",sub:"pumps",st:"e",p:46.06,srp:119.99},
+{s:"PRPU0087",d1:"PRO Compressor Team Tubeless",d2:"Black for Tubel. tire setting",disc:"accessories",sub:"pumps",st:"a",p:44.38,srp:89.99},
+{s:"PRPU0106",d1:"PRO Shock pump Team",d2:"Black w/ digital gauge",disc:"accessories",sub:"pumps",st:"a",p:34.4,srp:99.99},
+{s:"PRPU0097",d1:"PRO Minipump Team CO2",d2:"Black Minipump CO2 combo alloy",disc:"accessories",sub:"pumps",st:"a",p:30.3,srp:64.99},
+{s:"PRPU0083",d1:"PRO Floorpump Performance",d2:"Black steel barrel/gauge",disc:"accessories",sub:"pumps",st:"a",p:29.42,srp:69.99},
+{s:"PRPU0098",d1:"PRO Minipump Team HP",d2:"Black High pressure alloy",disc:"accessories",sub:"pumps",st:"a",p:24.36,srp:59.99},
+{s:"PRPU0100",d1:"PRO Floorpump Competition",d2:"Steel barrel, base, gauge",disc:"accessories",sub:"pumps",st:"a",p:21.9,srp:49.99},
+{s:"PRPU0105",d1:"PRO Minipump Performance  XL",d2:"Alloy, popout gauge w/ footpad",disc:"accessories",sub:"pumps",st:"a",p:18.2,srp:52.99},
+{s:"PRPU0104",d1:"PRO Minipump Performance XS",d2:"Telescopic, screw on head",disc:"accessories",sub:"pumps",st:"a",p:16.58,srp:39.99},
+{s:"PRPU0050",d1:"PRO Susp.pump Performance",d2:"Black Magnet lock suspension",disc:"accessories",sub:"pumps",st:"a",p:15.53,srp:54.99},
+{s:"PRPU0091",d1:"PRO Minipump Performance HP",d2:"Black Alloy Road/Presta Valve",disc:"accessories",sub:"pumps",st:"a",p:14.03,srp:40.99},
+{s:"PRPU0080",d1:"PRO Floorpump Touring",d2:"Black steel barrel/gauge",disc:"accessories",sub:"pumps",st:"a",p:13.86,srp:39.99},
+{s:"PRPU0095",d1:"PRO Pressure Checker Digital",d2:"Prest/Schr.",disc:"accessories",sub:"pumps",st:"e",p:12.72,srp:44.99},
+{s:"PRPU0092",d1:"PRO Minipump Performance HV",d2:"Black Alloy MTB/Presta Valve",disc:"accessories",sub:"pumps",st:"a",p:10.67,srp:40.99},
+{s:"PRPU0090",d1:"PRO Minipump Compact Hose",d2:"Alloy & Plastic/Presta Valve",disc:"accessories",sub:"pumps",st:"e",p:9.78,srp:25.99},
+{s:"PRPU0042",d1:"PRO Minipump Compact",d2:"Black Magnete lock telescopic",disc:"accessories",sub:"pumps",st:"a",p:7.24,srp:17.99},
+{s:"PRPU0041",d1:"PRO Minipump Compact",d2:"Black Magnete lock",disc:"accessories",sub:"pumps",st:"a",p:7.03,srp:15.99},
+{s:"PRBA0049",d1:"PRO Bags Bike travel case",d2:"Updated version with frame",disc:"accessories",sub:"bags",st:"e",p:376.42,srp:0},
+{s:"PRBA0045",d1:"PRO Bike Bag",d2:"Bicycle Transportation Bag",disc:"accessories",sub:"bags",st:"e",p:77.7,srp:0},
+{s:"PRBA0080",d1:"PRO Team Gravel Seatpost Bag",d2:"Black  10L",disc:"accessories",sub:"bags",st:"a",p:58.15,srp:0},
+{s:"PRBA0061",d1:"PRO Team Gravel Frame Bag",d2:"Black  5,5L",disc:"accessories",sub:"bags",st:"a",p:44.72,srp:0},
+{s:"PRBA0066",d1:"PRO Team Gravel Handlebar Bag",d2:"Black / 2L",disc:"accessories",sub:"bags",st:"a",p:42.13,srp:0},
+{s:"PRBA0069",d1:"PRO Team Gravel Framebag S",d2:"Black / 2,7L",disc:"accessories",sub:"bags",st:"a",p:39.32,srp:0},
+{s:"PRBA0053",d1:"PRO Gravel Seatpost Bag",d2:"15L",disc:"accessories",sub:"bags",st:"a",p:33.49,srp:0},
+{s:"PRBA0052",d1:"PRO Gravel Handlebar Bag",d2:"8L",disc:"accessories",sub:"bags",st:"a",p:27.33,srp:0},
+{s:"PRBA0040",d1:"PRO Saddlebag Direct Mount",d2:"Bolt fixation with Pro Saddles",disc:"accessories",sub:"bags",st:"a",p:26.44,srp:0},
+{s:"PRBA0060",d1:"PRO Team Gravel Top Tube Bag",d2:"Black  0,7L",disc:"accessories",sub:"bags",st:"a",p:26.1,srp:0},
+{s:"PRBA0057",d1:"PRO bags Gravel seatbag",d2:"Grey Tool pack",disc:"accessories",sub:"bags",st:"a",p:24.77,srp:0},
+{s:"PRBA0068",d1:"PRO Team Gravel Saddlebag",d2:"Black / 0,6L",disc:"accessories",sub:"bags",st:"a",p:24.28,srp:0},
+{s:"PRBA0064",d1:"PRO Perfor Gravel Frame Bag",d2:"Grey  5,5L",disc:"accessories",sub:"bags",st:"a",p:23.72,srp:0},
+{s:"PRBA0056",d1:"PRO bags Gravel frame bag smal",d2:"Grey Triangle frame mount",disc:"accessories",sub:"bags",st:"a",p:22.63,srp:0},
+{s:"PRBA0065",d1:"PRO Gravel Handlebar Bag",d2:"Grey  2,5L",disc:"accessories",sub:"bags",st:"a",p:18.82,srp:0},
+{s:"PRBA0054",d1:"PRO bags Gravel bottle bag",d2:"Grey handlebar - stem mount",disc:"accessories",sub:"bags",st:"a",p:17.38,srp:0},
+{s:"PRBA0074",d1:"PRO Saddlebag XL Performance",d2:"",disc:"accessories",sub:"bags",st:"a",p:16.3,srp:0},
+{s:"PRBA0063",d1:"PRO Perfor Gravel Top Tube Bag",d2:"Grey  0,7L",disc:"accessories",sub:"bags",st:"a",p:16.01,srp:0},
+{s:"PRBA0073",d1:"PRO Saddlebag L Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:14.0,srp:0},
+{s:"PRBA0072",d1:"PRO Saddlebag M Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:13.08,srp:0},
+{s:"PRBA0067",d1:"PRO Bag Tool Wrap Performance",d2:"Saddle Bag",disc:"accessories",sub:"bags",st:"a",p:11.19,srp:0},
+{s:"PRBA0055",d1:"PRO bags Gravel phone pouch",d2:"Grey waterproof",disc:"accessories",sub:"bags",st:"a",p:10.91,srp:0},
+{s:"PRBA0070",d1:"PRO Pouch BC Smart",d2:"Black EVA/ w/Click Mount",disc:"accessories",sub:"bags",st:"a",p:10.71,srp:0},
+{s:"PRBA0071",d1:"PRO Saddlebag S Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:10.59,srp:0},
+{s:"PRBC0017",d1:"PRO Bottle Cage Carbon",d2:"Lightweight UD Carbon",disc:"accessories",sub:"bottles",st:"e",p:33.34,srp:0},
+{s:"PRBC0009",d1:"PRO Bottle Cage Triathlon",d2:"Black Saddle Mount",disc:"accessories",sub:"bottles",st:"a",p:17.64,srp:0},
+{s:"PRBC0035",d1:"PRO Bottle Cage e-bike",d2:"Black Battery mount",disc:"accessories",sub:"bottles",st:"a",p:15.73,srp:0},
+{s:"PRBC0038",d1:"PRO Bottle Cage adj. mount",d2:"Black alloy",disc:"accessories",sub:"bottles",st:"a",p:13.71,srp:0},
+{s:"PRBC0036",d1:"PRO Bottle Cage e-bike",d2:"Black Saddle Mount",disc:"accessories",sub:"bottles",st:"a",p:9.9,srp:0},
+{s:"PRBC0031",d1:"PRO Bottle Cage PC",d2:"Black - Clear",disc:"accessories",sub:"bottles",st:"e",p:8.89,srp:0},
+{s:"PRBC0029",d1:"PRO Bottle Cage PC",d2:"Black - White",disc:"accessories",sub:"bottles",st:"e",p:8.71,srp:0},
+{s:"PRBC0049",d1:"PRO Bottle Cage Smart PC",d2:"PC / w/Tire Levers",disc:"accessories",sub:"bottles",st:"a",p:8.46,srp:0},
+{s:"PRBC0030",d1:"PRO Bottle Cage PC",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"e",p:7.98,srp:0},
+{s:"PRBT0038",d1:"PRO Team Bottle",d2:"Thermal 600ml",disc:"accessories",sub:"bottles",st:"u",p:7.55,srp:0},
+{s:"PRBC0019",d1:"PRO Bottle Cage Alloy",d2:"Black - Grey",disc:"accessories",sub:"bottles",st:"e",p:7.4,srp:0},
+{s:"PRBC0026",d1:"PRO Bottle Side Cage L Alloy",d2:"Black - Clear",disc:"accessories",sub:"bottles",st:"a",p:7.4,srp:0},
+{s:"PRBC0023",d1:"PRO Bottle Side Cage R Alloy",d2:"Black - White",disc:"accessories",sub:"bottles",st:"a",p:7.35,srp:0},
+{s:"PRBC0027",d1:"PRO Bottle Side Cage R Alloy",d2:"Black - Clear",disc:"accessories",sub:"bottles",st:"a",p:7.34,srp:0},
+{s:"PRBC0013",d1:"PRO Bottle Cage Alloy",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"a",p:7.28,srp:0},
+{s:"PRBC0014",d1:"PRO Bottle Cage Alloy",d2:"Black - Red",disc:"accessories",sub:"bottles",st:"a",p:7.27,srp:0},
+{s:"PRBC0012",d1:"PRO Bottle Cage Alloy",d2:"Black - White",disc:"accessories",sub:"bottles",st:"e",p:7.26,srp:0},
+{s:"PRBC0022",d1:"PRO Bottle Side Cage L Alloy",d2:"Black - White",disc:"accessories",sub:"bottles",st:"a",p:7.24,srp:0},
+{s:"PRBC0024",d1:"PRO Bottle Side Cage L Alloy",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"a",p:7.0,srp:0},
+{s:"PRBC0025",d1:"PRO Bottle Side Cage R Alloy",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"a",p:6.29,srp:0},
+{s:"PRBT0037",d1:"PRO Team Bottle",d2:"Transparent 800ml w/cap",disc:"accessories",sub:"bottles",st:"u",p:4.79,srp:0},
+{s:"PRBT0036",d1:"PRO Team Bottle",d2:"Transparent 600ml w/cap",disc:"accessories",sub:"bottles",st:"u",p:4.47,srp:0},
+{s:"PRBT0035",d1:"PRO Team Bottle",d2:"Black 800ml",disc:"accessories",sub:"bottles",st:"a",p:4.44,srp:0},
+{s:"PRBT0021",d1:"PRO Storage Bottle",d2:"Black 750cc",disc:"accessories",sub:"bottles",st:"a",p:4.43,srp:0},
+{s:"PRBT0031",d1:"PRO Team Bottle",d2:"Transparent 800ml",disc:"accessories",sub:"bottles",st:"a",p:4.39,srp:0},
+{s:"PRBT0033",d1:"PRO Team Bottle",d2:"White 800ml",disc:"accessories",sub:"bottles",st:"a",p:4.39,srp:0},
+{s:"PRBT0030",d1:"PRO Team Bottle",d2:"Transparent 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.94,srp:0},
+{s:"PRBT0032",d1:"PRO Team Bottle",d2:"White 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.94,srp:0},
+{s:"PRBT0034",d1:"PRO Team Bottle",d2:"Black 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.91,srp:0},
+{s:"PRBT0020",d1:"PRO Storage Bottle",d2:"Black 500cc",disc:"accessories",sub:"bottles",st:"a",p:3.87,srp:0},
+{s:"PRBT0023",d1:"PRO Storage Bottle",d2:"White 750cc",disc:"accessories",sub:"bottles",st:"a",p:3.76,srp:0},
+{s:"PRBT0022",d1:"PRO Storage Bottle",d2:"White 500cc",disc:"accessories",sub:"bottles",st:"a",p:3.48,srp:0},
+{s:"PRBT0015",d1:"PRO Bottle",d2:"Black 800ml",disc:"accessories",sub:"bottles",st:"a",p:3.43,srp:0},
+{s:"PRBC0011",d1:"PRO Bottle Cage Classic",d2:"Black",disc:"accessories",sub:"bottles",st:"a",p:3.42,srp:0},
+{s:"PRBT0011",d1:"PRO Bottle",d2:"Transparent 800ml",disc:"accessories",sub:"bottles",st:"a",p:3.42,srp:0},
+{s:"PRBC0010",d1:"PRO Bottle Cage Classic",d2:"White",disc:"accessories",sub:"bottles",st:"a",p:3.27,srp:0},
+{s:"PRBT0014",d1:"PRO Bottle",d2:"Black 600ml",disc:"accessories",sub:"bottles",st:"a",p:2.93,srp:0},
+{s:"PRBT0010",d1:"PRO Bottle",d2:"Transparent 600ml",disc:"accessories",sub:"bottles",st:"a",p:2.85,srp:0},
+{s:"PRBT0045",d1:"PRO Bottle",d2:"Black 800ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.79,srp:0},
+{s:"PRBT0043",d1:"PRO Bottle",d2:"Transp. 800ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.76,srp:0},
+{s:"PRBT0042",d1:"PRO Bottle",d2:"Transp. 600ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.3,srp:0},
+{s:"PRBT0044",d1:"PRO Bottle",d2:"Black 600ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.3,srp:0},
+{s:"PRTA0065",d1:"PRO Sport Control Team Tape Bx",d2:"Black EVA 24 pcs / Debossed",disc:"accessories",sub:"bartape",st:"e",p:145.32,srp:0},
+{s:"PRTA0056",d1:"PRO Tape Box Sport Control",d2:"Black EVA 24 pcs Pack 2.5mm",disc:"accessories",sub:"bartape",st:"e",p:144.97,srp:0},
+{s:"PRTA0070",d1:"PRO Tape Gravel comfort",d2:"Black",disc:"accessories",sub:"bartape",st:"a",p:18.68,srp:0},
+{s:"PRTA0071",d1:"PRO Tape Gravel comfort",d2:"Multi color",disc:"accessories",sub:"bartape",st:"a",p:16.06,srp:0},
+{s:"PRTA0052",d1:"PRO Tape Race Comfort Silicone",d2:"Black / 3mm",disc:"accessories",sub:"bartape",st:"u",p:15.29,srp:0},
+{s:"PRTA0026",d1:"PRO Tape Race Comfort",d2:"Black PU",disc:"accessories",sub:"bartape",st:"e",p:13.78,srp:0},
+{s:"PRTA0029",d1:"PRO Tape Race Comfort",d2:"Blue PU",disc:"accessories",sub:"bartape",st:"e",p:13.77,srp:0},
+{s:"PRTA0027",d1:"PRO Tape Race Comfort",d2:"White PU",disc:"accessories",sub:"bartape",st:"e",p:13.75,srp:0},
+{s:"PRTA0028",d1:"PRO Tape Race Comfort",d2:"Red PU",disc:"accessories",sub:"bartape",st:"e",p:11.95,srp:0},
+{s:"PRTA0002",d1:"PRO Tape Race Control",d2:"Black with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:10.53,srp:0},
+{s:"PRTA0011",d1:"PRO Tape Race Control",d2:"White with End Plugs",disc:"accessories",sub:"bartape",st:"e",p:10.53,srp:0},
+{s:"PRTA0057",d1:"PRO Tape Sport Control Team",d2:"Black EVA / Debossed",disc:"accessories",sub:"bartape",st:"e",p:10.36,srp:0},
+{s:"PRTA0058",d1:"PRO Tape Sport Control Team",d2:"Black EVA / Debossed-Wht",disc:"accessories",sub:"bartape",st:"a",p:10.32,srp:0},
+{s:"PRTA0041",d1:"PRO Tape Sport Comfort",d2:"White  EVA",disc:"accessories",sub:"bartape",st:"e",p:9.72,srp:0},
+{s:"PRTA0040",d1:"PRO Tape Sport Comfort",d2:"Black EVA",disc:"accessories",sub:"bartape",st:"e",p:9.47,srp:0},
+{s:"PRTA0001",d1:"PRO Tape Sport Control",d2:"Black with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.89,srp:0},
+{s:"PRTA0007",d1:"PRO Tape Sport Control",d2:"Red with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.86,srp:0},
+{s:"PRTA0004",d1:"PRO Tape Sport Control",d2:"White with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.65,srp:0},
+{s:"PRTA0006",d1:"PRO Tape Sport Control",d2:"Blue with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:6.95,srp:0},
+{s:"PRTA0048",d1:"PRO Tape Classic Comfort",d2:"Black EVA+Cork",disc:"accessories",sub:"bartape",st:"e",p:5.9,srp:0},
+{s:"PRTA0049",d1:"PRO Tape Classic Comfort",d2:"White EVA+Cork",disc:"accessories",sub:"bartape",st:"e",p:5.67,srp:0},
+{s:"PRAC0056",d1:"PRO Handlebar Endplug",d2:"Black Anodized Alloy",disc:"accessories",sub:"bartape",st:"a",p:4.85,srp:0},
+{s:"PRHS0124",d1:"PRO Headset Internal Routing",d2:"1.5 inch upper/lower cartridge",disc:"accessories",sub:"headsets",st:"a",p:41.3,srp:0},
+{s:"PRHS0037",d1:"PRO Headpart Upper SL",d2:"IS41/28.6mm Hybrid",disc:"accessories",sub:"headsets",st:"a",p:33.07,srp:0},
+{s:"PRHS0036",d1:"PRO Headpart Upper SL",d2:"IS42/28.6mm Hybrid",disc:"accessories",sub:"headsets",st:"a",p:32.69,srp:0},
+{s:"PRHS0060",d1:"PRO Headpart Cartridge Lower",d2:"ZS56/40mm",disc:"accessories",sub:"headsets",st:"a",p:24.04,srp:0},
+{s:"PRHS0081",d1:"PRO Gap cap Expander Long",d2:"Black 50mm/1 1/4\"/UD carbon",disc:"accessories",sub:"headsets",st:"a",p:18.48,srp:0},
+{s:"PRHS0057",d1:"PRO Headpart Cartridge Lower",d2:"IS52/40mm",disc:"accessories",sub:"headsets",st:"a",p:16.84,srp:0},
+{s:"PRHS0035",d1:"PRO Headpart Cartridge Upper",d2:"ZS44/28.6mm",disc:"accessories",sub:"headsets",st:"a",p:16.62,srp:0},
+{s:"PRHS0055",d1:"PRO Headpart Cartridge Lower",d2:"IS47/33mm",disc:"accessories",sub:"headsets",st:"a",p:16.1,srp:0},
+{s:"PRHS0056",d1:"PRO Headpart Cartridge Lower",d2:"ZS44/30mm",disc:"accessories",sub:"headsets",st:"a",p:15.09,srp:0},
+{s:"PRHS0072",d1:"PRO Headpart Expander Long",d2:"Black 50mm/1 1/8\"/carbon",disc:"accessories",sub:"headsets",st:"a",p:14.85,srp:0},
+{s:"PRHS0070",d1:"PRO Headpart Gap cap Carbon",d2:"Black alloy Bolt /1 1/8\"",disc:"accessories",sub:"headsets",st:"a",p:8.58,srp:0},
+{s:"PRHS0082",d1:"PRO Spacer Set UD Carbon",d2:"3/5/10/15mm /1 1/4\"",disc:"accessories",sub:"headsets",st:"a",p:8.33,srp:0},
+{s:"PRGP0087",d1:"PRO Grips Drop Bar Ergo",d2:"Black / 23.8mm / 210-230mm",disc:"accessories",sub:"grips",st:"a",p:17.67,srp:0},
+{s:"PRGP0061",d1:"PRO Grips Ergo Race",d2:"Black 32mm/130mm",disc:"accessories",sub:"grips",st:"a",p:14.94,srp:0},
+{s:"PRGP0060",d1:"PRO Grips Ergo Race",d2:"Black 30mm/130mm",disc:"accessories",sub:"grips",st:"u",p:14.87,srp:0},
+{s:"PRGP0086",d1:"PRO Grips Econtrol lock on",d2:"Black STEPS lockring",disc:"accessories",sub:"grips",st:"a",p:14.17,srp:0},
+{s:"PRGP0077",d1:"PRO Grips Econtrol lock on",d2:"Black Single lock 36mm/133mm",disc:"accessories",sub:"grips",st:"a",p:14.13,srp:0},
+{s:"PRGP0054",d1:"PRO Grips Dual Lock Sport",d2:"Black 30mm/132.5mm",disc:"accessories",sub:"grips",st:"e",p:13.77,srp:0},
+{s:"PRGP0055",d1:"PRO Grips Dual Lock Sport",d2:"Black 32mm/132.5mm",disc:"accessories",sub:"grips",st:"u",p:13.01,srp:0},
+{s:"PRGP0045",d1:"PRO Grips Lock On Race",d2:"Black 30mm/130mm",disc:"accessories",sub:"grips",st:"e",p:12.59,srp:0},
+{s:"PRGP0046",d1:"PRO Grips Lock On Race",d2:"Black 32mm/130mm",disc:"accessories",sub:"grips",st:"e",p:12.51,srp:0},
+{s:"PRGP0056",d1:"PRO Grips Ergon. Lock On Sport",d2:"Black 34.5mm/133mm",disc:"accessories",sub:"grips",st:"e",p:12.37,srp:0},
+{s:"PRGP0064",d1:"PRO Grips Lock on Trail",d2:"Black w. flange 32mm/132mm",disc:"accessories",sub:"grips",st:"a",p:12.21,srp:0},
+{s:"PRGP0035",d1:"PRO Grips Silicone XC Slim",d2:"Black 30mmx130mm",disc:"accessories",sub:"grips",st:"e",p:11.89,srp:0},
+{s:"PRGP0036",d1:"PRO Grips Silicone XC",d2:"Black 32mmx130mm",disc:"accessories",sub:"grips",st:"u",p:11.82,srp:0},
+{s:"PRGP0066",d1:"PRO Grips Lock on Trail",d2:"Black wo. flange 32mm/132mm",disc:"accessories",sub:"grips",st:"u",p:11.69,srp:0},
+{s:"PRGP0034",d1:"PRO Grips Ergonomic",d2:"Black Dual Density",disc:"accessories",sub:"grips",st:"e",p:11.68,srp:0},
+{s:"PRGP0018",d1:"PRO Grips Foam Lock",d2:"Black 32mmx132mm",disc:"accessories",sub:"grips",st:"e",p:11.33,srp:0},
+{s:"PRGP0052",d1:"PRO Grips Lock On Sport",d2:"Black 30mm/132.5mm",disc:"accessories",sub:"grips",st:"e",p:11.3,srp:0},
+{s:"PRGP0053",d1:"PRO Grips Lock On Sport",d2:"Black 32mm/132.5mm",disc:"accessories",sub:"grips",st:"u",p:11.18,srp:0},
+{s:"PRGP0050",d1:"PRO Grips Slide On Sport",d2:"Black 30mm/125mm",disc:"accessories",sub:"grips",st:"e",p:5.45,srp:0},
+{s:"PRGP0051",d1:"PRO Grips Slide On Sport",d2:"Black 32mm/125mm",disc:"accessories",sub:"grips",st:"u",p:5.2,srp:0},
+{s:"PRGP0022",d1:"PRO Grips Foam Slim",d2:"Black 32mmx130mm",disc:"accessories",sub:"grips",st:"u",p:4.9,srp:0},
+{s:"PRGP0020",d1:"PRO Grips Foam",d2:"Black 34.5mmx133mm",disc:"accessories",sub:"grips",st:"e",p:4.55,srp:0},
+{s:"PR100360",d1:"PRO Tool Bike Repair Stand",d2:"Incl Bag And Tool-Plate",disc:"tools",sub:"bikestands",st:"a",p:127.21,srp:0},
+{s:"PRTL0152",d1:"PRO Bike Repair Stand Sport",d2:"",disc:"tools",sub:"bikestands",st:"e",p:69.56,srp:0},
+{s:"PRTL0148",d1:"PRO Tool Wheel Truing Stand",d2:"Comp w/QR And Thru Axle Wheels",disc:"tools",sub:"bikestands",st:"a",p:45.5,srp:0},
+{s:"PRTL0074",d1:"PRO Tool BB Workstand",d2:"Foldable",disc:"tools",sub:"bikestands",st:"a",p:19.48,srp:0},
+{s:"PRAC0043",d1:"PRO Bike Stand 29",d2:"Black 29In And 700C",disc:"tools",sub:"bikestands",st:"a",p:16.97,srp:0},
+{s:"PR100399",d1:"PRO Tool Bike Stand",d2:"Gray/Black",disc:"tools",sub:"bikestands",st:"a",p:13.07,srp:0},
+{s:"PRAC0137",d1:"PRO Vibe Aero Mount",d2:"Black Large",disc:"accessories",sub:"mounts",st:"a",p:53.08,srp:0},
+{s:"PRAC0248",d1:"PRO Computer Mount Vibe Stem",d2:"Black / Comp w Vibe Carbon/SL",disc:"accessories",sub:"mounts",st:"a",p:32.62,srp:0},
+{s:"PRAC0247",d1:"PRO Computer Mount Stem",d2:"Black / Alloy / w/ adapter ins",disc:"accessories",sub:"mounts",st:"a",p:30.19,srp:0},
+{s:"PRAC0228",d1:"PRO Computer Mount",d2:"Black /w/Adapter Inse",disc:"accessories",sub:"mounts",st:"a",p:26.74,srp:0},
+{s:"PRAC0237",d1:"PRO Bike Wall Mount Sport",d2:"Pedal Hook",disc:"accessories",sub:"mounts",st:"a",p:9.75,srp:0},
+{s:"PRTL0082",d1:"PRO Tool Team Digital Torq.wr.",d2:"1 to 24 Nm",disc:"tools",sub:"torque",st:"a",p:108.86,srp:0},
+{s:"PR100340",d1:"PRO Tool Torque Wrench",d2:"Adjustable 3-15 Nm",disc:"tools",sub:"torque",st:"a",p:64.4,srp:0},
+{s:"PRTL0096",d1:"PRO Tool Torque wrench",d2:"Fixed settings 4/5/6 Nm",disc:"tools",sub:"torque",st:"a",p:45.14,srp:0},
+{s:"PRTL0066",d1:"PRO Tool Torque Wrench 1/4\"",d2:"Adjustable 0-30mm",disc:"tools",sub:"torque",st:"a",p:43.46,srp:0},
+{s:"PRTL0134",d1:"PRO Tool Mini Tool 20F Team",d2:"Co2",disc:"tools",sub:"minitools",st:"a",p:34.74,srp:0},
+{s:"PRTL0099",d1:"PRO Tool Integrated Tool",d2:"Black with Rachet",disc:"tools",sub:"minitools",st:"a",p:23.19,srp:0},
+{s:"PRTL0132",d1:"PRO Tool Mini Tool 17F Perform",d2:"Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:20.53,srp:0},
+{s:"PRTL0130",d1:"PRO Tool Mini Tool 9FTL Perfor",d2:"Alloy/Tubeless/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:20.25,srp:0},
+{s:"PRTL0131",d1:"PRO Tool Mini Tool 13F Perform",d2:"Alloy body/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:19.69,srp:0},
+{s:"PRTL0133",d1:"PRO Tool Mini Tool 22F Perform",d2:"Alloy Body",disc:"tools",sub:"minitools",st:"a",p:18.57,srp:0},
+{s:"PRTL0123",d1:"PRO Tool Mini Tool 9F Perform",d2:"Alloy body/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:13.56,srp:0},
+{s:"PRTL0122",d1:"PRO Tool Minitool 10",d2:"10 functions",disc:"tools",sub:"minitools",st:"e",p:6.86,srp:0},
+{s:"PRTL0121",d1:"PRO Tool Minitool 6",d2:"6 functions",disc:"tools",sub:"minitools",st:"e",p:5.28,srp:0},
+{s:"PRTL0107",d1:"PRO tools Expert toolbox",d2:"Toolset 42 tools",disc:"tools",sub:"toolbox",st:"a",p:279.07,srp:0},
+{s:"PRTL0106",d1:"PRO Tool Advanced toolbox",d2:"Toolset 25 tools",disc:"tools",sub:"toolbox",st:"a",p:182.16,srp:0},
+{s:"PRTL0105",d1:"PRO Tool Starter toolkit",d2:"Toolset 11 tools",disc:"tools",sub:"toolbox",st:"a",p:49.05,srp:0},
+{s:"PRTLB060",d1:"PRO Tool T-Wrenches",d2:"Black 2/2.5/3/4/5/6/8/10",disc:"tools",sub:"maintenance",st:"a",p:42.84,srp:0},
+{s:"PRTL0145",d1:"PRO Tool Brake Hose Install",d2:"Cutter / Installation",disc:"tools",sub:"maintenance",st:"a",p:32.71,srp:0},
+{s:"PRTL0150",d1:"PRO Tool Internal Routing",d2:"For Cables / Hoses",disc:"tools",sub:"maintenance",st:"a",p:32.51,srp:0},
+{s:"PRTL0149",d1:"PRO Tool Cassette Removal Set",d2:"Lockring Tool/Cassette Wrench",disc:"tools",sub:"maintenance",st:"a",p:27.6,srp:0},
+{s:"PRTL0084",d1:"PRO Tool Team Chainwhip",d2:"Black 12 Speed",disc:"tools",sub:"maintenance",st:"a",p:27.02,srp:0},
+{s:"PRTL0054",d1:"PRO Tool Carbon Saw",d2:"Black/Blue",disc:"tools",sub:"maintenance",st:"a",p:24.64,srp:0},
+{s:"PRTL0086",d1:"PRO Tool Team Chain Tool",d2:"Black 12 Speed",disc:"tools",sub:"maintenance",st:"a",p:23.19,srp:0},
+{s:"PRTL0085",d1:"PRO Tool Team Lockring Tool",d2:"Black 12 Speed",disc:"tools",sub:"maintenance",st:"a",p:21.98,srp:0},
+{s:"PRTLB031",d1:"PRO Tool BB-Remover hollowtech",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:21.1,srp:0},
+{s:"PRTL0088",d1:"PRO Team Chainring Remover",d2:"Threaded BB",disc:"tools",sub:"maintenance",st:"a",p:21.1,srp:0},
+{s:"PRTLB061",d1:"PRO Tool BB Press",d2:"Black 24mm/30mm axles",disc:"tools",sub:"maintenance",st:"a",p:20.91,srp:0},
+{s:"PRTL0094",d1:"PRO Tool Cable Cutter",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:20.56,srp:0},
+{s:"PRTL0053",d1:"PRO Tool Saw Guide",d2:"Handlebar And Fork Steerer",disc:"tools",sub:"maintenance",st:"a",p:20.4,srp:0},
+{s:"PRTL0087",d1:"PRO Tool Team Pedal Wrench",d2:"Black 15mm / 8mm",disc:"tools",sub:"maintenance",st:"a",p:18.95,srp:0},
+{s:"PRTLB050",d1:"PRO Tool Cable cutter",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:18.88,srp:0},
+{s:"PRTLB032",d1:"PRO Tool Cassette removal set",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:18.71,srp:0},
+{s:"PRTL0058",d1:"PRO Tool Hammer",d2:"Black deadblow hammer",disc:"tools",sub:"maintenance",st:"a",p:17.1,srp:0},
+{s:"PRTLB090",d1:"PRO Tool T-Wrench Set",d2:"Black 4/5/6",disc:"tools",sub:"maintenance",st:"a",p:15.42,srp:0},
+{s:"PRTL0037",d1:"PRO Tool Hex Key Set",d2:"Size 2/2.5/3/4/5/6/8/10mm",disc:"tools",sub:"maintenance",st:"e",p:14.97,srp:0},
+{s:"PRTLB089",d1:"PRO Tool T-Wrench Set",d2:"Black 2/2.5/3",disc:"tools",sub:"maintenance",st:"a",p:14.93,srp:0},
+{s:"PRTL0073",d1:"PRO Tool BB Remover",d2:"Press-Fit Bearings 24mm",disc:"tools",sub:"maintenance",st:"a",p:14.75,srp:0},
+{s:"PRTL0119",d1:"PRO Tool Chain tool",d2:"9/10/11/12 speed",disc:"tools",sub:"maintenance",st:"a",p:13.89,srp:0},
+{s:"PRTL0038",d1:"PRO Tool Torx Key Set",d2:"T10-T50",disc:"tools",sub:"maintenance",st:"a",p:13.14,srp:0},
+{s:"PRTL0116",d1:"PRO Tool Team Y-wrench",d2:"2-8 hex, PH1/2, SL4, T15/25/30",disc:"tools",sub:"maintenance",st:"a",p:13.05,srp:0},
+{s:"PRTL0104",d1:"PRO Tool Cassette wrench",d2:"10T/11T sprocket",disc:"tools",sub:"maintenance",st:"a",p:12.83,srp:0},
+{s:"PRTLB091",d1:"PRO Tool Chainwhip",d2:"Black 9/10/11 Speed",disc:"tools",sub:"maintenance",st:"a",p:12.74,srp:0},
+{s:"PRTLB030",d1:"PRO Tool BB-Remover cartridge",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:12.69,srp:0},
+{s:"PRTL0101",d1:"PRO Tool Fine scr.driver set",d2:"2/2.5mm hex & JIS #1 & flat",disc:"tools",sub:"maintenance",st:"a",p:12.06,srp:0},
+{s:"PRTL0064",d1:"PRO Tool Disc Truing Tool",d2:"",disc:"tools",sub:"maintenance",st:"a",p:11.85,srp:0},
+{s:"PRTL0095",d1:"PRO Tool Quick Link Tool",d2:"Black Removal / Inst.",disc:"tools",sub:"maintenance",st:"a",p:11.4,srp:0},
+{s:"PRTLB036",d1:"PRO Tool Cranktool",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:11.04,srp:0},
+{s:"PRTLB051",d1:"PRO Tool Brake piston lever",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:10.14,srp:0},
+{s:"PRTLB039",d1:"PRO Tool Pedal wrench",d2:"Black 15mm",disc:"tools",sub:"maintenance",st:"a",p:9.03,srp:0},
+{s:"PRTLB052",d1:"PRO Quick Link Remover",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:8.42,srp:0},
+{s:"PRTL0115",d1:"PRO Tool Tire levers tubeless",d2:"max 2.1 tire width",disc:"tools",sub:"maintenance",st:"a",p:5.41,srp:0},
+{s:"PRTL0035",d1:"PRO Tool Cone Wrench Set",d2:"Silver 13mm/14mm/15mm/16mm",disc:"tools",sub:"maintenance",st:"a",p:4.99,srp:0},
+{s:"PRTLB043",d1:"PRO Tool Spoke wrench 3.6",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:4.96,srp:0},
+{s:"PRTL0128",d1:"PRO Tool Y-Wrench Torx",d2:"T25/T30/T40",disc:"tools",sub:"maintenance",st:"a",p:4.92,srp:0},
+{s:"PRTLB044",d1:"PRO Tool Spoke wrench  3.75",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:4.9,srp:0},
+{s:"PRTL0126",d1:"PRO Tool Y Wrench Hex",d2:"2/2,5/3MM",disc:"tools",sub:"maintenance",st:"a",p:4.89,srp:0},
+{s:"PRTLB045",d1:"PRO Tool Spoke wrench  4.0",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:4.86,srp:0},
+{s:"PRTLB046",d1:"PRO Tool Spoke wrench  4.4",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:4.79,srp:0},
+{s:"PRTL0127",d1:"PRO Y-Wrench HEX",d2:"4/5/6MM",disc:"tools",sub:"maintenance",st:"a",p:4.74,srp:0},
+{s:"PRTL0034",d1:"PRO Tool Chainring Nut Wrench",d2:"",disc:"tools",sub:"maintenance",st:"a",p:4.04,srp:0},
+{s:"PRTL0146",d1:"PRO Tool Open End Wrench",d2:"8mm / Comp w/ 1/4” Torque Wren",disc:"tools",sub:"maintenance",st:"a",p:3.87,srp:0},
+{s:"PRTL0049",d1:"PRO Tool Tire Levers",d2:"3 Pieces",disc:"tools",sub:"maintenance",st:"a",p:2.66,srp:0},
+{s:"PRSA0376",d1:"PRO Saddle TSA 1.2",d2:"Black 132mm, AF, stainless",disc:"triathlon",sub:"saddles",st:"a",p:76.93,srp:0},
+{s:"PRSA0377",d1:"PRO Saddle TSA 1.1",d2:"Black 132mm, AF, carbon",disc:"triathlon",sub:"saddles",st:"a",p:109.83,srp:0},
+{s:"PRAB0042",d1:"PRO Aerobar Missile Evo Carbon",d2:"Black J Bend XL Armrest",disc:"triathlon",sub:"handlebars",st:"a",p:607.55,srp:999.9},
+{s:"PRAB0043",d1:"PRO Basebar Missile Evo",d2:"Black",disc:"triathlon",sub:"handlebars",st:"u",p:348.9,srp:599.0},
+{s:"PRAB0046",d1:"PRO Missile Evo Ski Bend",d2:"Black Ski Bend",disc:"triathlon",sub:"handlebars",st:"a",p:168.1,srp:1099.0},
+{s:"PRAB0047",d1:"PRO Missile Evo J Bend",d2:"Black J Bend",disc:"triathlon",sub:"handlebars",st:"a",p:153.17,srp:289.9},
+{s:"PRAB0065",d1:"PRO MissileJ-bendHighextension",d2:"Black Alloy 6061",disc:"triathlon",sub:"handlebars",st:"u",p:23.4,srp:54.99},
+{s:"PRAB0066",d1:"PRO Missile Adjustable Armpad",d2:"Black Alloy 6061",disc:"triathlon",sub:"handlebars",st:"a",p:78.72,srp:149.99},
+{s:"PRSS0426",d1:"PRO Stem Missile Evo Carbon",d2:"Black UD Carbon 85mm / 31.8mm",disc:"triathlon",sub:"stems",st:"a",p:234.62,srp:399.99},
+{s:"PRAB0038",d1:"PRO Handlebar Missile Basebar",d2:"Hydroformed Alloy",disc:"triathlon",sub:"handlebars",st:"a",p:55.11,srp:119.99},
+{s:"PRAB0041",d1:"PRO Missile Evo Bolt Set",d2:"M6X45mm Countersunk Stainless",disc:"triathlon",sub:"handlebars",st:"e",p:86.99,srp:177.99},
+{s:"PRAB0040",d1:"PRO Handlebar Missile Tri",d2:"Clip-On alloy 6061",disc:"triathlon",sub:"handlebars",st:"e",p:87.5,srp:177.99},
+{s:"PRAB0039",d1:"PRO Handlebar Missile Ski",d2:"Clip-On alloy 6061",disc:"triathlon",sub:"handlebars",st:"e",p:86.59,srp:177.99}
+];
+</script>
+
+<!-- ═══ APPLICATION ═══ -->
+<script>
+// ─── CONSTANTS ────────────────────────────────────────────────────────────────
+const CAT_ORDER = ['road','mtb','gravel','triathlon','accessories','tools'];
+const CAT_LABELS = {road:'ROAD',mtb:'MTB',gravel:'GRAVEL',triathlon:'TRIATHLON',accessories:'ACCESSORIES',tools:'TOOLS'};
+const CAT_COLORS = {road:'#E53935',mtb:'#4CAF50',gravel:'#D4A853',triathlon:'#0EA5E9',accessories:'#AB47BC',tools:'#78909C'};
+const SUB_LABELS = {
+  saddles:'Saddles',handlebars:'Handlebars',stems:'Stems',seatposts:'Seatposts',
+  grips:'Grips',pumps:'Pumps',bags:'Bags',bottles:'Bottles',bartape:'Bar Tape',
+  headsets:'Headsets',mounts:'Mounts',bikestands:'Bike Stands',torque:'Torque Wrenches',
+  minitools:'Mini-Tools',toolbox:'Toolbox',maintenance:'Maintenance Tools'
+};
+const STOCK = {a:{l:'Available',c:'avail'},e:{l:'ETD',c:'etd'},u:{l:'N/A',c:'unavail'}};
+
+// ─── PRO PRODUCT DETAILS (series + sub-category lookup) ─────────────────────
+// Exact name match → series keyword match → sub-category fallback
+const PRO_DETAIL_EXACT = {
+  "PRO Saddle Stealth Team": { tagline:"Race-Proven Saddle — Developed with Giant-Alpecin", desc:"The flagship Stealth saddle developed jointly with Bikefitting.com for aggressive race positions. Carbon-reinforced base with large center cutout and cross braces for rigidity and power transfer. Wide nose spreads pressure for comfort on hoods, drops, and aero bars. One-piece carbon shell-and-rails base at just ~145g. Designed so riders can use one saddle for both road and TT bikes.", weight:"~145g", features:["Carbon shell + carbon rails","Large center cutout","Wide nose design","Bikefitting.com developed","Race geometry","142mm & 152mm widths","Unisex design","Road & TT compatible"] },
+  "PRO Saddle Stealth Superlight": { tagline:"Ultralight Race Saddle — 130g Carbon Construction", desc:"The lightest saddle in PRO's lineup. One-piece carbon shell-and-rails base with lightweight EVA foam and PU cover. Same Stealth center channel design optimized for aggressive positions. 15g lighter than previous model without sacrificing comfort. For weight-conscious racers.", weight:"~130g", features:["One-piece carbon shell+rails","~130g ultralight","EVA foam + PU cover","Large center channel","Race geometry","142mm & 152mm widths","Pro peloton proven","Weight-saving design"] },
+  "PRO Saddle Stealth Curved Team": { tagline:"Curved Profile for Flexible Riders", desc:"Carbon-railed Stealth with a curved profile designed for riders with greater pelvic flexibility. Same center cutout and wide nose as the flat Stealth but with a rear-to-front curve that better supports riders who rotate their pelvis forward aggressively.", weight:"~175g", features:["Carbon rails","Curved profile","Center cutout","Flexible rider geometry","142mm & 152mm widths","Carbon-reinforced base","Bikefitting.com designed"] },
+  "PRO Handlebar Vibe Superlight": { tagline:"Lightest Road Bar — UD Carbon Excellence", desc:"PRO's lightest road handlebar using premium UD carbon fiber construction. Internal cable routing compatible with mechanical and Di2 electronic shifting. Compact ergonomic shape optimized for sprinters who need maximum stiffness-to-weight ratio.", weight:"~185g", features:["UD carbon fiber","Internal cable routing","Di2 compatible","Compact shape","Lightweight construction","Multiple widths","Pro team tested"] },
+  "PRO Handlebar Vibe Aero Carbon": { tagline:"Aerodynamic Road Bar with Removable Fairings", desc:"Flat-top aero handlebar with removable fairings next to stem for clip-on aero bars or computer mounts. Anti-slip coating on tops eliminates need for bar tape on flat sections. Shifter clamping area angled inward for narrower, more aero hood position. Internal cable routing for clean aesthetics.", weight:"~245g", features:["Aero flat-top profile","Removable fairings","Anti-slip top coating","Internal cable routing","Di2 compatible","Inward-angled hoods","Multiple widths","Aero optimized"] },
+  "PRO Handlebar Vibe Evo w. Spac": { tagline:"Integrated Cockpit — T700 Carbon with Ergonomic Grips", desc:"Fully integrated handlebar constructed from T700 Carbon with exceptional aerodynamics and ergonomics. Replaceable ergonomic grips eliminate bar tape on tops, flowing seamlessly into hoods. Compact drops can use half-roll tape or Ergonomic Drop-Grips with Di2 Satellite Shifter integration. Multiple satellite shifter mounting points near stem.", weight:"~320g", features:["T700 Carbon","Integrated design","Ergonomic replaceable grips","Di2 Satellite Shifter integration","Compact drop shape","Internal cable routing","Aero optimized","Multiple stem lengths"] },
+  "PRO TSA 1.1": { tagline:"Time Trial Saddle — Nose-Heavy Support", desc:"Dedicated time trial/triathlon saddle with short, wide nose designed for extreme forward positions. Center cutout relieves soft tissue pressure during sustained aero efforts. Optimized for use with clip-on or integrated aero bars.", weight:"~220g", features:["TT/Triathlon specific","Short wide nose","Center cutout","Aero position optimized","Carbon-reinforced base","Rail compatibility"] },
+  "THARSIS DROPPER POST 160": { tagline:"XC/Trail Dropper — Lightweight 415g", desc:"Lightweight dropper seatpost with 160mm travel specifically designed for cross-country and trail riding. Oval-shaped post reduces side-to-side play. Light 2-bolt head with titanium bolts and full alloy internals. Race-ready weight at just 415g.", weight:"~415g (160mm)", features:["160mm travel","Oval post shape","Titanium head bolts","Full alloy internals","~415g lightweight","27.2/30.9/31.6mm options","Internal routing","XC/Trail optimized"] },
+};
+
+const PRO_DETAIL_SERIES = {
+  "Stealth": { tagline:"Stealth Series — Aggressive Race Saddle", desc:"Developed with Bikefitting.com pedal analysis, the Stealth saddle features a wide nose and large center cutout for comfort in aggressive race positions on hoods, drops, and aero bars. Carbon-reinforced base with cross braces maximizes rigidity and power transfer. Available in Team (carbon rails), Performance (alloy rails), and Sport versions.", features:["Center cutout","Wide nose design","Race geometry","Bikefitting.com developed","Road & TT optimized"] },
+  "Stealth Curved": { tagline:"Stealth Curved — For Flexible Pelvic Rotation", desc:"Curved-profile variant of the Stealth for riders with greater pelvic flexibility. Same center cutout and wide nose but with rear-to-front curvature that better supports aggressive forward pelvic rotation. Available in Team and Performance versions.", features:["Curved profile","Center cutout","Flexible rider fit","Race geometry","Multiple versions"] },
+  "Stealth Offroad": { tagline:"Stealth Offroad — MTB Race Saddle", desc:"Off-road version of the proven Stealth design. Optimized for aggressive XC and trail racing positions with durable cover material for rough terrain. Center cutout and wide nose adapted for varied MTB body positions.", features:["Off-road optimized","Center cutout","Durable cover","MTB race geometry","Weather resistant"] },
+  "Griffon": { tagline:"Griffon Series — All-Round Comfort Saddle", desc:"PRO's versatile comfort-performance saddle with moderate padding and anatomic shape. Center groove reduces pressure on soft tissue. Suitable for a wide range of riding positions from upright to moderate. Available in Team (carbon rails), Performance (alloy rails), CrMo, and Gel versions.", features:["Anatomic shape","Center groove","Versatile riding positions","Multiple rail options","Comfort-performance balance"] },
+  "Turnix": { tagline:"Turnix Series — Round-Profile Comfort", desc:"Round-profile saddle designed for riders who prefer a more traditional saddle shape. Moderate padding with anatomic cutout. Good for endurance rides and varying positions. Available in Team, Performance, CrMo, and Gel versions.", features:["Round profile","Anatomic cutout","Endurance comfort","Traditional shape","Multiple versions"] },
+  "Falcon": { tagline:"Falcon Series — Flat & Wide Power Saddle", desc:"Wide, flat-profiled saddle designed for riders with wider sit bones who prefer a stable, supportive platform. Generous padding and broad shape provide comfort on longer rides. Available in Team, Performance, CrMo, and Gel versions.", features:["Flat wide profile","Wide sit bone support","Generous padding","Stable platform","Multiple versions"] },
+  "Vibe Evo": { tagline:"Vibe Evo — Integrated Aero Cockpit", desc:"Fully integrated handlebar-stem system constructed from T700 Carbon. Replaceable ergonomic grips eliminate bar tape on tops. Di2 Satellite Shifter integration points. Compact drops with optional Ergonomic Drop-Grips. The pinnacle of PRO's road cockpit integration.", features:["T700 Carbon","Fully integrated","Ergonomic grips","Di2 satellite integration","Aero optimized","Internal routing"] },
+  "Vibe Aero": { tagline:"Vibe Aero — Aerodynamic Road Performance", desc:"Flat-top aerodynamic handlebar with removable fairings for clip-on aero bars. Anti-slip coating on tops for minimal tape. Inward-angled hood clamps for narrow aero position. Internal cable routing for mechanical and Di2.", features:["Aero flat-top","Removable fairings","Anti-slip coating","Di2 compatible","Internal routing","Narrow aero position"] },
+  "Vibe Superlight": { tagline:"Vibe Superlight — Ultralight UD Carbon", desc:"PRO's lightest road bar/stem using premium UD carbon fiber. Maximum stiffness-to-weight ratio for competitive road racing. Internal cable routing compatible with Di2.", features:["UD carbon fiber","Ultralight","Internal routing","Di2 compatible","Race stiffness","Pro team proven"] },
+  "Vibe Carbon": { tagline:"Vibe Carbon Composite — Race Performance", desc:"High-performance carbon composite handlebar/stem from PRO's flagship road series. Di2 compatible with internal cable routing. Engineered for road racing with excellent stiffness and vibration damping.", features:["Carbon composite","Internal routing","Di2 compatible","Race performance","Vibration damping"] },
+  "Vibe Alloy": { tagline:"Vibe Alloy — Proven Road Performance", desc:"Alloy version of PRO's Vibe road series delivering excellent stiffness at great value. Internal cable routing compatible with Di2. Available in Anatomic and Compact bend shapes.", features:["Alloy construction","Internal routing","Di2 compatible","Anatomic & Compact","Great value"] },
+  "Vibe": { tagline:"Vibe Series — PRO's Flagship Road Line", desc:"PRO's top-tier road component series integrating demands of professional athletes with extensive testing. Available in Superlight (UD carbon), Aero Carbon, Carbon Composite, and Alloy versions. All feature internal cable routing and Di2 compatibility. Classified as 'best' in PRO's good/better/best hierarchy.", features:["Flagship road series","Internal cable routing","Di2 compatible","Multiple material options","Pro team developed","Good/Better/Best: Best"] },
+  "PLT": { tagline:"PLT Series — Race-Proven Technology", desc:"PRO's performance road series using the same proven technology as the flagship Vibe line. Carbon and alloy options with internal cable routing. Available in Ergo, Compact Ergo, and Compact bend shapes. Classified as 'better' in PRO's hierarchy.", features:["Performance road series","Vibe technology base","Internal cable routing","Di2 compatible","Multiple shapes","Good/Better/Best: Better"] },
+  "LT": { tagline:"LT Series — Reliable Entry Road", desc:"PRO's entry-level road series offering reliable performance and good value. Alloy construction with internal cable routing. Available in Ergo and Compact bend shapes. Classified as 'good' in PRO's hierarchy.", features:["Entry road series","Alloy construction","Internal cable routing","Ergo & Compact","Good value","Good/Better/Best: Good"] },
+  "Tharsis EVO": { tagline:"Tharsis EVO — Ultimate Enduro Cockpit", desc:"Designed as the ultimate enduro cockpit for the most technical trails at speed. Balances stiffness for precise steering with compliance for vibration absorption. Internal hydraulic brake hose routing through handlebar and stem. Developed alongside wireless Shimano XTR Di2. 35mm clamp diameter for maximum control.", features:["Enduro optimized","35mm clamp","Internal hose routing","XTR Di2 compatible","Stiff + compliant","Carbon construction"] },
+  "Tharsis 3Five": { tagline:"Tharsis 3Five — Enduro/Trail Carbon & Alloy", desc:"High-demand enduro and trail handlebars with 35mm clamp diameter in UD Carbon or AL-7050 alloy. New standards in lightweight construction and performance for aggressive off-road riding.", features:["35mm clamp diameter","UD Carbon or AL-7050","Enduro/Trail","Lightweight","Aggressive geometry"] },
+  "Tharsis XC": { tagline:"Tharsis XC — Cross-Country Race Components", desc:"Stiff, lightweight, and responsive XC race components. Full Shimano XTR integration capability with internal cable routing through handlebar, stem, and steerer tube. The tidiest cockpit on the trail.", features:["XC race optimized","XTR integration","Internal routing","Lightweight","Carbon construction","Race-ready"] },
+  "Tharsis": { tagline:"Tharsis Series — Premium MTB Components", desc:"PRO's premium mountain bike line covering XC to enduro. Carbon and alloy options with Shimano Di2/XTR integration. Flat, flat-top, mini-rise, and high-rise handlebar profiles. Dropper posts with oval-post design at race-ready weights.", features:["Premium MTB series","Carbon & alloy options","Di2/XTR integration","Multiple profiles","Dropper posts","Race-ready weight"] },
+  "Koryak": { tagline:"Koryak Series — Versatile MTB Components", desc:"Versatile and accessible mountain bike components based on Tharsis technology. Available in carbon and alloy with 35mm clamp. Complete range of handlebars, stems, and dropper posts including E-Performance e-MTB specific versions. Internal routing with Optislick cable and housing.", features:["Versatile MTB","Tharsis technology","35mm clamp","Carbon & alloy","E-Performance option","Dropper posts","Internal routing"] },
+  "Koryak E-Performance": { tagline:"Koryak E-Performance — E-MTB Specific", desc:"Oversized cockpit designed specifically for e-mountain bikes. 35mm diameter ensures absolute control and vibration dampening. Robust design matching e-MTB aesthetics. Available in carbon and alloy.", features:["E-MTB specific","35mm clamp","Oversized design","Vibration dampening","Robust construction","Carbon & alloy"] },
+  "FRS": { tagline:"FRS Series — Freeride/Enduro Components", desc:"Freeride and enduro focused components built for the most demanding gravity riding. Maximum durability and control when pushing limits on steep, technical terrain.", features:["Freeride/Enduro","Maximum durability","Gravity focused","Robust construction","Technical terrain"] },
+  "Missile": { tagline:"Missile — Aero Bar & TT Components", desc:"Time trial and triathlon aero bar system. Missile Evo Carbon extensions with adjustable bracket system for optimizing aero position. Compatible with various basebar configurations.", features:["TT/Triathlon","Carbon extensions","Adjustable position","Aero optimized","Basebar compatible","UCI legal"] },
+  "E-BIKE": { tagline:"E-Bike Optimized Components", desc:"Components specifically designed for the unique demands of e-bikes — reinforced construction, comfort-oriented geometry, and durable materials to handle higher speeds and weights.", features:["E-bike specific","Reinforced build","Comfort geometry","Durable materials","Higher load capacity"] },
+  "ENDURO": { tagline:"Enduro-Specific Design", desc:"Built for aggressive enduro riding with emphasis on durability, grip, and rider confidence on technical descents.", features:["Enduro optimized","Durable construction","Technical terrain","Gravity ready"] },
+};
+
+const PRO_DETAIL_SUB = {
+  "saddles": { tagline:"PRO Saddle — Engineered Comfort & Performance", desc:"PRO saddles are developed using Bikefitting.com pedal analysis and professional rider feedback. Available in Stealth (race/aero), Griffon (all-round), Turnix (round profile), and Falcon (wide/flat) shapes. Each shape available in Team (carbon rails), Performance (alloy rails), CrMo, and Gel versions to match performance level and budget.", features:["Bikefitting.com developed","Multiple shapes","Carbon to CrMo options","Center cutout/groove","Pro team tested"] },
+  "handlebars": { tagline:"PRO Handlebar — Precision Control", desc:"PRO handlebars cover road (Vibe, PLT, LT series) and MTB (Tharsis, Koryak series). Road bars feature internal cable routing and Di2 compatibility. MTB bars available in carbon and alloy with 31.8mm or 35mm clamp. Classified by PRO's hierarchy: Vibe (best), PLT (better), LT (good).", features:["Internal cable routing","Di2 compatible","Carbon & alloy","Multiple profiles","Pro team developed"] },
+  "stems": { tagline:"PRO Stem — Perfect Bike Fit", desc:"PRO stems match their handlebar series: Vibe (road, alloy/carbon), Tharsis (MTB carbon), and Koryak (MTB alloy). Multiple lengths and angles for precise bike fit. Internal cable routing options for clean cockpit aesthetics.", features:["Multiple lengths","Internal routing","Road & MTB","Carbon & alloy","Precise fit"] },
+  "seatposts": { tagline:"PRO Seatpost — Rigid & Dropper Options", desc:"Rigid seatposts in carbon and alloy for road and MTB. Dropper seatposts (Tharsis and Koryak) with internal routing, oval post design, and race-ready weights from 415g. Multiple diameters: 27.2, 30.9, 31.6, and 34.9mm.", features:["Rigid & dropper","Carbon & alloy","Internal routing","Oval post design","Multiple diameters","Race-ready weight"] },
+  "pumps": { tagline:"PRO Pump — Reliable Inflation", desc:"Floor pumps and mini pumps for home workshop and on-the-road use. High-pressure road and high-volume MTB options. Durable construction with accurate pressure gauges.", features:["Floor & mini pumps","High pressure","Accurate gauge","Durable build","Presta & Schrader"] },
+  "bags": { tagline:"PRO Bag — Secure Storage Solutions", desc:"Saddle bags, frame bags, handlebar bags, and top tube bags for road, gravel, and bikepacking. Quick-attach systems with secure closure. Waterproof and water-resistant options.", features:["Multiple styles","Quick-attach","Water resistant","Road & gravel","Bikepacking ready"] },
+  "bottles": { tagline:"PRO Bottle — Hydration on the Move", desc:"Cycling water bottles and cages engineered for easy grip and leak-free performance. Ergonomic shape for one-handed operation. BPA-free construction.", features:["Ergonomic design","Leak-free","Easy grip","BPA-free","Multiple sizes"] },
+  "bartape": { tagline:"PRO Bar Tape — Comfort & Control", desc:"Handlebar tape in various thicknesses and materials. EVA foam, gel-padded, and cork options for vibration damping and grip. Available in multiple colors to match any bike.", features:["EVA foam & gel","Vibration damping","Multiple colors","Tacky grip","Easy to wrap"] },
+  "headsets": { tagline:"PRO Headset — Smooth Steering Integration", desc:"Integrated and semi-integrated headsets for road and MTB. Sealed bearings for smooth operation and longevity. Compatible with standard and tapered steerer tubes.", features:["Sealed bearings","Integrated design","Tapered compatible","Smooth operation","Durable"] },
+  "grips": { tagline:"PRO Grip — Trail Control & Comfort", desc:"Lock-on grips for MTB in various compounds and patterns. Dual-density options combine soft comfort grip with firm bar hold. Ergonomic shapes reduce hand fatigue on long rides.", features:["Lock-on design","Dual-density","Ergonomic shape","Multiple compounds","Vibration damping"] },
+  "bikestands": { tagline:"PRO Bike Stand — Secure Display & Service", desc:"Home and workshop bike stands for maintenance and display. Stable construction with adjustable clamping. Foldable designs for easy storage.", features:["Stable design","Adjustable clamp","Foldable","Workshop ready","Home use"] },
+  "mounts": { tagline:"PRO Mount — Accessory Integration", desc:"Computer mounts, light mounts, and accessory brackets for clean cockpit integration. Compatible with Garmin, Wahoo, and other popular cycling computers.", features:["Computer mounts","Light mounts","Clean integration","Multi-brand compatible","Aero options"] },
+  "torque": { tagline:"PRO Torque Tool — Precision Tightening", desc:"Preset and adjustable torque wrenches for safe component installation. Essential for carbon fiber components where over-tightening risks damage.", features:["Preset torque","Adjustable","Carbon-safe","Accurate","Workshop quality"] },
+  "minitools": { tagline:"PRO Mini Tool — Trailside Repairs", desc:"Compact multi-tools with essential hex keys, screwdrivers, and chain tools for roadside and trailside repairs. Lightweight and pocket-friendly designs.", features:["Compact design","Essential tools","Chain breaker","Lightweight","Pocket-friendly"] },
+  "toolbox": { tagline:"PRO Toolbox — Complete Workshop Sets", desc:"Comprehensive tool sets and storage solutions for home mechanics and professional workshops.", features:["Complete sets","Organized storage","Professional quality","Workshop ready"] },
+  "maintenance": { tagline:"PRO Maintenance — Workshop Essentials", desc:"Chain tools, cable cutters, bearing presses, headset tools, bottom bracket tools, and specialized workshop equipment. Professional-grade quality tested beyond industry standards.", features:["Professional grade","Specialized tools","110% industry standard testing","Durable construction","Workshop essential"] },
+};
+
+function getProDetail(modelName, sub) {
+  // 1) Exact name match
+  if (PRO_DETAIL_EXACT[modelName]) return PRO_DETAIL_EXACT[modelName];
+  // 2) Series keyword match (longest match first)
+  var name = modelName.toUpperCase();
+  var seriesKeys = Object.keys(PRO_DETAIL_SERIES).sort(function(a,b){ return b.length - a.length; });
+  for (var i = 0; i < seriesKeys.length; i++) {
+    if (name.indexOf(seriesKeys[i].toUpperCase()) !== -1) return PRO_DETAIL_SERIES[seriesKeys[i]];
+  }
+  // 3) Sub-category fallback
+  if (sub && PRO_DETAIL_SUB[sub]) return PRO_DETAIL_SUB[sub];
+  return null;
+}
+
+function buildDetailHtml(modelName, sub) {
+  var det = getProDetail(modelName, sub);
+  if (!det) return '';
+  var feats = det.features.map(function(f){ return '<span class="product-detail-feat">' + f + '</span>'; }).join('');
+  var weightHtml = det.weight ? '<div class="product-detail-weight">' + det.weight + '</div>' : '';
+  return '<div class="model-detail-side">' +
+    '<div class="product-detail-tagline">' + det.tagline + '</div>' +
+    '<div class="product-detail-desc">' + det.desc + '</div>' +
+    weightHtml +
+    '<div class="product-detail-features">' + feats + '</div>' +
+  '</div>';
+}
+
+// ─── PRO IMAGES MAP ──────────────────────────────────────────────────────────
+// Add product images here. Key = exact product name (d1 from PRO_DATA).
+// Value = array of image URLs. Add as many as needed per product.
+// Example:
+//   "PRO Saddle Stealth Team": [
+//     "https://www.pro-bikegear.com/_assets/images/.../image1.png",
+//     "https://www.pro-bikegear.com/_assets/images/.../image2.png",
+//   ],
+const PRO_IMAGES = {
+  // ── SADDLES ──
+  // "PRO Saddle Stealth Team": [],
+  // "PRO Saddle Stealth Performance": [],
+  // "PRO Saddle Stealth Superlight": [],
+  // ── HANDLEBARS ──
+  // "PRO Handlebar Vibe Superlight": [],
+  // "PRO Handlebar Vibe Aero Carbon": [],
+  // ── STEMS ──
+  // "PRO Stem Vibe Superlight 1 1/8": [],
+  // ── SEATPOSTS ──
+  // "THARSIS DROPPER POST 160": [],
+  // ── Add more products as needed ──
+};
+
+// ─── GROUP DATA INTO MODELS ───────────────────────────────────────────────────
+// Group by d1 (product name) → model card
+const PRO_MODELS = (function() {
+  const map = {};
+  PRO_DATA.forEach(function(p) {
+    var key = p.d1 + '|' + p.disc + '|' + p.sub;
+    if (!map[key]) {
+      // Find the first item with a price as the "lead" price
+      map[key] = {
+        name: p.d1,
+        disc: p.disc,
+        sub: p.sub,
+        price: 0,
+        srp: 0,
+        items: []
+      };
+    }
+    map[key].items.push(p);
+    if (p.p > 0 && map[key].price === 0) { map[key].price = p.p; map[key].srp = p.srp || 0; }
+  });
+  return Object.values(map);
+})();
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let currentCat = 'ALL';
+let currentSub = 'ALL';
+let searchQuery = '';
+var orderMap = {};
+
+// ─── SUB-FILTER RENDERING ────────────────────────────────────────────────────
+function renderSubFilters() {
+  var bar = document.getElementById('subFilterBar');
+  // Collect unique subs from currently visible models (after category filter)
+  var models = PRO_MODELS.filter(function(m) {
+    return currentCat === 'ALL' || m.disc === currentCat;
+  });
+  var subCounts = {};
+  models.forEach(function(m) {
+    var label = SUB_LABELS[m.sub] || m.sub;
+    if (!subCounts[m.sub]) subCounts[m.sub] = { label: label, count: 0 };
+    subCounts[m.sub].count++;
+  });
+
+  var subs = Object.keys(subCounts).sort(function(a, b) {
+    return subCounts[b].count - subCounts[a].count;
+  });
+
+  var html = '<button class="sub-chip' + (currentSub === 'ALL' ? ' active' : '') + '" onclick="setSub(\'ALL\',this)">All <span class="sub-chip-count">' + models.length + '</span></button>';
+  subs.forEach(function(sub) {
+    var s = subCounts[sub];
+    html += '<button class="sub-chip' + (currentSub === sub ? ' active' : '') + '" onclick="setSub(\'' + sub + '\',this)">' + s.label + ' <span class="sub-chip-count">' + s.count + '</span></button>';
+  });
+  bar.innerHTML = html;
+}
+
+function setSub(sub, btn) {
+  currentSub = sub;
+  renderSubFilters();
+  renderCatalog();
+}
+
+// ─── CATEGORY FILTER ─────────────────────────────────────────────────────────
+function setCat(cat, btn) {
+  currentCat = cat;
+  currentSub = 'ALL';
+  document.querySelectorAll('.cat-chip').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  renderSubFilters();
+  renderCatalog();
+}
+
+// ─── SEARCH ──────────────────────────────────────────────────────────────────
+function clearSearch() {
+  document.getElementById('searchInput').value = '';
+  searchQuery = '';
+  document.getElementById('searchClear').classList.remove('visible');
+  renderCatalog();
+}
+
+document.getElementById('searchInput').addEventListener('input', function() {
+  searchQuery = this.value.trim().toLowerCase();
+  document.getElementById('searchClear').classList.toggle('visible', searchQuery.length > 0);
+  renderCatalog();
+});
+
+// ─── RENDER ──────────────────────────────────────────────────────────────────
+function getFilteredModels() {
+  return PRO_MODELS.filter(function(m) {
+    var catOk = currentCat === 'ALL' || m.disc === currentCat;
+    if (!catOk) return false;
+    var subOk = currentSub === 'ALL' || m.sub === currentSub;
+    if (!subOk) return false;
+    if (!searchQuery) return true;
+    if (m.name.toLowerCase().includes(searchQuery)) return true;
+    return m.items.some(function(it) {
+      return it.s.toLowerCase().includes(searchQuery) ||
+             it.d1.toLowerCase().includes(searchQuery) ||
+             it.d2.toLowerCase().includes(searchQuery);
+    });
+  });
+}
+
+function renderCatalog() {
+  var models = getFilteredModels();
+  var container = document.getElementById('catalogContent');
+  var info = document.getElementById('resultsInfo');
+
+  // Group by disc (category)
+  var byCat = {};
+  models.forEach(function(m) {
+    if (!byCat[m.disc]) byCat[m.disc] = {};
+    if (!byCat[m.disc][m.sub]) byCat[m.disc][m.sub] = [];
+    byCat[m.disc][m.sub].push(m);
+  });
+
+  var totalItems = 0;
+  models.forEach(function(m) { totalItems += m.items.length; });
+
+  info.innerHTML = '<strong>' + models.length + '</strong> model, <strong>' + totalItems + '</strong> SKU';
+  document.getElementById('statModels').textContent = models.length;
+  document.getElementById('statItems').textContent = totalItems;
+
+  if (models.length === 0) {
+    container.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted)">No results found.</div>';
+    return;
+  }
+
+  var html = '';
+  CAT_ORDER.forEach(function(cat) {
+    if (!byCat[cat]) return;
+    var catColor = CAT_COLORS[cat] || '#888';
+    var catLabel = CAT_LABELS[cat] || cat.toUpperCase();
+
+    // Within each category, group by sub
+    var subOrder = Object.keys(byCat[cat]).sort();
+    subOrder.forEach(function(sub) {
+      var subModels = byCat[cat][sub];
+      var subLabel = SUB_LABELS[sub] || sub;
+      html += '<div class="model-section" data-cat="' + cat + '" data-sub="' + sub + '">';
+      html += '<div class="section-header"><span style="color:' + catColor + '">' + catLabel + '</span> — ' + subLabel + ' <span style="color:var(--text-dim);font-weight:500">(' + subModels.length + ')</span></div>';
+
+      subModels.forEach(function(m) {
+        html += renderModelCard(m);
+      });
+      html += '</div>';
+    });
+  });
+
+  container.innerHTML = html;
+  updateStats();
+}
+
+function renderModelCard(m) {
+  var priceHtml = '';
+  if (m.price > 0) {
+    priceHtml = '<span class="model-price">€' + m.price.toFixed(2) + '</span>';
+    if (m.srp > 0) priceHtml += '<span class="model-srp">SRP €' + m.srp.toFixed(2) + '</span>';
+  }
+
+  var items = m.items;
+  if (searchQuery) {
+    var filtered = items.filter(function(it) {
+      return it.s.toLowerCase().includes(searchQuery) ||
+             it.d1.toLowerCase().includes(searchQuery) ||
+             it.d2.toLowerCase().includes(searchQuery);
+    });
+    if (filtered.length) items = filtered;
+  }
+
+  var itemsHtml = items.map(function(it) { return renderItemRow(it); }).join('');
+  var cardId = slugify(m.name + '-' + m.disc + '-' + m.sub);
+
+  var skelSvg = '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+
+  return '<div class="model-card" id="mc-' + cardId + '">' +
+    '<div class="model-card-header" onclick="toggleCard(\'' + cardId.replace(/'/g,"\\'") + '\')">' +
+      '<span class="model-tag">' + escHtml(m.name) + '</span>' +
+      '<span class="model-name">' + items.length + ' SKU' + (items.length > 1 ? 's' : '') + '</span>' +
+      '<span>' + priceHtml + '</span>' +
+      '<span class="model-toggle">&#x25BC;</span>' +
+    '</div>' +
+    '<div class="model-items">' +
+      '<div class="model-gallery-skeleton" id="gal-skel-' + cardId + '">' +
+        '<div class="gallery-skel-main">' + skelSvg + '</div>' +
+        '<div class="gallery-skel-thumbs">' +
+          '<div class="gallery-skel-thumb"></div>'.repeat(5) +
+        '</div>' +
+      '</div>' +
+      '<div class="model-gallery" id="gal-' + cardId + '" style="display:none"></div>' +
+      '<div class="items-grid">' + itemsHtml + '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderItemRow(it) {
+  var qty = orderMap[it.s] ? orderMap[it.s].qty : '';
+  var hasVal = qty > 0 ? 'true' : 'false';
+  var statusBadge = '';
+  var st = STOCK[it.st] || STOCK.u;
+  statusBadge = '<span class="badge ' + st.c + '"><span class="badge-dot"></span>' + st.l.toUpperCase() + '</span>';
+
+  var priceCell = it.p > 0 ? '<span class="item-price">€' + it.p.toFixed(2) + '</span>' : '';
+
+  return '<div class="item-row' + (it.p > 0 ? ' item-row-priced' : '') + '" id="row-' + it.s + '">' +
+    '<div class="item-info">' +
+      '<span class="item-code">' + it.s + '</span>' +
+      '<span class="item-desc">' + escHtml(it.d2 || '') + '</span>' +
+    '</div>' +
+    priceCell +
+    statusBadge +
+    '<input type="number" class="qty-input" min="0" step="1"' +
+      ' data-code="' + it.s + '"' +
+      ' data-desc1="' + escHtml(it.d1) + '"' +
+      ' data-desc2="' + escHtml(it.d2) + '"' +
+      ' data-status="' + it.st + '"' +
+      ' data-price="' + (it.p || '') + '"' +
+      ' value="' + qty + '"' +
+      ' data-has-value="' + hasVal + '"' +
+      ' onchange="updateQty(this)"' +
+      ' oninput="updateQty(this)"' +
+      ' placeholder="0">' +
+  '</div>';
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function slugify(s) {
+  return s.replace(/[^a-zA-Z0-9]/g,'-').replace(/-+/g,'-').replace(/^-|-$/g,'').substring(0,60);
+}
+
+// ─── TOGGLE CARD ─────────────────────────────────────────────────────────────
+function toggleCard(id) {
+  var card = document.getElementById('mc-' + id);
+  if (!card) return;
+  var wasOpen = card.classList.contains('open');
+  card.classList.toggle('open');
+  if (!wasOpen) loadGallery(id);
+}
+
+// ─── PRO BIKEGEAR URL MAP ────────────────────────────────────────────────────
+// Maps product name patterns → pro-bikegear.com product page URLs
+// We'll scrape images from these pages
+var PRO_HANDLES = {};
+// Build a lookup: cardId → { disc, sub, name, sku }
+var cardModelMap = {};
+PRO_MODELS.forEach(function(m) {
+  var cid = slugify(m.name + '-' + m.disc + '-' + m.sub);
+  cardModelMap[cid] = m;
+});
+
+// ─── IMAGE GALLERY ───────────────────────────────────────────────────────────
+var galCache = {};
+var lbImages = [];
+var lbIndex = 0;
+var lbCardId = '';
+
+function slugToUrl(name) {
+  return name.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+// Build pro-bikegear.com product page URL from model info
+function buildProUrl(m) {
+  var disc = m.disc;
+  var sub = m.sub;
+  // Map disc → URL path segment
+  var discMap = {road:'road',mtb:'mtb',gravel:'gravel',triathlon:'triathlon',accessories:'accessories',tools:'tools-maintenance'};
+  var subMap = {
+    saddles:'saddles',handlebars:'handlebars',stems:'stems',seatposts:'seatposts',
+    grips:'grips',pumps:'pumps',bags:'bags',bottles:'bottles-cages',bartape:'bar-tape',
+    headsets:'headsets',mounts:'mounts',bikestands:'bike-workshop-stands',torque:'torque-wrenches',
+    minitools:'mini-tools',toolbox:'toolbox',maintenance:'maintenance-tools'
+  };
+  var d = discMap[disc] || disc;
+  var s = subMap[sub] || sub;
+  var slug = slugToUrl(m.name);
+  return 'https://www.pro-bikegear.com/global/' + d + '/' + s + '/' + slug;
+}
+
+async function loadGallery(cardId) {
+  if (galCache[cardId] !== undefined) {
+    if (galCache[cardId]) buildGallery(cardId, galCache[cardId]);
+    else showPlaceholder(cardId);
+    return;
+  }
+
+  var m = cardModelMap[cardId];
+  if (!m) { galCache[cardId] = null; showPlaceholder(cardId); return; }
+
+  var skelEl = document.getElementById('gal-skel-' + cardId);
+  if (skelEl) skelEl.style.display = 'flex';
+
+  // Check PRO_IMAGES map first
+  var mapped = PRO_IMAGES[m.name];
+  if (mapped && mapped.length > 0) {
+    galCache[cardId] = mapped;
+    buildGallery(cardId, mapped);
+    return;
+  }
+
+  // No images in map — show placeholder
+  galCache[cardId] = null;
+  showPlaceholder(cardId);
+}
+
+function showPlaceholder(cardId) {
+  var skelEl = document.getElementById('gal-skel-' + cardId);
+  var galEl = document.getElementById('gal-' + cardId);
+  if (skelEl) skelEl.style.display = 'none';
+  if (galEl) {
+    // Show 5 grey placeholder slots
+    var placeholderSvg = '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="opacity:0.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+    var mainHtml = '<div class="model-gallery-main" style="cursor:default">' + placeholderSvg + '</div>';
+    var thumbsHtml = '<div class="model-gallery-thumbs">';
+    for (var i = 0; i < 5; i++) {
+      thumbsHtml += '<div class="model-gallery-thumb" style="cursor:default;display:flex;align-items:center;justify-content:center">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="opacity:0.15"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>' +
+      '</div>';
+    }
+    thumbsHtml += '</div>';
+    var m = cardModelMap[cardId];
+    var detHtml = m ? buildDetailHtml(m.name, m.sub) : '';
+    galEl.innerHTML = mainHtml + thumbsHtml + detHtml;
+    galEl.style.display = 'flex';
+  }
+}
+
+function buildGallery(cardId, images) {
+  var galEl = document.getElementById('gal-' + cardId);
+  var skelEl = document.getElementById('gal-skel-' + cardId);
+  if (!galEl) return;
+  if (skelEl) skelEl.style.display = 'none';
+
+  var mainImg = images[0];
+  var thumbsHtml = '<div class="model-gallery-thumbs">';
+  // Show up to 5 thumbs, fill rest with placeholders
+  for (var i = 0; i < 5; i++) {
+    if (i < images.length) {
+      thumbsHtml += '<div class="model-gallery-thumb' + (i === 0 ? ' active' : '') + '" onclick="setGalImg(\'' + cardId + '\',' + i + ')" data-gidx="' + i + '">' +
+        '<img src="' + images[i] + '" alt="Image ' + (i+1) + '" loading="lazy">' +
+      '</div>';
+    } else {
+      thumbsHtml += '<div class="model-gallery-thumb" style="cursor:default;display:flex;align-items:center;justify-content:center">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="opacity:0.15"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>' +
+      '</div>';
+    }
+  }
+  thumbsHtml += '</div>';
+
+  galEl.innerHTML = '<div class="model-gallery-main" id="gal-main-' + cardId + '" onclick="openLightbox(\'' + cardId + '\',0)">' +
+    '<img src="' + mainImg + '" alt="Product" id="gal-mainimg-' + cardId + '" loading="lazy">' +
+  '</div>' + thumbsHtml + (function(){ var m = cardModelMap[cardId]; return m ? buildDetailHtml(m.name, m.sub) : ''; })();
+  galEl.style.display = 'flex';
+}
+
+function setGalImg(cardId, idx) {
+  var images = galCache[cardId] || [];
+  var mainImg = document.getElementById('gal-mainimg-' + cardId);
+  if (!mainImg || !images[idx]) return;
+  mainImg.src = images[idx];
+  var thumbs = document.querySelectorAll('#gal-' + cardId + ' .model-gallery-thumb');
+  thumbs.forEach(function(t) {
+    var gidx = parseInt(t.dataset.gidx);
+    t.classList.toggle('active', gidx === idx);
+  });
+  var mainDiv = document.getElementById('gal-main-' + cardId);
+  if (mainDiv) mainDiv.onclick = function() { openLightbox(cardId, idx); };
+}
+
+// ─── LIGHTBOX ────────────────────────────────────────────────────────────────
+function openLightbox(cardId, idx) {
+  var images = galCache[cardId] || [];
+  if (!images.length) return;
+  lbImages = images;
+  lbIndex = idx || 0;
+  lbCardId = cardId;
+  var m = cardModelMap[cardId];
+  document.getElementById('lbImg').src = lbImages[lbIndex];
+  document.getElementById('lbModel').textContent = m ? m.name : '';
+  document.getElementById('lbName').textContent = m ? (m.items.length + ' SKUs · ' + (CAT_LABELS[m.disc]||'') + ' / ' + (SUB_LABELS[m.sub]||'')) : '';
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  document.getElementById('lbImg').src = lbImages[lbIndex];
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('lightbox').classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+
+// ─── QTY UPDATE ──────────────────────────────────────────────────────────────
+function updateQty(input) {
+  var code = input.dataset.code;
+  var qty = parseInt(input.value) || 0;
+  input.dataset.hasValue = qty > 0 ? 'true' : 'false';
+  if (qty > 0) {
+    orderMap[code] = {
+      qty: qty,
+      desc1: input.dataset.desc1,
+      desc2: input.dataset.desc2,
+      status: input.dataset.status,
+      price: parseFloat(input.dataset.price) || 0
+    };
+    showToast(code + ' × ' + qty);
+  } else {
+    delete orderMap[code];
+  }
+  updateStats();
+}
+
+// ─── STATS ───────────────────────────────────────────────────────────────────
+function updateStats() {
+  var ordered = Object.keys(orderMap).length;
+  document.getElementById('statOrdered').textContent = ordered;
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  var container = document.getElementById('toastContainer');
+  var el = document.createElement('div');
+  el.className = 'toast';
+  el.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0082CA" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> ' + msg;
+  container.appendChild(el);
+  setTimeout(function() { el.classList.add('removing'); setTimeout(function() { el.remove(); }, 300); }, 1800);
+}
+
+// ─── THEME ───────────────────────────────────────────────────────────────────
+document.getElementById('themeToggle').addEventListener('click', function() {
+  var isLight = document.documentElement.classList.toggle('light');
+  document.getElementById('themeIcon').textContent = isLight ? '☀️' : '🌙';
+  document.getElementById('themeLabel').textContent = isLight ? 'Light' : 'Dark';
+  localStorage.setItem('pro_theme', isLight ? 'light' : 'dark');
+});
+(function() {
+  if (localStorage.getItem('pro_theme') === 'light') {
+    document.documentElement.classList.add('light');
+    document.getElementById('themeIcon').textContent = '☀️';
+    document.getElementById('themeLabel').textContent = 'Light';
+  }
+})();
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+renderSubFilters();
+renderCatalog();
+</script>
+
+<!-- ═══ SHARED CART ═══ -->
+<script src="shared-cart.js"></script>
+<script>
+(function updateSharedBadge(){
+  function upd(){
+    try{
+      var s=JSON.parse(localStorage.getItem('shimano_all_orders'))||{}, c=0;
+      Object.keys(s).forEach(function(p){c+=Object.keys(s[p]).length;});
+      var b=document.getElementById('sharedCartBadge');
+      if(b){b.textContent=c;b.style.display=c>0?'inline-flex':'none';}
+    }catch(e){}
+  }
+  upd(); setInterval(upd, 800);
+  window.addEventListener('storage',function(e){if(e.key==='shimano_all_orders')upd();});
+})();
+</script>
+<script>
+(function(){
+  var dl = sessionStorage.getItem('dealerLogo');
+  if(dl){
+    var el = document.getElementById('dealerLogo');
+    if(el){ el.src = dl; el.style.display = 'inline-block'; }
+  }
+})();
+</script>
+</body>
+</html>
