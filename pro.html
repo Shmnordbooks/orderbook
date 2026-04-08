@@ -435,524 +435,7 @@ html.light .sidebar .cat-chip, html.light .sidebar a.cat-chip, html.light .sideb
 
 <!-- ═══ PRODUCT DATA ═══ -->
 <script>
-var PRO_DATA=[
-{s:"PRSA0352",d1:"PRO Saddle Stealth Team",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.8,srp:239.99},
-{s:"PRSA0353",d1:"PRO Saddle Stealth Team",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.8,srp:239.99},
-{s:"PRSA0350",d1:"PRO Saddle Stealth Performance",d2:"Black 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:73.9,srp:159.99},
-{s:"PRSA0351",d1:"PRO Saddle Stealth Performance",d2:"Black 152mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:73.9,srp:159.99},
-{s:"PRSA0378",d1:"PRO Saddle Stealth Superlight",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:209.5,srp:329.99},
-{s:"PRSA0379",d1:"PRO Saddle Stealth Superlight",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:209.5,srp:329.99},
-{s:"PRSA0356",d1:"PRO Saddle Stealth Curved Team",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.9,srp:229.99},
-{s:"PRSA0357",d1:"PRO Saddle Stealth Curved Team",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.9,srp:229.99},
-{s:"PRSA0354",d1:"PRO Saddle Stealth Curved Perf",d2:"Black 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:71.2,srp:159.99},
-{s:"PRSA0355",d1:"PRO Saddle Stealth Curved Perf",d2:"Black 152mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:71.2,srp:159.99},
-{s:"PRSA0320",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:79.8,srp:169.9},
-{s:"PRSA0321",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:79.8,srp:169.9},
-{s:"PRSA0368",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:55.97,srp:109.99},
-{s:"PRSA0369",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"e",p:55.97,srp:109.99},
-{s:"PRSA0374",d1:"E-BIKE SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:67.88,srp:134.99},
-{s:"PRSA0375",d1:"E-BIKE SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:67.88,srp:134.99},
-{s:"PRSA0372",d1:"ENDURO SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:67.29,srp:134.99},
-{s:"PRSA0373",d1:"ENDURO SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:67.29,srp:134.99},
-{s:"PRSA0376",d1:"PRO TSA 1.1",d2:"BLACK 132 MM, AF,CARBON RAILS",disc:"triathlon",sub:"saddles",st:"a",p:76.93,srp:154.99},
-{s:"PRSA0377",d1:"PRO TSA 1.2",d2:"BLACK 132 MM, AF, STAINLESS RAILS",disc:"triathlon",sub:"saddles",st:"a",p:109.83,srp:219.99},
-{s:"PRSA0196",d1:"PRO Saddle Stealth Sport",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"e",p:51.2,srp:119.99},
-{s:"PRSA0197",d1:"PRO Saddle Stealth Sport",d2:"Black 152mm, AF",disc:"road",sub:"saddles",st:"e",p:51.2,srp:119.99},
-{s:"PRSA0332",d1:"PRO Saddle Griffon Team",d2:"Black 142mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:102.9,srp:219.99},
-{s:"PRSA0333",d1:"PRO Saddle Griffon Team",d2:"Black 152mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:102.9,srp:219.99},
-{s:"PRSA0330",d1:"PRO Saddle Griffon Performance",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"a",p:59.9,srp:149.99},
-{s:"PRSA0331",d1:"PRO Saddle Griffon Performance",d2:"Black 152mm, AF",disc:"road",sub:"saddles",st:"a",p:59.9,srp:149.99},
-{s:"PRSA0343",d1:"PRO Saddle Turnix Team",d2:"Black 132mm, AF, carb.rail",disc:"gravel",sub:"saddles",st:"a",p:100.9,srp:219.99},
-{s:"PRSA0344",d1:"PRO Saddle Turnix Team",d2:"Black 142mm, AF, carb.rail",disc:"gravel",sub:"saddles",st:"a",p:100.9,srp:219.99},
-{s:"PRSA0345",d1:"PRO Saddle Turnix Team",d2:"Black 152mm, AF, carb.rail",disc:"gravel",sub:"saddles",st:"a",p:100.9,srp:219.99},
-{s:"PRSA0337",d1:"PRO Saddle Turnix Performance",d2:"Black 132mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
-{s:"PRSA0338",d1:"PRO Saddle Turnix Performance",d2:"Black 142mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
-{s:"PRSA0339",d1:"PRO Saddle Turnix Performance",d2:"Black 152mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
-{s:"PRSA0328",d1:"PRO Saddle Falcon Team",d2:"Black 132mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:95.2,srp:219.99},
-{s:"PRSA0329",d1:"PRO Saddle Falcon Team",d2:"Black 142mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:95.2,srp:219.99},
-{s:"PRSA0326",d1:"PRO Saddle Falcon Performance",d2:"Black 132mm, AF",disc:"road",sub:"saddles",st:"a",p:60.4,srp:149.99},
-{s:"PRSA0327",d1:"PRO Saddle Falcon Performance",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"a",p:60.4,srp:149.99},
-{s:"PRSA0307",d1:"PRO Saddle Griffon Crmo",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:30.9,srp:79.99},
-{s:"PRSA0306",d1:"PRO Saddle Griffon Crmo",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:30.9,srp:79.99},
-{s:"PRSA0297",d1:"PRO Saddle Griffon Gel",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:37.4,srp:119.99},
-{s:"PRSA0298",d1:"PRO Saddle Griffon Gel",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:37.4,srp:119.99},
-{s:"PRSA0301",d1:"PRO Saddle Turnix Crmo",d2:"Black 152mm",disc:"gravel",sub:"saddles",st:"a",p:28.7,srp:79.99},
-{s:"PRSA0300",d1:"PRO Saddle Turnix Crmo",d2:"Black 142mm",disc:"gravel",sub:"saddles",st:"a",p:28.7,srp:79.99},
-{s:"PRSA0291",d1:"PRO Saddle Turnix Gel",d2:"Black 142mm",disc:"gravel",sub:"saddles",st:"a",p:50.2,srp:119.99},
-{s:"PRSA0292",d1:"PRO Saddle Turnix Gel",d2:"Black 152mm",disc:"gravel",sub:"saddles",st:"e",p:50.2,srp:119.99},
-{s:"PRSA0304",d1:"PRO Saddle Falcon Crmo",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:35.2,srp:79.99},
-{s:"PRSA0303",d1:"PRO Saddle Falcon Crmo",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:35.2,srp:79.99},
-{s:"PRSA0294",d1:"PRO Saddle Falcon Gel",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:51.66,srp:119.99},
-{s:"PRSA0295",d1:"PRO Saddle Falcon Gel",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:51.66,srp:119.99},
-{s:"PRSA0350T",d1:"PRO TEST Saddle Stealth Perfo.",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"e",p:39.31,srp:0},
-{s:"PRSA0354T",d1:"PRO TEST Saddle Stealth Curv P",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"e",p:39.34,srp:0},
-{s:"PRSA0338T",d1:"PRO TEST Saddle Turnix Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.4,srp:0},
-{s:"PRSA0327T",d1:"PRO TEST Saddle Falcon Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.34,srp:0},
-{s:"PRSA0330T",d1:"PRO TEST Saddle Griffon Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.34,srp:0},
-{s:"PRSA0320T",d1:"PRO TEST Stealth Offroad saddl",d2:"Blue 142mm",disc:"road",sub:"saddles",st:"a",p:55.78,srp:0},
-{s:"PRSA0374T",d1:"PRO TEST Saddle MSU 1.3",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:40.43,srp:0},
-{s:"PRSA0372T",d1:"PRO TEST Saddle MSN 1.3",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:39.73,srp:0},
-{s:"PRAB0028",d1:"PRO Missile Evo Brackets",d2:"Black Brackets Only",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRAB0042",d1:"PRO Aerobar Missile Evo Carbon",d2:"Black J Bend XL Armrest",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRAB0043",d1:"PRO Basebar Missile Evo",d2:"Black",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0604",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 115mm/40cm Carbon",disc:"road",sub:"handlebars",st:"a",p:448.9,srp:799.0},
-{s:"PRHA0607",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 115mm/42cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0602",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 125mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0605",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 125mm/40cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0601",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 115mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0603",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 105mm/40cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0606",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 105mm/42cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0608",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 125mm/42cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0600",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 105mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0488",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 95mm/40cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0493",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 95mm/42cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0483",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 95mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0617",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 41cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:299.9,srp:459.99},
-{s:"PRHA0616",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 39cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0615",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 37cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
-{s:"PRHA0582",d1:"PRO Handlebar Vibe Superlight",d2:"Black 44cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"u",p:259.9,srp:439.99},
-{s:"PRHA0579",d1:"PRO Handlebar Vibe Superlight",d2:"Black 38cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0581",d1:"PRO Handlebar Vibe Superlight",d2:"Black 42cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0580",d1:"PRO Handlebar Vibe Superlight",d2:"Black 40cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0376",d1:"PRO Handlebar Vibe Carb. Comp.",d2:"Black 44cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:217.9,srp:399.0},
-{s:"PRHA0374",d1:"PRO Handlebar Vibe Carb. Comp.",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0375",d1:"PRO Handlebar Vibe Carb. Comp.",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0405",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 38cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:59.9,srp:199.99},
-{s:"PRHA0366",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
-{s:"PRHA0406",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0367",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0407",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0365",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 38cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0467",d1:"PRO Handlebar Vibe aero",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:66.9,srp:139.99},
-{s:"PRHA0466",d1:"PRO Handlebar Vibe aero",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0465",d1:"PRO Handlebar Vibe aero",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0472",d1:"PRO Handlebar Vibe aero purs.",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:67.49,srp:139.99},
-{s:"PRHA0471",d1:"PRO Handlebar Vibe aero purs.",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0470",d1:"PRO Handlebar Vibe aero purs.",d2:"Black 36cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0475",d1:"PRO Handlebar PLT ergo",d2:"Black 38cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:143.5,srp:289.99},
-{s:"PRHA0478",d1:"PRO Handlebar PLT ergo",d2:"Black 44cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0476",d1:"PRO Handlebar PLT ergo",d2:"Black 40cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
-{s:"PRHA0474",d1:"PRO Handlebar PLT ergo",d2:"Black 36cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0479",d1:"PRO Handlebar PLT ergo",d2:"Black 46cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0477",d1:"PRO Handlebar PLT ergo",d2:"Black 42cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
-{s:"PRHA0433",d1:"PRO Handlebar PLT Carbon",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:139.99,srp:279.99},
-{s:"PRHA0434",d1:"PRO Handlebar PLT Carbon",d2:"Black 44cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0431",d1:"PRO Handlebar PLT Carbon",d2:"Black 38cm/31.8mm",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0432",d1:"PRO Handlebar PLT Carbon",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0346",d1:"PRO Handlebar PLT Compact Ergo",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:35.9,srp:74.99},
-{s:"PRHA0349",d1:"PRO Handlebar PLT Compact Ergo",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0347",d1:"PRO Handlebar PLT Compact Ergo",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0348",d1:"PRO Handlebar PLT Compact Ergo",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0343",d1:"PRO Handlebar PLT Compact",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:33.9,srp:69.99},
-{s:"PRHA0340",d1:"PRO Handlebar PLT Compact",d2:"Black 36cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0341",d1:"PRO Handlebar PLT Compact",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0344",d1:"PRO Handlebar PLT Compact",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0342",d1:"PRO Handlebar PLT Compact",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
-{s:"PRHA0345",d1:"PRO Handlebar PLT Compact",d2:"Black 46cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0287",d1:"PRO Handlebar LT Ergo",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:23.59,srp:54.99},
-{s:"PRHA0285",d1:"PRO Handlebar LT Ergo",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
-{s:"PRHA0286",d1:"PRO Handlebar LT Ergo",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0284",d1:"PRO Handlebar LT Compact",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:19.99,srp:49.99},
-{s:"PRHA0282",d1:"PRO Handlebar LT Compact",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0283",d1:"PRO Handlebar LT Compact",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0281",d1:"PRO Handlebar LT Compact",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
-{s:"PRHA0505",d1:"PRO Handlebar Tharsis flat",d2:"Blk 720mm/0r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:102.43,srp:209.99},
-{s:"PRHA0506",d1:"PRO Handlebar Tharsis flat top",d2:"Blk 740mm/5r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:107.99,srp:209.99},
-{s:"PRHA0508",d1:"PRO Handlebar Tharsis minirise",d2:"Blk 780mm/10r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:93.64,srp:189.99},
-{s:"PRHA0507",d1:"PRO Handlebar Tharsis highrise",d2:"Blk 800mm/30r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"u",p:94.03,srp:189.99},
-{s:"PRHA0435",d1:"Tharsis Carbon",d2:"800mm/35/20mm/UD carbon",disc:"mtb",sub:"handlebars",st:"u",p:100.4,srp:189.99},
-{s:"PRHA0437",d1:"Tharsis Alloy",d2:"800mm/35/20mm/alloy",disc:"mtb",sub:"handlebars",st:"a",p:50.34,srp:109.99},
-{s:"PRHA0460",d1:"KORYAK E-PERFORMANCE CARBON",d2:"800MM/ 20MM RISE 11D SWEEP / 65MM REACH",disc:"mtb",sub:"handlebars",st:"a",p:415.99,srp:659.99},
-{s:"PRHA0574",d1:"E-PERFORMANCE CARBON HB",d2:"800MM / 35MM / 20MM RISE",disc:"mtb",sub:"handlebars",st:"u",p:113.01,srp:209.99},
-{s:"PRHA0573",d1:"E-PERFORMANCE ALLOY HB",d2:"800MM / 35MM / 20MM RISE",disc:"mtb",sub:"handlebars",st:"a",p:39.65,srp:94.99},
-{s:"PRHA0546",d1:"KORYAK FLAT TOP CARBON",d2:"740MM/31.8MM/5 RISE/9D SW",disc:"mtb",sub:"handlebars",st:"u",p:80.36,srp:149.99},
-{s:"PRHA0547",d1:"KORYAK RISER CARBON",d2:"800MM/31.8MM/20 RISE/9D SW",disc:"mtb",sub:"handlebars",st:"u",p:67.26,srp:149.99},
-{s:"PRHA0456",d1:"KORYAK LOW RISE HANDLEBA",d2:"BLACK 780MM / 31.8MM / 8MM RISE",disc:"mtb",sub:"handlebars",st:"u",p:30.71,srp:61.99},
-{s:"PRHA0457",d1:"KORYAK RISER HANDLEBAR",d2:"BLACK 800MM / 31.8MM / 20MM RISE",disc:"mtb",sub:"handlebars",st:"e",p:27.0,srp:61.99},
-{s:"PRHA0576",d1:"LT HIGH RISE HANDLEBAR",d2:"BLACK, 800MM, 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:26.9,srp:56.99},
-{s:"PRHA0577",d1:"LT RISER HANDLEBAR",d2:"BLACK, 800MM, 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:21.72,srp:52.99},
-{s:"PRHA0510",d1:"LT FLAT HANDLEBAR",d2:"BLACK 720MM 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:18.46,srp:47.99},
-{s:"PRHA0512",d1:"LT HIGH RISE 40 HANDLEBAR",d2:"BLACK 740MM 31.8MM",disc:"mtb",sub:"handlebars",st:"e",p:22.35,srp:47.99},
-{s:"PRHA0289",d1:"LT LOW RISE 20 HANDLEBAR",d2:"LACK 720MM 31.8MM",disc:"mtb",sub:"handlebars",st:"e",p:19.48,srp:47.99},
-{s:"PRSS0561",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 90mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:89.99,srp:199.99},
-{s:"PRSS0573",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 110mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0564",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 120mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0570",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 80mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0562",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 100mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0571",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 90mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0565",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 130mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0559",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 70mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0560",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 80mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0563",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 110mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0569",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 70mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0574",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 120mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0575",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 130mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0572",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 100mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0502",d1:"PRO Stem Vibe carbon",d2:"UD carbon 80mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:196.0,srp:359.99},
-{s:"PRSS0507",d1:"PRO Stem Vibe carbon",d2:"UD carbon 130mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0503",d1:"PRO Stem Vibe carbon",d2:"UD carbon 90mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0504",d1:"PRO Stem Vibe carbon",d2:"UD carbon 80mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0505",d1:"PRO Stem Vibe carbon",d2:"UD carbon 18mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0506",d1:"PRO Stem Vibe carbon",d2:"UD carbon 120mm / 31.8mm +/-8",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0580",d1:"PRO Stem Vibe",d2:"Black 80mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:62.9,srp:129.99},
-{s:"PRSS0581",d1:"PRO Stem Vibe",d2:"Black 90mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0582",d1:"PRO Stem Vibe",d2:"Black 100mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0583",d1:"PRO Stem Vibe",d2:"Black 110mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0584",d1:"PRO Stem Vibe",d2:"Black 120mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0585",d1:"PRO Stem Vibe",d2:"Black 130mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0590",d1:"PRO Stem Vibe 1 1/4",d2:"Black 80mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0591",d1:"PRO Stem Vibe 1 1/4",d2:"Black 90mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0592",d1:"PRO Stem Vibe 1 1/4",d2:"Black 100mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0593",d1:"PRO Stem Vibe 1 1/4",d2:"Black 110mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0594",d1:"PRO Stem Vibe 1 1/4",d2:"Black 120mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0595",d1:"PRO Stem Vibe 1 1/4",d2:"Black 130mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0601",d1:"PRO Stem Vibe",d2:"Black 90mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"e",p:0,srp:0},
-{s:"PRSS0602",d1:"PRO Stem Vibe",d2:"Black 100mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0603",d1:"PRO Stem Vibe",d2:"Black 110mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0604",d1:"PRO Stem Vibe",d2:"Black 120mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0605",d1:"PRO Stem Vibe",d2:"Black 130mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0614",d1:"PRO Stem Vibe 1 1/4",d2:"Black 120mm/ 31.8mm/ -17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0615",d1:"PRO Stem Vibe 1 1/4",d2:"Black 130mm/ 31.8mm/ -17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0335",d1:"PRO Stem LT Adjustable",d2:"Black 90mm/31.8mm",disc:"road",sub:"stems",st:"a",p:20.99,srp:54.99},
-{s:"PRSS0336",d1:"PRO Stem LT Adjustable",d2:"Black 110mm/31.8mm",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0334",d1:"PRO Stem LT",d2:"Black 120mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:14.9,srp:44.99},
-{s:"PRSS0322",d1:"PRO Stem LT",d2:"Black 70mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0325",d1:"PRO Stem LT",d2:"Black 100mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0329",d1:"PRO Stem LT",d2:"Black 70mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0332",d1:"PRO Stem LT",d2:"Black 100mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0319",d1:"PRO Stem LT",d2:"Black 70mm/31.8mm/+-35degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0326",d1:"PRO Stem LT",d2:"Black 110mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0330",d1:"PRO Stem LT",d2:"Black 80mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0323",d1:"PRO Stem LT",d2:"Black 80mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0333",d1:"PRO Stem LT",d2:"Black 110mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0324",d1:"PRO Stem LT",d2:"Black 90mm/31.8mm/+-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0320",d1:"PRO Stem LT",d2:"Black 90mm/31.8mm/+-35degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0328",d1:"PRO Stem LT",d2:"Black 60mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0331",d1:"PRO Stem LT",d2:"Black 90mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0547",d1:"PRO Stem LT",d2:"Black 60mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0545",d1:"PRO Stem LT",d2:"Black 40mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0546",d1:"PRO Stem LT",d2:"Black 50mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0519",d1:"THARSIS ALLOY STEM",d2:"154G / 60MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:58.85,srp:129.99},
-{s:"PRSS0520",d1:"THARSIS ALLOY STEM",d2:"158G / 70MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:63.07,srp:129.99},
-{s:"PRSS0521",d1:"THARSIS ALLOY STEM",d2:"161G / 80MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:64.05,srp:129.99},
-{s:"PRSS0522",d1:"THARSIS ALLOY STEM",d2:"164G / 90MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:62.79,srp:129.99},
-{s:"PRSS0523",d1:"THARSIS ALLOY STEM",d2:"168G / 100MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:61.95,srp:129.99},
-{s:"PRSS0390",d1:"THARSIS CNC STEM",d2:"BLACK 35MM / 35MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"u",p:73.38,srp:139.99},
-{s:"PRSS0391",d1:"THARSIS CNC STEM",d2:"BLACK 45MM / 35MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"u",p:65.86,srp:139.99},
-{s:"PRSS0392",d1:"THARSIS CNC STEM",d2:"BLACK 55MM / 35MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"a",p:73.38,srp:139.99},
-{s:"PRSS0395",d1:"THARSIS DM STEM",d2:"BLACK 45-50MM / 35MM",disc:"mtb",sub:"stems",st:"a",p:61.23,srp:129.99},
-{s:"PRSS0539",d1:"E-PERFORMANCE ALLOY STEM",d2:"35MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:44.41,srp:94.99},
-{s:"PRSS0540",d1:"E-PERFORMANCE ALLOY STEM",d2:"45MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:41.29,srp:94.99},
-{s:"PRSS0541",d1:"E-PERFORMANCE ALLOY STEM",d2:"55MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"u",p:41.47,srp:94.99},
-{s:"PRSS0530",d1:"PRO KORYAK STEM",d2:"BLACK 35 MM / 31.8MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"u",p:35.56,srp:74.99},
-{s:"PRSS0531",d1:"PRO KORYAK STEM",d2:"BLACK 40 MM/31.8MM/0DEGR",disc:"mtb",sub:"stems",st:"u",p:36.8,srp:74.99},
-{s:"PRSS0532",d1:"PRO KORYAK STEM",d2:"BLACK 50MM/31.8MM/0DEGR",disc:"mtb",sub:"stems",st:"u",p:35.4,srp:74.99},
-{s:"PRSS0533",d1:"PRO KORYAK STEM",d2:"BLACK 60MM/31.8MM/0DEGR.",disc:"mtb",sub:"stems",st:"a",p:34.16,srp:74.99},
-{s:"PRSS0534",d1:"PRO KORYAK STEM",d2:"BLACK 70MM/31.8MM/-6DEGR.",disc:"mtb",sub:"stems",st:"u",p:36.15,srp:74.99},
-{s:"PRSS0535",d1:"PRO KORYAK STEM",d2:"BLACK 80MM/31.8MM/-6DEGR",disc:"mtb",sub:"stems",st:"a",p:33.91,srp:74.99},
-{s:"PRSS0536",d1:"PRO KORYAK STEM",d2:"BLACK 90MM/31.8MM/-6DEGR",disc:"mtb",sub:"stems",st:"u",p:34.42,srp:74.99},
-{s:"PRSS0537",d1:"PRO KORYAK STEM",d2:"BLACK 100MM/31.8MM/-6DEGR.",disc:"mtb",sub:"stems",st:"u",p:35.03,srp:74.99},
-{s:"PRSS0545",d1:"LT STEM",d2:"BLACK, 40MM / 31.8MM / 0 DEG",disc:"mtb",sub:"stems",st:"a",p:16.1,srp:41.99},
-{s:"PRSS0546",d1:"LT STEM",d2:"BLACK, 50MM / 31.8MM / 0 DEG",disc:"mtb",sub:"stems",st:"a",p:17.24,srp:41.99},
-{s:"PRSS0547",d1:"LT STEM",d2:"BLACK, 60MM / 31.8MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:16.65,srp:41.99},
-{s:"PRSS0319",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 35°",disc:"mtb",sub:"stems",st:"a",p:17.74,srp:39.99},
-{s:"PRSS0320",d1:"LT STEM",d2:"BLACK 90MM / 31.8MM / ± 35°",disc:"mtb",sub:"stems",st:"a",p:17.9,srp:39.99},
-{s:"PRSS0322",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 17",disc:"mtb",sub:"stems",st:"a",p:19.28,srp:39.99},
-{s:"PRSS0323",d1:"LT STEM",d2:"BLACK 80MM / 31.8MM / ± 17",disc:"mtb",sub:"stems",st:"a",p:19.58,srp:39.99},
-{s:"PRSS0324",d1:"LT STEM",d2:"BLACK 90MM / 31.8MM / ± 17°",disc:"mtb",sub:"stems",st:"a",p:15.03,srp:39.99},
-{s:"PRSS0325",d1:"LT STEM",d2:"BLACK 100MM / 31.8MM / ± 17°",disc:"mtb",sub:"stems",st:"a",p:19.39,srp:39.99},
-{s:"PRSS0326",d1:"LT STEM",d2:"BLACK 110MM / 31.8MM / ± 17",disc:"mtb",sub:"stems",st:"a",p:18.34,srp:39.99},
-{s:"PRSS0328",d1:"LT STEM",d2:"BLACK 60MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:14.4,srp:39.99},
-{s:"PRSS0329",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:14.82,srp:39.99},
-{s:"PRSS0330",d1:"LT STEM",d2:"BLACK 80MM / 31.8MM / ± 6",disc:"mtb",sub:"stems",st:"a",p:18.01,srp:39.99},
-{s:"PRSS0331",d1:"LT STEM",d2:"BLACK 90MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:19.63,srp:39.99},
-{s:"PRSS0332",d1:"LT STEM",d2:"BLACK 100MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"u",p:19.62,srp:39.99},
-{s:"PRSS0333",d1:"LT STEM",d2:"BLACK 110MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:18.9,srp:39.99},
-{s:"PRSS0334",d1:"LT STEM",d2:"BLACK 120MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:19.65,srp:39.99},
-{s:"PRSS0335",d1:"LT ADJUSTABLE STEM",d2:"BLACK 90MM / 31.8MM",disc:"mtb",sub:"stems",st:"a",p:18.2,srp:49.99},
-{s:"PRSS0336",d1:"LT ADJUSTABLE STEM",d2:"BLACK 110MM / 31.8MM",disc:"mtb",sub:"stems",st:"a",p:21.73,srp:49.99},
-{s:"PRSS0416",d1:"PRO Stem PLT",d2:"Black 60mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:25.9,srp:59.99},
-{s:"PRSS0419",d1:"PRO Stem PLT",d2:"Black 90mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSS0422",d1:"PRO Stem PLT",d2:"Black 120mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
-{s:"PRSS0420",d1:"PRO Stem PLT",d2:"Black 100mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSS0417",d1:"PRO Stem PLT",d2:"Black 70mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSS0423",d1:"PRO Stem PLT",d2:"Black 130mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSS0415",d1:"PRO Stem PLT",d2:"Black 50mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
-{s:"PRSS0418",d1:"PRO Stem PLT",d2:"Black 80mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSS0421",d1:"PRO Stem PLT",d2:"Black 110mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSP0114",d1:"PRO Seatpost LT",d2:"Black 27.2mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:18.49,srp:49.99},
-{s:"PRSP0117",d1:"PRO Seatpost LT",d2:"Black 31.6mm/20mm/alloy",disc:"road",sub:"seatposts",st:"a",p:0,srp:0},
-{s:"PRSP0115",d1:"PRO Seatpost LT",d2:"Black 31.6mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
-{s:"PRSP0118",d1:"PRO Seatpost LT",d2:"Black 30.9mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
-{s:"PRSP0116",d1:"PRO Seatpost LT",d2:"Black 27.2mm/20mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
-{s:"PRSP0119",d1:"PRO Seatpost LT",d2:"Black 30.9mm/20mm/alloy",disc:"road",sub:"seatposts",st:"a",p:0,srp:0},
-{s:"PRSP0142",d1:"PRO Seatpost PLT",d2:"Black 31.6mm/0mm/alloy",disc:"road",sub:"seatposts",st:"a",p:32.9,srp:69.99},
-{s:"PRSP0145",d1:"PRO Seatpost PLT",d2:"Black 27.2mm/20mm/alloy",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSP0146",d1:"PRO Seatpost PLT",d2:"Black 31.6mm/20mm/alloy",disc:"road",sub:"seatposts",st:"a",p:0,srp:0},
-{s:"PRSP0141",d1:"PRO Seatpost PLT",d2:"Black 27.2mm/0mm/alloy",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSP0107",d1:"THARSIS XC SEATPOST",d2:"27.2MM / 400MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:136.77,srp:259.99},
-{s:"PRSP0109",d1:"THARSIS XC SEATPOST",d2:"31.6MM / 400MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:120.29,srp:259.99},
-{s:"PRSP0250",d1:"THARSIS DROPPER POST 160",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:212.22,srp:429.99},
-{s:"PRSP0251",d1:"THARSIS DROPPER POST 160",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:191.59,srp:429.99},
-{s:"PRSP0252",d1:"THARSIS DROPPER POST 160",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:194.48,srp:439.99},
-{s:"PRSP0237",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 27.2MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:173.79,srp:379.99},
-{s:"PRSP0238",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 30.9MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:132.21,srp:379.99},
-{s:"PRSP0239",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 31.6MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:176.71,srp:379.99},
-{s:"PRSP0253",d1:"THARSIS DROPPER POST 200",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:243.16,srp:449.99},
-{s:"PRSP0254",d1:"THARSIS DROPPER POST 201",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"u",p:237.26,srp:449.99},
-{s:"PRSP0255",d1:"THARSIS DROPPER POST 202",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:232.42,srp:469.99},
-{s:"PRSP0272",d1:"KORYAK DROPPER POST 170",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:142.58,srp:219.95},
-{s:"PRSP0273",d1:"KORYAK DROPPER POST 171",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:148.12,srp:219.95},
-{s:"PRSP0275",d1:"KORYAK DROPPER POST 172",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:142.58,srp:219.95},
-{s:"PRSP0270",d1:"KORYAK DROPPER POST 150",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:136.46,srp:219.95},
-{s:"PRSP0271",d1:"KORYAK DROPPER POST 150",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:135.15,srp:219.95},
-{s:"PRSP0274",d1:"KORYAK DROPPER POST 150",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:136.17,srp:219.95},
-{s:"PRSP0276",d1:"KORYAK DROPPER POST 120",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:118.71,srp:219.95},
-{s:"PRSP0277",d1:"KORYAK DROPPER POST 120",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:118.81,srp:219.95},
-{s:"PRSP0132",d1:"KORYAK SEATPOST",d2:"27.2MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:32.53,srp:69.99},
-{s:"PRSP0133",d1:"KORYAK SEATPOST",d2:"30.9MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:37.23,srp:69.99},
-{s:"PRSP0134",d1:"KORYAK SEATPOST",d2:"31.6MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:32.62,srp:69.99},
-{s:"PRSP0135",d1:"KORYAK SEATPOST",d2:"27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:33.69,srp:69.99},
-{s:"PRSP0136",d1:"KORYAK SEATPOST",d2:"30.9MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:32.69,srp:69.99},
-{s:"PRSP0137",d1:"KORYAK SEATPOST",d2:"31.6MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:33.44,srp:69.99},
-{s:"PRSP0247",d1:"LT DROPPER POST 150",d2:"30.9MM / EXTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:111.79,srp:244.99},
-{s:"PRSP0248",d1:"LT DROPPER POST 150",d2:"31.6MM / EXTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:110.27,srp:244.99},
-{s:"PRSP0245",d1:"LT DROPPER POST 150",d2:"30.9MM / INTERNA",disc:"mtb",sub:"seatposts",st:"a",p:106.5,srp:244.99},
-{s:"PRSP0246",d1:"LT DROPPER POST 150",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:105.66,srp:244.99},
-{s:"PRSP0114",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.22,srp:44.99},
-{s:"PRSP0115",d1:"LT SEATPOST",d2:"400MM / 31.6MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.15,srp:44.99},
-{s:"PRSP0118",d1:"LT SEATPOST",d2:"400MM / 30.9MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.76,srp:44.99},
-{s:"PRSP0116",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.74,srp:44.99},
-{s:"PRSP0117",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:18.32,srp:44.99},
-{s:"PRSP0119",d1:"LT SEATPOST",d2:"400MM / 31.6MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:18.44,srp:44.99},
-{s:"PRPU0110",d1:"PRO Floorpump Team Tubeless",d2:"Pump and Compressor Integrated",disc:"accessories",sub:"pumps",st:"a",p:75.74,srp:169.99},
-{s:"PRPU0102",d1:"PRO Floorpump Team",d2:"Alloy barrel, base, dual gauge",disc:"accessories",sub:"pumps",st:"a",p:63.55,srp:139.99},
-{s:"PRPU0101",d1:"PRO Floorpump Digital Team",d2:"Alloy barrel, digital gauge",disc:"accessories",sub:"pumps",st:"e",p:46.06,srp:119.99},
-{s:"PRPU0087",d1:"PRO Compressor Team Tubeless",d2:"Black for Tubel. tire setting",disc:"accessories",sub:"pumps",st:"a",p:44.38,srp:89.99},
-{s:"PRPU0106",d1:"PRO Shock pump Team",d2:"Black w/ digital gauge",disc:"accessories",sub:"pumps",st:"a",p:34.4,srp:99.99},
-{s:"PRPU0097",d1:"PRO Minipump Team CO2",d2:"Black Minipump CO2 combo alloy",disc:"accessories",sub:"pumps",st:"a",p:30.3,srp:64.99},
-{s:"PRPU0083",d1:"PRO Floorpump Performance",d2:"Black steel barrel/gauge",disc:"accessories",sub:"pumps",st:"a",p:29.42,srp:69.99},
-{s:"PRPU0098",d1:"PRO Minipump Team HP",d2:"Black High pressure alloy",disc:"accessories",sub:"pumps",st:"a",p:24.36,srp:59.99},
-{s:"PRPU0100",d1:"PRO Floorpump Competition",d2:"Steel barrel, base, gauge",disc:"accessories",sub:"pumps",st:"a",p:21.9,srp:49.99},
-{s:"PRPU0105",d1:"PRO Minipump Performance  XL",d2:"Alloy, popout gauge w/ footpad",disc:"accessories",sub:"pumps",st:"a",p:18.2,srp:52.99},
-{s:"PRPU0104",d1:"PRO Minipump Performance XS",d2:"Telescopic, screw on head",disc:"accessories",sub:"pumps",st:"a",p:16.58,srp:39.99},
-{s:"PRPU0050",d1:"PRO Susp.pump Performance",d2:"Black Magnet lock suspension",disc:"accessories",sub:"pumps",st:"a",p:15.53,srp:54.99},
-{s:"PRPU0091",d1:"PRO Minipump Performance HP",d2:"Black Alloy Road/Presta Valve",disc:"accessories",sub:"pumps",st:"a",p:14.03,srp:40.99},
-{s:"PRPU0080",d1:"PRO Floorpump Touring",d2:"Black steel barrel/gauge",disc:"accessories",sub:"pumps",st:"a",p:13.86,srp:39.99},
-{s:"PRPU0095",d1:"PRO Pressure Checker Digital",d2:"Prest/Schr.",disc:"accessories",sub:"pumps",st:"e",p:12.72,srp:44.99},
-{s:"PRPU0092",d1:"PRO Minipump Performance HV",d2:"Black Alloy MTB/Presta Valve",disc:"accessories",sub:"pumps",st:"a",p:10.67,srp:40.99},
-{s:"PRPU0090",d1:"PRO Minipump Compact Hose",d2:"Alloy & Plastic/Presta Valve",disc:"accessories",sub:"pumps",st:"e",p:9.78,srp:25.99},
-{s:"PRPU0042",d1:"PRO Minipump Compact",d2:"Black Magnete lock telescopic",disc:"accessories",sub:"pumps",st:"a",p:7.24,srp:17.99},
-{s:"PRPU0041",d1:"PRO Minipump Compact",d2:"Black Magnete lock",disc:"accessories",sub:"pumps",st:"a",p:7.03,srp:15.99},
-{s:"PRBA0049",d1:"PRO Bags Bike travel case",d2:"Updated version with frame",disc:"accessories",sub:"bags",st:"e",p:376.42,srp:0},
-{s:"PRBA0045",d1:"PRO Bike Bag",d2:"Bicycle Transportation Bag",disc:"accessories",sub:"bags",st:"e",p:77.7,srp:0},
-{s:"PRBA0080",d1:"PRO Team Gravel Seatpost Bag",d2:"Black  10L",disc:"accessories",sub:"bags",st:"a",p:58.15,srp:0},
-{s:"PRBA0061",d1:"PRO Team Gravel Frame Bag",d2:"Black  5,5L",disc:"accessories",sub:"bags",st:"a",p:44.72,srp:0},
-{s:"PRBA0066",d1:"PRO Team Gravel Handlebar Bag",d2:"Black / 2L",disc:"accessories",sub:"bags",st:"a",p:42.13,srp:0},
-{s:"PRBA0069",d1:"PRO Team Gravel Framebag S",d2:"Black / 2,7L",disc:"accessories",sub:"bags",st:"a",p:39.32,srp:0},
-{s:"PRBA0053",d1:"PRO Gravel Seatpost Bag",d2:"15L",disc:"accessories",sub:"bags",st:"a",p:33.49,srp:0},
-{s:"PRBA0052",d1:"PRO Gravel Handlebar Bag",d2:"8L",disc:"accessories",sub:"bags",st:"a",p:27.33,srp:0},
-{s:"PRBA0040",d1:"PRO Saddlebag Direct Mount",d2:"Bolt fixation with Pro Saddles",disc:"accessories",sub:"bags",st:"a",p:26.44,srp:0},
-{s:"PRBA0060",d1:"PRO Team Gravel Top Tube Bag",d2:"Black  0,7L",disc:"accessories",sub:"bags",st:"a",p:26.1,srp:0},
-{s:"PRBA0057",d1:"PRO bags Gravel seatbag",d2:"Grey Tool pack",disc:"accessories",sub:"bags",st:"a",p:24.77,srp:0},
-{s:"PRBA0068",d1:"PRO Team Gravel Saddlebag",d2:"Black / 0,6L",disc:"accessories",sub:"bags",st:"a",p:24.28,srp:0},
-{s:"PRBA0064",d1:"PRO Perfor Gravel Frame Bag",d2:"Grey  5,5L",disc:"accessories",sub:"bags",st:"a",p:23.72,srp:0},
-{s:"PRBA0056",d1:"PRO bags Gravel frame bag smal",d2:"Grey Triangle frame mount",disc:"accessories",sub:"bags",st:"a",p:22.63,srp:0},
-{s:"PRBA0065",d1:"PRO Gravel Handlebar Bag",d2:"Grey  2,5L",disc:"accessories",sub:"bags",st:"a",p:18.82,srp:0},
-{s:"PRBA0054",d1:"PRO bags Gravel bottle bag",d2:"Grey handlebar - stem mount",disc:"accessories",sub:"bags",st:"a",p:17.38,srp:0},
-{s:"PRBA0074",d1:"PRO Saddlebag XL Performance",d2:"",disc:"accessories",sub:"bags",st:"a",p:16.3,srp:0},
-{s:"PRBA0063",d1:"PRO Perfor Gravel Top Tube Bag",d2:"Grey  0,7L",disc:"accessories",sub:"bags",st:"a",p:16.01,srp:0},
-{s:"PRBA0073",d1:"PRO Saddlebag L Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:14.0,srp:0},
-{s:"PRBA0072",d1:"PRO Saddlebag M Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:13.08,srp:0},
-{s:"PRBA0067",d1:"PRO Bag Tool Wrap Performance",d2:"Saddle Bag",disc:"accessories",sub:"bags",st:"a",p:11.19,srp:0},
-{s:"PRBA0055",d1:"PRO bags Gravel phone pouch",d2:"Grey waterproof",disc:"accessories",sub:"bags",st:"a",p:10.91,srp:0},
-{s:"PRBA0070",d1:"PRO Pouch BC Smart",d2:"Black EVA/ w/Click Mount",disc:"accessories",sub:"bags",st:"a",p:10.71,srp:0},
-{s:"PRBA0071",d1:"PRO Saddlebag S Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:10.59,srp:0},
-{s:"PRBC0017",d1:"PRO Bottle Cage Carbon",d2:"Lightweight UD Carbon",disc:"accessories",sub:"bottles",st:"e",p:33.34,srp:0},
-{s:"PRBC0009",d1:"PRO Bottle Cage Triathlon",d2:"Black Saddle Mount",disc:"accessories",sub:"bottles",st:"a",p:17.64,srp:0},
-{s:"PRBC0035",d1:"PRO Bottle Cage e-bike",d2:"Black Battery mount",disc:"accessories",sub:"bottles",st:"a",p:15.73,srp:0},
-{s:"PRBC0038",d1:"PRO Bottle Cage adj. mount",d2:"Black alloy",disc:"accessories",sub:"bottles",st:"a",p:13.71,srp:0},
-{s:"PRBC0036",d1:"PRO Bottle Cage e-bike",d2:"Black Saddle Mount",disc:"accessories",sub:"bottles",st:"a",p:9.9,srp:0},
-{s:"PRBC0031",d1:"PRO Bottle Cage PC",d2:"Black - Clear",disc:"accessories",sub:"bottles",st:"e",p:8.89,srp:0},
-{s:"PRBC0029",d1:"PRO Bottle Cage PC",d2:"Black - White",disc:"accessories",sub:"bottles",st:"e",p:8.71,srp:0},
-{s:"PRBC0049",d1:"PRO Bottle Cage Smart PC",d2:"PC / w/Tire Levers",disc:"accessories",sub:"bottles",st:"a",p:8.46,srp:0},
-{s:"PRBC0030",d1:"PRO Bottle Cage PC",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"e",p:7.98,srp:0},
-{s:"PRBT0038",d1:"PRO Team Bottle",d2:"Thermal 600ml",disc:"accessories",sub:"bottles",st:"u",p:7.55,srp:0},
-{s:"PRBC0019",d1:"PRO Bottle Cage Alloy",d2:"Black - Grey",disc:"accessories",sub:"bottles",st:"e",p:7.4,srp:0},
-{s:"PRBC0026",d1:"PRO Bottle Side Cage L Alloy",d2:"Black - Clear",disc:"accessories",sub:"bottles",st:"a",p:7.4,srp:0},
-{s:"PRBC0023",d1:"PRO Bottle Side Cage R Alloy",d2:"Black - White",disc:"accessories",sub:"bottles",st:"a",p:7.35,srp:0},
-{s:"PRBC0027",d1:"PRO Bottle Side Cage R Alloy",d2:"Black - Clear",disc:"accessories",sub:"bottles",st:"a",p:7.34,srp:0},
-{s:"PRBC0013",d1:"PRO Bottle Cage Alloy",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"a",p:7.28,srp:0},
-{s:"PRBC0014",d1:"PRO Bottle Cage Alloy",d2:"Black - Red",disc:"accessories",sub:"bottles",st:"a",p:7.27,srp:0},
-{s:"PRBC0012",d1:"PRO Bottle Cage Alloy",d2:"Black - White",disc:"accessories",sub:"bottles",st:"e",p:7.26,srp:0},
-{s:"PRBC0022",d1:"PRO Bottle Side Cage L Alloy",d2:"Black - White",disc:"accessories",sub:"bottles",st:"a",p:7.24,srp:0},
-{s:"PRBC0024",d1:"PRO Bottle Side Cage L Alloy",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"a",p:7.0,srp:0},
-{s:"PRBC0025",d1:"PRO Bottle Side Cage R Alloy",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"a",p:6.29,srp:0},
-{s:"PRBT0037",d1:"PRO Team Bottle",d2:"Transparent 800ml w/cap",disc:"accessories",sub:"bottles",st:"u",p:4.79,srp:0},
-{s:"PRBT0036",d1:"PRO Team Bottle",d2:"Transparent 600ml w/cap",disc:"accessories",sub:"bottles",st:"u",p:4.47,srp:0},
-{s:"PRBT0035",d1:"PRO Team Bottle",d2:"Black 800ml",disc:"accessories",sub:"bottles",st:"a",p:4.44,srp:0},
-{s:"PRBT0021",d1:"PRO Storage Bottle",d2:"Black 750cc",disc:"accessories",sub:"bottles",st:"a",p:4.43,srp:0},
-{s:"PRBT0031",d1:"PRO Team Bottle",d2:"Transparent 800ml",disc:"accessories",sub:"bottles",st:"a",p:4.39,srp:0},
-{s:"PRBT0033",d1:"PRO Team Bottle",d2:"White 800ml",disc:"accessories",sub:"bottles",st:"a",p:4.39,srp:0},
-{s:"PRBT0030",d1:"PRO Team Bottle",d2:"Transparent 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.94,srp:0},
-{s:"PRBT0032",d1:"PRO Team Bottle",d2:"White 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.94,srp:0},
-{s:"PRBT0034",d1:"PRO Team Bottle",d2:"Black 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.91,srp:0},
-{s:"PRBT0020",d1:"PRO Storage Bottle",d2:"Black 500cc",disc:"accessories",sub:"bottles",st:"a",p:3.87,srp:0},
-{s:"PRBT0023",d1:"PRO Storage Bottle",d2:"White 750cc",disc:"accessories",sub:"bottles",st:"a",p:3.76,srp:0},
-{s:"PRBT0022",d1:"PRO Storage Bottle",d2:"White 500cc",disc:"accessories",sub:"bottles",st:"a",p:3.48,srp:0},
-{s:"PRBT0015",d1:"PRO Bottle",d2:"Black 800ml",disc:"accessories",sub:"bottles",st:"a",p:3.43,srp:0},
-{s:"PRBC0011",d1:"PRO Bottle Cage Classic",d2:"Black",disc:"accessories",sub:"bottles",st:"a",p:3.42,srp:0},
-{s:"PRBT0011",d1:"PRO Bottle",d2:"Transparent 800ml",disc:"accessories",sub:"bottles",st:"a",p:3.42,srp:0},
-{s:"PRBC0010",d1:"PRO Bottle Cage Classic",d2:"White",disc:"accessories",sub:"bottles",st:"a",p:3.27,srp:0},
-{s:"PRBT0014",d1:"PRO Bottle",d2:"Black 600ml",disc:"accessories",sub:"bottles",st:"a",p:2.93,srp:0},
-{s:"PRBT0010",d1:"PRO Bottle",d2:"Transparent 600ml",disc:"accessories",sub:"bottles",st:"a",p:2.85,srp:0},
-{s:"PRBT0045",d1:"PRO Bottle",d2:"Black 800ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.79,srp:0},
-{s:"PRBT0043",d1:"PRO Bottle",d2:"Transp. 800ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.76,srp:0},
-{s:"PRBT0042",d1:"PRO Bottle",d2:"Transp. 600ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.3,srp:0},
-{s:"PRBT0044",d1:"PRO Bottle",d2:"Black 600ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.3,srp:0},
-{s:"PRTA0065",d1:"PRO Sport Control Team Tape Bx",d2:"Black EVA 24 pcs / Debossed",disc:"accessories",sub:"bartape",st:"e",p:145.32,srp:0},
-{s:"PRTA0056",d1:"PRO Tape Box Sport Control",d2:"Black EVA 24 pcs Pack 2.5mm",disc:"accessories",sub:"bartape",st:"e",p:144.97,srp:0},
-{s:"PRTA0070",d1:"PRO Tape Gravel comfort",d2:"Black",disc:"accessories",sub:"bartape",st:"a",p:18.68,srp:0},
-{s:"PRTA0071",d1:"PRO Tape Gravel comfort",d2:"Multi color",disc:"accessories",sub:"bartape",st:"a",p:16.06,srp:0},
-{s:"PRTA0052",d1:"PRO Tape Race Comfort Silicone",d2:"Black / 3mm",disc:"accessories",sub:"bartape",st:"u",p:15.29,srp:0},
-{s:"PRTA0026",d1:"PRO Tape Race Comfort",d2:"Black PU",disc:"accessories",sub:"bartape",st:"e",p:13.78,srp:0},
-{s:"PRTA0029",d1:"PRO Tape Race Comfort",d2:"Blue PU",disc:"accessories",sub:"bartape",st:"e",p:13.77,srp:0},
-{s:"PRTA0027",d1:"PRO Tape Race Comfort",d2:"White PU",disc:"accessories",sub:"bartape",st:"e",p:13.75,srp:0},
-{s:"PRTA0028",d1:"PRO Tape Race Comfort",d2:"Red PU",disc:"accessories",sub:"bartape",st:"e",p:11.95,srp:0},
-{s:"PRTA0002",d1:"PRO Tape Race Control",d2:"Black with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:10.53,srp:0},
-{s:"PRTA0011",d1:"PRO Tape Race Control",d2:"White with End Plugs",disc:"accessories",sub:"bartape",st:"e",p:10.53,srp:0},
-{s:"PRTA0057",d1:"PRO Tape Sport Control Team",d2:"Black EVA / Debossed",disc:"accessories",sub:"bartape",st:"e",p:10.36,srp:0},
-{s:"PRTA0058",d1:"PRO Tape Sport Control Team",d2:"Black EVA / Debossed-Wht",disc:"accessories",sub:"bartape",st:"a",p:10.32,srp:0},
-{s:"PRTA0041",d1:"PRO Tape Sport Comfort",d2:"White  EVA",disc:"accessories",sub:"bartape",st:"e",p:9.72,srp:0},
-{s:"PRTA0040",d1:"PRO Tape Sport Comfort",d2:"Black EVA",disc:"accessories",sub:"bartape",st:"e",p:9.47,srp:0},
-{s:"PRTA0001",d1:"PRO Tape Sport Control",d2:"Black with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.89,srp:0},
-{s:"PRTA0007",d1:"PRO Tape Sport Control",d2:"Red with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.86,srp:0},
-{s:"PRTA0004",d1:"PRO Tape Sport Control",d2:"White with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.65,srp:0},
-{s:"PRTA0006",d1:"PRO Tape Sport Control",d2:"Blue with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:6.95,srp:0},
-{s:"PRTA0048",d1:"PRO Tape Classic Comfort",d2:"Black EVA+Cork",disc:"accessories",sub:"bartape",st:"e",p:5.9,srp:0},
-{s:"PRTA0049",d1:"PRO Tape Classic Comfort",d2:"White EVA+Cork",disc:"accessories",sub:"bartape",st:"e",p:5.67,srp:0},
-{s:"PRAC0056",d1:"PRO Handlebar Endplug",d2:"Black Anodized Alloy",disc:"accessories",sub:"bartape",st:"a",p:4.85,srp:0},
-{s:"PRHS0124",d1:"PRO Headset Internal Routing",d2:"1.5 inch upper/lower cartridge",disc:"accessories",sub:"headsets",st:"a",p:41.3,srp:0},
-{s:"PRHS0037",d1:"PRO Headpart Upper SL",d2:"IS41/28.6mm Hybrid",disc:"accessories",sub:"headsets",st:"a",p:33.07,srp:0},
-{s:"PRHS0036",d1:"PRO Headpart Upper SL",d2:"IS42/28.6mm Hybrid",disc:"accessories",sub:"headsets",st:"a",p:32.69,srp:0},
-{s:"PRHS0060",d1:"PRO Headpart Cartridge Lower",d2:"ZS56/40mm",disc:"accessories",sub:"headsets",st:"a",p:24.04,srp:0},
-{s:"PRHS0081",d1:"PRO Gap cap Expander Long",d2:"Black 50mm/1 1/4\"/UD carbon",disc:"accessories",sub:"headsets",st:"a",p:18.48,srp:0},
-{s:"PRHS0057",d1:"PRO Headpart Cartridge Lower",d2:"IS52/40mm",disc:"accessories",sub:"headsets",st:"a",p:16.84,srp:0},
-{s:"PRHS0035",d1:"PRO Headpart Cartridge Upper",d2:"ZS44/28.6mm",disc:"accessories",sub:"headsets",st:"a",p:16.62,srp:0},
-{s:"PRHS0055",d1:"PRO Headpart Cartridge Lower",d2:"IS47/33mm",disc:"accessories",sub:"headsets",st:"a",p:16.1,srp:0},
-{s:"PRHS0056",d1:"PRO Headpart Cartridge Lower",d2:"ZS44/30mm",disc:"accessories",sub:"headsets",st:"a",p:15.09,srp:0},
-{s:"PRHS0072",d1:"PRO Headpart Expander Long",d2:"Black 50mm/1 1/8\"/carbon",disc:"accessories",sub:"headsets",st:"a",p:14.85,srp:0},
-{s:"PRHS0070",d1:"PRO Headpart Gap cap Carbon",d2:"Black alloy Bolt /1 1/8\"",disc:"accessories",sub:"headsets",st:"a",p:8.58,srp:0},
-{s:"PRHS0082",d1:"PRO Spacer Set UD Carbon",d2:"3/5/10/15mm /1 1/4\"",disc:"accessories",sub:"headsets",st:"a",p:8.33,srp:0},
-{s:"PRGP0087",d1:"PRO Grips Drop Bar Ergo",d2:"Black / 23.8mm / 210-230mm",disc:"accessories",sub:"grips",st:"a",p:17.67,srp:0},
-{s:"PRGP0061",d1:"PRO Grips Ergo Race",d2:"Black 32mm/130mm",disc:"accessories",sub:"grips",st:"a",p:14.94,srp:0},
-{s:"PRGP0060",d1:"PRO Grips Ergo Race",d2:"Black 30mm/130mm",disc:"accessories",sub:"grips",st:"u",p:14.87,srp:0},
-{s:"PRGP0086",d1:"PRO Grips Econtrol lock on",d2:"Black STEPS lockring",disc:"accessories",sub:"grips",st:"a",p:14.17,srp:0},
-{s:"PRGP0077",d1:"PRO Grips Econtrol lock on",d2:"Black Single lock 36mm/133mm",disc:"accessories",sub:"grips",st:"a",p:14.13,srp:0},
-{s:"PRGP0054",d1:"PRO Grips Dual Lock Sport",d2:"Black 30mm/132.5mm",disc:"accessories",sub:"grips",st:"e",p:13.77,srp:0},
-{s:"PRGP0055",d1:"PRO Grips Dual Lock Sport",d2:"Black 32mm/132.5mm",disc:"accessories",sub:"grips",st:"u",p:13.01,srp:0},
-{s:"PRGP0045",d1:"PRO Grips Lock On Race",d2:"Black 30mm/130mm",disc:"accessories",sub:"grips",st:"e",p:12.59,srp:0},
-{s:"PRGP0046",d1:"PRO Grips Lock On Race",d2:"Black 32mm/130mm",disc:"accessories",sub:"grips",st:"e",p:12.51,srp:0},
-{s:"PRGP0056",d1:"PRO Grips Ergon. Lock On Sport",d2:"Black 34.5mm/133mm",disc:"accessories",sub:"grips",st:"e",p:12.37,srp:0},
-{s:"PRGP0064",d1:"PRO Grips Lock on Trail",d2:"Black w. flange 32mm/132mm",disc:"accessories",sub:"grips",st:"a",p:12.21,srp:0},
-{s:"PRGP0035",d1:"PRO Grips Silicone XC Slim",d2:"Black 30mmx130mm",disc:"accessories",sub:"grips",st:"e",p:11.89,srp:0},
-{s:"PRGP0036",d1:"PRO Grips Silicone XC",d2:"Black 32mmx130mm",disc:"accessories",sub:"grips",st:"u",p:11.82,srp:0},
-{s:"PRGP0066",d1:"PRO Grips Lock on Trail",d2:"Black wo. flange 32mm/132mm",disc:"accessories",sub:"grips",st:"u",p:11.69,srp:0},
-{s:"PRGP0034",d1:"PRO Grips Ergonomic",d2:"Black Dual Density",disc:"accessories",sub:"grips",st:"e",p:11.68,srp:0},
-{s:"PRGP0018",d1:"PRO Grips Foam Lock",d2:"Black 32mmx132mm",disc:"accessories",sub:"grips",st:"e",p:11.33,srp:0},
-{s:"PRGP0052",d1:"PRO Grips Lock On Sport",d2:"Black 30mm/132.5mm",disc:"accessories",sub:"grips",st:"e",p:11.3,srp:0},
-{s:"PRGP0053",d1:"PRO Grips Lock On Sport",d2:"Black 32mm/132.5mm",disc:"accessories",sub:"grips",st:"u",p:11.18,srp:0},
-{s:"PRGP0050",d1:"PRO Grips Slide On Sport",d2:"Black 30mm/125mm",disc:"accessories",sub:"grips",st:"e",p:5.45,srp:0},
-{s:"PRGP0051",d1:"PRO Grips Slide On Sport",d2:"Black 32mm/125mm",disc:"accessories",sub:"grips",st:"u",p:5.2,srp:0},
-{s:"PRGP0022",d1:"PRO Grips Foam Slim",d2:"Black 32mmx130mm",disc:"accessories",sub:"grips",st:"u",p:4.9,srp:0},
-{s:"PRGP0020",d1:"PRO Grips Foam",d2:"Black 34.5mmx133mm",disc:"accessories",sub:"grips",st:"e",p:4.55,srp:0},
-{s:"PR100360",d1:"PRO Tool Bike Repair Stand",d2:"Incl Bag And Tool-Plate",disc:"tools",sub:"bikestands",st:"a",p:127.21,srp:0},
-{s:"PRTL0152",d1:"PRO Bike Repair Stand Sport",d2:"",disc:"tools",sub:"bikestands",st:"e",p:69.56,srp:0},
-{s:"PRTL0148",d1:"PRO Tool Wheel Truing Stand",d2:"Comp w/QR And Thru Axle Wheels",disc:"tools",sub:"bikestands",st:"a",p:45.5,srp:0},
-{s:"PRTL0074",d1:"PRO Tool BB Workstand",d2:"Foldable",disc:"tools",sub:"bikestands",st:"a",p:19.48,srp:0},
-{s:"PRAC0043",d1:"PRO Bike Stand 29",d2:"Black 29In And 700C",disc:"tools",sub:"bikestands",st:"a",p:16.97,srp:0},
-{s:"PR100399",d1:"PRO Tool Bike Stand",d2:"Gray/Black",disc:"tools",sub:"bikestands",st:"a",p:13.07,srp:0},
-{s:"PRAC0137",d1:"PRO Vibe Aero Mount",d2:"Black Large",disc:"accessories",sub:"mounts",st:"a",p:53.08,srp:0},
-{s:"PRAC0248",d1:"PRO Computer Mount Vibe Stem",d2:"Black / Comp w Vibe Carbon/SL",disc:"accessories",sub:"mounts",st:"a",p:32.62,srp:0},
-{s:"PRAC0247",d1:"PRO Computer Mount Stem",d2:"Black / Alloy / w/ adapter ins",disc:"accessories",sub:"mounts",st:"a",p:30.19,srp:0},
-{s:"PRAC0228",d1:"PRO Computer Mount",d2:"Black /w/Adapter Inse",disc:"accessories",sub:"mounts",st:"a",p:26.74,srp:0},
-{s:"PRAC0237",d1:"PRO Bike Wall Mount Sport",d2:"Pedal Hook",disc:"accessories",sub:"mounts",st:"a",p:9.75,srp:0},
-{s:"PRTL0082",d1:"PRO Tool Team Digital Torq.wr.",d2:"1 to 24 Nm",disc:"tools",sub:"torque",st:"a",p:108.86,srp:0},
-{s:"PR100340",d1:"PRO Tool Torque Wrench",d2:"Adjustable 3-15 Nm",disc:"tools",sub:"torque",st:"a",p:64.4,srp:0},
-{s:"PRTL0096",d1:"PRO Tool Torque wrench",d2:"Fixed settings 4/5/6 Nm",disc:"tools",sub:"torque",st:"a",p:45.14,srp:0},
-{s:"PRTL0066",d1:"PRO Tool Torque Wrench 1/4\"",d2:"Adjustable 0-30mm",disc:"tools",sub:"torque",st:"a",p:43.46,srp:0},
-{s:"PRTL0134",d1:"PRO Tool Mini Tool 20F Team",d2:"Co2",disc:"tools",sub:"minitools",st:"a",p:34.74,srp:0},
-{s:"PRTL0099",d1:"PRO Tool Integrated Tool",d2:"Black with Rachet",disc:"tools",sub:"minitools",st:"a",p:23.19,srp:0},
-{s:"PRTL0132",d1:"PRO Tool Mini Tool 17F Perform",d2:"Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:20.53,srp:0},
-{s:"PRTL0130",d1:"PRO Tool Mini Tool 9FTL Perfor",d2:"Alloy/Tubeless/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:20.25,srp:0},
-{s:"PRTL0131",d1:"PRO Tool Mini Tool 13F Perform",d2:"Alloy body/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:19.69,srp:0},
-{s:"PRTL0133",d1:"PRO Tool Mini Tool 22F Perform",d2:"Alloy Body",disc:"tools",sub:"minitools",st:"a",p:18.57,srp:0},
-{s:"PRTL0123",d1:"PRO Tool Mini Tool 9F Perform",d2:"Alloy body/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:13.56,srp:0},
-{s:"PRTL0122",d1:"PRO Tool Minitool 10",d2:"10 functions",disc:"tools",sub:"minitools",st:"e",p:6.86,srp:0},
-{s:"PRTL0121",d1:"PRO Tool Minitool 6",d2:"6 functions",disc:"tools",sub:"minitools",st:"e",p:5.28,srp:0},
-{s:"PRTL0107",d1:"PRO tools Expert toolbox",d2:"Toolset 42 tools",disc:"tools",sub:"toolbox",st:"a",p:279.07,srp:0},
-{s:"PRTL0106",d1:"PRO Tool Advanced toolbox",d2:"Toolset 25 tools",disc:"tools",sub:"toolbox",st:"a",p:182.16,srp:0},
-{s:"PRTL0105",d1:"PRO Tool Starter toolkit",d2:"Toolset 11 tools",disc:"tools",sub:"toolbox",st:"a",p:49.05,srp:0},
-{s:"PRTLB060",d1:"PRO Tool T-Wrenches",d2:"Black 2/2.5/3/4/5/6/8/10",disc:"tools",sub:"maintenance",st:"a",p:42.84,srp:0},
-{s:"PRTL0145",d1:"PRO Tool Brake Hose Install",d2:"Cutter / Installation",disc:"tools",sub:"maintenance",st:"a",p:32.71,srp:0},
-{s:"PRTL0150",d1:"PRO Tool Internal Routing",d2:"For Cables / Hoses",disc:"tools",sub:"maintenance",st:"a",p:32.51,srp:0},
-{s:"PRTL0149",d1:"PRO Tool Cassette Removal Set",d2:"Lockring Tool/Cassette Wrench",disc:"tools",sub:"maintenance",st:"a",p:27.6,srp:0},
-{s:"PRTL0084",d1:"PRO Tool Team Chainwhip",d2:"Black 12 Speed",disc:"tools",sub:"maintenance",st:"a",p:27.02,srp:0},
-{s:"PRTL0054",d1:"PRO Tool Carbon Saw",d2:"Black/Blue",disc:"tools",sub:"maintenance",st:"a",p:24.64,srp:0},
-{s:"PRTL0086",d1:"PRO Tool Team Chain Tool",d2:"Black 12 Speed",disc:"tools",sub:"maintenance",st:"a",p:23.19,srp:0},
-{s:"PRTL0085",d1:"PRO Tool Team Lockring Tool",d2:"Black 12 Speed",disc:"tools",sub:"maintenance",st:"a",p:21.98,srp:0},
-{s:"PRTLB031",d1:"PRO Tool BB-Remover hollowtech",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:21.1,srp:0},
-{s:"PRTL0088",d1:"PRO Team Chainring Remover",d2:"Threaded BB",disc:"tools",sub:"maintenance",st:"a",p:21.1,srp:0},
-{s:"PRTLB061",d1:"PRO Tool BB Press",d2:"Black 24mm/30mm axles",disc:"tools",sub:"maintenance",st:"a",p:20.91,srp:0},
-{s:"PRTL0094",d1:"PRO Tool Cable Cutter",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:20.56,srp:0},
-{s:"PRTL0053",d1:"PRO Tool Saw Guide",d2:"Handlebar And Fork Steerer",disc:"tools",sub:"maintenance",st:"a",p:20.4,srp:0},
-{s:"PRTL0087",d1:"PRO Tool Team Pedal Wrench",d2:"Black 15mm / 8mm",disc:"tools",sub:"maintenance",st:"a",p:18.95,srp:0},
-{s:"PRTLB050",d1:"PRO Tool Cable cutter",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:18.88,srp:0},
-{s:"PRTLB032",d1:"PRO Tool Cassette removal set",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:18.71,srp:0},
-{s:"PRTL0058",d1:"PRO Tool Hammer",d2:"Black deadblow hammer",disc:"tools",sub:"maintenance",st:"a",p:17.1,srp:0},
-{s:"PRTLB090",d1:"PRO Tool T-Wrench Set",d2:"Black 4/5/6",disc:"tools",sub:"maintenance",st:"a",p:15.42,srp:0},
-{s:"PRTL0037",d1:"PRO Tool Hex Key Set",d2:"Size 2/2.5/3/4/5/6/8/10mm",disc:"tools",sub:"maintenance",st:"e",p:14.97,srp:0},
-{s:"PRTLB089",d1:"PRO Tool T-Wrench Set",d2:"Black 2/2.5/3",disc:"tools",sub:"maintenance",st:"a",p:14.93,srp:0},
-{s:"PRTL0073",d1:"PRO Tool BB Remover",d2:"Press-Fit Bearings 24mm",disc:"tools",sub:"maintenance",st:"a",p:14.75,srp:0},
-{s:"PRTL0119",d1:"PRO Tool Chain tool",d2:"9/10/11/12 speed",disc:"tools",sub:"maintenance",st:"a",p:13.89,srp:0},
-{s:"PRTL0038",d1:"PRO Tool Torx Key Set",d2:"T10-T50",disc:"tools",sub:"maintenance",st:"a",p:13.14,srp:0},
-{s:"PRTL0116",d1:"PRO Tool Team Y-wrench",d2:"2-8 hex, PH1/2, SL4, T15/25/30",disc:"tools",sub:"maintenance",st:"a",p:13.05,srp:0},
-{s:"PRTL0104",d1:"PRO Tool Cassette wrench",d2:"10T/11T sprocket",disc:"tools",sub:"maintenance",st:"a",p:12.83,srp:0},
-{s:"PRTLB091",d1:"PRO Tool Chainwhip",d2:"Black 9/10/11 Speed",disc:"tools",sub:"maintenance",st:"a",p:12.74,srp:0},
-{s:"PRTLB030",d1:"PRO Tool BB-Remover cartridge",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:12.69,srp:0},
-{s:"PRTL0101",d1:"PRO Tool Fine scr.driver set",d2:"2/2.5mm hex & JIS #1 & flat",disc:"tools",sub:"maintenance",st:"a",p:12.06,srp:0},
-{s:"PRTL0064",d1:"PRO Tool Disc Truing Tool",d2:"",disc:"tools",sub:"maintenance",st:"a",p:11.85,srp:0},
-{s:"PRTL0095",d1:"PRO Tool Quick Link Tool",d2:"Black Removal / Inst.",disc:"tools",sub:"maintenance",st:"a",p:11.4,srp:0},
-{s:"PRTLB036",d1:"PRO Tool Cranktool",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:11.04,srp:0},
-{s:"PRTLB051",d1:"PRO Tool Brake piston lever",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:10.14,srp:0},
-{s:"PRTLB039",d1:"PRO Tool Pedal wrench",d2:"Black 15mm",disc:"tools",sub:"maintenance",st:"a",p:9.03,srp:0},
-{s:"PRTLB052",d1:"PRO Quick Link Remover",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:8.42,srp:0},
-{s:"PRTL0115",d1:"PRO Tool Tire levers tubeless",d2:"max 2.1 tire width",disc:"tools",sub:"maintenance",st:"a",p:5.41,srp:0},
-{s:"PRTL0035",d1:"PRO Tool Cone Wrench Set",d2:"Silver 13mm/14mm/15mm/16mm",disc:"tools",sub:"maintenance",st:"a",p:4.99,srp:0},
-{s:"PRTLB043",d1:"PRO Tool Spoke wrench 3.6",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:4.96,srp:0},
-{s:"PRTL0128",d1:"PRO Tool Y-Wrench Torx",d2:"T25/T30/T40",disc:"tools",sub:"maintenance",st:"a",p:4.92,srp:0},
-{s:"PRTLB044",d1:"PRO Tool Spoke wrench  3.75",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:4.9,srp:0},
-{s:"PRTL0126",d1:"PRO Tool Y Wrench Hex",d2:"2/2,5/3MM",disc:"tools",sub:"maintenance",st:"a",p:4.89,srp:0},
-{s:"PRTLB045",d1:"PRO Tool Spoke wrench  4.0",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:4.86,srp:0},
-{s:"PRTLB046",d1:"PRO Tool Spoke wrench  4.4",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:4.79,srp:0},
-{s:"PRTL0127",d1:"PRO Y-Wrench HEX",d2:"4/5/6MM",disc:"tools",sub:"maintenance",st:"a",p:4.74,srp:0},
-{s:"PRTL0034",d1:"PRO Tool Chainring Nut Wrench",d2:"",disc:"tools",sub:"maintenance",st:"a",p:4.04,srp:0},
-{s:"PRTL0146",d1:"PRO Tool Open End Wrench",d2:"8mm / Comp w/ 1/4” Torque Wren",disc:"tools",sub:"maintenance",st:"a",p:3.87,srp:0},
-{s:"PRTL0049",d1:"PRO Tool Tire Levers",d2:"3 Pieces",disc:"tools",sub:"maintenance",st:"a",p:2.66,srp:0},
-{s:"PRSA0376",d1:"PRO Saddle TSA 1.2",d2:"Black 132mm, AF, stainless",disc:"triathlon",sub:"saddles",st:"a",p:76.93,srp:0},
-{s:"PRSA0377",d1:"PRO Saddle TSA 1.1",d2:"Black 132mm, AF, carbon",disc:"triathlon",sub:"saddles",st:"a",p:109.83,srp:0},
-{s:"PRAB0042",d1:"PRO Aerobar Missile Evo Carbon",d2:"Black J Bend XL Armrest",disc:"triathlon",sub:"handlebars",st:"a",p:607.55,srp:999.9},
-{s:"PRAB0043",d1:"PRO Basebar Missile Evo",d2:"Black",disc:"triathlon",sub:"handlebars",st:"u",p:348.9,srp:599.0},
-{s:"PRAB0046",d1:"PRO Missile Evo Ski Bend",d2:"Black Ski Bend",disc:"triathlon",sub:"handlebars",st:"a",p:168.1,srp:1099.0},
-{s:"PRAB0047",d1:"PRO Missile Evo J Bend",d2:"Black J Bend",disc:"triathlon",sub:"handlebars",st:"a",p:153.17,srp:289.9},
-{s:"PRAB0065",d1:"PRO MissileJ-bendHighextension",d2:"Black Alloy 6061",disc:"triathlon",sub:"handlebars",st:"u",p:23.4,srp:54.99},
-{s:"PRAB0066",d1:"PRO Missile Adjustable Armpad",d2:"Black Alloy 6061",disc:"triathlon",sub:"handlebars",st:"a",p:78.72,srp:149.99},
-{s:"PRSS0426",d1:"PRO Stem Missile Evo Carbon",d2:"Black UD Carbon 85mm / 31.8mm",disc:"triathlon",sub:"stems",st:"a",p:234.62,srp:399.99},
-{s:"PRAB0038",d1:"PRO Handlebar Missile Basebar",d2:"Hydroformed Alloy",disc:"triathlon",sub:"handlebars",st:"a",p:55.11,srp:119.99},
-{s:"PRAB0041",d1:"PRO Missile Evo Bolt Set",d2:"M6X45mm Countersunk Stainless",disc:"triathlon",sub:"handlebars",st:"e",p:86.99,srp:177.99},
-{s:"PRAB0040",d1:"PRO Handlebar Missile Tri",d2:"Clip-On alloy 6061",disc:"triathlon",sub:"handlebars",st:"e",p:87.5,srp:177.99},
-{s:"PRAB0039",d1:"PRO Handlebar Missile Ski",d2:"Clip-On alloy 6061",disc:"triathlon",sub:"handlebars",st:"e",p:86.59,srp:177.99}
-];
+var PRO_DATA=[];
 </script>
 
 <!-- ═══ APPLICATION ═══ -->
@@ -1064,18 +547,447 @@ function buildDetailHtml(modelName, sub) {
 //     "https://www.pro-bikegear.com/_assets/images/.../image2.png",
 //   ],
 const PRO_IMAGES = {
-  // ── SADDLES ──
-  // "PRO Saddle Stealth Team": [],
-  // "PRO Saddle Stealth Performance": [],
-  // "PRO Saddle Stealth Superlight": [],
-  // ── HANDLEBARS ──
-  // "PRO Handlebar Vibe Superlight": [],
-  // "PRO Handlebar Vibe Aero Carbon": [],
-  // ── STEMS ──
-  // "PRO Stem Vibe Superlight 1 1/8": [],
-  // ── SEATPOSTS ──
-  // "THARSIS DROPPER POST 160": [],
-  // ── Add more products as needed ──
+  "PRO Saddle Stealth Team": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0352-pro-stealth-team-saddle-2021-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0352-pro-stealth-team-saddle-2021-6.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0352-pro-stealth-team-saddle-2021-8.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0352-pro-stealth-team-saddle-2021-4.png"
+  ],
+  "PRO Saddle Stealth Performance": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0350-pro-stealth-performance-saddle-2021-2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0350-pro-stealth-performance-saddle-2021-6.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0350-pro-stealth-performance-saddle-2021-8.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0350-pro-stealth-performance-saddle-2021-4.png"
+  ],
+  "PRO Saddle Stealth Superlight": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0378_stealthsuperlight_7.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0378_stealthsuperlight_2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0378_stealthsuperlight_3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0378_stealthsuperlight_4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0378_stealthsuperlight_4.png"
+  ],
+  "PRO Saddle Stealth Curved Team": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0356-pro-stealth-curved-team-saddle-2021-2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0356-pro-stealth-curved-team-saddle-2021-1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0356-pro-stealth-curved-team-saddle-2021-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0356-pro-stealth-curved-team-saddle-2021-7.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0356-pro-stealth-curved-team-saddle-2021-8.png"
+  ],
+  "PRO Saddle Stealth Curved Perf": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0354-pro-stealth-curved-performance-saddle-2021-2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0354-pro-stealth-curved-performance-saddle-2021-1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0354-pro-stealth-curved-performance-saddle-2021-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0354-pro-stealth-curved-performance-saddle-2021-7.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0354-pro-stealth-curved-performance-saddle-2021-6.png",
+    ],
+
+  "PRO Saddle Stealth Sport": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0196-2020-07-02-17-10-36_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0196-2020-07-02-16-49-25_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0196-2020-07-02-15-48-39_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0196-fotografie-pro-220_06_2651001_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0196-fotografie-pro-220_06_2651021_hr.png"
+  ],
+  "PRO Saddle Griffon Team": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-saddle-griffon-team-image-7.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-saddle-griffon-team-image-4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-saddle-griffon-team-image-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-saddle-griffon-team-image-6.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-saddle-griffon-team-image-8.png"
+  ],
+  "PRO Saddle Griffon Performance": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0330-2020-07-02-17-08-29_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0330-2020-07-02-16-56-41_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0330-fotografie-pro-220_06_2650999_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0330-fotografie-pro-220_06_2651017_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0330-fotografie-pro-220_06_2651018_hr.png"
+  ],
+  "PRO Saddle Falcon Team": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-falcon-team-image-6.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-falcon-team-image-3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-falcon-team-image-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-falcon-team-image-7.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro-falcon-team-image-5.png"
+  ],
+  "PRO Saddle Falcon Performance": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0327_falcon-performance-af-saddle_7_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0327_falcon-performance-af-saddle_1_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0327_falcon-performance-af-saddle_3_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0327_falcon-performance-af-saddle_5_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/prsa0327_falcon-performance-af-saddle_6_hr.png"
+  ],
+  "PRO Saddle Griffon Crmo": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffoncrmo_2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffoncrmo_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffoncrmo_3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffoncrmo_4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffoncrmo_5.png"
+  ],
+  "PRO Saddle Griffon Gel": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffongel_2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffongel_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffongel_3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_griffongel_5.png"
+  ],
+  "PRO Saddle Falcon Crmo": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falconcrmo_2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falconcrmo_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falconcrmo_3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falconcrmo_4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falconcrmo_5.png"
+  ],
+  "PRO Saddle Falcon Gel": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falcongel_2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falcongel_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falcongel_3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falcongel_4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/saddles/pro_sa_falcongel_5.png"
+  ],
+"PRO Handlebar Vibe Evo w. Spac": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-6.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-7.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-8.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-9.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-12.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-13.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-14.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0484-pro-vibe-evo-handlebar-2021-16.png"
+  ],
+  "PRO Handlebar Vibe Aero Carbon": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0616_t1_000.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0616_t1_001.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0616_t1_002.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0616_t1_003.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0616_t1_004.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0616_t1_005.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0616_t1_006.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0616_t1_007.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prss0623_prha0616_png_1500x1500_shadow_000.png"
+  ],
+  "PRO Handlebar Vibe Superlight": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-6.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-8.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-10.png.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-12.png.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/2022/vibe-superlight-handlebar/prha0579-vibe-superlight-handlebar-13.png.png"
+  ],
+  "PRO Handlebar Vibe Carb. Comp.": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/pro_ha_vibecarbon_2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/pro_ha_vibecarbon_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/pro_ha_vibecarbon_3.png"
+  ],
+  "PRO Handlebar Vibe Alloy Anatomic": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/pro_ha_vibealloy_1.png"
+  ],
+  "PRO Handlebar Vibe Alloy Compact": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/pro_ha_vibealloy_1.png"
+  ],
+  "PRO Handlebar Vibe aero": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0466-pro-2020_06_1749508_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0466-pro-2020_06_1749453_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0466-pro-2020_06_1749464_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0466-pro-2020_06_1749511_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0466-pro-2020_06_1749536_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0466-pro-2020_06_1749576_lr.png"
+  ],
+  "PRO Handlebar Vibe aero purs.": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0471-pro-2020_06_1749494_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0471-pro-2020_06_1749446_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0471-pro-2020_06_1749469_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0471-pro-2020_06_1749498_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0471-pro-2020_06_1749553_lr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/prha0471-pro-2020_06_1749572_lr.png"
+  ],
+  "PRO Handlebar LT Ergo": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/pro_ha_ltrergo_1.png"
+  ],
+  "PRO Handlebar LT Compact": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/handlebars/pro_ha_ltr_1.png"
+  ],
+  "PRO Stem Vibe Superlight 1 1/8": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-8/prss0559-pro-vibe-superlight-stem-1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-8/prss0559-pro-vibe-superlight-stem-2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-8/prss0559-pro-vibe-superlight-stem-4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-8/prss0559-pro-vibe-superlight-stem-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-8/prss0559-pro-vibe-superlight-stem-6.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-8/prss0559-pro-vibe-superlight-stem-9b.png"
+  ],
+  "PRO Stem Vibe Superlight 1 1/4": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-4/prss0569-pro-vibe-superlight-stem-1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-4/prss0569-pro-vibe-superlight-stem-2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-4/prss0569-pro-vibe-superlight-stem-5.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-4/prss0569-pro-vibe-superlight-stem-6.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/2022/vibe-superlight-stem-1-1-4/prss0569-pro-vibe-superlight-stem-8.png"
+  ],
+  "PRO Stem Vibe carbon": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0505-vibe-carbon-stem-d.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0505-vibe-carbon-stem-a.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0505angleleft.jpg",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0505front.jpg"
+  ],
+  "PRO Stem Vibe": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0582_provibestemreversedbolts_png_1500x1500_shadow_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0582_provibestemreversedbolts_png_1500x1500_shadow_3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0582_provibestemreversedbolts_png_1500x1500_shadow_4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0582_provibestemreversedbolts_png_1500x1500_shadow_5.png"
+  ],
+  "PRO Stem Vibe 1 1/4": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0582_provibestemreversedbolts_png_1500x1500_shadow_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0582_provibestemreversedbolts_png_1500x1500_shadow_3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0582_provibestemreversedbolts_png_1500x1500_shadow_4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/prss0582_provibestemreversedbolts_png_1500x1500_shadow_5.png"
+  ],
+  "PRO Stem LT Adjustable": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/pro_ss_ltadjust_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/pro_ss_ltadjust_2.png"
+  ],
+  "PRO Stem LT": [
+    "https://www.pro-bikegear.com/_assets/images/category/road/stems/pro_ss_lt_1.png"
+  ],
+  "PRO Seatpost LT": [
+    "https://www.pro-bikegear.com/_assets/images/category/mtb/seatposts/pro_sp_lt_1.png"
+  ], "PRO Tool Bike Repair Stand": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_repairs2_1.png"
+  ],
+  "PRO Tool Wheel Truing Stand": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0148_pro-tool-wheel-truing-stand_0000.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0148_pro-tool-wheel-truing-stand_0001.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0148_pro-tool-wheel-truing-stand_0003.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0148_pro-tool-wheel-truing-stand_0005.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0148_pro-tool-wheel-truing-stand_0004.png"
+  ],
+  "PRO Tool BB Workstand": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_bbworkstand_1.png"
+  ],
+  "PRO Bike Stand 29": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_stand29_1.png"
+  ],
+  "PRO Tool Bike Stand": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_stand_1.png"
+  ],
+  "PRO Tool T-Wrenches": [
+    "https://n11scdn.akamaized.net/a1/375_535/04/79/33/46/IMG-2434998967522795243.jpg"
+  ],
+  "PRO Tool Brake Hose Install": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0145_pro-tool-brake-hose-installation_0001.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0145_pro-tool-brake-hose-installation_0002.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0145_pro-tool-brake-hose-installation_0004.png"
+  ],
+  "PRO Tool Internal Routing": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0150_pro-mini-tool-routing_0000.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0150_pro-mini-tool-routing_0001.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0150_pro-mini-tool-routing_0003.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0150_pro-mini-tool-routing_0004.png"
+  ],
+  "PRO Tool Cassette Removal Set": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0149-main-image.png"
+  ],
+  "PRO Tool Team Chainwhip": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0084.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0085logopro.png"
+  ],
+  "PRO Tool Carbon Saw": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_sawcarbon_1.png"
+  ],
+  "PRO Tool Team Chain Tool": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0086_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0086_2.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0086_3.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0086_3.png"
+  ],
+  "PRO Tool Team Lockring Tool": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0085.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0085logopro.png"
+  ],
+  "PRO Tool BB-Remover hollowtech": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb031_pro-bb-remover-hollowtech-ii-013.png"
+  ],
+  "PRO Team Chainring Remover": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/_mg_9927metdop.png"
+  ],
+  "PRO Tool BB Press": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb061_pro-bb-press-seta.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb061_pro-bb-press-setb.png"
+  ],
+  "PRO Tool Cable Cutter": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0094open.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0094dicht.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0094detail.png"
+  ],
+  "PRO Tool Saw Guide": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_sawguide_1.png"
+  ],
+  "PRO Tool Team Pedal Wrench": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0087.png"
+  ],
+  "PRO Tool Cable cutter": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb050_pro-cable-cuttera.png"
+  ],
+  "PRO Tool Cassette removal set": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb032-cassette-removal-set.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb032_pro-cassette-removal-set-1440prb.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb032_pro-cassette-removal-set-8852prb.png"
+  ],
+  "PRO Tool Hammer": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_hammer_1.png"
+  ],
+  "PRO Tool Hex Key Set": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_hexkeyset_1.png"
+  ],
+  "PRO Tool BB Remover": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_bbrem_1-(1).png"
+  ],
+  "PRO Tool Chain tool": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0118-pro-2020_06_1949674_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0118-pro-2020_06_1949669_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0118-pro-2020_06_1949668_hr.png"
+  ],
+  "PRO Tool Torx Key Set": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_torxkeyset_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0116_lr.png"
+  ],
+  "PRO Tool Cassette wrench": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0104-pro-2020_06_1949666_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0104-pro-2020_06_1949665_hr.png"
+  ],
+  "PRO Tool Chainwhip": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb091.png"
+  ],
+  "PRO Tool BB-Remover cartridge": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_bbcartrem_1.png"
+  ],
+  "PRO Tool Fine scr.driver set": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0101-pro-2020_06_2650463_lr_layers_corr.png"
+  ],
+  "PRO Tool Disc Truing Tool": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_disctruingtool_1.png"
+  ],
+  "PRO Tool Quick Link Tool": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0095_pro-quicklink-removerb.png"
+  ],
+  "PRO Tool Cranktool": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_crancktool_1.png"
+  ],
+  "PRO Tool Brake piston lever": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb051_pro-brake-piston-tool.png"
+  ],
+  "PRO Tool Pedal wrench": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb039-pedal-wrench.png"
+  ],
+  "PRO Quick Link Remover": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_qlremover_1.png"
+  ],
+  "PRO Tool Tire levers tubeless": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0115-2020-07-01-13-05-16)_hr.png"
+  ],
+  "PRO Tool Cone Wrench Set": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_conewrenchset_1.png"
+  ],
+  "PRO Tool Spoke wrench 3.6": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb043-46_pro-spoke-wrench-set.png"
+  ],
+  "PRO Tool Spoke wrench 3.75": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb043-46_pro-spoke-wrench-set.png"
+  ],
+  "PRO Tool Y Wrench Hex": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0127-pro-2020_06_1949613_hr.png"
+  ],
+  "PRO Tool Spoke wrench 4.0": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb043-46_pro-spoke-wrench-set.png"
+  ],
+  "PRO Tool Spoke wrench 4.4": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtlb043-46_pro-spoke-wrench-set.png"
+  ],
+  "PRO Y-Wrench HEX": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0127-pro-2020_06_1949613_hr.png"
+  ],
+  "PRO Tool Chainring Nut Wrench": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_nut_1.png"
+  ],
+  "PRO Tool Open End Wrench": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0146_open-end-wrench-8mm_0000.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0146_open-end-wrench-8mm_0001.png"
+  ],
+  "PRO Tool Tire Lever": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_tirelevers_1.png"
+  ],
+  "PRO Tool Mini Tool 20F Team": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0134-pro-team-co2-minitool.png"
+  ],
+  "PRO Tool Integrated Tool": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/visualisation_integratedtool_001_transparent.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/visualisation_integratedtool_005_transparent.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/visualisation_integratedtool_010_transparent.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/visualisation_integratedtool_010_transparent.png"
+  ],
+  "PRO Tool Mini Tool 17F Perform": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0132_performance_17_function_mini_tool_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0132_performance_17_function_mini_tool_5.png"
+  ],
+  "PRO Tool Mini Tool 9FTL Perfor": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0130_pro-mini-tool-tubeless_0004.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0130_pro_mini-tool-tubeless_0000.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0130_pro_mini-tool-tubeless_still.png"
+  ],
+  "PRO Tool Mini Tool 13F Perform": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0131_pro-mini-tool-chain-01.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0131_pro-mini-tool-chain-02.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0131_pro-mini-tool-chain-04.png"
+  ],
+  "PRO Tool Mini Tool 22F Perform": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0133_protool_minitool22_1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0133_protool_minitool22_4.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0133_protool_minitool22_3.png"
+  ],
+  "PRO Tool Mini Tool 9F Perform": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0123_pro_mini-tool-9_still_001.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0123_pro-mini-tool-9_0000.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0123_pro-mini-tool-9_0003.png"
+  ],
+  "PRO Tool Minitool 10": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0122-pro-2020_06_2650462_lr_layers_corr.png"
+  ],
+  "PRO Tool Minitool 6": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0121-pro-2020_06_2650455_lr_layers_corr.png"
+  ],
+  "PRO tools Expert toolbox": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0107_pro-toolbox-expert-open.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0107_pro-toolbox-expert-top.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0107_pro-toolbox-expert-closed-standing-1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0107_pro-toolbox-expert-closed-flat.png"
+  ],
+  "PRO Tool Advanced toolbox": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0106_pro-toolbox-adv-open.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0106_pro-toolbox-adv-top-foam.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0106-advanced-toolbox.png"
+  ],
+  "PRO Tool Starter toolkit": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0105-starter-tool-kit-closed.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0105-starter-tool-kit-open.png"
+  ],
+  "PRO Tool Team Digital Torq.wr.": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0082_21_hr.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0082_lr.png"
+  ],
+  "PRO Tool Torque Wrench": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_torque1_1.png"
+  ],
+  "PRO Tool Torque wrench": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0096-mini-torque-wrench-1.png",
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/prtl0096-mini-torque-wrench-3.png"
+  ],
+  "PRO Tool Torque Wrench 1/4\"": [
+    "https://www.pro-bikegear.com/_assets/images/category/maintenance/pro_tl_torque1_1.png"
+  ]
 };
 
 // ─── GROUP DATA INTO MODELS ───────────────────────────────────────────────────
