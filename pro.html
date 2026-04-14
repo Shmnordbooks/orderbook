@@ -298,15 +298,15 @@
 .sidebar .cat-chip svg,
 .sidebar .sb-chip svg { width: 14px !important; height: 14px !important; flex-shrink: 0 !important; }
 .sidebar .sidebar-sep, .sidebar .sb-sep { height: 1px !important; background: #1c2538 !important; margin: 4px 16px !important; }
-.sidebar .sidebar-section-label, .sidebar .sb-heading { font-family: 'Barlow Condensed', sans-serif !important; font-size: 10px !important; font-weight: 700 !important; letter-spacing: .2em !important; text-transform: uppercase !important; color: #3e4f6e !important; padding: 8px 16px 4px !important; }
+.sidebar .sidebar-section-label, .sidebar .sb-heading { font-family: 'Barlow Condensed', sans-serif !important; font-size: 10px !important; font-weight: 700 !important; letter-spacing: .2em !important; text-transform: uppercase !important; color: #5a7a9e !important; padding: 8px 16px 4px !important; }
 .sidebar .order-chip-badge { background: #0082CA !important; color: white !important; font-family: 'Barlow Condensed', sans-serif !important; font-size: 10px !important; font-weight: 800 !important; border-radius: 10px !important; padding: 1px 6px !important; min-width: 18px !important; line-height: 1.4 !important; margin-left: auto !important; text-align: center !important; }
 
 /* Parlak beyaz ana başlıklar */
 .sidebar .cat-chip, .sidebar a.cat-chip, .sidebar button.cat-chip, .sidebar .sb-chip, .sidebar a.sb-chip, .sidebar a[style], .sidebar button[style], .sidebar #sharedOrderSummaryBtn { color: #e0e8f2 !important; font-weight: 700 !important; }
-.sidebar a.cat-chip[href="index.html"], .sidebar a.sb-chip[href="index.html"] { color: #7a8ba8 !important; font-weight: 600 !important; }
-.sidebar .cat-chip[data-cat], .sidebar #catFilters .cat-chip, .sidebar button.cat-chip[id^="cat-"] { color: #7a8ba8 !important; font-weight: 500 !important; }
-.sidebar .cat-chip[data-cat].active, .sidebar #catFilters .cat-chip.active, .sidebar button.cat-chip[id^="cat-"].active { color: #a0b4cc !important; font-weight: 600 !important; }
-.sidebar .cover-page-btn, .sidebar .cat-chip.cover-page-btn { color: #7a8ba8 !important; font-weight: 500 !important; }
+.sidebar a.cat-chip[href="index.html"], .sidebar a.sb-chip[href="index.html"] { color: #c8d8e8 !important; font-weight: 600 !important; }
+.sidebar .cat-chip[data-cat], .sidebar #catFilters .cat-chip, .sidebar button.cat-chip[id^="cat-"] { color: #c8d8e8 !important; font-weight: 500 !important; }
+.sidebar .cat-chip[data-cat].active, .sidebar #catFilters .cat-chip.active, .sidebar button.cat-chip[id^="cat-"].active { color: #e2ecf6 !important; font-weight: 600 !important; }
+.sidebar .cover-page-btn, .sidebar .cat-chip.cover-page-btn { color: #c8d8e8 !important; font-weight: 500 !important; }
 .sidebar .cat-chip:hover, .sidebar .sb-chip:hover, .sidebar a:hover { color: #ffffff !important; }
 html.light .sidebar .cat-chip, html.light .sidebar a.cat-chip, html.light .sidebar button.cat-chip, html.light .sidebar .sb-chip, html.light .sidebar a.sb-chip, html.light .sidebar a[style], html.light .sidebar button[style], html.light .sidebar #sharedOrderSummaryBtn { color: #1a2a44 !important; }
 
@@ -376,6 +376,10 @@ html.light .sidebar .cat-chip, html.light .sidebar a.cat-chip, html.light .sideb
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4M1 12h4m14 0h4"/></svg>
       PEDALS
     </a>
+    <a href="eyewear.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #06b6d4;color:#06b6d4;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="5"/><path d="M2 12h4M18 12h4"/><path d="M12 2v4M12 18v4"/></svg>
+      EYEWEAR
+    </a>
     <a href="lazer.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #ef4444;color:#ef4444;font-weight:700;opacity:0.7;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M12 2C6.48 2 2 6 2 10c0 2.5 1.5 4.5 3.5 5.5L4 22h16l-1.5-6.5C20.5 14.5 22 12.5 22 10c0-4-4.48-8-10-8z"/></svg>
       LAZER
@@ -393,7 +397,13 @@ html.light .sidebar .cat-chip, html.light .sidebar a.cat-chip, html.light .sideb
     <button class="cat-chip" id="cat-triathlon" data-cat="triathlon" onclick="setCat('triathlon',this)">Triathlon</button>
     <button class="cat-chip" id="cat-accessories" data-cat="accessories" onclick="setCat('accessories',this)">Accessories</button>
     <button class="cat-chip" id="cat-tools" data-cat="tools" onclick="setCat('tools',this)">Tools</button>
-  </nav>
+  
+  <div class="sidebar-sep" style="height:1px;background:var(--border);margin:12px 16px 0"></div>
+  <div id="stockUpdatedBlock" style="padding:10px 16px 14px;">
+    <div style="font-size:9px;letter-spacing:0.12em;color:var(--text-muted,var(--text3,#6b6b82));text-transform:uppercase;margin-bottom:4px;">Stock Updated</div>
+    <div id="stockUpdatedTime" style="font-size:11px;font-weight:600;color:var(--text,var(--text2,#aaa));letter-spacing:0.03em;opacity:0.6;">08 Apr 2026  16:18</div>
+  </div>
+</nav>
 
   <!-- ═══ MAIN CONTENT ═══ -->
   <div class="main" id="mainContent">
@@ -436,11 +446,11 @@ html.light .sidebar .cat-chip, html.light .sidebar a.cat-chip, html.light .sideb
 <!-- ═══ PRODUCT DATA ═══ -->
 <script>
 var PRO_DATA=[
-{s:"PRSA0352",d1:"PRO Saddle Stealth Team",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.8,srp:239.99},
+{s:"PRSA0352",d1:"PRO Saddle Stealth Team",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"e",p:109.8,srp:239.99,ed:"15 May 2026"},
 {s:"PRSA0353",d1:"PRO Saddle Stealth Team",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.8,srp:239.99},
-{s:"PRSA0350",d1:"PRO Saddle Stealth Performance",d2:"Black 142mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:73.9,srp:159.99},
+{s:"PRSA0350",d1:"PRO Saddle Stealth Performance",d2:"Black 142mm, AF, stainless",disc:"road",sub:"saddles",st:"e",p:73.9,srp:159.99,ed:"1 May 2026"},
 {s:"PRSA0351",d1:"PRO Saddle Stealth Performance",d2:"Black 152mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:73.9,srp:159.99},
-{s:"PRSA0378",d1:"PRO Saddle Stealth Superlight",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:209.5,srp:329.99},
+{s:"PRSA0378",d1:"PRO Saddle Stealth Superlight",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"e",p:209.5,srp:329.99,ed:"3 Jul 2026"},
 {s:"PRSA0379",d1:"PRO Saddle Stealth Superlight",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:209.5,srp:329.99},
 {s:"PRSA0356",d1:"PRO Saddle Stealth Curved Team",d2:"Black 142mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.9,srp:229.99},
 {s:"PRSA0357",d1:"PRO Saddle Stealth Curved Team",d2:"Black 152mm, AF, carbon",disc:"road",sub:"saddles",st:"a",p:109.9,srp:229.99},
@@ -448,15 +458,15 @@ var PRO_DATA=[
 {s:"PRSA0355",d1:"PRO Saddle Stealth Curved Perf",d2:"Black 152mm, AF, stainless",disc:"road",sub:"saddles",st:"a",p:71.2,srp:159.99},
 {s:"PRSA0320",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:79.8,srp:169.9},
 {s:"PRSA0321",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:79.8,srp:169.9},
-{s:"PRSA0368",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:55.97,srp:109.99},
-{s:"PRSA0369",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"e",p:55.97,srp:109.99},
+{s:"PRSA0368",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"u",p:55.97,srp:109.99},
+{s:"PRSA0369",d1:"STEALTH OFFROAD SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"u",p:55.97,srp:109.99},
 {s:"PRSA0374",d1:"E-BIKE SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:67.88,srp:134.99},
 {s:"PRSA0375",d1:"E-BIKE SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:67.88,srp:134.99},
 {s:"PRSA0372",d1:"ENDURO SADDLE",d2:"BLACK 142MM",disc:"mtb",sub:"saddles",st:"a",p:67.29,srp:134.99},
 {s:"PRSA0373",d1:"ENDURO SADDLE",d2:"BLACK 152MM",disc:"mtb",sub:"saddles",st:"a",p:67.29,srp:134.99},
 {s:"PRSA0376",d1:"PRO TSA 1.1",d2:"BLACK 132 MM, AF,CARBON RAILS",disc:"triathlon",sub:"saddles",st:"a",p:76.93,srp:154.99},
-{s:"PRSA0377",d1:"PRO TSA 1.2",d2:"BLACK 132 MM, AF, STAINLESS RAILS",disc:"triathlon",sub:"saddles",st:"a",p:109.83,srp:219.99},
-{s:"PRSA0196",d1:"PRO Saddle Stealth Sport",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"e",p:51.2,srp:119.99},
+{s:"PRSA0377",d1:"PRO TSA 1.2",d2:"BLACK 132 MM, AF, STAINLESS RAILS",disc:"triathlon",sub:"saddles",st:"e",p:109.83,srp:219.99,ed:"1 May 2026"},
+{s:"PRSA0196",d1:"PRO Saddle Stealth Sport",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"u",p:51.2,srp:119.99},
 {s:"PRSA0197",d1:"PRO Saddle Stealth Sport",d2:"Black 152mm, AF",disc:"road",sub:"saddles",st:"e",p:51.2,srp:119.99},
 {s:"PRSA0332",d1:"PRO Saddle Griffon Team",d2:"Black 142mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:102.9,srp:219.99},
 {s:"PRSA0333",d1:"PRO Saddle Griffon Team",d2:"Black 152mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:102.9,srp:219.99},
@@ -468,24 +478,24 @@ var PRO_DATA=[
 {s:"PRSA0337",d1:"PRO Saddle Turnix Performance",d2:"Black 132mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
 {s:"PRSA0338",d1:"PRO Saddle Turnix Performance",d2:"Black 142mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
 {s:"PRSA0339",d1:"PRO Saddle Turnix Performance",d2:"Black 152mm, AF",disc:"gravel",sub:"saddles",st:"a",p:58.0,srp:149.99},
-{s:"PRSA0328",d1:"PRO Saddle Falcon Team",d2:"Black 132mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:95.2,srp:219.99},
+{s:"PRSA0328",d1:"PRO Saddle Falcon Team",d2:"Black 132mm, AF, carb.rail",disc:"road",sub:"saddles",st:"e",p:95.2,srp:219.99,ed:"1 May 2026"},
 {s:"PRSA0329",d1:"PRO Saddle Falcon Team",d2:"Black 142mm, AF, carb.rail",disc:"road",sub:"saddles",st:"a",p:95.2,srp:219.99},
 {s:"PRSA0326",d1:"PRO Saddle Falcon Performance",d2:"Black 132mm, AF",disc:"road",sub:"saddles",st:"a",p:60.4,srp:149.99},
 {s:"PRSA0327",d1:"PRO Saddle Falcon Performance",d2:"Black 142mm, AF",disc:"road",sub:"saddles",st:"a",p:60.4,srp:149.99},
-{s:"PRSA0307",d1:"PRO Saddle Griffon Crmo",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:30.9,srp:79.99},
+{s:"PRSA0307",d1:"PRO Saddle Griffon Crmo",d2:"Black 152mm",disc:"road",sub:"saddles",st:"e",p:30.9,srp:79.99,ed:"29 May 2026"},
 {s:"PRSA0306",d1:"PRO Saddle Griffon Crmo",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:30.9,srp:79.99},
 {s:"PRSA0297",d1:"PRO Saddle Griffon Gel",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:37.4,srp:119.99},
 {s:"PRSA0298",d1:"PRO Saddle Griffon Gel",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:37.4,srp:119.99},
 {s:"PRSA0301",d1:"PRO Saddle Turnix Crmo",d2:"Black 152mm",disc:"gravel",sub:"saddles",st:"a",p:28.7,srp:79.99},
 {s:"PRSA0300",d1:"PRO Saddle Turnix Crmo",d2:"Black 142mm",disc:"gravel",sub:"saddles",st:"a",p:28.7,srp:79.99},
 {s:"PRSA0291",d1:"PRO Saddle Turnix Gel",d2:"Black 142mm",disc:"gravel",sub:"saddles",st:"a",p:50.2,srp:119.99},
-{s:"PRSA0292",d1:"PRO Saddle Turnix Gel",d2:"Black 152mm",disc:"gravel",sub:"saddles",st:"e",p:50.2,srp:119.99},
+{s:"PRSA0292",d1:"PRO Saddle Turnix Gel",d2:"Black 152mm",disc:"gravel",sub:"saddles",st:"a",p:50.2,srp:119.99},
 {s:"PRSA0304",d1:"PRO Saddle Falcon Crmo",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:35.2,srp:79.99},
 {s:"PRSA0303",d1:"PRO Saddle Falcon Crmo",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:35.2,srp:79.99},
 {s:"PRSA0294",d1:"PRO Saddle Falcon Gel",d2:"Black 142mm",disc:"road",sub:"saddles",st:"a",p:51.66,srp:119.99},
 {s:"PRSA0295",d1:"PRO Saddle Falcon Gel",d2:"Black 152mm",disc:"road",sub:"saddles",st:"a",p:51.66,srp:119.99},
 {s:"PRSA0350T",d1:"PRO TEST Saddle Stealth Perfo.",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"e",p:39.31,srp:0},
-{s:"PRSA0354T",d1:"PRO TEST Saddle Stealth Curv P",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"e",p:39.34,srp:0},
+{s:"PRSA0354T",d1:"PRO TEST Saddle Stealth Curv P",d2:"Blue 142mm, AF, stainless",disc:"road",sub:"saddles",st:"e",p:39.34,srp:0,ed:"5 Oct 2026"},
 {s:"PRSA0338T",d1:"PRO TEST Saddle Turnix Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.4,srp:0},
 {s:"PRSA0327T",d1:"PRO TEST Saddle Falcon Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.34,srp:0},
 {s:"PRSA0330T",d1:"PRO TEST Saddle Griffon Perf.",d2:"Blue 142mm, AF / test",disc:"road",sub:"saddles",st:"a",p:57.34,srp:0},
@@ -509,7 +519,7 @@ var PRO_DATA=[
 {s:"PRHA0483",d1:"PRO Handlebar Vibe Evo w. Spac",d2:"Black 95mm/38cm Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0617",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 41cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:299.9,srp:459.99},
 {s:"PRHA0616",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 39cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0615",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 37cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0615",d1:"PRO Handlebar Vibe Aero Carbon",d2:"Black 37cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0,ed:"29 May 2026"},
 {s:"PRHA0582",d1:"PRO Handlebar Vibe Superlight",d2:"Black 44cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"u",p:259.9,srp:439.99},
 {s:"PRHA0579",d1:"PRO Handlebar Vibe Superlight",d2:"Black 38cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0581",d1:"PRO Handlebar Vibe Superlight",d2:"Black 42cm/ 31.8mm/ Carbon",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
@@ -518,7 +528,7 @@ var PRO_DATA=[
 {s:"PRHA0374",d1:"PRO Handlebar Vibe Carb. Comp.",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0375",d1:"PRO Handlebar Vibe Carb. Comp.",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0405",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 38cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:59.9,srp:199.99},
-{s:"PRHA0366",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0366",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"e",p:0,srp:0,ed:"9 Sep 2026"},
 {s:"PRHA0406",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 40cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0367",d1:"PRO Handlebar Vibe Alloy Compact",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0407",d1:"PRO Handlebar Vibe Alloy Anatomic",d2:"Black 42cm/31.8mm",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
@@ -531,7 +541,7 @@ var PRO_DATA=[
 {s:"PRHA0470",d1:"PRO Handlebar Vibe aero purs.",d2:"Black 36cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0475",d1:"PRO Handlebar PLT ergo",d2:"Black 38cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:143.5,srp:289.99},
 {s:"PRHA0478",d1:"PRO Handlebar PLT ergo",d2:"Black 44cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
-{s:"PRHA0476",d1:"PRO Handlebar PLT ergo",d2:"Black 40cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0476",d1:"PRO Handlebar PLT ergo",d2:"Black 40cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
 {s:"PRHA0474",d1:"PRO Handlebar PLT ergo",d2:"Black 36cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
 {s:"PRHA0479",d1:"PRO Handlebar PLT ergo",d2:"Black 46cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"u",p:0,srp:0},
 {s:"PRHA0477",d1:"PRO Handlebar PLT ergo",d2:"Black 42cm/ 31.8mm/carbon",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
@@ -550,12 +560,12 @@ var PRO_DATA=[
 {s:"PRHA0342",d1:"PRO Handlebar PLT Compact",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
 {s:"PRHA0345",d1:"PRO Handlebar PLT Compact",d2:"Black 46cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0287",d1:"PRO Handlebar LT Ergo",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:23.59,srp:54.99},
-{s:"PRHA0285",d1:"PRO Handlebar LT Ergo",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0285",d1:"PRO Handlebar LT Ergo",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0286",d1:"PRO Handlebar LT Ergo",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
 {s:"PRHA0284",d1:"PRO Handlebar LT Compact",d2:"Black 44cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:19.99,srp:49.99},
-{s:"PRHA0282",d1:"PRO Handlebar LT Compact",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
+{s:"PRHA0282",d1:"PRO Handlebar LT Compact",d2:"Black 40cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0,ed:"1 May 2026"},
 {s:"PRHA0283",d1:"PRO Handlebar LT Compact",d2:"Black 42cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"a",p:0,srp:0},
-{s:"PRHA0281",d1:"PRO Handlebar LT Compact",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0},
+{s:"PRHA0281",d1:"PRO Handlebar LT Compact",d2:"Black 38cm/31.8mm/alloy",disc:"road",sub:"handlebars",st:"e",p:0,srp:0,ed:"1 May 2026"},
 {s:"PRHA0505",d1:"PRO Handlebar Tharsis flat",d2:"Blk 720mm/0r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:102.43,srp:209.99},
 {s:"PRHA0506",d1:"PRO Handlebar Tharsis flat top",d2:"Blk 740mm/5r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:107.99,srp:209.99},
 {s:"PRHA0508",d1:"PRO Handlebar Tharsis minirise",d2:"Blk 780mm/10r/9degr/35mm/carb",disc:"mtb",sub:"handlebars",st:"a",p:93.64,srp:189.99},
@@ -568,12 +578,12 @@ var PRO_DATA=[
 {s:"PRHA0546",d1:"KORYAK FLAT TOP CARBON",d2:"740MM/31.8MM/5 RISE/9D SW",disc:"mtb",sub:"handlebars",st:"u",p:80.36,srp:149.99},
 {s:"PRHA0547",d1:"KORYAK RISER CARBON",d2:"800MM/31.8MM/20 RISE/9D SW",disc:"mtb",sub:"handlebars",st:"u",p:67.26,srp:149.99},
 {s:"PRHA0456",d1:"KORYAK LOW RISE HANDLEBA",d2:"BLACK 780MM / 31.8MM / 8MM RISE",disc:"mtb",sub:"handlebars",st:"u",p:30.71,srp:61.99},
-{s:"PRHA0457",d1:"KORYAK RISER HANDLEBAR",d2:"BLACK 800MM / 31.8MM / 20MM RISE",disc:"mtb",sub:"handlebars",st:"e",p:27.0,srp:61.99},
-{s:"PRHA0576",d1:"LT HIGH RISE HANDLEBAR",d2:"BLACK, 800MM, 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:26.9,srp:56.99},
+{s:"PRHA0457",d1:"KORYAK RISER HANDLEBAR",d2:"BLACK 800MM / 31.8MM / 20MM RISE",disc:"mtb",sub:"handlebars",st:"u",p:27.0,srp:61.99},
+{s:"PRHA0576",d1:"LT HIGH RISE HANDLEBAR",d2:"BLACK, 800MM, 31.8MM",disc:"mtb",sub:"handlebars",st:"e",p:26.9,srp:56.99,ed:"15 May 2026"},
 {s:"PRHA0577",d1:"LT RISER HANDLEBAR",d2:"BLACK, 800MM, 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:21.72,srp:52.99},
 {s:"PRHA0510",d1:"LT FLAT HANDLEBAR",d2:"BLACK 720MM 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:18.46,srp:47.99},
-{s:"PRHA0512",d1:"LT HIGH RISE 40 HANDLEBAR",d2:"BLACK 740MM 31.8MM",disc:"mtb",sub:"handlebars",st:"e",p:22.35,srp:47.99},
-{s:"PRHA0289",d1:"LT LOW RISE 20 HANDLEBAR",d2:"LACK 720MM 31.8MM",disc:"mtb",sub:"handlebars",st:"e",p:19.48,srp:47.99},
+{s:"PRHA0512",d1:"LT HIGH RISE 40 HANDLEBAR",d2:"BLACK 740MM 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:22.35,srp:47.99},
+{s:"PRHA0289",d1:"LT LOW RISE 20 HANDLEBAR",d2:"LACK 720MM 31.8MM",disc:"mtb",sub:"handlebars",st:"a",p:19.48,srp:47.99},
 {s:"PRSS0561",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 90mm / 31.8mm / 6 degree",disc:"road",sub:"stems",st:"a",p:89.99,srp:199.99},
 {s:"PRSS0573",d1:"PRO Stem Vibe Superlight 1 1/4",d2:"Black 110mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
 {s:"PRSS0564",d1:"PRO Stem Vibe Superlight 1 1/8",d2:"Black 120mm / 31.8mm / 6 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
@@ -606,7 +616,7 @@ var PRO_DATA=[
 {s:"PRSS0593",d1:"PRO Stem Vibe 1 1/4",d2:"Black 110mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
 {s:"PRSS0594",d1:"PRO Stem Vibe 1 1/4",d2:"Black 120mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
 {s:"PRSS0595",d1:"PRO Stem Vibe 1 1/4",d2:"Black 130mm/31.8mm/-10degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0601",d1:"PRO Stem Vibe",d2:"Black 90mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"e",p:0,srp:0},
+{s:"PRSS0601",d1:"PRO Stem Vibe",d2:"Black 90mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"e",p:0,srp:0,ed:"9 Sep 2026"},
 {s:"PRSS0602",d1:"PRO Stem Vibe",d2:"Black 100mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
 {s:"PRSS0603",d1:"PRO Stem Vibe",d2:"Black 110mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
 {s:"PRSS0604",d1:"PRO Stem Vibe",d2:"Black 120mm/31.8mm/-17degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
@@ -629,11 +639,11 @@ var PRO_DATA=[
 {s:"PRSS0320",d1:"PRO Stem LT",d2:"Black 90mm/31.8mm/+-35degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
 {s:"PRSS0328",d1:"PRO Stem LT",d2:"Black 60mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
 {s:"PRSS0331",d1:"PRO Stem LT",d2:"Black 90mm/31.8mm/+-6degr.",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0547",d1:"PRO Stem LT",d2:"Black 60mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0547",d1:"PRO Stem LT",d2:"Black 60mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"e",p:0,srp:0,ed:"1 May 2026"},
 {s:"PRSS0545",d1:"PRO Stem LT",d2:"Black 40mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
-{s:"PRSS0546",d1:"PRO Stem LT",d2:"Black 50mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"a",p:0,srp:0},
+{s:"PRSS0546",d1:"PRO Stem LT",d2:"Black 50mm / 31.8mm / 0 degre",disc:"road",sub:"stems",st:"e",p:0,srp:0,ed:"1 May 2026"},
 {s:"PRSS0519",d1:"THARSIS ALLOY STEM",d2:"154G / 60MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:58.85,srp:129.99},
-{s:"PRSS0520",d1:"THARSIS ALLOY STEM",d2:"158G / 70MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:63.07,srp:129.99},
+{s:"PRSS0520",d1:"THARSIS ALLOY STEM",d2:"158G / 70MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"e",p:63.07,srp:129.99,ed:"1 May 2026"},
 {s:"PRSS0521",d1:"THARSIS ALLOY STEM",d2:"161G / 80MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:64.05,srp:129.99},
 {s:"PRSS0522",d1:"THARSIS ALLOY STEM",d2:"164G / 90MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:62.79,srp:129.99},
 {s:"PRSS0523",d1:"THARSIS ALLOY STEM",d2:"168G / 100MM / 35MM/ 9D",disc:"mtb",sub:"stems",st:"a",p:61.95,srp:129.99},
@@ -643,7 +653,7 @@ var PRO_DATA=[
 {s:"PRSS0395",d1:"THARSIS DM STEM",d2:"BLACK 45-50MM / 35MM",disc:"mtb",sub:"stems",st:"a",p:61.23,srp:129.99},
 {s:"PRSS0539",d1:"E-PERFORMANCE ALLOY STEM",d2:"35MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:44.41,srp:94.99},
 {s:"PRSS0540",d1:"E-PERFORMANCE ALLOY STEM",d2:"45MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:41.29,srp:94.99},
-{s:"PRSS0541",d1:"E-PERFORMANCE ALLOY STEM",d2:"55MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"u",p:41.47,srp:94.99},
+{s:"PRSS0541",d1:"E-PERFORMANCE ALLOY STEM",d2:"55MM / 35MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:41.47,srp:94.99},
 {s:"PRSS0530",d1:"PRO KORYAK STEM",d2:"BLACK 35 MM / 31.8MM / 0 ANGLE",disc:"mtb",sub:"stems",st:"u",p:35.56,srp:74.99},
 {s:"PRSS0531",d1:"PRO KORYAK STEM",d2:"BLACK 40 MM/31.8MM/0DEGR",disc:"mtb",sub:"stems",st:"u",p:36.8,srp:74.99},
 {s:"PRSS0532",d1:"PRO KORYAK STEM",d2:"BLACK 50MM/31.8MM/0DEGR",disc:"mtb",sub:"stems",st:"u",p:35.4,srp:74.99},
@@ -653,8 +663,8 @@ var PRO_DATA=[
 {s:"PRSS0536",d1:"PRO KORYAK STEM",d2:"BLACK 90MM/31.8MM/-6DEGR",disc:"mtb",sub:"stems",st:"u",p:34.42,srp:74.99},
 {s:"PRSS0537",d1:"PRO KORYAK STEM",d2:"BLACK 100MM/31.8MM/-6DEGR.",disc:"mtb",sub:"stems",st:"u",p:35.03,srp:74.99},
 {s:"PRSS0545",d1:"LT STEM",d2:"BLACK, 40MM / 31.8MM / 0 DEG",disc:"mtb",sub:"stems",st:"a",p:16.1,srp:41.99},
-{s:"PRSS0546",d1:"LT STEM",d2:"BLACK, 50MM / 31.8MM / 0 DEG",disc:"mtb",sub:"stems",st:"a",p:17.24,srp:41.99},
-{s:"PRSS0547",d1:"LT STEM",d2:"BLACK, 60MM / 31.8MM / 0 DEGR",disc:"mtb",sub:"stems",st:"a",p:16.65,srp:41.99},
+{s:"PRSS0546",d1:"LT STEM",d2:"BLACK, 50MM / 31.8MM / 0 DEG",disc:"mtb",sub:"stems",st:"e",p:17.24,srp:41.99,ed:"1 May 2026"},
+{s:"PRSS0547",d1:"LT STEM",d2:"BLACK, 60MM / 31.8MM / 0 DEGR",disc:"mtb",sub:"stems",st:"e",p:16.65,srp:41.99,ed:"1 May 2026"},
 {s:"PRSS0319",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 35°",disc:"mtb",sub:"stems",st:"a",p:17.74,srp:39.99},
 {s:"PRSS0320",d1:"LT STEM",d2:"BLACK 90MM / 31.8MM / ± 35°",disc:"mtb",sub:"stems",st:"a",p:17.9,srp:39.99},
 {s:"PRSS0322",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 17",disc:"mtb",sub:"stems",st:"a",p:19.28,srp:39.99},
@@ -666,25 +676,25 @@ var PRO_DATA=[
 {s:"PRSS0329",d1:"LT STEM",d2:"BLACK 70MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:14.82,srp:39.99},
 {s:"PRSS0330",d1:"LT STEM",d2:"BLACK 80MM / 31.8MM / ± 6",disc:"mtb",sub:"stems",st:"a",p:18.01,srp:39.99},
 {s:"PRSS0331",d1:"LT STEM",d2:"BLACK 90MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:19.63,srp:39.99},
-{s:"PRSS0332",d1:"LT STEM",d2:"BLACK 100MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"u",p:19.62,srp:39.99},
+{s:"PRSS0332",d1:"LT STEM",d2:"BLACK 100MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:19.62,srp:39.99},
 {s:"PRSS0333",d1:"LT STEM",d2:"BLACK 110MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:18.9,srp:39.99},
 {s:"PRSS0334",d1:"LT STEM",d2:"BLACK 120MM / 31.8MM / ± 6°",disc:"mtb",sub:"stems",st:"a",p:19.65,srp:39.99},
 {s:"PRSS0335",d1:"LT ADJUSTABLE STEM",d2:"BLACK 90MM / 31.8MM",disc:"mtb",sub:"stems",st:"a",p:18.2,srp:49.99},
 {s:"PRSS0336",d1:"LT ADJUSTABLE STEM",d2:"BLACK 110MM / 31.8MM",disc:"mtb",sub:"stems",st:"a",p:21.73,srp:49.99},
 {s:"PRSS0416",d1:"PRO Stem PLT",d2:"Black 60mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:25.9,srp:59.99},
 {s:"PRSS0419",d1:"PRO Stem PLT",d2:"Black 90mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSS0422",d1:"PRO Stem PLT",d2:"Black 120mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
+{s:"PRSS0422",d1:"PRO Stem PLT",d2:"Black 120mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
 {s:"PRSS0420",d1:"PRO Stem PLT",d2:"Black 100mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
 {s:"PRSS0417",d1:"PRO Stem PLT",d2:"Black 70mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
 {s:"PRSS0423",d1:"PRO Stem PLT",d2:"Black 130mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSS0415",d1:"PRO Stem PLT",d2:"Black 50mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
+{s:"PRSS0415",d1:"PRO Stem PLT",d2:"Black 50mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
 {s:"PRSS0418",d1:"PRO Stem PLT",d2:"Black 80mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
 {s:"PRSS0421",d1:"PRO Stem PLT",d2:"Black 110mm/31.8mm/+-10degr.",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
-{s:"PRSP0114",d1:"PRO Seatpost LT",d2:"Black 27.2mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:18.49,srp:49.99},
+{s:"PRSP0114",d1:"PRO Seatpost LT",d2:"Black 27.2mm/0mm/alloy",disc:"road",sub:"seatposts",st:"a",p:18.49,srp:49.99},
 {s:"PRSP0117",d1:"PRO Seatpost LT",d2:"Black 31.6mm/20mm/alloy",disc:"road",sub:"seatposts",st:"a",p:0,srp:0},
-{s:"PRSP0115",d1:"PRO Seatpost LT",d2:"Black 31.6mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
-{s:"PRSP0118",d1:"PRO Seatpost LT",d2:"Black 30.9mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
-{s:"PRSP0116",d1:"PRO Seatpost LT",d2:"Black 27.2mm/20mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0},
+{s:"PRSP0115",d1:"PRO Seatpost LT",d2:"Black 31.6mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0,ed:"1 May 2026"},
+{s:"PRSP0118",d1:"PRO Seatpost LT",d2:"Black 30.9mm/0mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0,ed:"29 May 2026"},
+{s:"PRSP0116",d1:"PRO Seatpost LT",d2:"Black 27.2mm/20mm/alloy",disc:"road",sub:"seatposts",st:"e",p:0,srp:0,ed:"1 May 2026"},
 {s:"PRSP0119",d1:"PRO Seatpost LT",d2:"Black 30.9mm/20mm/alloy",disc:"road",sub:"seatposts",st:"a",p:0,srp:0},
 {s:"PRSP0142",d1:"PRO Seatpost PLT",d2:"Black 31.6mm/0mm/alloy",disc:"road",sub:"seatposts",st:"a",p:32.9,srp:69.99},
 {s:"PRSP0145",d1:"PRO Seatpost PLT",d2:"Black 27.2mm/20mm/alloy",disc:"road",sub:"seatposts",st:"u",p:0,srp:0},
@@ -695,17 +705,17 @@ var PRO_DATA=[
 {s:"PRSP0250",d1:"THARSIS DROPPER POST 160",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:212.22,srp:429.99},
 {s:"PRSP0251",d1:"THARSIS DROPPER POST 160",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:191.59,srp:429.99},
 {s:"PRSP0252",d1:"THARSIS DROPPER POST 160",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:194.48,srp:439.99},
-{s:"PRSP0237",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 27.2MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:173.79,srp:379.99},
+{s:"PRSP0237",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 27.2MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"e",p:173.79,srp:379.99,ed:"3 Jul 2026"},
 {s:"PRSP0238",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 30.9MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:132.21,srp:379.99},
 {s:"PRSP0239",d1:"PRO SEATPOST THARSIS DSP 100",d2:"BLACK 31.6MM/INTERNAL/ALLOY",disc:"mtb",sub:"seatposts",st:"a",p:176.71,srp:379.99},
 {s:"PRSP0253",d1:"THARSIS DROPPER POST 200",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:243.16,srp:449.99},
-{s:"PRSP0254",d1:"THARSIS DROPPER POST 201",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"u",p:237.26,srp:449.99},
+{s:"PRSP0254",d1:"THARSIS DROPPER POST 201",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:237.26,srp:449.99},
 {s:"PRSP0255",d1:"THARSIS DROPPER POST 202",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:232.42,srp:469.99},
 {s:"PRSP0272",d1:"KORYAK DROPPER POST 170",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:142.58,srp:219.95},
 {s:"PRSP0273",d1:"KORYAK DROPPER POST 171",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:148.12,srp:219.95},
 {s:"PRSP0275",d1:"KORYAK DROPPER POST 172",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:142.58,srp:219.95},
 {s:"PRSP0270",d1:"KORYAK DROPPER POST 150",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:136.46,srp:219.95},
-{s:"PRSP0271",d1:"KORYAK DROPPER POST 150",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:135.15,srp:219.95},
+{s:"PRSP0271",d1:"KORYAK DROPPER POST 150",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"e",p:135.15,srp:219.95,ed:"29 May 2026"},
 {s:"PRSP0274",d1:"KORYAK DROPPER POST 150",d2:"34.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:136.17,srp:219.95},
 {s:"PRSP0276",d1:"KORYAK DROPPER POST 120",d2:"30.9MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:118.71,srp:219.95},
 {s:"PRSP0277",d1:"KORYAK DROPPER POST 120",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:118.81,srp:219.95},
@@ -718,17 +728,17 @@ var PRO_DATA=[
 {s:"PRSP0247",d1:"LT DROPPER POST 150",d2:"30.9MM / EXTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:111.79,srp:244.99},
 {s:"PRSP0248",d1:"LT DROPPER POST 150",d2:"31.6MM / EXTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:110.27,srp:244.99},
 {s:"PRSP0245",d1:"LT DROPPER POST 150",d2:"30.9MM / INTERNA",disc:"mtb",sub:"seatposts",st:"a",p:106.5,srp:244.99},
-{s:"PRSP0246",d1:"LT DROPPER POST 150",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"a",p:105.66,srp:244.99},
-{s:"PRSP0114",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.22,srp:44.99},
-{s:"PRSP0115",d1:"LT SEATPOST",d2:"400MM / 31.6MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.15,srp:44.99},
-{s:"PRSP0118",d1:"LT SEATPOST",d2:"400MM / 30.9MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.76,srp:44.99},
-{s:"PRSP0116",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.74,srp:44.99},
+{s:"PRSP0246",d1:"LT DROPPER POST 150",d2:"31.6MM / INTERNAL",disc:"mtb",sub:"seatposts",st:"e",p:105.66,srp:244.99,ed:"1 May 2026"},
+{s:"PRSP0114",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:18.22,srp:44.99},
+{s:"PRSP0115",d1:"LT SEATPOST",d2:"400MM / 31.6MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.15,srp:44.99,ed:"1 May 2026"},
+{s:"PRSP0118",d1:"LT SEATPOST",d2:"400MM / 30.9MM / 0MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.76,srp:44.99,ed:"29 May 2026"},
+{s:"PRSP0116",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"e",p:18.74,srp:44.99,ed:"1 May 2026"},
 {s:"PRSP0117",d1:"LT SEATPOST",d2:"400MM / 27.2MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:18.32,srp:44.99},
 {s:"PRSP0119",d1:"LT SEATPOST",d2:"400MM / 31.6MM / 20MM OFFSET",disc:"mtb",sub:"seatposts",st:"a",p:18.44,srp:44.99},
 {s:"PRPU0110",d1:"PRO Floorpump Team Tubeless",d2:"Pump and Compressor Integrated",disc:"accessories",sub:"pumps",st:"a",p:75.74,srp:169.99},
 {s:"PRPU0102",d1:"PRO Floorpump Team",d2:"Alloy barrel, base, dual gauge",disc:"accessories",sub:"pumps",st:"a",p:63.55,srp:139.99},
-{s:"PRPU0101",d1:"PRO Floorpump Digital Team",d2:"Alloy barrel, digital gauge",disc:"accessories",sub:"pumps",st:"e",p:46.06,srp:119.99},
-{s:"PRPU0087",d1:"PRO Compressor Team Tubeless",d2:"Black for Tubel. tire setting",disc:"accessories",sub:"pumps",st:"a",p:44.38,srp:89.99},
+{s:"PRPU0101",d1:"PRO Floorpump Digital Team",d2:"Alloy barrel, digital gauge",disc:"accessories",sub:"pumps",st:"e",p:46.06,srp:119.99,ed:"29 May 2026"},
+{s:"PRPU0087",d1:"PRO Compressor Team Tubeless",d2:"Black for Tubel. tire setting",disc:"accessories",sub:"pumps",st:"e",p:44.38,srp:89.99,ed:"1 May 2026"},
 {s:"PRPU0106",d1:"PRO Shock pump Team",d2:"Black w/ digital gauge",disc:"accessories",sub:"pumps",st:"a",p:34.4,srp:99.99},
 {s:"PRPU0097",d1:"PRO Minipump Team CO2",d2:"Black Minipump CO2 combo alloy",disc:"accessories",sub:"pumps",st:"a",p:30.3,srp:64.99},
 {s:"PRPU0083",d1:"PRO Floorpump Performance",d2:"Black steel barrel/gauge",disc:"accessories",sub:"pumps",st:"a",p:29.42,srp:69.99},
@@ -737,44 +747,44 @@ var PRO_DATA=[
 {s:"PRPU0105",d1:"PRO Minipump Performance  XL",d2:"Alloy, popout gauge w/ footpad",disc:"accessories",sub:"pumps",st:"a",p:18.2,srp:52.99},
 {s:"PRPU0104",d1:"PRO Minipump Performance XS",d2:"Telescopic, screw on head",disc:"accessories",sub:"pumps",st:"a",p:16.58,srp:39.99},
 {s:"PRPU0050",d1:"PRO Susp.pump Performance",d2:"Black Magnet lock suspension",disc:"accessories",sub:"pumps",st:"a",p:15.53,srp:54.99},
-{s:"PRPU0091",d1:"PRO Minipump Performance HP",d2:"Black Alloy Road/Presta Valve",disc:"accessories",sub:"pumps",st:"a",p:14.03,srp:40.99},
+{s:"PRPU0091",d1:"PRO Minipump Performance HP",d2:"Black Alloy Road/Presta Valve",disc:"accessories",sub:"pumps",st:"e",p:14.03,srp:40.99,ed:"15 May 2026"},
 {s:"PRPU0080",d1:"PRO Floorpump Touring",d2:"Black steel barrel/gauge",disc:"accessories",sub:"pumps",st:"a",p:13.86,srp:39.99},
-{s:"PRPU0095",d1:"PRO Pressure Checker Digital",d2:"Prest/Schr.",disc:"accessories",sub:"pumps",st:"e",p:12.72,srp:44.99},
+{s:"PRPU0095",d1:"PRO Pressure Checker Digital",d2:"Prest/Schr.",disc:"accessories",sub:"pumps",st:"u",p:12.72,srp:44.99},
 {s:"PRPU0092",d1:"PRO Minipump Performance HV",d2:"Black Alloy MTB/Presta Valve",disc:"accessories",sub:"pumps",st:"a",p:10.67,srp:40.99},
-{s:"PRPU0090",d1:"PRO Minipump Compact Hose",d2:"Alloy & Plastic/Presta Valve",disc:"accessories",sub:"pumps",st:"e",p:9.78,srp:25.99},
+{s:"PRPU0090",d1:"PRO Minipump Compact Hose",d2:"Alloy & Plastic/Presta Valve",disc:"accessories",sub:"pumps",st:"e",p:9.78,srp:25.99,ed:"1 May 2026"},
 {s:"PRPU0042",d1:"PRO Minipump Compact",d2:"Black Magnete lock telescopic",disc:"accessories",sub:"pumps",st:"a",p:7.24,srp:17.99},
 {s:"PRPU0041",d1:"PRO Minipump Compact",d2:"Black Magnete lock",disc:"accessories",sub:"pumps",st:"a",p:7.03,srp:15.99},
-{s:"PRBA0049",d1:"PRO Bags Bike travel case",d2:"Updated version with frame",disc:"accessories",sub:"bags",st:"e",p:376.42,srp:0},
-{s:"PRBA0045",d1:"PRO Bike Bag",d2:"Bicycle Transportation Bag",disc:"accessories",sub:"bags",st:"e",p:77.7,srp:0},
+{s:"PRBA0049",d1:"PRO Bags Bike travel case",d2:"Updated version with frame",disc:"accessories",sub:"bags",st:"a",p:376.42,srp:0},
+{s:"PRBA0045",d1:"PRO Bike Bag",d2:"Bicycle Transportation Bag",disc:"accessories",sub:"bags",st:"e",p:77.7,srp:0,ed:"16 Apr 2026"},
 {s:"PRBA0080",d1:"PRO Team Gravel Seatpost Bag",d2:"Black  10L",disc:"accessories",sub:"bags",st:"a",p:58.15,srp:0},
 {s:"PRBA0061",d1:"PRO Team Gravel Frame Bag",d2:"Black  5,5L",disc:"accessories",sub:"bags",st:"a",p:44.72,srp:0},
 {s:"PRBA0066",d1:"PRO Team Gravel Handlebar Bag",d2:"Black / 2L",disc:"accessories",sub:"bags",st:"a",p:42.13,srp:0},
 {s:"PRBA0069",d1:"PRO Team Gravel Framebag S",d2:"Black / 2,7L",disc:"accessories",sub:"bags",st:"a",p:39.32,srp:0},
-{s:"PRBA0053",d1:"PRO Gravel Seatpost Bag",d2:"15L",disc:"accessories",sub:"bags",st:"a",p:33.49,srp:0},
+{s:"PRBA0053",d1:"PRO Gravel Seatpost Bag",d2:"15L",disc:"accessories",sub:"bags",st:"u",p:33.49,srp:0},
 {s:"PRBA0052",d1:"PRO Gravel Handlebar Bag",d2:"8L",disc:"accessories",sub:"bags",st:"a",p:27.33,srp:0},
 {s:"PRBA0040",d1:"PRO Saddlebag Direct Mount",d2:"Bolt fixation with Pro Saddles",disc:"accessories",sub:"bags",st:"a",p:26.44,srp:0},
-{s:"PRBA0060",d1:"PRO Team Gravel Top Tube Bag",d2:"Black  0,7L",disc:"accessories",sub:"bags",st:"a",p:26.1,srp:0},
+{s:"PRBA0060",d1:"PRO Team Gravel Top Tube Bag",d2:"Black  0,7L",disc:"accessories",sub:"bags",st:"u",p:26.1,srp:0},
 {s:"PRBA0057",d1:"PRO bags Gravel seatbag",d2:"Grey Tool pack",disc:"accessories",sub:"bags",st:"a",p:24.77,srp:0},
 {s:"PRBA0068",d1:"PRO Team Gravel Saddlebag",d2:"Black / 0,6L",disc:"accessories",sub:"bags",st:"a",p:24.28,srp:0},
 {s:"PRBA0064",d1:"PRO Perfor Gravel Frame Bag",d2:"Grey  5,5L",disc:"accessories",sub:"bags",st:"a",p:23.72,srp:0},
 {s:"PRBA0056",d1:"PRO bags Gravel frame bag smal",d2:"Grey Triangle frame mount",disc:"accessories",sub:"bags",st:"a",p:22.63,srp:0},
-{s:"PRBA0065",d1:"PRO Gravel Handlebar Bag",d2:"Grey  2,5L",disc:"accessories",sub:"bags",st:"a",p:18.82,srp:0},
+{s:"PRBA0065",d1:"PRO Gravel Handlebar Bag",d2:"Grey  2,5L",disc:"accessories",sub:"bags",st:"u",p:18.82,srp:0},
 {s:"PRBA0054",d1:"PRO bags Gravel bottle bag",d2:"Grey handlebar - stem mount",disc:"accessories",sub:"bags",st:"a",p:17.38,srp:0},
 {s:"PRBA0074",d1:"PRO Saddlebag XL Performance",d2:"",disc:"accessories",sub:"bags",st:"a",p:16.3,srp:0},
 {s:"PRBA0063",d1:"PRO Perfor Gravel Top Tube Bag",d2:"Grey  0,7L",disc:"accessories",sub:"bags",st:"a",p:16.01,srp:0},
-{s:"PRBA0073",d1:"PRO Saddlebag L Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:14.0,srp:0},
-{s:"PRBA0072",d1:"PRO Saddlebag M Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:13.08,srp:0},
+{s:"PRBA0073",d1:"PRO Saddlebag L Performance",d2:"",disc:"accessories",sub:"bags",st:"a",p:14.0,srp:0},
+{s:"PRBA0072",d1:"PRO Saddlebag M Performance",d2:"",disc:"accessories",sub:"bags",st:"a",p:13.08,srp:0},
 {s:"PRBA0067",d1:"PRO Bag Tool Wrap Performance",d2:"Saddle Bag",disc:"accessories",sub:"bags",st:"a",p:11.19,srp:0},
 {s:"PRBA0055",d1:"PRO bags Gravel phone pouch",d2:"Grey waterproof",disc:"accessories",sub:"bags",st:"a",p:10.91,srp:0},
 {s:"PRBA0070",d1:"PRO Pouch BC Smart",d2:"Black EVA/ w/Click Mount",disc:"accessories",sub:"bags",st:"a",p:10.71,srp:0},
-{s:"PRBA0071",d1:"PRO Saddlebag S Performance",d2:"",disc:"accessories",sub:"bags",st:"e",p:10.59,srp:0},
-{s:"PRBC0017",d1:"PRO Bottle Cage Carbon",d2:"Lightweight UD Carbon",disc:"accessories",sub:"bottles",st:"e",p:33.34,srp:0},
+{s:"PRBA0071",d1:"PRO Saddlebag S Performance",d2:"",disc:"accessories",sub:"bags",st:"a",p:10.59,srp:0},
+{s:"PRBC0017",d1:"PRO Bottle Cage Carbon",d2:"Lightweight UD Carbon",disc:"accessories",sub:"bottles",st:"u",p:33.34,srp:0},
 {s:"PRBC0009",d1:"PRO Bottle Cage Triathlon",d2:"Black Saddle Mount",disc:"accessories",sub:"bottles",st:"a",p:17.64,srp:0},
 {s:"PRBC0035",d1:"PRO Bottle Cage e-bike",d2:"Black Battery mount",disc:"accessories",sub:"bottles",st:"a",p:15.73,srp:0},
 {s:"PRBC0038",d1:"PRO Bottle Cage adj. mount",d2:"Black alloy",disc:"accessories",sub:"bottles",st:"a",p:13.71,srp:0},
 {s:"PRBC0036",d1:"PRO Bottle Cage e-bike",d2:"Black Saddle Mount",disc:"accessories",sub:"bottles",st:"a",p:9.9,srp:0},
-{s:"PRBC0031",d1:"PRO Bottle Cage PC",d2:"Black - Clear",disc:"accessories",sub:"bottles",st:"e",p:8.89,srp:0},
-{s:"PRBC0029",d1:"PRO Bottle Cage PC",d2:"Black - White",disc:"accessories",sub:"bottles",st:"e",p:8.71,srp:0},
+{s:"PRBC0031",d1:"PRO Bottle Cage PC",d2:"Black - Clear",disc:"accessories",sub:"bottles",st:"u",p:8.89,srp:0},
+{s:"PRBC0029",d1:"PRO Bottle Cage PC",d2:"Black - White",disc:"accessories",sub:"bottles",st:"u",p:8.71,srp:0},
 {s:"PRBC0049",d1:"PRO Bottle Cage Smart PC",d2:"PC / w/Tire Levers",disc:"accessories",sub:"bottles",st:"a",p:8.46,srp:0},
 {s:"PRBC0030",d1:"PRO Bottle Cage PC",d2:"Black - Blue",disc:"accessories",sub:"bottles",st:"e",p:7.98,srp:0},
 {s:"PRBT0038",d1:"PRO Team Bottle",d2:"Thermal 600ml",disc:"accessories",sub:"bottles",st:"u",p:7.55,srp:0},
@@ -796,8 +806,8 @@ var PRO_DATA=[
 {s:"PRBT0033",d1:"PRO Team Bottle",d2:"White 800ml",disc:"accessories",sub:"bottles",st:"a",p:4.39,srp:0},
 {s:"PRBT0030",d1:"PRO Team Bottle",d2:"Transparent 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.94,srp:0},
 {s:"PRBT0032",d1:"PRO Team Bottle",d2:"White 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.94,srp:0},
-{s:"PRBT0034",d1:"PRO Team Bottle",d2:"Black 600ml",disc:"accessories",sub:"bottles",st:"u",p:3.91,srp:0},
-{s:"PRBT0020",d1:"PRO Storage Bottle",d2:"Black 500cc",disc:"accessories",sub:"bottles",st:"a",p:3.87,srp:0},
+{s:"PRBT0034",d1:"PRO Team Bottle",d2:"Black 600ml",disc:"accessories",sub:"bottles",st:"a",p:3.91,srp:0},
+{s:"PRBT0020",d1:"PRO Storage Bottle",d2:"Black 500cc",disc:"accessories",sub:"bottles",st:"e",p:3.87,srp:0,ed:"3 Aug 2026"},
 {s:"PRBT0023",d1:"PRO Storage Bottle",d2:"White 750cc",disc:"accessories",sub:"bottles",st:"a",p:3.76,srp:0},
 {s:"PRBT0022",d1:"PRO Storage Bottle",d2:"White 500cc",disc:"accessories",sub:"bottles",st:"a",p:3.48,srp:0},
 {s:"PRBT0015",d1:"PRO Bottle",d2:"Black 800ml",disc:"accessories",sub:"bottles",st:"a",p:3.43,srp:0},
@@ -806,31 +816,31 @@ var PRO_DATA=[
 {s:"PRBC0010",d1:"PRO Bottle Cage Classic",d2:"White",disc:"accessories",sub:"bottles",st:"a",p:3.27,srp:0},
 {s:"PRBT0014",d1:"PRO Bottle",d2:"Black 600ml",disc:"accessories",sub:"bottles",st:"a",p:2.93,srp:0},
 {s:"PRBT0010",d1:"PRO Bottle",d2:"Transparent 600ml",disc:"accessories",sub:"bottles",st:"a",p:2.85,srp:0},
-{s:"PRBT0045",d1:"PRO Bottle",d2:"Black 800ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.79,srp:0},
+{s:"PRBT0045",d1:"PRO Bottle",d2:"Black 800ml bulk item",disc:"accessories",sub:"bottles",st:"e",p:2.79,srp:0,ed:"9 Sep 2026"},
 {s:"PRBT0043",d1:"PRO Bottle",d2:"Transp. 800ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.76,srp:0},
 {s:"PRBT0042",d1:"PRO Bottle",d2:"Transp. 600ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.3,srp:0},
 {s:"PRBT0044",d1:"PRO Bottle",d2:"Black 600ml bulk item",disc:"accessories",sub:"bottles",st:"a",p:2.3,srp:0},
-{s:"PRTA0065",d1:"PRO Sport Control Team Tape Bx",d2:"Black EVA 24 pcs / Debossed",disc:"accessories",sub:"bartape",st:"e",p:145.32,srp:0},
-{s:"PRTA0056",d1:"PRO Tape Box Sport Control",d2:"Black EVA 24 pcs Pack 2.5mm",disc:"accessories",sub:"bartape",st:"e",p:144.97,srp:0},
-{s:"PRTA0070",d1:"PRO Tape Gravel comfort",d2:"Black",disc:"accessories",sub:"bartape",st:"a",p:18.68,srp:0},
+{s:"PRTA0065",d1:"PRO Sport Control Team Tape Bx",d2:"Black EVA 24 pcs / Debossed",disc:"accessories",sub:"bartape",st:"u",p:145.32,srp:0},
+{s:"PRTA0056",d1:"PRO Tape Box Sport Control",d2:"Black EVA 24 pcs Pack 2.5mm",disc:"accessories",sub:"bartape",st:"a",p:144.97,srp:0},
+{s:"PRTA0070",d1:"PRO Tape Gravel comfort",d2:"Black",disc:"accessories",sub:"bartape",st:"u",p:18.68,srp:0},
 {s:"PRTA0071",d1:"PRO Tape Gravel comfort",d2:"Multi color",disc:"accessories",sub:"bartape",st:"a",p:16.06,srp:0},
 {s:"PRTA0052",d1:"PRO Tape Race Comfort Silicone",d2:"Black / 3mm",disc:"accessories",sub:"bartape",st:"u",p:15.29,srp:0},
-{s:"PRTA0026",d1:"PRO Tape Race Comfort",d2:"Black PU",disc:"accessories",sub:"bartape",st:"e",p:13.78,srp:0},
+{s:"PRTA0026",d1:"PRO Tape Race Comfort",d2:"Black PU",disc:"accessories",sub:"bartape",st:"u",p:13.78,srp:0},
 {s:"PRTA0029",d1:"PRO Tape Race Comfort",d2:"Blue PU",disc:"accessories",sub:"bartape",st:"e",p:13.77,srp:0},
-{s:"PRTA0027",d1:"PRO Tape Race Comfort",d2:"White PU",disc:"accessories",sub:"bartape",st:"e",p:13.75,srp:0},
-{s:"PRTA0028",d1:"PRO Tape Race Comfort",d2:"Red PU",disc:"accessories",sub:"bartape",st:"e",p:11.95,srp:0},
-{s:"PRTA0002",d1:"PRO Tape Race Control",d2:"Black with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:10.53,srp:0},
-{s:"PRTA0011",d1:"PRO Tape Race Control",d2:"White with End Plugs",disc:"accessories",sub:"bartape",st:"e",p:10.53,srp:0},
-{s:"PRTA0057",d1:"PRO Tape Sport Control Team",d2:"Black EVA / Debossed",disc:"accessories",sub:"bartape",st:"e",p:10.36,srp:0},
-{s:"PRTA0058",d1:"PRO Tape Sport Control Team",d2:"Black EVA / Debossed-Wht",disc:"accessories",sub:"bartape",st:"a",p:10.32,srp:0},
-{s:"PRTA0041",d1:"PRO Tape Sport Comfort",d2:"White  EVA",disc:"accessories",sub:"bartape",st:"e",p:9.72,srp:0},
-{s:"PRTA0040",d1:"PRO Tape Sport Comfort",d2:"Black EVA",disc:"accessories",sub:"bartape",st:"e",p:9.47,srp:0},
-{s:"PRTA0001",d1:"PRO Tape Sport Control",d2:"Black with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.89,srp:0},
-{s:"PRTA0007",d1:"PRO Tape Sport Control",d2:"Red with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.86,srp:0},
-{s:"PRTA0004",d1:"PRO Tape Sport Control",d2:"White with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:7.65,srp:0},
-{s:"PRTA0006",d1:"PRO Tape Sport Control",d2:"Blue with Strips & Plugs",disc:"accessories",sub:"bartape",st:"e",p:6.95,srp:0},
-{s:"PRTA0048",d1:"PRO Tape Classic Comfort",d2:"Black EVA+Cork",disc:"accessories",sub:"bartape",st:"e",p:5.9,srp:0},
-{s:"PRTA0049",d1:"PRO Tape Classic Comfort",d2:"White EVA+Cork",disc:"accessories",sub:"bartape",st:"e",p:5.67,srp:0},
+{s:"PRTA0027",d1:"PRO Tape Race Comfort",d2:"White PU",disc:"accessories",sub:"bartape",st:"u",p:13.75,srp:0},
+{s:"PRTA0028",d1:"PRO Tape Race Comfort",d2:"Red PU",disc:"accessories",sub:"bartape",st:"u",p:11.95,srp:0},
+{s:"PRTA0002",d1:"PRO Tape Race Control",d2:"Black with Strips & Plugs",disc:"accessories",sub:"bartape",st:"u",p:10.53,srp:0},
+{s:"PRTA0011",d1:"PRO Tape Race Control",d2:"White with End Plugs",disc:"accessories",sub:"bartape",st:"u",p:10.53,srp:0},
+{s:"PRTA0057",d1:"PRO Tape Sport Control Team",d2:"Black EVA / Debossed",disc:"accessories",sub:"bartape",st:"u",p:10.36,srp:0},
+{s:"PRTA0058",d1:"PRO Tape Sport Control Team",d2:"Black EVA / Debossed-Wht",disc:"accessories",sub:"bartape",st:"u",p:10.32,srp:0},
+{s:"PRTA0041",d1:"PRO Tape Sport Comfort",d2:"White  EVA",disc:"accessories",sub:"bartape",st:"u",p:9.72,srp:0},
+{s:"PRTA0040",d1:"PRO Tape Sport Comfort",d2:"Black EVA",disc:"accessories",sub:"bartape",st:"u",p:9.47,srp:0},
+{s:"PRTA0001",d1:"PRO Tape Sport Control",d2:"Black with Strips & Plugs",disc:"accessories",sub:"bartape",st:"u",p:7.89,srp:0},
+{s:"PRTA0007",d1:"PRO Tape Sport Control",d2:"Red with Strips & Plugs",disc:"accessories",sub:"bartape",st:"u",p:7.86,srp:0},
+{s:"PRTA0004",d1:"PRO Tape Sport Control",d2:"White with Strips & Plugs",disc:"accessories",sub:"bartape",st:"u",p:7.65,srp:0},
+{s:"PRTA0006",d1:"PRO Tape Sport Control",d2:"Blue with Strips & Plugs",disc:"accessories",sub:"bartape",st:"u",p:6.95,srp:0},
+{s:"PRTA0048",d1:"PRO Tape Classic Comfort",d2:"Black EVA+Cork",disc:"accessories",sub:"bartape",st:"u",p:5.9,srp:0},
+{s:"PRTA0049",d1:"PRO Tape Classic Comfort",d2:"White EVA+Cork",disc:"accessories",sub:"bartape",st:"u",p:5.67,srp:0},
 {s:"PRAC0056",d1:"PRO Handlebar Endplug",d2:"Black Anodized Alloy",disc:"accessories",sub:"bartape",st:"a",p:4.85,srp:0},
 {s:"PRHS0124",d1:"PRO Headset Internal Routing",d2:"1.5 inch upper/lower cartridge",disc:"accessories",sub:"headsets",st:"a",p:41.3,srp:0},
 {s:"PRHS0037",d1:"PRO Headpart Upper SL",d2:"IS41/28.6mm Hybrid",disc:"accessories",sub:"headsets",st:"a",p:33.07,srp:0},
@@ -849,25 +859,25 @@ var PRO_DATA=[
 {s:"PRGP0060",d1:"PRO Grips Ergo Race",d2:"Black 30mm/130mm",disc:"accessories",sub:"grips",st:"u",p:14.87,srp:0},
 {s:"PRGP0086",d1:"PRO Grips Econtrol lock on",d2:"Black STEPS lockring",disc:"accessories",sub:"grips",st:"a",p:14.17,srp:0},
 {s:"PRGP0077",d1:"PRO Grips Econtrol lock on",d2:"Black Single lock 36mm/133mm",disc:"accessories",sub:"grips",st:"a",p:14.13,srp:0},
-{s:"PRGP0054",d1:"PRO Grips Dual Lock Sport",d2:"Black 30mm/132.5mm",disc:"accessories",sub:"grips",st:"e",p:13.77,srp:0},
+{s:"PRGP0054",d1:"PRO Grips Dual Lock Sport",d2:"Black 30mm/132.5mm",disc:"accessories",sub:"grips",st:"u",p:13.77,srp:0},
 {s:"PRGP0055",d1:"PRO Grips Dual Lock Sport",d2:"Black 32mm/132.5mm",disc:"accessories",sub:"grips",st:"u",p:13.01,srp:0},
-{s:"PRGP0045",d1:"PRO Grips Lock On Race",d2:"Black 30mm/130mm",disc:"accessories",sub:"grips",st:"e",p:12.59,srp:0},
-{s:"PRGP0046",d1:"PRO Grips Lock On Race",d2:"Black 32mm/130mm",disc:"accessories",sub:"grips",st:"e",p:12.51,srp:0},
-{s:"PRGP0056",d1:"PRO Grips Ergon. Lock On Sport",d2:"Black 34.5mm/133mm",disc:"accessories",sub:"grips",st:"e",p:12.37,srp:0},
+{s:"PRGP0045",d1:"PRO Grips Lock On Race",d2:"Black 30mm/130mm",disc:"accessories",sub:"grips",st:"u",p:12.59,srp:0},
+{s:"PRGP0046",d1:"PRO Grips Lock On Race",d2:"Black 32mm/130mm",disc:"accessories",sub:"grips",st:"a",p:12.51,srp:0},
+{s:"PRGP0056",d1:"PRO Grips Ergon. Lock On Sport",d2:"Black 34.5mm/133mm",disc:"accessories",sub:"grips",st:"u",p:12.37,srp:0},
 {s:"PRGP0064",d1:"PRO Grips Lock on Trail",d2:"Black w. flange 32mm/132mm",disc:"accessories",sub:"grips",st:"a",p:12.21,srp:0},
-{s:"PRGP0035",d1:"PRO Grips Silicone XC Slim",d2:"Black 30mmx130mm",disc:"accessories",sub:"grips",st:"e",p:11.89,srp:0},
+{s:"PRGP0035",d1:"PRO Grips Silicone XC Slim",d2:"Black 30mmx130mm",disc:"accessories",sub:"grips",st:"u",p:11.89,srp:0},
 {s:"PRGP0036",d1:"PRO Grips Silicone XC",d2:"Black 32mmx130mm",disc:"accessories",sub:"grips",st:"u",p:11.82,srp:0},
 {s:"PRGP0066",d1:"PRO Grips Lock on Trail",d2:"Black wo. flange 32mm/132mm",disc:"accessories",sub:"grips",st:"u",p:11.69,srp:0},
-{s:"PRGP0034",d1:"PRO Grips Ergonomic",d2:"Black Dual Density",disc:"accessories",sub:"grips",st:"e",p:11.68,srp:0},
-{s:"PRGP0018",d1:"PRO Grips Foam Lock",d2:"Black 32mmx132mm",disc:"accessories",sub:"grips",st:"e",p:11.33,srp:0},
-{s:"PRGP0052",d1:"PRO Grips Lock On Sport",d2:"Black 30mm/132.5mm",disc:"accessories",sub:"grips",st:"e",p:11.3,srp:0},
+{s:"PRGP0034",d1:"PRO Grips Ergonomic",d2:"Black Dual Density",disc:"accessories",sub:"grips",st:"u",p:11.68,srp:0},
+{s:"PRGP0018",d1:"PRO Grips Foam Lock",d2:"Black 32mmx132mm",disc:"accessories",sub:"grips",st:"u",p:11.33,srp:0},
+{s:"PRGP0052",d1:"PRO Grips Lock On Sport",d2:"Black 30mm/132.5mm",disc:"accessories",sub:"grips",st:"u",p:11.3,srp:0},
 {s:"PRGP0053",d1:"PRO Grips Lock On Sport",d2:"Black 32mm/132.5mm",disc:"accessories",sub:"grips",st:"u",p:11.18,srp:0},
-{s:"PRGP0050",d1:"PRO Grips Slide On Sport",d2:"Black 30mm/125mm",disc:"accessories",sub:"grips",st:"e",p:5.45,srp:0},
+{s:"PRGP0050",d1:"PRO Grips Slide On Sport",d2:"Black 30mm/125mm",disc:"accessories",sub:"grips",st:"u",p:5.45,srp:0},
 {s:"PRGP0051",d1:"PRO Grips Slide On Sport",d2:"Black 32mm/125mm",disc:"accessories",sub:"grips",st:"u",p:5.2,srp:0},
 {s:"PRGP0022",d1:"PRO Grips Foam Slim",d2:"Black 32mmx130mm",disc:"accessories",sub:"grips",st:"u",p:4.9,srp:0},
-{s:"PRGP0020",d1:"PRO Grips Foam",d2:"Black 34.5mmx133mm",disc:"accessories",sub:"grips",st:"e",p:4.55,srp:0},
+{s:"PRGP0020",d1:"PRO Grips Foam",d2:"Black 34.5mmx133mm",disc:"accessories",sub:"grips",st:"u",p:4.55,srp:0},
 {s:"PR100360",d1:"PRO Tool Bike Repair Stand",d2:"Incl Bag And Tool-Plate",disc:"tools",sub:"bikestands",st:"a",p:127.21,srp:0},
-{s:"PRTL0152",d1:"PRO Bike Repair Stand Sport",d2:"",disc:"tools",sub:"bikestands",st:"e",p:69.56,srp:0},
+{s:"PRTL0152",d1:"PRO Bike Repair Stand Sport",d2:"",disc:"tools",sub:"bikestands",st:"u",p:69.56,srp:0},
 {s:"PRTL0148",d1:"PRO Tool Wheel Truing Stand",d2:"Comp w/QR And Thru Axle Wheels",disc:"tools",sub:"bikestands",st:"a",p:45.5,srp:0},
 {s:"PRTL0074",d1:"PRO Tool BB Workstand",d2:"Foldable",disc:"tools",sub:"bikestands",st:"a",p:19.48,srp:0},
 {s:"PRAC0043",d1:"PRO Bike Stand 29",d2:"Black 29In And 700C",disc:"tools",sub:"bikestands",st:"a",p:16.97,srp:0},
@@ -880,16 +890,16 @@ var PRO_DATA=[
 {s:"PRTL0082",d1:"PRO Tool Team Digital Torq.wr.",d2:"1 to 24 Nm",disc:"tools",sub:"torque",st:"a",p:108.86,srp:0},
 {s:"PR100340",d1:"PRO Tool Torque Wrench",d2:"Adjustable 3-15 Nm",disc:"tools",sub:"torque",st:"a",p:64.4,srp:0},
 {s:"PRTL0096",d1:"PRO Tool Torque wrench",d2:"Fixed settings 4/5/6 Nm",disc:"tools",sub:"torque",st:"a",p:45.14,srp:0},
-{s:"PRTL0066",d1:"PRO Tool Torque Wrench 1/4\"",d2:"Adjustable 0-30mm",disc:"tools",sub:"torque",st:"a",p:43.46,srp:0},
+{s:"PRTL0066",d1:"PRO Tool Torque Wrench 1/4\"",d2:"Adjustable 0-30mm",disc:"tools",sub:"torque",st:"e",p:43.46,srp:0,ed:"1 May 2026"},
 {s:"PRTL0134",d1:"PRO Tool Mini Tool 20F Team",d2:"Co2",disc:"tools",sub:"minitools",st:"a",p:34.74,srp:0},
 {s:"PRTL0099",d1:"PRO Tool Integrated Tool",d2:"Black with Rachet",disc:"tools",sub:"minitools",st:"a",p:23.19,srp:0},
 {s:"PRTL0132",d1:"PRO Tool Mini Tool 17F Perform",d2:"Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:20.53,srp:0},
 {s:"PRTL0130",d1:"PRO Tool Mini Tool 9FTL Perfor",d2:"Alloy/Tubeless/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:20.25,srp:0},
-{s:"PRTL0131",d1:"PRO Tool Mini Tool 13F Perform",d2:"Alloy body/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:19.69,srp:0},
-{s:"PRTL0133",d1:"PRO Tool Mini Tool 22F Perform",d2:"Alloy Body",disc:"tools",sub:"minitools",st:"a",p:18.57,srp:0},
-{s:"PRTL0123",d1:"PRO Tool Mini Tool 9F Perform",d2:"Alloy body/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"a",p:13.56,srp:0},
-{s:"PRTL0122",d1:"PRO Tool Minitool 10",d2:"10 functions",disc:"tools",sub:"minitools",st:"e",p:6.86,srp:0},
-{s:"PRTL0121",d1:"PRO Tool Minitool 6",d2:"6 functions",disc:"tools",sub:"minitools",st:"e",p:5.28,srp:0},
+{s:"PRTL0131",d1:"PRO Tool Mini Tool 13F Perform",d2:"Alloy body/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"e",p:19.69,srp:0,ed:"9 Sep 2026"},
+{s:"PRTL0133",d1:"PRO Tool Mini Tool 22F Perform",d2:"Alloy Body",disc:"tools",sub:"minitools",st:"e",p:18.57,srp:0,ed:"22 May 2026"},
+{s:"PRTL0123",d1:"PRO Tool Mini Tool 9F Perform",d2:"Alloy body/Comp w/BC Smart",disc:"tools",sub:"minitools",st:"e",p:13.56,srp:0,ed:"3 Aug 2026"},
+{s:"PRTL0122",d1:"PRO Tool Minitool 10",d2:"10 functions",disc:"tools",sub:"minitools",st:"e",p:6.86,srp:0,ed:"16 Apr 2026"},
+{s:"PRTL0121",d1:"PRO Tool Minitool 6",d2:"6 functions",disc:"tools",sub:"minitools",st:"e",p:5.28,srp:0,ed:"22 May 2026"},
 {s:"PRTL0107",d1:"PRO tools Expert toolbox",d2:"Toolset 42 tools",disc:"tools",sub:"toolbox",st:"a",p:279.07,srp:0},
 {s:"PRTL0106",d1:"PRO Tool Advanced toolbox",d2:"Toolset 25 tools",disc:"tools",sub:"toolbox",st:"a",p:182.16,srp:0},
 {s:"PRTL0105",d1:"PRO Tool Starter toolkit",d2:"Toolset 11 tools",disc:"tools",sub:"toolbox",st:"a",p:49.05,srp:0},
@@ -904,17 +914,17 @@ var PRO_DATA=[
 {s:"PRTLB031",d1:"PRO Tool BB-Remover hollowtech",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:21.1,srp:0},
 {s:"PRTL0088",d1:"PRO Team Chainring Remover",d2:"Threaded BB",disc:"tools",sub:"maintenance",st:"a",p:21.1,srp:0},
 {s:"PRTLB061",d1:"PRO Tool BB Press",d2:"Black 24mm/30mm axles",disc:"tools",sub:"maintenance",st:"a",p:20.91,srp:0},
-{s:"PRTL0094",d1:"PRO Tool Cable Cutter",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:20.56,srp:0},
+{s:"PRTL0094",d1:"PRO Tool Cable Cutter",d2:"Black",disc:"tools",sub:"maintenance",st:"e",p:20.56,srp:0,ed:"15 Apr 2026"},
 {s:"PRTL0053",d1:"PRO Tool Saw Guide",d2:"Handlebar And Fork Steerer",disc:"tools",sub:"maintenance",st:"a",p:20.4,srp:0},
 {s:"PRTL0087",d1:"PRO Tool Team Pedal Wrench",d2:"Black 15mm / 8mm",disc:"tools",sub:"maintenance",st:"a",p:18.95,srp:0},
-{s:"PRTLB050",d1:"PRO Tool Cable cutter",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:18.88,srp:0},
+{s:"PRTLB050",d1:"PRO Tool Cable cutter",d2:"Black",disc:"tools",sub:"maintenance",st:"e",p:18.88,srp:0,ed:"22 May 2026"},
 {s:"PRTLB032",d1:"PRO Tool Cassette removal set",d2:"Black",disc:"tools",sub:"maintenance",st:"a",p:18.71,srp:0},
 {s:"PRTL0058",d1:"PRO Tool Hammer",d2:"Black deadblow hammer",disc:"tools",sub:"maintenance",st:"a",p:17.1,srp:0},
 {s:"PRTLB090",d1:"PRO Tool T-Wrench Set",d2:"Black 4/5/6",disc:"tools",sub:"maintenance",st:"a",p:15.42,srp:0},
-{s:"PRTL0037",d1:"PRO Tool Hex Key Set",d2:"Size 2/2.5/3/4/5/6/8/10mm",disc:"tools",sub:"maintenance",st:"e",p:14.97,srp:0},
+{s:"PRTL0037",d1:"PRO Tool Hex Key Set",d2:"Size 2/2.5/3/4/5/6/8/10mm",disc:"tools",sub:"maintenance",st:"e",p:14.97,srp:0,ed:"1 May 2026"},
 {s:"PRTLB089",d1:"PRO Tool T-Wrench Set",d2:"Black 2/2.5/3",disc:"tools",sub:"maintenance",st:"a",p:14.93,srp:0},
-{s:"PRTL0073",d1:"PRO Tool BB Remover",d2:"Press-Fit Bearings 24mm",disc:"tools",sub:"maintenance",st:"a",p:14.75,srp:0},
-{s:"PRTL0119",d1:"PRO Tool Chain tool",d2:"9/10/11/12 speed",disc:"tools",sub:"maintenance",st:"a",p:13.89,srp:0},
+{s:"PRTL0073",d1:"PRO Tool BB Remover",d2:"Press-Fit Bearings 24mm",disc:"tools",sub:"maintenance",st:"e",p:14.75,srp:0,ed:"1 May 2026"},
+{s:"PRTL0119",d1:"PRO Tool Chain tool",d2:"9/10/11/12 speed",disc:"tools",sub:"maintenance",st:"e",p:13.89,srp:0,ed:"1 May 2026"},
 {s:"PRTL0038",d1:"PRO Tool Torx Key Set",d2:"T10-T50",disc:"tools",sub:"maintenance",st:"a",p:13.14,srp:0},
 {s:"PRTL0116",d1:"PRO Tool Team Y-wrench",d2:"2-8 hex, PH1/2, SL4, T15/25/30",disc:"tools",sub:"maintenance",st:"a",p:13.05,srp:0},
 {s:"PRTL0104",d1:"PRO Tool Cassette wrench",d2:"10T/11T sprocket",disc:"tools",sub:"maintenance",st:"a",p:12.83,srp:0},
@@ -940,7 +950,7 @@ var PRO_DATA=[
 {s:"PRTL0146",d1:"PRO Tool Open End Wrench",d2:"8mm / Comp w/ 1/4” Torque Wren",disc:"tools",sub:"maintenance",st:"a",p:3.87,srp:0},
 {s:"PRTL0049",d1:"PRO Tool Tire Levers",d2:"3 Pieces",disc:"tools",sub:"maintenance",st:"a",p:2.66,srp:0},
 {s:"PRSA0376",d1:"PRO Saddle TSA 1.2",d2:"Black 132mm, AF, stainless",disc:"triathlon",sub:"saddles",st:"a",p:76.93,srp:0},
-{s:"PRSA0377",d1:"PRO Saddle TSA 1.1",d2:"Black 132mm, AF, carbon",disc:"triathlon",sub:"saddles",st:"a",p:109.83,srp:0},
+{s:"PRSA0377",d1:"PRO Saddle TSA 1.1",d2:"Black 132mm, AF, carbon",disc:"triathlon",sub:"saddles",st:"e",p:109.83,srp:0,ed:"1 May 2026"},
 {s:"PRAB0042",d1:"PRO Aerobar Missile Evo Carbon",d2:"Black J Bend XL Armrest",disc:"triathlon",sub:"handlebars",st:"a",p:607.55,srp:999.9},
 {s:"PRAB0043",d1:"PRO Basebar Missile Evo",d2:"Black",disc:"triathlon",sub:"handlebars",st:"u",p:348.9,srp:599.0},
 {s:"PRAB0046",d1:"PRO Missile Evo Ski Bend",d2:"Black Ski Bend",disc:"triathlon",sub:"handlebars",st:"a",p:168.1,srp:1099.0},
@@ -1706,7 +1716,7 @@ function renderItemRow(it) {
   var hasVal = qty > 0 ? 'true' : 'false';
   var statusBadge = '';
   var st = STOCK[it.st] || STOCK.u;
-  statusBadge = '<span class="badge ' + st.c + '"><span class="badge-dot"></span>' + st.l.toUpperCase() + '</span>';
+  statusBadge = '<span class="badge ' + st.c + '"><span class="badge-dot"></span>' + (st.c === 'etd' && it.ed ? 'ETD ' + it.ed : st.l.toUpperCase()) + '</span>';
 
   var priceCell = it.p > 0 ? '<span class="item-price">€' + it.p.toFixed(2) + '</span>' : '';
 
@@ -1992,6 +2002,31 @@ renderCatalog();
     var el = document.getElementById('dealerLogo');
     if(el){ el.src = dl; el.style.display = 'inline-block'; }
   }
+})();
+</script>
+<script>
+(function(){
+  var MS={Jan:'January',Feb:'February',Mar:'March',Apr:'April',May:'May',Jun:'June',Jul:'July',Aug:'August',Sep:'September',Oct:'October',Nov:'November',Dec:'December'};
+  function getLabel(){
+    var el=document.getElementById('stockUpdatedTime');
+    if(!el)return null;
+    var t=el.textContent.trim();
+    var m=t.match(/(\d{2})\s+([A-Za-z]{3})\s+(\d{4})/);
+    if(!m)return null;
+    return (MS[m[2]]||m[2])+' '+m[3];
+  }
+  function update(){
+    var label=getLabel();
+    if(!label)return;
+    var txt='Order Book — '+label;
+    document.querySelectorAll('[data-orderbook]').forEach(function(e){e.textContent=txt;});
+    var cob=document.getElementById('coverOrderBookLabel');if(cob)cob.textContent=txt;
+    document.querySelectorAll('p').forEach(function(p){
+      if(p.textContent.trim().indexOf('Order Book')===0)p.textContent=txt;
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update);
+  else update();
 })();
 </script>
 </body>

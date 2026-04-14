@@ -348,7 +348,7 @@
   font-weight: 700 !important;
   letter-spacing: .2em !important;
   text-transform: uppercase !important;
-  color: #3e4f6e !important;
+  color: #5a7a9e !important;
   padding: 8px 16px 4px !important;
 }
 
@@ -401,7 +401,7 @@
 .sidebar a.sb-chip,
 .sidebar a[style],
 .sidebar button[style] {
-  color: #7a8ba8 !important;
+  color: #c8d8e8 !important;
   border-left-color: transparent !important;
 }
 .sidebar .cat-chip:hover,
@@ -413,7 +413,7 @@
 .sidebar .cat-chip.active,
 .sidebar .sb-chip.active,
 .sidebar button.cat-chip:disabled {
-  color: #a0b4cc !important;
+  color: #e2ecf6 !important;
   background: rgba(120,160,200,.08) !important;
   border-left-color: #4a6a8a !important;
 }
@@ -424,7 +424,7 @@
 }
 /* Order Summary — biraz daha belirgin ama yine soluk */
 .sidebar #sharedOrderSummaryBtn {
-  color: #7a8ba8 !important;
+  color: #c8d8e8 !important;
   border-left-color: transparent !important;
   background: none !important;
 }
@@ -434,7 +434,7 @@
 /* Section başlıkları */
 .sidebar .sidebar-section-label,
 .sidebar .sb-heading {
-  color: #3e4f6e !important;
+  color: #5a7a9e !important;
 }
 
 
@@ -462,7 +462,7 @@
 .sidebar a.cat-chip[href="Pedalindex.html"],
 .sidebar a.sb-chip[href="index.html"],
 .sidebar a.sb-chip[href="Pedalindex.html"] {
-  color: #7a8ba8 !important;
+  color: #c8d8e8 !important;
   font-weight: 600 !important;
 }
 
@@ -471,20 +471,20 @@
 .sidebar .cat-chip[onclick*="setCat"],
 .sidebar #catFilters .cat-chip,
 .sidebar button.cat-chip[id^="cat-"] {
-  color: #7a8ba8 !important;
+  color: #c8d8e8 !important;
   font-weight: 500 !important;
 }
 .sidebar .cat-chip[data-cat].active,
 .sidebar #catFilters .cat-chip.active,
 .sidebar button.cat-chip[id^="cat-"].active {
-  color: #a0b4cc !important;
+  color: #e2ecf6 !important;
   font-weight: 600 !important;
 }
 
 /* Cover Page butonu — soluk */
 .sidebar .cover-page-btn,
 .sidebar .cat-chip.cover-page-btn {
-  color: #7a8ba8 !important;
+  color: #c8d8e8 !important;
   font-weight: 500 !important;
 }
 
@@ -591,6 +591,10 @@ html.light .sidebar a:hover {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M2 18s1-6 4-6c2 0 3 2 5 2s3-2 5-2c3 0 4 6 4 6"/><path d="M4 12l2-4 3 2 3-4 3 4 3-2"/></svg>
       SHOES
     </a>
+    <a href="eyewear.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);text-decoration:none;border-left:3px solid #06b6d4;color:#06b6d4;font-weight:700;opacity:0.7;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="5"/><path d="M2 12h4M18 12h4"/><path d="M12 2v4M12 18v4"/></svg>
+      EYEWEAR
+    </a>
     <button class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #10b981;color:#10b981;font-weight:700;background:rgba(16,185,129,0.12);pointer-events:none;" disabled>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><circle cx="12" cy="12" r="3"/><path d="M12 2v7M12 15v7M2 12h7M15 12h7"/></svg>
       PEDALS <span style="font-size:9px;opacity:0.5;margin-left:auto">●</span>
@@ -612,6 +616,11 @@ html.light .sidebar a:hover {
     <button class="cat-chip active" id="cat-SPD-SL" onclick="setCat('SPD-SL')">SPD-SL</button>
     <button class="cat-chip" id="cat-SPD" onclick="setCat('SPD')">SPD</button>
     <button class="cat-chip" id="cat-FLAT" onclick="setCat('FLAT')">FLAT</button>
+<div class="sidebar-sep" style="height:1px;background:var(--border);margin:12px 16px 0"></div>
+  <div id="stockUpdatedBlock" style="padding:10px 16px 14px;">
+    <div style="font-size:9px;letter-spacing:0.12em;color:var(--text-muted, #6b6b82);text-transform:uppercase;margin-bottom:4px;">Stock Updated</div>
+    <div id="stockUpdatedTime" style="font-size:11px;font-weight:600;color:var(--text, #aaa);letter-spacing:0.03em;opacity:0.6;">08 Apr 2026  16:18</div>
+  </div>
   </nav>
 
   <main class="main" id="mainContent">
@@ -666,7 +675,7 @@ html.light .sidebar a:hover {
           );
         "></div>
         <div style="position: relative; z-index: 2; padding: 48px 52px; width: 100%;">
-          <div style="font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.35em; text-transform:uppercase; color:#0082CA; margin-bottom:10px;">Order Book — March 2026</div>
+          <div id="coverOrderBookLabel" style="font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.35em; text-transform:uppercase; color:#0082CA; margin-bottom:10px;">Order Book — April 2026</div>
           <h1 style="font-family:'Barlow Condensed',sans-serif; font-size:80px; font-weight:900; color:#fff; letter-spacing:-0.02em; line-height:0.95; margin:0 0 24px 0; text-shadow: 0 2px 24px rgba(0,0,0,0.4);">SHIMANO<br><span style="color:#0082CA;">PEDALS</span></h1>
           <div style="width:60px; height:3px; background:#0082CA; border-radius:2px; margin-bottom:28px;"></div>
           <div style="display:flex; gap:40px; align-items:flex-end;">
@@ -1205,7 +1214,7 @@ function exportOrder() {
 function copyOrder() {
   const items = Object.entries(orderMap);
   if(!items.length) { showToast('No items to copy'); return; }
-  let text = 'SHIMANO PEDALS ORDER — March 2026\n';
+  let text = 'SHIMANO PEDALS ORDER — ' + (function(){var e=document.getElementById('stockUpdatedTime');if(!e)return'April 2026';var t=e.textContent.trim();var r=/([0-9]{2}) ([A-Za-z]{3}) ([0-9]{4})/.exec(t);if(!r)return'April 2026';var M={Jan:'January',Feb:'February',Mar:'March',Apr:'April',May:'May',Jun:'June',Jul:'July',Aug:'August',Sep:'September',Oct:'October',Nov:'November',Dec:'December'};return(M[r[2]]||r[2])+' '+r[3];})() + '\n';
   text += '='.repeat(40) + '\n';
   items.forEach(([code, v]) => {
     text += `${code}  ${v.desc1} ${v.desc2}  Qty: ${v.qty}  [${v.status.toUpperCase()}]${v.etd ? ' ETD:' + v.etd : ''}\n`;
@@ -1284,6 +1293,31 @@ window.addEventListener('DOMContentLoaded', function() {
     var el = document.getElementById('dealerLogo');
     if(el){ el.src = dl; el.style.display = 'inline-block'; }
   }
+})();
+</script>
+<script>
+(function(){
+  var MS={Jan:'January',Feb:'February',Mar:'March',Apr:'April',May:'May',Jun:'June',Jul:'July',Aug:'August',Sep:'September',Oct:'October',Nov:'November',Dec:'December'};
+  function getLabel(){
+    var el=document.getElementById('stockUpdatedTime');
+    if(!el)return null;
+    var t=el.textContent.trim();
+    var m=t.match(/(\d{2})\s+([A-Za-z]{3})\s+(\d{4})/);
+    if(!m)return null;
+    return (MS[m[2]]||m[2])+' '+m[3];
+  }
+  function update(){
+    var label=getLabel();
+    if(!label)return;
+    var txt='Order Book — '+label;
+    document.querySelectorAll('[data-orderbook]').forEach(function(e){e.textContent=txt;});
+    var cob=document.getElementById('coverOrderBookLabel');if(cob)cob.textContent=txt;
+    document.querySelectorAll('p').forEach(function(p){
+      if(p.textContent.trim().indexOf('Order Book')===0)p.textContent=txt;
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',update);
+  else update();
 })();
 </script>
 </body>

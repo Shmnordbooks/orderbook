@@ -19,7 +19,7 @@
     }
   })();
 </script>
-<title>Shimano — Product Catalog | April 2026</title>
+<title>Shimano — Product Catalog | March 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -1655,7 +1655,7 @@
       <span class="cover-catalog-label">Hardgoods |Shoes |Pedals</span>
     </div>
     <div class="cover-topbar-right">
-      <span class="cover-date-badge">April 2026</span>
+      <span class="cover-date-badge" id="coverDateBadge">March 2026</span>
       <span class="cover-clock" id="coverClock">00:00:00</span>
     </div>
   </div>
@@ -1665,7 +1665,7 @@
       <div class="cover-title" style="color:#0082CA;opacity:0.6;cursor:pointer;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'" onclick="location.href='hardgoods.html'">HARDGOODS</div>
       <a href="shoes.html" class="cover-title" style="color:#0082CA;text-decoration:none;display:block;margin-top:8px;cursor:pointer;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">SHOES</a>
       <a href="pedals.html" class="cover-title" style="color:#0082CA;text-decoration:none;display:block;margin-top:8px;cursor:pointer;opacity:0.6;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">PEDALS</a>
-      <div class="cover-subtitle" style="margin-top:16px;">Order Book — APRIL 2026</div>
+      <div class="cover-subtitle" id="coverSubtitle" style="margin-top:16px;">Order Book — March 2026</div>
       <div class="cover-select-label">SELECT ORDER BOOK</div>
 
     </div>
@@ -1694,6 +1694,17 @@
   }
   updateClock();
   setInterval(updateClock, 1000);
+})();
+</script>
+<script>
+(function(){
+  var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var now=new Date();
+  var label=MONTHS[now.getMonth()]+' '+now.getFullYear();
+  var badge=document.getElementById('coverDateBadge');
+  if(badge)badge.textContent=label;
+  var sub=document.getElementById('coverSubtitle');
+  if(sub)sub.textContent='Order Book — '+label;
 })();
 </script>
 </body>
