@@ -147,10 +147,10 @@
   /* ── Product Detail Panel ── */
   .model-detail-side { flex: 1; min-width: 180px; padding: 4px 0 4px 10px; border-left: 1px solid var(--border); overflow-y: auto; max-height: 220px; }
   .product-detail-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; margin-bottom: 6px; }
-  .product-detail-desc { margin-bottom: 10px; font-size: 12px; line-height: 1.55; color: var(--text-muted); }
+  .product-detail-desc { margin-bottom: 10px; font-size: 12px; line-height: 1.55; color: #ffffff; }
   .product-detail-weight { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; color: var(--avail); margin-bottom: 8px; }
   .product-detail-features { display: flex; flex-wrap: wrap; gap: 4px; }
-  .product-detail-feat { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 500; color: var(--text-muted); letter-spacing: 0.03em; }
+  .product-detail-feat { display: inline-flex; align-items: center; gap: 3px; padding: 2px 8px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 500; color: #ffffff; letter-spacing: 0.03em; }
   .product-detail-feat::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--shimano-blue); opacity: 0.5; }
   html.light .product-detail-feat { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.08); }
 
@@ -574,6 +574,29 @@ html.light .sidebar .cat-chip:hover,
 html.light .sidebar .sb-chip:hover,
 html.light .sidebar a:hover {
   color: #0a1525 !important;
+}
+</style>
+<style>
+/* ── Shimano-branded sidebar section labels ── */
+.sidebar .sidebar-section-label,
+.sidebar .sb-heading,
+#productGroupsLabel {
+  font-family: 'Barlow Condensed', sans-serif !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase !important;
+  color: #ffffff !important;
+  background: #0082CA !important;
+  padding: 3px 16px 3px !important;
+  margin: 6px 0 2px !important;
+  display: block !important;
+  line-height: 1.8 !important;
+}
+/* Stock Updated label next to timestamp */
+.sidebar [style*="font-size:9px"][style*="letter-spacing:0.12em"] {
+  color: #0082CA !important;
+  font-weight: 700 !important;
 }
 </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
