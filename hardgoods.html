@@ -454,6 +454,72 @@
   }
   .results-info strong { color: var(--text); }
 
+  /* ═══ CATEGORY BANNER — Sign Plate on Pegboard ═══ */
+  .cg-banner{
+    width:100%;height:100px;position:relative;overflow:hidden;
+    border-radius:10px;
+    background:#000;
+    margin:4px 0 18px 0;
+    --hole-size:16px;
+    --hole-radius:1.6px;
+    --hole-color:rgba(0,0,0,.55);
+    --hole-rim:rgba(255,255,255,.04);
+    --wall-a:#0c4378;
+    --wall-b:#072342;
+    --sheen-x:60%;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,.04) inset,
+      0 10px 30px -12px rgba(0,0,0,.6);
+  }
+  .cg-banner .cg-peg{
+    position:absolute;inset:0;
+    background:
+      radial-gradient(120% 160% at var(--sheen-x) -20%, rgba(125,220,255,.18), transparent 55%),
+      radial-gradient(circle at 50% 50%, var(--hole-rim) 0 calc(var(--hole-radius) + .5px), transparent calc(var(--hole-radius) + 1px)),
+      radial-gradient(circle at 50% 50%, var(--hole-color) 0 var(--hole-radius), transparent calc(var(--hole-radius) + .6px)),
+      linear-gradient(120deg, var(--wall-a), var(--wall-b));
+    background-size:auto, var(--hole-size) var(--hole-size), var(--hole-size) var(--hole-size), auto;
+    background-position:0 0, 0 0, .5px .5px, 0 0;
+  }
+  .cg-banner .cg-vig{
+    position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(140% 120% at 50% 50%, transparent 40%, rgba(0,0,0,.35) 100%),
+      linear-gradient(180deg, rgba(255,255,255,.03), transparent 30%);
+  }
+  .cg-banner .cg-content{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2}
+  .cg-banner .cg-plate{
+    position:relative;padding:12px 32px;
+    background:linear-gradient(180deg,#0a2f52,#051a30);
+    border-radius:5px;
+    border:1px solid rgba(125,220,255,.22);
+    box-shadow:
+      0 12px 28px -8px rgba(0,0,0,.7),
+      0 0 0 1px rgba(0,0,0,.5) inset,
+      0 1px 0 rgba(255,255,255,.08) inset;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .cg-banner .cg-plate > i{
+    position:absolute;width:5px;height:5px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, #b8cbd9, #3a4a58 60%, #0a1118);
+    box-shadow:0 1px 2px rgba(0,0,0,.6);
+  }
+  .cg-banner .cg-plate .cg-sc1{top:6px;left:6px}
+  .cg-banner .cg-plate .cg-sc2{top:6px;right:6px}
+  .cg-banner .cg-plate .cg-sc3{bottom:6px;left:6px}
+  .cg-banner .cg-plate .cg-sc4{bottom:6px;right:6px}
+  .cg-banner .cg-title{
+    font-family:'Barlow Condensed',Arial,sans-serif;
+    font-weight:700;font-size:22px;color:#fff;
+    letter-spacing:.08em;line-height:1;
+    white-space:nowrap;
+  }
+  @media(max-width:900px){
+    .cg-banner{height:72px;margin:0 0 14px 0;border-radius:8px}
+    .cg-banner .cg-plate{padding:9px 20px}
+    .cg-banner .cg-title{font-size:15px;letter-spacing:.06em}
+  }
+
   /* TABLE */
   .table-wrap {
     border: 1px solid var(--border);
@@ -2172,6 +2238,16 @@ html.light .sidebar a:hover {
   </aside>
   <div style="flex:1;min-width:0;">
     <div class="main">
+      <div class="cg-banner" id="categoryBanner" style="display:none">
+        <div class="cg-peg"></div>
+        <div class="cg-vig"></div>
+        <div class="cg-content">
+          <div class="cg-plate">
+            <i class="cg-sc1"></i><i class="cg-sc2"></i><i class="cg-sc3"></i><i class="cg-sc4"></i>
+            <div class="cg-title" id="categoryBannerTitle" lang="en"></div>
+          </div>
+        </div>
+      </div>
       <div class="results-info" id="resultsInfo"></div>
       <div id="tableContainer"></div>
       <div class="pagination" id="pagination"></div>
@@ -36746,6 +36822,21 @@ const CATEGORY_LABELS = {
   'SHIMANO TOOLS':'Shimano Tools','Parktool':'Park Tool','Vittoria':'Vittoria Tires'
 };
 
+// Banner always uses the default blue wall (set in CSS); no per-category palette.
+
+function updateCategoryBanner() {
+  var banner = document.getElementById('categoryBanner');
+  var title = document.getElementById('categoryBannerTitle');
+  if (!banner || !title) return;
+  if (currentCat === 'all' || searchQuery) {
+    banner.style.display = 'none';
+    return;
+  }
+  var label = CATEGORY_LABELS[currentCat] || currentCat;
+  title.textContent = String(label).toLocaleUpperCase('en-US');
+  banner.style.display = '';
+}
+
 
 
 // Build flat array with category key
@@ -36899,6 +36990,8 @@ function render() {
 
   document.getElementById('resultsInfo').innerHTML =
     `Showing <strong>${start+1}–${Math.min(start+PAGE_SIZE,total)}</strong> of <strong>${total.toLocaleString()}</strong> products`;
+
+  updateCategoryBanner();
 
   const container = document.getElementById('tableContainer');
 
@@ -38209,7 +38302,7 @@ document.addEventListener('click', e => {
 (function(){
   'use strict';
 
-  var INTRO_DURATION = 2750;
+  var INTRO_DURATION = 3750;
   var FADE_DURATION  = 1000;
   var dismissed = false;
 
@@ -38223,7 +38316,8 @@ document.addEventListener('click', e => {
     'finish_line.mp4',
     'sprint.mp4',
     'mountain.mp4',
-    'peloton.mp4'
+    'peloton.mp4',
+    'Mathieu.mp4' 
   ];
 
   var urlParams = new URLSearchParams(window.location.search);
