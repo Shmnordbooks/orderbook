@@ -2078,6 +2078,41 @@ html.light .sidebar a:hover {
   margin-top: 8px !important;
   display: block !important;
 }
+  @media (max-width: 768px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+
+
+  /* ══════════════════════════════════════════
+     İÇERİK KONUMLANDIRMA — sidebar fixed 160px
+     İçerik her zaman sidebar'dan sonra başlar,
+     geniş ekranda kalan alanda ortalanır
+     ══════════════════════════════════════════ */
+  @media (min-width: 769px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      box-sizing: border-box !important;
+      max-width: 1400px !important;
+      margin-left: max(160px, calc((100vw - 1400px) / 2)) !important;
+      margin-right: auto !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
 </head>
@@ -38394,5 +38429,8 @@ document.addEventListener('click', e => {
 })();
 </script>
 
+<script src="news-data.js"></script>
+<script src="ticker-data.js"></script>
+<script src="news-ticker.js"></script>
 </body>
 </html>

@@ -575,6 +575,41 @@ html.light .sidebar .sb-chip:hover,
 html.light .sidebar a:hover {
   color: #0a1525 !important;
 }
+  @media (max-width: 768px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+
+
+  /* ══════════════════════════════════════════
+     İÇERİK KONUMLANDIRMA — sidebar fixed 160px
+     İçerik her zaman sidebar'dan sonra başlar,
+     geniş ekranda kalan alanda ortalanır
+     ══════════════════════════════════════════ */
+  @media (min-width: 769px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      box-sizing: border-box !important;
+      max-width: 1400px !important;
+      margin-left: max(160px, calc((100vw - 1400px) / 2)) !important;
+      margin-right: auto !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+
 </style>
 <style>
 /* ── Shimano-branded sidebar section labels ── */
@@ -11740,5 +11775,8 @@ window.addEventListener('DOMContentLoaded', function() {
   else update();
 })();
 </script>
+<script src="news-data.js"></script>
+<script src="ticker-data.js"></script>
+<script src="news-ticker.js"></script>
 </body>
 </html>

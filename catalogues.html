@@ -699,6 +699,41 @@ html.light .sidebar .sb-chip:hover,
 html.light .sidebar a:hover {
   color: #0a1525 !important;
 }
+  @media (max-width: 768px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+  }
+
+
+  /* ══════════════════════════════════════════
+     İÇERİK KONUMLANDIRMA — sidebar fixed 160px
+     İçerik her zaman sidebar'dan sonra başlar,
+     geniş ekranda kalan alanda ortalanır
+     ══════════════════════════════════════════ */
+  @media (min-width: 769px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      box-sizing: border-box !important;
+      max-width: 1400px !important;
+      margin-left: max(160px, calc((100vw - 1400px) / 2)) !important;
+      margin-right: auto !important;
+    }
+  }
+  @media (max-width: 768px) {
+    .catalog-layout,
+    .main-content,
+    .layout {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+      max-width: 100% !important;
+    }
+  }
+
 </style>
 </head>
 <body>
@@ -764,6 +799,10 @@ html.light .sidebar a:hover {
     <a class="sb-chip" href="lazer.html" style="border-left-color:#ef4444;color:#ef4444;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6 2 10c0 2.5 1.5 4.5 3.5 5.5L4 22h16l-1.5-6.5C20.5 14.5 22 12.5 22 10c0-4-4.48-8-10-8z"/></svg>
       LAZER
+    </a>
+    <a class="sb-chip" href="pro.html" style="border-left-color:#ff6b35;color:#ff6b35;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      PRO
     </a>
   </nav>
 
