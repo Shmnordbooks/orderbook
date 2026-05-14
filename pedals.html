@@ -594,6 +594,90 @@ html.light .sidebar a:hover {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body data-catalog="pedals">
+<!-- ═══════════════════════════════════════════════════════════
+     PREMIUM CINEMATIC VIDEO INTRO — Floating Modal + Blur
+     ═══════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Main content: Shimano blue-tinted blur, still visible behind ── */
+  #main-content {
+    transition: filter 1.2s cubic-bezier(.4,0,.2,1), opacity 1.2s cubic-bezier(.4,0,.2,1);
+  }
+  #main-content.blurred {
+    filter: blur(8px) brightness(0.7) saturate(0.7);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── Overlay: Shimano blue tint, semi-transparent so content shows through ── */
+  #introOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999998;
+    background: rgba(0, 50, 120, 0.45);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    transition: opacity 1s ease;
+  }
+  #introOverlay.intro-gone { opacity: 0; pointer-events: none; }
+
+  /* ── Floating video card — slightly larger ── */
+  #introVideoCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999999;
+    width: 72vw;
+    max-width: 880px;
+    min-width: 340px;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.1),
+      0 16px 60px rgba(0,0,0,0.6),
+      0 4px 20px rgba(0,0,0,0.4);
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.9);
+    animation: introCardIn 0.6s cubic-bezier(.22,1,.36,1) 0.15s forwards;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  #introVideoCard.intro-gone {
+    opacity: 0 !important;
+    transform: translate(-50%, -50%) scale(1.03) !important;
+  }
+
+  @keyframes introCardIn {
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  #introVideoCard video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+  }
+
+  /* ── Progress bar at bottom of card ── */
+  #introProgress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #0066cc, #00c896);
+    border-radius: 0 0 16px 16px;
+    width: 0%;
+    z-index: 3;
+    transition: width 0.08s linear;
+  }
+</style>
+
+<!-- ── Static wrapper: all page content lives inside here ── -->
+<div id="main-content" class="blurred">
 
 <header>
   <div class="header-inner">
@@ -1385,5 +1469,111 @@ window.addEventListener('DOMContentLoaded', function() {
 <script src="news-data.js"></script>
 <script src="ticker-data.js"></script>
 <script src="news-ticker.js"></script>
+
+</div><!-- /#main-content -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     FLOATING VIDEO MODAL (outside #main-content so it's not blurred)
+     ═══════════════════════════════════════════════════════════ -->
+<div id="introOverlay"></div>
+<div id="introVideoCard">
+  <video id="introVideo" muted playsinline></video>
+  <div id="introProgress"></div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var INTRO_DURATION = 3750;
+  var FADE_DURATION  = 1000;
+  var dismissed = false;
+
+  var mainContent = document.getElementById('main-content');
+  var overlay     = document.getElementById('introOverlay');
+  var card        = document.getElementById('introVideoCard');
+  var video       = document.getElementById('introVideo');
+  var progress    = document.getElementById('introProgress');
+
+  var videoList = [
+    'Flatv1.mp4',
+    'Flatv2.mp4',
+    'Flatv3.mp4',
+    'Flatv4.mp4'
+  ];
+
+  var urlParams = new URLSearchParams(window.location.search);
+  var skipVideo = urlParams.get('skip') === 'true';
+
+  /* ── Skip mode: remove intro elements, unblur immediately ── */
+  if (skipVideo) {
+    if (overlay) overlay.remove();
+    if (card)    card.remove();
+    if (mainContent) mainContent.classList.remove('blurred');
+    return;
+  }
+
+  /* ── Dismiss function (runs only once) ── */
+  function dismissIntro() {
+    if (dismissed) return;
+    dismissed = true;
+
+    // 1. Fade out card + overlay via CSS class
+    if (card)    card.classList.add('intro-gone');
+    if (overlay) overlay.classList.add('intro-gone');
+
+    // 2. Unblur main content after a short delay
+    setTimeout(function() {
+      if (mainContent) mainContent.classList.remove('blurred');
+    }, 200);
+
+    // 3. Remove intro DOM after transitions finish
+    setTimeout(function() {
+      try {
+        if (video) { video.pause(); video.removeAttribute('src'); video.load(); }
+      } catch(e) {}
+      if (card)    card.remove();
+      if (overlay) overlay.remove();
+    }, FADE_DURATION + 400);
+  }
+
+  /* ── Main init function ── */
+  function initIntro() {
+    if (!video || !card) { dismissIntro(); return; }
+
+    // Pick random video and set source
+    var randomVideo = videoList[Math.floor(Math.random() * videoList.length)];
+    video.src = randomVideo;
+    video.load();
+    video.play().catch(function() { /* autoplay blocked — still show card with black bg */ });
+
+    // Animate progress bar
+    var t0 = Date.now();
+    var progTimer = setInterval(function() {
+      var elapsed = Date.now() - t0;
+      var pct = Math.min((elapsed / INTRO_DURATION) * 100, 100);
+      if (progress) progress.style.width = pct + '%';
+      if (elapsed >= INTRO_DURATION) clearInterval(progTimer);
+    }, 50);
+
+    // Auto-dismiss after duration no matter what
+    setTimeout(dismissIntro, INTRO_DURATION);
+
+    // Also dismiss on video error (but still wait at least 1.5s so card is visible)
+    video.addEventListener('error', function() {
+      clearInterval(progTimer);
+      setTimeout(dismissIntro, 1500);
+    });
+  }
+
+  /* ── Run init: handle case where DOMContentLoaded already fired ── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initIntro);
+  } else {
+    // DOM already ready — run immediately
+    initIntro();
+  }
+})();
+</script>
 </body>
 </html>
