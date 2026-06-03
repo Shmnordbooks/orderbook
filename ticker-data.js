@@ -12,8 +12,6 @@ window.SHIMANO_TICKER = [
     added: "2026-04-22"
   },
 
-  },
-
    {
     title: "---New Flat Pedals \" PD-G8040\" and \"PD-M8240\" and Flat/SPD  Pedal \"PD-EH510\" added in PEDALS page---",
     added: "2026-04-22"
