@@ -3017,6 +3017,18 @@ function imgCandidates(mn, colorName, sz) {
   return []; 
 }
 
+// Assign a new source to a reused <img>. The retry flag and the hidden state are
+// left over from the PREVIOUS picture, so they must be cleared — otherwise the
+// second image the user clicks is treated as an already-failed retry and hidden.
+function setImgSrc(img, url) {
+  if (!img) return;
+  img.removeAttribute('data-img-retry');
+  img.style.display = '';
+  var ph = img.parentNode && img.parentNode.querySelector('.img-placeholder');
+  if (ph) ph.style.display = 'none';
+  img.src = url;
+}
+
 function tryNextImg(img) {
   // The image host is served over http. If the https request is blocked, retry
   // once through the wsrv.nl proxy before falling back to the placeholder.
@@ -3096,14 +3108,15 @@ function render(){
           cHTML+='</div>';
           // Thumbnails grouped by color
           cHTML+='<div class="model-gallery-right">';
+          var gIdxCounter = 0;
           colorKeys.forEach(function(ck){
             var tc = imgCandidates(mn, ck, 'thumb');
             if(!tc.length) return;
             cHTML+='<div class="color-group-label" style="'+getColorStyle(ck)+'">'+ck+'</div>';
             cHTML+='<div class="color-group-grid">';
             tc.forEach(function(src, idx){
-              var globalIdx = allModelImgs.findIndex(function(a){ return a.src===src; });
-              var isFirst = (ck===firstColor && idx===0);
+              var globalIdx = gIdxCounter++;
+              var isFirst = (globalIdx===0);
               cHTML+='<div class="model-gallery-thumb'+(isFirst?' active':'')+'" data-gidx="'+globalIdx+'" onclick="setLazerGalImg(this,&quot;'+mn+'&quot;,'+globalIdx+')">';
               cHTML+='<img src="'+src+'" alt="'+ck+'" loading="lazy" data-tries=\''+JSON.stringify([src])+'\' data-tidx="0" onerror="tryNextImg(this)">';
               cHTML+='</div>';
@@ -3192,12 +3205,7 @@ function setLazerGalImg(thumbEl, mn, globalIdx){
   var allImgs = (window._lazerGalAll||{})[mn] || [];
   if(!allImgs[globalIdx]) return;
   var mainImg = card.querySelector('.model-gallery-main img');
-  if(mainImg){
-    mainImg.src = allImgs[globalIdx].src;
-    mainImg.style.display='';
-    var ph=mainImg.parentNode.querySelector('.img-placeholder');
-    if(ph)ph.style.display='none';
-  }
+  setImgSrc(mainImg, allImgs[globalIdx].src);
   var mainDiv = card.querySelector('.model-gallery-main');
   if(mainDiv) mainDiv.setAttribute('onclick','openLightbox("'+mn+'",'+globalIdx+')');
   card.querySelectorAll('.model-gallery-thumb').forEach(function(t){t.classList.remove('active')});
@@ -3211,10 +3219,7 @@ function swapGallery(thumbEl, mn, colorName){
   var mainImg = card.querySelector('.model-gallery-main img');
   var cands = imgCandidates(mn, colorName, 'thumb');
   if(mainImg && cands.length){
-    mainImg.src = cands[0];
-    mainImg.style.display='';
-    var ph=mainImg.parentNode.querySelector('.img-placeholder');
-    if(ph)ph.style.display='none';
+    setImgSrc(mainImg, cands[0]);
   }
   card.querySelectorAll('.model-gallery-thumb').forEach(function(t){t.classList.remove('active')});
   thumbEl.classList.add('active');
@@ -3231,8 +3236,8 @@ function openLightbox(mn, startIdx){
   var ov = document.getElementById('lbOverlay');
   if(!ov) return;
   var img = ov.querySelector('.lightbox-img');
-  img.src = _lbImgs[_lbIdx].src;
   img.onerror = function(){ tryNextImg(this); };
+  setImgSrc(img, _lbImgs[_lbIdx].src);
   ov.querySelector('.lightbox-model').textContent = mn;
   var lbDisc = document.getElementById('lbDisclaimer');
   if (lbDisc) lbDisc.innerHTML = '<strong>Images are for illustration purposes only.</strong> Product images may not reflect the exact model, colour, version or packaging supplied. Specifications are subject to change without notice. Please order by item code &mdash; the item code and description are binding, the image is not.';
@@ -3247,7 +3252,7 @@ function lbNav(dir){
   _lbIdx = (_lbIdx + dir + _lbImgs.length) % _lbImgs.length;
   var ov = document.getElementById('lbOverlay');
   if(!ov) return;
-  ov.querySelector('.lightbox-img').src = _lbImgs[_lbIdx].src;
+  setImgSrc(ov.querySelector('.lightbox-img'), _lbImgs[_lbIdx].src);
   var infoColor = ov.querySelector('.lightbox-color');
   if(infoColor) infoColor.textContent = _lbImgs[_lbIdx].color || '';
 }
