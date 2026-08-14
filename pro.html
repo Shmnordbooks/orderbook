@@ -205,7 +205,10 @@
   .results-info strong { color: var(--text); }
 
   /* SUB-FILTER CHIPS */
-  .sub-filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .sub-filter-bar { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; padding: 10px 0; border-bottom: 1px solid var(--border);
+    position: sticky; top: 64px; z-index: 90; background: var(--bg); }
+  html.light .sub-filter-bar { background: var(--bg); }
+  @media (max-width: 768px) { .sub-filter-bar { position: static; } }
   .sub-chip { display: inline-flex; align-items: center; gap: 4px; padding: 5px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.04); color: #c0c8d8; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
   .sub-chip:hover { border-color: rgba(255,255,255,0.35); color: #fff; background: rgba(255,255,255,0.08); }
   .sub-chip.active { border-color: #0082CA; color: #fff; background: rgba(0,130,202,0.2); font-weight: 700; }
@@ -359,6 +362,18 @@ html.light .sidebar .cat-chip, html.light .sidebar a.cat-chip, html.light .sideb
 
 </style>
 <style>
+/* Discipline menu stays pinned to the bottom of the sidebar,
+   so ROAD / MTB / GRAVEL … remain reachable on short screens. */
+.sidebar .sidebar-cat-group {
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 3 !important;
+  background: #0f1520 !important;
+  padding-bottom: 6px !important;
+  box-shadow: 0 -10px 14px -8px rgba(0,0,0,0.85) !important;
+}
+html.light .sidebar .sidebar-cat-group { background: #ffffff !important; box-shadow: 0 -10px 14px -8px rgba(0,0,0,0.15) !important; }
+
 /* ── Shimano-branded sidebar section labels ── */
 .sidebar .sidebar-section-label,
 .sidebar .sb-heading,
@@ -449,15 +464,17 @@ html.light .sidebar .cat-chip, html.light .sidebar a.cat-chip, html.light .sideb
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
       PRO <span style="opacity:.4;font-size:9px;margin-left:2px">●</span>
     </button>
+    <div class="sidebar-cat-group">
     <div class="sidebar-sep" style="margin:4px 16px"></div>
     <div class="sidebar-section-label">CATEGORIES</div>
-    <button class="cat-chip active" id="cat-ALL" data-cat="ALL" onclick="setCat('ALL',this)">All</button>
-    <button class="cat-chip" id="cat-road" data-cat="road" onclick="setCat('road',this)">Road</button>
-    <button class="cat-chip" id="cat-mtb" data-cat="mtb" onclick="setCat('mtb',this)">MTB</button>
-    <button class="cat-chip" id="cat-gravel" data-cat="gravel" onclick="setCat('gravel',this)">Gravel</button>
-    <button class="cat-chip" id="cat-triathlon" data-cat="triathlon" onclick="setCat('triathlon',this)">Triathlon</button>
-    <button class="cat-chip" id="cat-accessories" data-cat="accessories" onclick="setCat('accessories',this)">Accessories</button>
-    <button class="cat-chip" id="cat-tools" data-cat="tools" onclick="setCat('tools',this)">Tools</button>
+    <button class="cat-chip active" id="cat-ALL" data-cat="ALL" onclick="setCat('ALL',this)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><circle cx="6" cy="6" r="2.6"/><circle cx="14" cy="6" r="2.6"/><circle cx="6" cy="14" r="2.6"/><circle cx="14" cy="14" r="2.6"/></svg>All</button>
+    <button class="cat-chip" id="cat-road" data-cat="road" onclick="setCat('road',this)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><circle cx="5" cy="14" r="3.4"/><circle cx="15" cy="14" r="3.4"/><path d="M5 14l3.6-5.6H13l2 5.6"/><path d="M8.6 8.4h4"/><path d="M12.2 6.2h2"/></svg>Road</button>
+    <button class="cat-chip" id="cat-mtb" data-cat="mtb" onclick="setCat('mtb',this)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><path d="M2.2 16l4.2-6.6 3 3.4 3.4-5.4L17.8 16z"/><path d="M9.4 12.8l1.6-1.9"/></svg>MTB</button>
+    <button class="cat-chip" id="cat-gravel" data-cat="gravel" onclick="setCat('gravel',this)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><path d="M2.5 15h15"/><circle cx="6" cy="11.5" r="1.5"/><circle cx="12.5" cy="9.5" r="1.9"/><circle cx="16.5" cy="12.8" r="1.2"/><circle cx="8.5" cy="7" r="1.1"/></svg>Gravel</button>
+    <button class="cat-chip" id="cat-triathlon" data-cat="triathlon" onclick="setCat('triathlon',this)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><path d="M2 13.2c1.4-1 2.7-1 4 0s2.6 1 4 0 2.6-1 4 0 2.7 1 4 0"/><path d="M2 16.5c1.4-1 2.7-1 4 0s2.6 1 4 0 2.6-1 4 0 2.7 1 4 0"/><circle cx="13.8" cy="4.6" r="2.1"/><path d="M4 9.6l4.5-1.4 3.2 1.9"/></svg>Triathlon</button>
+    <button class="cat-chip" id="cat-accessories" data-cat="accessories" onclick="setCat('accessories',this)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><path d="M4 7.5h12l-1 9.5a1.5 1.5 0 0 1-1.5 1.3h-7A1.5 1.5 0 0 1 5 17z"/><path d="M7.2 7.5V5.3a2.8 2.8 0 0 1 5.6 0v2.2"/></svg>Accessories</button>
+    <button class="cat-chip" id="cat-tools" data-cat="tools" onclick="setCat('tools',this)"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;flex-shrink:0"><path d="M12.6 3.4a3.2 3.2 0 0 0-4.2 4.1L3 12.9 5 15l5.5-5.5a3.2 3.2 0 0 0 4.1-4.2l-1.9 1.9-1.6-1.6z"/><path d="M11.8 12.2l4.4 4.6"/><path d="M13.6 10.4l1.5 1.5"/></svg>Tools</button>
+    </div>
   
   <div class="sidebar-sep" style="height:1px;background:var(--border);margin:12px 16px 0"></div>
   <div id="stockUpdatedBlock" style="padding:10px 16px 14px;">
@@ -1265,8 +1282,19 @@ function renderSubFilters() {
   bar.innerHTML = html;
 }
 
+// Jump back to the top before re-rendering, so a new filter always starts the
+// list from the beginning instead of dropping the user into the middle of it.
+// Instant (not smooth) on purpose: the catalogue can be tens of thousands of
+// pixels tall, and it also makes sure the gallery observer sees the top cards.
+function scrollCatalogTop() {
+  window.scrollTo(0, 0);
+  if (document.documentElement) document.documentElement.scrollTop = 0;
+  if (document.body) document.body.scrollTop = 0;
+}
+
 function setSub(sub, btn) {
   currentSub = sub;
+  scrollCatalogTop();
   renderSubFilters();
   renderCatalog();
 }
@@ -1277,6 +1305,7 @@ function setCat(cat, btn) {
   currentSub = 'ALL';
   document.querySelectorAll('.cat-chip').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
+  scrollCatalogTop();
   renderSubFilters();
   renderCatalog();
 }
