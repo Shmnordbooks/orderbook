@@ -402,7 +402,7 @@ html.light .sidebar .sidebar-cat-group { background: #ffffff !important; box-sha
       <span>PRO</span>
     </div>
     <div class="header-divider"></div>
-    <span class="header-date">April 2026</span>
+    <span class="header-date" id="headerDate">April 2026</span>
     <div class="header-search">
       <span class="search-icon">⌕</span>
       <input type="text" id="searchInput" placeholder="Search by code, description, size...">
@@ -1773,5 +1773,53 @@ renderCatalog();
 <script src="news-data.js"></script>
 <script src="ticker-data.js"></script>
 <script src="news-ticker.js"></script>
+<!-- -- Auto catalog month: header + title follow the last stock update -- -->
+<script>
+(function () {
+  var MONTHS = ['January','February','March','April','May','June',
+                'July','August','September','October','November','December'];
+  var ABBR = {jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+
+  /* 1) Read the "Stock Updated" timestamp in the sidebar (e.g. "12 Aug 2026  10:59") */
+  function fromStockUpdated() {
+    var el = document.getElementById('stockUpdatedTime');
+    if (!el) return null;
+    var txt = (el.textContent || '').trim();
+    var m = txt.match(/([A-Za-z]{3,})[^0-9A-Za-z]+(\d{4})/);   // "Aug 2026"
+    if (m) {
+      var idx = ABBR[m[1].slice(0, 3).toLowerCase()];
+      if (idx !== undefined) return { month: idx, year: parseInt(m[2], 10) };
+    }
+    m = txt.match(/(\d{4})-(\d{2})-(\d{2})/);                 // "2026-08-12"
+    if (m) return { month: parseInt(m[2], 10) - 1, year: parseInt(m[1], 10) };
+    m = txt.match(/(\d{1,2})[.\/](\d{1,2})[.\/](\d{4})/);     // "12.08.2026"
+    if (m) return { month: parseInt(m[2], 10) - 1, year: parseInt(m[3], 10) };
+    return null;
+  }
+
+  /* 2) Fallback: file's last-modified date (set when the file is uploaded/deployed) */
+  function fromLastModified() {
+    var d = new Date(document.lastModified);
+    if (isNaN(d.getTime())) d = new Date();
+    return { month: d.getMonth(), year: d.getFullYear() };
+  }
+
+  function apply() {
+    var info = fromStockUpdated() || fromLastModified();
+    var label = MONTHS[info.month] + ' ' + info.year;
+    var hd = document.getElementById('headerDate');
+    if (hd) hd.textContent = label;
+    document.title = 'PRO Bikegear — B2B Dealer Portal | ' + label;
+  }
+
+  apply();
+  /* run once more after load in case the timestamp is filled in later */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', apply);
+  }
+  window.addEventListener('load', apply);
+})();
+</script>
+
 </body>
 </html>
