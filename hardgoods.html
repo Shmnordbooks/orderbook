@@ -1957,6 +1957,30 @@ header { z-index: 200 !important; }
   text-align: center !important;
 }
 
+/* Badge ↔ sidebar scrollbar üst üste binmesi — gutter + ince scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 6px !important;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  border: 1px solid #0a1020 !important;
+  border-radius: 3px !important;
+}
+.sidebar {
+  scrollbar-width: thin !important;
+}
+.sidebar .cat-chip,
+.sidebar a.cat-chip,
+.sidebar button.cat-chip,
+.sidebar .sb-chip,
+.sidebar a.sb-chip {
+  width: calc(100% - 22px) !important;
+  margin: 2px 14px 2px 8px !important;
+}
+.sidebar .order-chip-badge {
+  flex-shrink: 0 !important;
+  margin-right: 2px !important;
+}
+
 /* Donut chart kompakt */
 .sidebar .sidebar-donut-wrap {
   padding: 8px 10px 4px !important;
@@ -37399,8 +37423,77 @@ function updateOrderPanel() {
 }
 
 function exportOrder() {
-  const keys = Object.keys(orderList);
-  if (!keys.length) return;
+  // ─── Collect orders from ALL catalogs via shared cart ───
+  var shared = {};
+  try { shared = JSON.parse(localStorage.getItem('shimano_all_orders')) || {}; } catch(e){}
+
+  // Fallback: hardgoods may not be synced to shared cart yet
+  if (!shared.hardgoods && Object.keys(orderList).length > 0) {
+    shared.hardgoods = {};
+    Object.keys(orderList).forEach(function(code) {
+      var e = orderList[code];
+      shared.hardgoods[code] = {
+        qty: typeof e === 'object' ? e.qty : e,
+        desc1: typeof e === 'object' ? (e.desc || e.desc1 || '') : '',
+        desc2: typeof e === 'object' ? (e.desc2 || '') : '',
+        price: ''
+      };
+    });
+  }
+
+  var EXP_LABELS = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS',
+                     lazer:'LAZER', eyewear:'EYEWEAR', pro:'PRO BIKEGEAR', catalogues:'CATALOGUES' };
+  var EXP_KNOWN  = ['hardgoods','shoes','pedals','lazer','eyewear','pro','catalogues'];
+  var expOrder   = EXP_KNOWN.slice();
+  Object.keys(shared).forEach(function(pg){ if (expOrder.indexOf(pg) === -1) expOrder.push(pg); });
+
+  // Flatten into rows: {catalog, code, desc1, desc2, qty}
+  var items = [];
+  expOrder.forEach(function(pg) {
+    var bucket = shared[pg];
+    if (!bucket || Object.keys(bucket).length === 0) return;
+    Object.keys(bucket).forEach(function(code) {
+      var v = bucket[code];
+      var d1 = v.desc1 || '', d2 = v.desc2 || '';
+
+      // Enrich hardgoods rows from CATALOG / GROUPSETS
+      if (pg === 'hardgoods') {
+        var item = null;
+        if (typeof CATALOG !== 'undefined') {
+          for (var c in CATALOG) {
+            var found = CATALOG[c].find(function(i){ return i.code === code; });
+            if (found) { item = found; break; }
+          }
+        }
+        if (!item && typeof GROUPSETS !== 'undefined') {
+          for (var gsKey in GROUPSETS) {
+            var gs = GROUPSETS[gsKey];
+            if (gs.items_by_option) {
+              for (var opt in gs.items_by_option) {
+                var f2 = gs.items_by_option[opt].find(function(i){ return i.code === code; });
+                if (f2) { item = f2; break; }
+              }
+            } else if (gs.items) {
+              var f3 = gs.items.find(function(i){ return i.code === code; });
+              if (f3) { item = f3; }
+            }
+            if (item) break;
+          }
+        }
+        if (item) { d1 = item.desc1 || d1; d2 = item.desc2 || d2; }
+      }
+
+      items.push({
+        catalog: EXP_LABELS[pg] || pg.toUpperCase(),
+        code: code,
+        desc1: d1,
+        desc2: d2,
+        qty: v.qty || 0
+      });
+    });
+  });
+
+  if (!items.length) return;
 
   const now = new Date();
   const dateStr = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
@@ -37419,38 +37512,17 @@ function exportOrder() {
   const rows = [];
   rows.push(['Order:', orderNo, 'Date:', dateDisplay, 'Dealer:', dealerName]);  // 0
   rows.push(['', '', '', '', '', '']);  // 1 - single spacer
-  rows.push(['Item Code', 'Description', 'Model / Spec', 'QTY', '', '']);  // 2 - header
+  rows.push(['Catalog', 'Item Code', 'Description', 'Model / Spec', 'QTY', '']);  // 2 - header
 
-  keys.forEach(code => {
-    const entry = orderList[code];
-    const qty = typeof entry === 'object' ? entry.qty : entry;
-    let item = null;
-    for (const [c, items] of Object.entries(CATALOG)) {
-      const found = items.find(i => i.code === code);
-      if (found) { item = found; break; }
-    }
-    if (!item) {
-      for (const gs of Object.values(GROUPSETS)) {
-        if (gs.items_by_option) {
-          for (const opt of Object.values(gs.items_by_option)) {
-            const found = opt.find(i => i.code === code);
-            if (found) { item = found; break; }
-          }
-        } else if (gs.items) {
-          const found = gs.items.find(i => i.code === code);
-          if (found) { item = found; break; }
-        }
-        if (item) break;
-      }
-    }
-    rows.push([code, item ? item.desc1 : '', item ? item.desc2 : '', qty, '', '']);
+  items.forEach(function(it) {
+    rows.push([it.catalog, it.code, it.desc1, it.desc2, it.qty, '']);
   });
 
   const wb = XLSX.utils.book_new();
   const ws = XLSX.utils.aoa_to_sheet(rows);
 
   // Column widths
-  ws['!cols'] = [{wch:22},{wch:40},{wch:28},{wch:10},{wch:2},{wch:2}];
+  ws['!cols'] = [{wch:16},{wch:22},{wch:40},{wch:28},{wch:10},{wch:2}];
 
   // Hide gridlines
   if (!ws['!sheetViews']) ws['!sheetViews'] = [{}];
@@ -37483,19 +37555,19 @@ function exportOrder() {
     alignment:{horizontal:'center', vertical:'center'},
     border:noBorder
   };
-  ['A3','B3','C3','D3'].forEach(a => { if(ws[a]) ws[a].s = hdrStyle; });
-  // Empty E3/F3 just noBorder
-  ['E3','F3'].forEach(a => { if(ws[a]) ws[a].s = {border:noBorder}; });
+  ['A3','B3','C3','D3','E3'].forEach(a => { if(ws[a]) ws[a].s = hdrStyle; });
+  // Empty F3 just noBorder
+  ['F3'].forEach(a => { if(ws[a]) ws[a].s = {border:noBorder}; });
 
   // Data rows (from row index 3 onward): clean, no border, QTY centered
   for (let r = 3; r <= range.e.r; r++) {
-    for (let c = 0; c <= 3; c++) {
+    for (let c = 0; c <= 4; c++) {
       const addr = XLSX.utils.encode_cell({r, c});
       if (ws[addr]) {
         ws[addr].s = {
           font:{sz:10, color:{rgb:'222222'}},
           border:noBorder,
-          alignment: c === 3 ? {horizontal:'center'} : {horizontal:'left'}
+          alignment: c === 4 ? {horizontal:'center'} : {horizontal:'left'}
         };
       }
     }
@@ -37825,7 +37897,7 @@ function clearAllOrders() {
   try { shared = JSON.parse(localStorage.getItem('shimano_all_orders')) || {}; } catch(e){}
   var anyOrders = Object.keys(shared).length > 0 || Object.keys(orderList).length > 0;
   if (!anyOrders) return;
-  if (!confirm('Clear ALL orders from every catalog (Hardgoods, Shoes, Pedals)?')) return;
+  if (!confirm('Clear ALL orders from every catalog (Hardgoods, Shoes, Pedals, Lazer, Eyewear, PRO)?')) return;
   // Clear shared cart
   localStorage.removeItem('shimano_all_orders');
   // Clear local hardgoods
@@ -37867,9 +37939,16 @@ function renderSummaryPage() {
     });
   }
 
-  var PAGE_LABELS = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS' };
-  var PAGE_COLORS = { hardgoods:'#0ea5e9', shoes:'#f59e0b', pedals:'#10b981' };
-  var pageOrder = ['hardgoods','shoes','pedals'];
+  var PAGE_LABELS = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS',
+                      lazer:'LAZER', eyewear:'EYEWEAR', pro:'PRO BIKEGEAR', catalogues:'CATALOGUES' };
+  var PAGE_COLORS = { hardgoods:'#0ea5e9', shoes:'#f59e0b', pedals:'#10b981',
+                      lazer:'#ef4444', eyewear:'#06b6d4', pro:'#ff6b35', catalogues:'#8b5cf6' };
+  // Known catalogs first, then ANY other catalog present in the shared cart
+  var KNOWN_ORDER = ['hardgoods','shoes','pedals','lazer','eyewear','pro','catalogues'];
+  var pageOrder = KNOWN_ORDER.slice();
+  Object.keys(shared).forEach(function(pg){ if (pageOrder.indexOf(pg) === -1) pageOrder.push(pg); });
+  function pgLabelOf(pg){ return PAGE_LABELS[pg] || pg.toUpperCase(); }
+  function pgColorOf(pg){ return PAGE_COLORS[pg] || '#888'; }
 
   const statsEl = document.getElementById('osSummaryStats');
   const contentEl = document.getElementById('osSummaryContent');
@@ -37884,7 +37963,7 @@ function renderSummaryPage() {
       <div class="os-empty">
         <div class="os-empty-icon">🛒</div>
         <h3>Your order list is empty</h3>
-        <p style="opacity:0.6;font-size:13px">Add items from any catalog — HARDGOODS, SHOES, or PEDALS</p>
+        <p style="opacity:0.6;font-size:13px">Add items from any catalog — HARDGOODS, SHOES, PEDALS, LAZER, EYEWEAR or PRO</p>
       </div>`;
     return;
   }
@@ -37898,8 +37977,8 @@ function renderSummaryPage() {
     var items = shared[pg];
     if (!items || Object.keys(items).length === 0) return;
     var codes = Object.keys(items);
-    var pgLabel = PAGE_LABELS[pg] || pg.toUpperCase();
-    var pgColor = PAGE_COLORS[pg] || '#888';
+    var pgLabel = pgLabelOf(pg);
+    var pgColor = pgColorOf(pg);
     var pgQty = 0;
     codes.forEach(function(c){ pgQty += (items[c].qty || 0); });
 
@@ -37976,7 +38055,7 @@ function renderSummaryPage() {
   pageOrder.forEach(function(pg) {
     if (!shared[pg] || Object.keys(shared[pg]).length === 0) return;
     var pqty = 0; Object.values(shared[pg]).forEach(function(v){ pqty += (v.qty || 0); });
-    chipHtml += '<span style="background:' + PAGE_COLORS[pg] + '22;color:' + PAGE_COLORS[pg] + ';font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;font-family:Barlow Condensed,sans-serif;letter-spacing:0.05em;">' + PAGE_LABELS[pg] + ': ' + pqty + '</span> ';
+    chipHtml += '<span style="background:' + pgColorOf(pg) + '22;color:' + pgColorOf(pg) + ';font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;font-family:Barlow Condensed,sans-serif;letter-spacing:0.05em;">' + pgLabelOf(pg) + ': ' + pqty + '</span> ';
   });
 
   statsEl.innerHTML = `

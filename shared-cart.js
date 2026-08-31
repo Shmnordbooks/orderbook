@@ -24,27 +24,25 @@
   }
 
   var SHARED_KEY   = 'shimano_all_orders';
-  var PAGE_LABELS  = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS', lazer:'LAZER', eyewear:'EYEWEAR', pro:'PRO' };
-  var PAGE_COLORS  = { hardgoods:'#0ea5e9', shoes:'#f59e0b', pedals:'#10b981', lazer:'#ff3c00', eyewear:'#06b6d4', pro:'#ff6b35' };
-  var PAGE_ORDER   = ['hardgoods','shoes','pedals','lazer','eyewear','pro']; // preferred display order
-  var POLL_MS      = 400;
-  var PAGE_ID      = null; // lazy — set in init()
+  var PAGE_LABELS  = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS', lazer:'LAZER',
+                       eyewear:'EYEWEAR', pro:'PRO BIKEGEAR', catalogues:'CATALOGUES' };
+  var PAGE_COLORS  = { hardgoods:'#0ea5e9', shoes:'#f59e0b', pedals:'#10b981', lazer:'#ff3c00',
+                       eyewear:'#06b6d4', pro:'#ff6b35', catalogues:'#8b5cf6' };
+  var PAGE_ORDER   = ['hardgoods','shoes','pedals','lazer','eyewear','pro','catalogues'];
 
-  /* ─── Build full ordered list of catalogs present in shared cart ──
-     Known catalogs come first (in PAGE_ORDER), then any other catalogs
-     that may have been added later. Prevents items from being silently
-     dropped from export/UI when a new catalog page is added. */
-  function getCatalogOrder(shared) {
-    var out = [], seen = {};
-    for (var i = 0; i < PAGE_ORDER.length; i++) {
-      if (shared[PAGE_ORDER[i]]) { out.push(PAGE_ORDER[i]); seen[PAGE_ORDER[i]] = 1; }
-    }
-    var keys = Object.keys(shared);
-    for (var j = 0; j < keys.length; j++) {
-      if (!seen[keys[j]]) out.push(keys[j]);
-    }
+  /* Known catalogs first, then ANY other catalog found in the shared cart,
+     so a new page never silently disappears from the panel / export. */
+  function pageOrderFor(shared) {
+    var out = [], seen = {}, i;
+    for (i = 0; i < PAGE_ORDER.length; i++) { out.push(PAGE_ORDER[i]); seen[PAGE_ORDER[i]] = 1; }
+    var extra = Object.keys(shared || {});
+    for (i = 0; i < extra.length; i++) if (!seen[extra[i]]) out.push(extra[i]);
     return out;
   }
+  function labelOf(pg){ return PAGE_LABELS[pg] || pg.toUpperCase(); }
+  function colorOf(pg){ return PAGE_COLORS[pg] || '#888'; }
+  var POLL_MS      = 400;
+  var PAGE_ID      = null; // lazy — set in init()
 
   function getPageId() {
     if (!PAGE_ID) {
@@ -162,16 +160,14 @@
   }
 
   function collectAll() {
-    var shared = getShared(), all = [], order = getCatalogOrder(shared);
+    var shared = getShared(), all = [], order = pageOrderFor(shared);
     for (var o = 0; o < order.length; o++) {
       var pg = order[o], items = shared[pg];
       if (!items) continue;
       var codes = Object.keys(items);
       for (var c = 0; c < codes.length; c++) {
         var code = codes[c], v = items[code];
-        // Skip qty=0 / empty entries — they shouldn't make it into the export
-        if (!v || !v.qty || Number(v.qty) <= 0) continue;
-        all.push({ source:PAGE_LABELS[pg]||pg.toUpperCase(), catalog:pg, code:code,
+        all.push({ source:labelOf(pg), catalog:pg, code:code,
           desc1:v.desc1||'', desc2:v.desc2||'', qty:v.qty||0, price:v.price||'' });
       }
     }
@@ -316,7 +312,7 @@ margin-top:8px;transition:all .2s}\
     if (!body) return;
 
     var shared = getShared(), allCount = 0, html = '', totalQty = 0;
-    var pageOrder = getCatalogOrder(shared);
+    var pageOrder = pageOrderFor(shared);
 
     for (var p = 0; p < pageOrder.length; p++) {
       var pg = pageOrder[p], items = shared[pg];
@@ -325,7 +321,7 @@ margin-top:8px;transition:all .2s}\
       for (var e = 0; e < entries.length; e++) qtySum += (entries[e][1].qty || 0);
       allCount += entries.length;
       totalQty += qtySum;
-      var color = PAGE_COLORS[pg] || '#888', label = PAGE_LABELS[pg] || pg.toUpperCase();
+      var color = colorOf(pg), label = labelOf(pg);
 
       html += '<div><div class="ao-sh"><span class="ao-dot" style="background:' + color + '"></span> ' +
         label + ' <span class="ao-sc">(' + entries.length + ' SKUs, ' + qtySum + ' pcs)</span></div>';
@@ -360,8 +356,7 @@ margin-top:8px;transition:all .2s}\
       if (!ci || Object.keys(ci).length === 0) continue;
       var cq = 0, cv = Object.values(ci);
       for (var cx = 0; cx < cv.length; cx++) cq += (cv[cx].qty || 0);
-      var ccol = PAGE_COLORS[cpg] || '#888', clab = PAGE_LABELS[cpg] || cpg.toUpperCase();
-      chipHtml += '<span class="ao-chip" style="background:' + ccol + '22;color:' + ccol + '">' + clab + ': ' + cq + '</span>';
+      chipHtml += '<span class="ao-chip" style="background:' + colorOf(cpg) + '22;color:' + colorOf(cpg) + '">' + labelOf(cpg) + ': ' + cq + '</span>';
     }
     chips.innerHTML = chipHtml;
   }
@@ -540,20 +535,20 @@ margin-top:8px;transition:all .2s}\
       if (typeof window.updateStats === 'function') window.updateStats();
     }
 
-    // EYEWEAR / PRO / any other page using window.orderMap with no local persistence
-    // Without this, navigating back to these pages would wipe their slot in the shared cart
-    // on the next sync (empty orderMap → empty snapshot → delete shared[pid]).
-    if ((pid === 'eyewear' || pid === 'pro') && window.orderMap && typeof window.orderMap === 'object') {
+    // ANY OTHER orderMap-based catalog (eyewear, pro, future pages)
+    var HANDLED = { hardgoods:1, shoes:1, pedals:1, lazer:1 };
+    if (!HANDLED[pid] && window.orderMap && typeof window.orderMap === 'object') {
       if (Object.keys(window.orderMap).length > 0) return;
       for (var r = 0; r < codes.length; r++) {
         var c5 = codes[r], v5 = saved[c5];
         window.orderMap[c5] = { qty: v5.qty||0, desc1: v5.desc1||'', desc2: v5.desc2||'', price: v5.price||'' };
         var inputs5 = document.querySelectorAll('.qty-input[data-code="' + c5 + '"]');
-        for (var s = 0; s < inputs5.length; s++) {
-          inputs5[s].value = v5.qty;
-          inputs5[s].dataset.hasValue = 'true';
+        for (var t = 0; t < inputs5.length; t++) {
+          inputs5[t].value = v5.qty;
+          inputs5[t].dataset.hasValue = 'true';
         }
       }
+      if (typeof window.saveOrder === 'function') window.saveOrder();
       if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
       if (typeof window.updateStats === 'function') window.updateStats();
     }
