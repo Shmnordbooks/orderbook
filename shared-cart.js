@@ -4,21 +4,44 @@
 (function(){
   'use strict';
 
-  var CDN_URLS = [
+  // Sayfalar kendi export'ları için klasik SheetJS yüklüyor olabilir (ör. eyewear.html
+  // 0.18.5 yüklüyor); klasik build cell.s stillerini sessizce yok sayar. Bu yüzden
+  // stil destekli fork'u AYRI bir referansa yüklüyor, sayfanın window.XLSX'ini
+  // olduğu gibi geri koyuyoruz — hiçbir sayfa kodu etkilenmiyor.
+  var STYLE_URL = 'https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js';
+  var PLAIN_URLS = [
     'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'
   ];
-  function loadSheetJS() {
-    if (window.XLSX) return Promise.resolve();
+  var _styledXLSX = null;
+
+  function injectScript(url) {
     return new Promise(function(resolve, reject) {
+      var el = document.createElement('script');
+      el.src = url;
+      el.onload = function(){ resolve(); };
+      el.onerror = function(){ try { document.head.removeChild(el); } catch(e){} reject(); };
+      document.head.appendChild(el);
+    });
+  }
+
+  function loadSheetJS() {
+    if (_styledXLSX) return Promise.resolve();
+
+    var prev = window.XLSX; // sayfanın kendi kütüphanesi (varsa)
+    return injectScript(STYLE_URL).then(function() {
+      _styledXLSX = window.XLSX;                  // stil destekli fork
+      if (prev) window.XLSX = prev;               // sayfanınkini geri ver
+    }).catch(function() {
+      // Stil build'i gelmezse: sayfanınki varsa onunla devam (stiller görünmez),
+      // yoksa klasik CDN'leri sırayla dene.
+      if (window.XLSX) { _styledXLSX = window.XLSX; return; }
       var idx = 0;
-      (function tryNext() {
-        if (idx >= CDN_URLS.length) return reject();
-        var s = document.createElement('script');
-        s.src = CDN_URLS[idx++];
-        s.onload = resolve;
-        s.onerror = function(){ document.head.removeChild(s); tryNext(); };
-        document.head.appendChild(s);
+      return (function tryNext() {
+        if (idx >= PLAIN_URLS.length) return Promise.reject();
+        return injectScript(PLAIN_URLS[idx++])
+          .then(function(){ _styledXLSX = window.XLSX; })
+          .catch(tryNext);
       })();
     });
   }
@@ -367,33 +390,91 @@ margin-top:8px;transition:all .2s}\
   function doExport() {
     var allItems = collectAll();
     if (!allItems.length) return;
+
+    var dealerName = prompt('Dealer / Company Name:', '');
+    if (dealerName === null) return;
+    dealerName = (dealerName || '').trim() || '\u2014';
+
     var btn = document.getElementById('aoExport'), spin = document.getElementById('aoSpin');
     if (btn) btn.disabled = true;
     if (spin) spin.style.display = 'inline-block';
-    loadSheetJS().then(function() { exportSheetJS(allItems); })
-      .catch(function() { exportXML(allItems); })
+    loadSheetJS().then(function() { exportSheetJS(allItems, dealerName); })
+      .catch(function() { exportXML(allItems, dealerName); })
       .finally(function() { if (btn) btn.disabled = false; if (spin) spin.style.display = 'none'; });
   }
 
-  function exportSheetJS(items) {
-    var X = window.XLSX, wb = X.utils.book_new();
-    var rows = [['Catalog','SKU','Description 1','Description 2','QTY','Price']];
-    var tq = 0;
+  function exportSheetJS(items, dealerName) {
+    var X = _styledXLSX || window.XLSX, wb = X.utils.book_new();
+
+    var now = new Date();
+    var dateStr = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
+    var orderNo = 'SHM-' + dateStr + '-' + String(Math.floor(Math.random()*9000)+1000);
+    var dateDisplay = String(now.getDate()).padStart(2,'0') + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + now.getFullYear();
+
+    var noBorder  = {top:{style:'none'}, bottom:{style:'none'}, left:{style:'none'}, right:{style:'none'}};
+    var labelFont = {font:{bold:true, sz:10, color:{rgb:'555555'}}, border:noBorder, alignment:{horizontal:'left'}};
+    var valueFont = {font:{sz:10, color:{rgb:'000000'}}, border:noBorder, alignment:{horizontal:'left'}};
+
+    var rows = [];
+    rows.push(['Order:', orderNo, 'Date:', dateDisplay, 'Dealer:', dealerName]);   // 0
+    rows.push(['', '', '', '', '', '']);                                           // 1 spacer
+    rows.push(['Catalog', 'Item Code', 'Description', 'Model / Spec', 'QTY', '']);  // 2 header
+
     for (var i = 0; i < items.length; i++) {
       var it = items[i];
-      rows.push([it.source, it.code, it.desc1, it.desc2, it.qty, it.price===''?'':Number(it.price)||it.price]);
-      tq += it.qty;
+      rows.push([it.source, it.code, it.desc1, it.desc2, it.qty, '']);
     }
-    rows.push([]); rows.push(['','','','TOTAL', tq, '']);
+
     var ws = X.utils.aoa_to_sheet(rows);
-    ws['!cols'] = [{wch:12},{wch:20},{wch:35},{wch:30},{wch:8},{wch:12}];
-    X.utils.book_append_sheet(wb, ws, 'All Orders');
-    var d = new Date().toISOString().slice(0,10);
-    try { X.writeFile(wb,'shimano_all_orders_'+d+'.xlsm',{bookType:'xlsm'}); }
-    catch(e) { X.writeFile(wb,'shimano_all_orders_'+d+'.xlsx',{bookType:'xlsx'}); }
+    ws['!cols'] = [{wch:16},{wch:22},{wch:40},{wch:28},{wch:10},{wch:2}];
+
+    if (!ws['!sheetViews']) ws['!sheetViews'] = [{}];
+    ws['!sheetViews'][0].showGridLines = false;
+
+    var range = X.utils.decode_range(ws['!ref']), r, c, addr;
+    for (r = range.s.r; r <= range.e.r; r++) {
+      for (c = range.s.c; c <= range.e.c; c++) {
+        addr = X.utils.encode_cell({r:r, c:c});
+        if (!ws[addr]) ws[addr] = {v:'', t:'s'};
+        ws[addr].s = {font:{sz:10, color:{rgb:'222222'}}, border:noBorder};
+      }
+    }
+
+    ['A1','C1','E1'].forEach(function(a){ if(ws[a]) ws[a].s = labelFont; });
+    ['B1','D1','F1'].forEach(function(a){ if(ws[a]) ws[a].s = valueFont; });
+
+    for (c = 0; c <= 5; c++) {
+      addr = X.utils.encode_cell({r:1, c:c});
+      if (ws[addr]) ws[addr].s = {border:noBorder, font:{sz:4}};
+    }
+
+    var hdrStyle = {
+      font:{bold:true, sz:10, color:{rgb:'FFFFFF'}},
+      fill:{fgColor:{rgb:'0082CA'}},
+      alignment:{horizontal:'center', vertical:'center'},
+      border:noBorder
+    };
+    ['A3','B3','C3','D3','E3'].forEach(function(a){ if(ws[a]) ws[a].s = hdrStyle; });
+    if (ws['F3']) ws['F3'].s = {border:noBorder};
+
+    for (r = 3; r <= range.e.r; r++) {
+      for (c = 0; c <= 4; c++) {
+        addr = X.utils.encode_cell({r:r, c:c});
+        if (ws[addr]) {
+          ws[addr].s = {
+            font:{sz:10, color:{rgb:'222222'}},
+            border:noBorder,
+            alignment: c === 4 ? {horizontal:'center'} : {horizontal:'left'}
+          };
+        }
+      }
+    }
+
+    X.utils.book_append_sheet(wb, ws, 'Order');
+    X.writeFile(wb, 'Shimano_Order_' + dateStr + '_' + String(dealerName).replace(/[^a-zA-Z0-9]/g,'_') + '.xlsx');
   }
 
-  function exportXML(items) {
+  function exportXML(items, dealerName) {
     var tq=0; for(var t=0;t<items.length;t++) tq+=items[t].qty;
     var x='<?xml version="1.0"?>\n<?mso-application progid="Excel.Sheet"?>\n'+
       '<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n'+
