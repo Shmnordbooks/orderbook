@@ -104,7 +104,7 @@
   .model-items { display: none; padding: 0 16px 14px; border-top: 1px solid var(--border); }
   .model-card.open .model-items { display: block; }
   .items-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 5px; padding-top: 10px; }
-  .item-row { display: grid; grid-template-columns: 1fr auto auto auto; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); transition: border-color 0.12s; min-width: 0; }
+  .item-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; padding: 7px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); transition: border-color 0.12s; min-width: 0; }
   .item-row:hover { border-color: var(--border-hover); }
   .item-info { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
   .item-price { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; color: var(--text); white-space: nowrap; }
@@ -879,10 +879,6 @@ html.light .sidebar a:hover {
     <div class="lightbox-info">
       <span class="lightbox-model" id="lbModel"></span>
       <span class="lightbox-name" id="lbName"></span>
-      <div class="lightbox-prices">
-        <span class="lightbox-price" id="lbPrice"></span>
-        <span class="lightbox-srp" id="lbSrp"></span>
-      </div>
     </div>
   </div>
 </div>
@@ -1032,8 +1028,6 @@ function openLightbox(group, idx) {
   document.getElementById('lbImg').src = lbImages[lbIndex];
   document.getElementById('lbModel').textContent = group;
   document.getElementById('lbName').textContent = model ? model.name : '';
-  document.getElementById('lbPrice').textContent = model && model.price ? '€' + model.price.toFixed(2) : '';
-  document.getElementById('lbSrp').textContent = model && model.srp ? 'SRP €' + model.srp.toFixed(2) : '';
   document.getElementById('lightbox').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
@@ -1174,10 +1168,6 @@ function renderCatalog() {
 function renderModelCard(m) {
   const NEW_GROUPS = ['PD-EH510','PD-G8040','PD-M8240','PD-M8220','PD-MT520'];
   const newBadge = NEW_GROUPS.includes(m.group) ? '<span class="new-badge">NEW</span>' : '';
-  const priceHtml = m.price
-    ? `<span class="model-price">€${m.price.toFixed(2)}</span>${m.srp ? `<span class="model-srp">SRP €${m.srp.toFixed(2)}</span>` : ''}`
-    : '';
-
   let items = m.items;
   if(searchQuery) {
     const filtered = items.filter(it =>
@@ -1197,7 +1187,6 @@ function renderModelCard(m) {
     <div class="model-card-header" onclick="toggleCard('${m.group}')">
       <span class="model-tag">${m.group}${newBadge}</span>
       <span class="model-name">${m.name}</span>
-      <span>${priceHtml}</span>
       <span class="model-toggle">&#x25BC;</span>
     </div>
     <div class="model-items">
@@ -1227,15 +1216,12 @@ function renderItemRow(it) {
     badge = '<span class="badge unavail"><span class="badge-dot"></span>N/A</span>';
   }
 
-  const priceCell = it.price ? `<span class="item-price">€${parseFloat(it.price).toFixed(2)}</span>` : '<span></span>';
-
   return `
   <div class="item-row" id="row-${it.code}">
     <div class="item-info">
       <span class="item-code">${it.code}</span>
       <span class="item-desc">${it.desc2 || it.desc1}</span>
     </div>
-    ${priceCell}
     ${badge}
     <input type="number" class="qty-input" min="0" step="1"
       data-code="${it.code}"
@@ -1243,7 +1229,6 @@ function renderItemRow(it) {
       data-desc2="${escHtml(it.desc2)}"
       data-status="${it.status}"
       data-etd="${it.etd || ''}"
-      data-price="${it.price || ''}"
       value="${qty}"
       data-has-value="${hasVal}"
       onchange="updateQty(this)"
@@ -1275,7 +1260,7 @@ function updateQty(input) {
       desc2: input.dataset.desc2,
       status: input.dataset.status,
       etd: input.dataset.etd,
-      price: parseFloat(input.dataset.price) || 0
+      price: ''
     };
   } else {
     delete orderMap[code];
@@ -1320,15 +1305,14 @@ function exportOrder() {
   if(!items.length) { showToast('No items to export'); return; }
 
   // Build rows: header + data
-  const header = ['Product Code', 'Description 1', 'Description 2', 'Qty', 'Price'];
+  const header = ['Product Code', 'Description 1', 'Description 2', 'Qty'];
   const rows = [header];
   items.forEach(([code, v]) => {
     rows.push([
       code,
       v.desc1 || '',
       v.desc2 || '',
-      v.qty || 0,
-      v.price ? parseFloat(v.price) : ''
+      v.qty || 0
     ]);
   });
 
@@ -1341,7 +1325,6 @@ function exportOrder() {
     { wch: 36 }, // Description 1
     { wch: 24 }, // Description 2
     { wch: 8  }, // Qty
-    { wch: 12 }, // Price
   ];
 
   const wb = XLSX.utils.book_new();
