@@ -57,6 +57,8 @@
   html { scroll-behavior: smooth; font-size: 130%; }
   body { font-family: 'Barlow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
+  .new-badge { display: inline-flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #fff; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); padding: 2px 7px; border-radius: 10px; margin-left: 8px; vertical-align: middle; box-shadow: 0 0 0 1px rgba(14,165,233,0.3), 0 2px 6px rgba(14,165,233,0.35); text-transform: uppercase; }
+
   /* HEADER */
   header { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 0 24px; }
   html.light header { background: rgba(240,242,245,0.95); }
@@ -777,7 +779,7 @@ html.light .sidebar a:hover {
   <div class="sidebar-sep"></div>
   <div id="stockUpdatedBlock" style="padding: 12px 16px 16px;">
     <div style="font-size:9px;letter-spacing:0.12em;color:var(--text3,#555);text-transform:uppercase;margin-bottom:5px;">Stock Updated</div>
-    <div id="stockUpdatedTime" style="font-size:11px;font-weight:600;color:var(--text2,#aaa);letter-spacing:0.03em;">01 Sep 2026  14:34</div>
+    <div id="stockUpdatedTime" style="font-size:11px;font-weight:600;color:var(--text2,#aaa);letter-spacing:0.03em;">21 Sep 2026  14:43</div>
   </div>
   </nav>
 
@@ -905,774 +907,1376 @@ html.light .sidebar a:hover {
 <script>
 const SHOE_DATA = [
   {
-    "group": "RC903PWR",
-    "name": "Bicycle Shoes RC903PWR",
+    "group": "RC910",
+    "name": "Bicycle Shoes SH-RC910",
     "cat": "ROAD",
     "items": [
       {
-        "code":"ESHRC903PCW01S38000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCB01S36000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 36.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S37000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 37.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S37500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 37.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S38000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 38.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S38500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 38.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S39000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 39.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S39500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 39.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S40000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 40.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S40500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 40.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S41000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 41.0",
+        "status":"etd",
+        "etd":"2026-10-19"
+      },
+      {
+        "code":"ESHRC910MCB01S41500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 41.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S42000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 42.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCB01S42500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 42.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S43000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 43.0",
+        "status":"etd",
+        "etd":"2026-10-19"
+      },
+      {
+        "code":"ESHRC910MCB01S43500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 43.5",
+        "status":"etd",
+        "etd":"2026-10-19"
+      },
+      {
+        "code":"ESHRC910MCB01S44000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 44.0",
+        "status":"etd",
+        "etd":"2026-10-19"
+      },
+      {
+        "code":"ESHRC910MCB01S44500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 44.5",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCB01S45000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 45.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCB01S45500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 45.5",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCB01S46000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 46.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCB01S46500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 46.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S47000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 47.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCB01S48000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Blue 48.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S36000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 36.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S37000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 37.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S37500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 37.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S38000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 38.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC910MCL01S38500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 38.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S39000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 39.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S39500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 39.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S40000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 40.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCL01S40500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 40.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S41000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 41.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S41500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 41.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC910MCL01S42000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 42.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCL01S42500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 42.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S43000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 43.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCL01S43500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 43.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S44000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 44.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCL01S44500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 44.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S45000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 45.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCL01S45500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 45.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC910MCL01S46000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 46.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCL01S46500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 46.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01S47000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 47.0",
+        "status":"etd",
+        "etd":"2026-10-19"
+      },
+      {
+        "code":"ESHRC910MCL01S48000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black 48.0",
+        "status":"etd",
+        "etd":"2026-10-19"
+      },
+      {
+        "code":"ESHRC910MCL01N36000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 36.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01N37000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 37.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01N37500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 37.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01N38000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 38.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01N38500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 38.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC910MCL01N39000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 39.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01N40000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 40.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01N41000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 41.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01N42000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Narrow 42.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01E41000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Wide 41.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01E42000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Wide 42.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01E43000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Wide 43.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01E44000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Wide 44.0",
+        "status":"etd",
+        "etd":"2026-10-19"
+      },
+      {
+        "code":"ESHRC910MCL01E45000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Wide 45.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01E46000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Wide 46.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCL01E47000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "Black Wide 47.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01S36000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White 36.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01S37000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White 37.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01S37500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White 37.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01S38000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 38.0",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903PCW01S39000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S38500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White 38.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01S39000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 39.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903PCW01S40000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S39500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White 39.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01S40000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 40.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903PCW01S41000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S40500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White 40.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01S41000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 41.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-25"
       },
       {
-        "code":"ESHRC903PCW01S42000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S41500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White 41.5",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCW01S42000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 42.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-25"
       },
       {
-        "code":"ESHRC903PCW01S42500",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S42500",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 42.5",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903PCW01S43000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S43000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-27"
       },
       {
-        "code":"ESHRC903PCW01S43500",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S43500",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 43.5",
         "status":"etd",
-        "etd":"2026-09-02"
+        "etd":"2026-10-27"
       },
       {
-        "code":"ESHRC903PCW01S44000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S44000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 44.0",
         "status":"etd",
-        "etd":"2026-09-02"
+        "etd":"2026-10-27"
       },
       {
-        "code":"ESHRC903PCW01S44500",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S44500",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 44.5",
         "status":"etd",
-        "etd":"2026-09-02"
+        "etd":"2026-10-27"
       },
       {
-        "code":"ESHRC903PCW01S45000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S45000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 45.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-25"
       },
       {
-        "code":"ESHRC903PCW01S45500",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S45500",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 45.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-25"
       },
       {
-        "code":"ESHRC903PCW01S46000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S46000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-25"
       },
       {
-        "code":"ESHRC903PCW01S46500",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S46500",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 46.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-25"
       },
       {
-        "code":"ESHRC903PCW01S47000",
-        "desc1": "Bicycle Shoes RC903PWR",
+        "code":"ESHRC910MCW01S47000",
+        "desc1": "Bicycle Shoes SH-RC910",
         "desc2": "White 47.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-25"
+      },
+      {
+        "code":"ESHRC910MCW01S48000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White 48.0",
+        "status":"etd",
+        "etd":"2026-11-25"
+      },
+      {
+        "code":"ESHRC910MCW01N36000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 36.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01N37000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 37.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01N37500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 37.5",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01N38000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 38.0",
+        "status":"etd",
+        "etd":"2026-11-25"
+      },
+      {
+        "code":"ESHRC910MCW01N38500",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 38.5",
+        "status":"etd",
+        "etd":"2026-11-25"
+      },
+      {
+        "code":"ESHRC910MCW01N39000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 39.0",
+        "status":"etd",
+        "etd":"2026-11-25"
+      },
+      {
+        "code":"ESHRC910MCW01N40000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 40.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01N41000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 41.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01N42000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Narrow 42.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC910MCW01E41000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Wide 41.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01E42000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Wide 42.0",
+        "status":"etd",
+        "etd":"2026-11-25"
+      },
+      {
+        "code":"ESHRC910MCW01E43000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Wide 43.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01E44000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Wide 44.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01E45000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Wide 45.0",
+        "status":"etd",
+        "etd":"2026-11-25"
+      },
+      {
+        "code":"ESHRC910MCW01E46000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Wide 46.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC910MCW01E47000",
+        "desc1": "Bicycle Shoes SH-RC910",
+        "desc2": "White Wide 47.0",
+        "status":"etd",
+        "etd":"2026-09-30"
       }
     ],
     "price": null,
     "srp": null
   },
   {
-    "group": "RC903",
-    "name": "Bicycle Shoes SH-RC903",
+    "group": "RC810",
+    "name": "Bicycle Shoes SH-RC810",
     "cat": "ROAD",
     "items": [
       {
-        "code":"ESHRC903MCB01S39000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 39.0",
+        "code":"ESHRC810MCK14S36000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 36.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCB01S39500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 39.5",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S40000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 40.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S40500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 40.5",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S41000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 41.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S41500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 41.5",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S42000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 42.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S42500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 42.5",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S43000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 43.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S43500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 43.5",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S44000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 44.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S44500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 44.5",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S45000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 45.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S45500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 45.5",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S46000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 46.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S46500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 46.5",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S47000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 47.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCB01S48000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Blue 48.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCL01E41000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black Wide 41.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCL01E42000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black Wide 42.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCL01E43000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black Wide 43.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCL01E44000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black Wide 44.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCL01E45000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black Wide 45.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCL01E46000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black Wide 46.0",
+        "code":"ESHRC810MCK14S37000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 37.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-11-16"
       },
       {
-        "code":"ESHRC903MCL01E47000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black Wide 47.0",
+        "code":"ESHRC810MCK14S38000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 38.0",
+        "status":"etd",
+        "etd":"2026-11-16"
+      },
+      {
+        "code":"ESHRC810MCK14S39000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 39.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S39000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCK14S39500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 39.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S40000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 40.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S40500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 40.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S41000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 41.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S41500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 41.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S42000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 42.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S42500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 42.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S43000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 43.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S43500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 43.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S44000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 44.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S44500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 44.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S45000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 45.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S45500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 45.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S46000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 46.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S46500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 46.5",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S47000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 47.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S48000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 48.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S49000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 49.0",
+        "status":"etd",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCK14S50000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Peach 50.0",
+        "status":"etd",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCL01S36000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black 36.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCL01S37000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black 37.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCL01S38000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black 38.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCL01S39000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 39.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S39500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S39500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 39.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S40000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S40000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 40.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S40500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S40500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 40.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S41000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S41000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 41.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S41500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S41500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 41.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S42000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S42000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 42.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903MCL01S42500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S42500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 42.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S43000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S43000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903MCL01S43500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S43500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 43.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S44000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S44000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 44.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCL01S44500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black 44.5",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903MCL01S45000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Black 45.0",
+        "code":"ESHRC810MCL01S44500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black 44.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S45500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S45000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black 45.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC810MCL01S45500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 45.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCL01S46000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S46000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903MCL01S46500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S46500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 46.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903MCL01S47000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S47000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 47.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903MCL01S48000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCL01S48000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "Black 48.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S39000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 39.0",
+        "code":"ESHRC810MCL01S49000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black 49.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S39500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 39.5",
+        "code":"ESHRC810MCL01S50000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black 50.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S40000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 40.0",
+        "code":"ESHRC810MCL01N36000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Narrow 36.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S40500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 40.5",
+        "code":"ESHRC810MCL01N37000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Narrow 37.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S41000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 41.0",
+        "code":"ESHRC810MCL01N38000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Narrow 38.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S41500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 41.5",
+        "code":"ESHRC810MCL01N39000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Narrow 39.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S42000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 42.0",
+        "code":"ESHRC810MCL01N40000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Narrow 40.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S42500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 42.5",
+        "code":"ESHRC810MCL01E41000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Wide 41.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S43000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 43.0",
+        "code":"ESHRC810MCL01E42000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Wide 42.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S43500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 43.5",
+        "code":"ESHRC810MCL01E43000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Wide 43.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S44000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 44.0",
+        "code":"ESHRC810MCL01E44000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Wide 44.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S44500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 44.5",
+        "code":"ESHRC810MCL01E45000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Wide 45.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S45000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 45.0",
+        "code":"ESHRC810MCL01E46000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Wide 46.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S45500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 45.5",
+        "code":"ESHRC810MCL01E47000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "Black Wide 47.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S46000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 46.0",
+        "code":"ESHRC810MCW01S36000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 36.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S46500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 46.5",
+        "code":"ESHRC810MCW01S37000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 37.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S47000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 47.0",
+        "code":"ESHRC810MCW01S38000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 38.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCR01S48000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Red 48.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCW01E41000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White Wide 41.0",
-        "status":"etd",
-        "etd":"2029-05-27"
-      },
-      {
-        "code":"ESHRC903MCW01E42000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White Wide 42.0",
-        "status":"etd",
-        "etd":"2029-05-27"
-      },
-      {
-        "code":"ESHRC903MCW01E43000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White Wide 43.0",
-        "status":"etd",
-        "etd":"2029-05-27"
-      },
-      {
-        "code":"ESHRC903MCW01E44000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White Wide 44.0",
-        "status":"etd",
-        "etd":"2029-05-27"
-      },
-      {
-        "code":"ESHRC903MCW01E45000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White Wide 45.0",
-        "status":"etd",
-        "etd":"2029-05-27"
-      },
-      {
-        "code":"ESHRC903MCW01E46000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White Wide 46.0",
-        "status":"etd",
-        "etd":"2029-05-27"
-      },
-      {
-        "code":"ESHRC903MCW01E47000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White Wide 47.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCW01S39000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S39000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 39.0",
-        "status":"etd",
-        "etd":"2029-05-27"
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903MCW01S39500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S39500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 39.5",
-        "status":"etd",
-        "etd":"2029-05-27"
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903MCW01S40000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S40000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 40.0",
-        "status":"etd",
-        "etd":"2029-05-27"
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903MCW01S40500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S40500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 40.5",
-        "status":"etd",
-        "etd":"2029-05-27"
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903MCW01S41000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S41000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 41.0",
-        "status":"etd",
-        "etd":"2029-05-27"
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903MCW01S41500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S41500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 41.5",
-        "status":"etd",
-        "etd":"2029-05-27"
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903MCW01S42000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S42000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 42.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCW01S42500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White 42.5",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-10-27"
       },
       {
-        "code":"ESHRC903MCW01S43000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White 43.0",
+        "code":"ESHRC810MCW01S42500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 42.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCW01S43500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S43000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 43.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC810MCW01S43500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 43.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCW01S44000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S44000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 44.0",
-        "status":"available",
-        "etd":""
-      },
-      {
-        "code":"ESHRC903MCW01S44500",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White 44.5",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-10-27"
       },
       {
-        "code":"ESHRC903MCW01S45000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "White 45.0",
+        "code":"ESHRC810MCW01S44500",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 44.5",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903MCW01S45500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S45000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 45.0",
+        "status":"etd",
+        "etd":"2026-10-27"
+      },
+      {
+        "code":"ESHRC810MCW01S45500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 45.5",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903MCW01S46000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S46000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-27"
       },
       {
-        "code":"ESHRC903MCW01S46500",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S46500",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 46.5",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903MCW01S47000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S47000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 47.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-10-19"
       },
       {
-        "code":"ESHRC903MCW01S48000",
-        "desc1": "Bicycle Shoes SH-RC903",
+        "code":"ESHRC810MCW01S48000",
+        "desc1": "Bicycle Shoes SH-RC810",
         "desc2": "White 48.0",
-        "status":"etd",
-        "etd":"2029-05-27"
-      },
-      {
-        "code":"ESHRC903WCW01W36000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Women White 36.0",
         "status":"available",
         "etd":""
       },
       {
-        "code":"ESHRC903WCW01W37000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Women White 37.0",
-        "status":"etd",
-        "etd":"2029-02-26"
+        "code":"ESHRC810MCW01S49000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 49.0",
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903WCW01W38000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Women White 38.0",
+        "code":"ESHRC810MCW01S50000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White 50.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-09-30"
       },
       {
-        "code":"ESHRC903WCW01W39000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Women White 39.0",
-        "status":"etd",
-        "etd":"2029-05-27"
+        "code":"ESHRC810MCW01N36000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Narrow 36.0",
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903WCW01W40000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Women White 40.0",
-        "status":"etd",
-        "etd":"2029-02-26"
+        "code":"ESHRC810MCW01N37000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Narrow 37.0",
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903WCW01W41000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Women White 41.0",
-        "status":"etd",
-        "etd":"2029-05-27"
+        "code":"ESHRC810MCW01N38000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Narrow 38.0",
+        "status":"available",
+        "etd":""
       },
       {
-        "code":"ESHRC903WCW01W42000",
-        "desc1": "Bicycle Shoes SH-RC903",
-        "desc2": "Women White 42.0",
+        "code":"ESHRC810MCW01N39000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Narrow 39.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCW01N40000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Narrow 40.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCW01E41000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Wide 41.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC810MCW01E42000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Wide 42.0",
+        "status":"etd",
+        "etd":"2026-09-30"
+      },
+      {
+        "code":"ESHRC810MCW01E43000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Wide 43.0",
+        "status":"etd",
+        "etd":"2026-10-19"
+      },
+      {
+        "code":"ESHRC810MCW01E44000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Wide 44.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCW01E45000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Wide 45.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCW01E46000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Wide 46.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRC810MCW01E47000",
+        "desc1": "Bicycle Shoes SH-RC810",
+        "desc2": "White Wide 47.0",
+        "status":"available",
+        "etd":""
       }
     ],
     "price": null,
@@ -1848,8 +2452,8 @@ const SHOE_DATA = [
         "code":"ESHRC703MCL01E46000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "Black Wide 46.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCL01E47000",
@@ -1939,8 +2543,8 @@ const SHOE_DATA = [
         "code":"ESHRC703MCL01S44500",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "Black 44.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHRC703MCL01S45000",
@@ -1953,8 +2557,8 @@ const SHOE_DATA = [
         "code":"ESHRC703MCL01S45500",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "Black 45.5",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCL01S46000",
@@ -1989,35 +2593,35 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 39.0",
         "status":"etd",
-        "etd":"2026-11-16"
+        "etd":"2026-09-26"
       },
       {
         "code":"ESHRC703MCW01S39500",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 39.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-12-16"
       },
       {
         "code":"ESHRC703MCW01S40000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 40.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-12-16"
       },
       {
         "code":"ESHRC703MCW01S40500",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 40.5",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHRC703MCW01S41000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 41.0",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHRC703MCW01S41500",
@@ -2030,8 +2634,8 @@ const SHOE_DATA = [
         "code":"ESHRC703MCW01S42000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 42.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCW01S42500",
@@ -2044,29 +2648,29 @@ const SHOE_DATA = [
         "code":"ESHRC703MCW01S43000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 43.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCW01S43500",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 43.5",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHRC703MCW01S44000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 44.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCW01S44500",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 44.5",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHRC703MCW01S45000",
@@ -2079,22 +2683,22 @@ const SHOE_DATA = [
         "code":"ESHRC703MCW01S45500",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 45.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHRC703MCW01S46000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 46.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCW01S46500",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 46.5",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHRC703MCW01S47000",
@@ -2108,14 +2712,14 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White 48.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHRC703MCW01E41000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White Wide 41.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCW01E42000",
@@ -2128,15 +2732,15 @@ const SHOE_DATA = [
         "code":"ESHRC703MCW01E43000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White Wide 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHRC703MCW01E44000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White Wide 44.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCW01E45000",
@@ -2149,15 +2753,15 @@ const SHOE_DATA = [
         "code":"ESHRC703MCW01E46000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White Wide 46.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC703MCW01E47000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "White Wide 47.0",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHRC703MCG32S40000",
@@ -2296,15 +2900,15 @@ const SHOE_DATA = [
         "code":"ESHRC703WCW01W39000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "Women White 39.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-19"
       },
       {
         "code":"ESHRC703WCW01W40000",
         "desc1": "Bicycle Shoes SH-RC703",
         "desc2": "Women White 40.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHRC703WCW01W41000",
@@ -2333,15 +2937,15 @@ const SHOE_DATA = [
         "code":"ESHRC503WGW01W42000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "Women White 42.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC503WGW01W41000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "Women White 41.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC503WGW01W40000",
@@ -2369,7 +2973,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes RC503",
         "desc2": "Women White 37.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC503WGW01W36000",
@@ -2494,43 +3098,43 @@ const SHOE_DATA = [
         "code":"ESHRC503MGW01S46000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "White 46.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC503MGW01S45000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "White 45.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC503MGW01S44000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "White 44.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC503MGW01S43000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "White 43.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC503MGW01S42000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "White 42.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC503MGW01S41000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "White 41.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC503MGW01S40000",
@@ -2544,7 +3148,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes RC503",
         "desc2": "White 39.0",
         "status":"etd",
-        "etd":"2026-11-20"
+        "etd":"2027-01-15"
       },
       {
         "code":"ESHRC503MGW01E47000",
@@ -2593,14 +3197,14 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes RC503",
         "desc2": "White Wide 41.0",
         "status":"etd",
-        "etd":"2026-11-20"
+        "etd":"2027-01-15"
       },
       {
         "code":"ESHRC503MGL01S50000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "Black 50.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC503MGL01S49000",
@@ -2705,7 +3309,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes RC503",
         "desc2": "Black Wide 45.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC503MGL01E44000",
@@ -2718,8 +3322,8 @@ const SHOE_DATA = [
         "code":"ESHRC503MGL01E43000",
         "desc1": "Bicycle Shoes RC503",
         "desc2": "Black Wide 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC503MGL01E42000",
@@ -2818,8 +3422,8 @@ const SHOE_DATA = [
         "code":"ESHRC302MGL01E41000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Black Wide 41.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC302MGL01E42000",
@@ -2839,8 +3443,8 @@ const SHOE_DATA = [
         "code":"ESHRC302MGL01E44000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Black Wide 44.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGL01E45000",
@@ -2853,8 +3457,8 @@ const SHOE_DATA = [
         "code":"ESHRC302MGL01E46000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Black Wide 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC302MGL01E47000",
@@ -2868,7 +3472,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Black 39.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGL01S40000",
@@ -2931,21 +3535,21 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Black 48.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGL01S49000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Black 49.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGL01S50000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Black 50.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGN01S39000",
@@ -3022,63 +3626,63 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 39.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S40000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 40.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S41000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 41.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S42000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 42.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S43000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 43.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S44000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 44.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S45000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 45.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S46000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 46.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S47000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "White 47.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC302MGW01S48000",
@@ -3098,8 +3702,8 @@ const SHOE_DATA = [
         "code":"ESHRC302WGE31W37000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women Sage Green 37.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC302WGE31W38000",
@@ -3113,14 +3717,14 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women Sage Green 39.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC302WGE31W40000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women Sage Green 40.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC302WGE31W41000",
@@ -3148,14 +3752,14 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women Black 37.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHRC302WGL01W38000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women Black 38.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC302WGL01W39000",
@@ -3204,21 +3808,21 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women White 38.0",
         "status":"etd",
-        "etd":"2026-11-20"
+        "etd":"2027-01-15"
       },
       {
         "code":"ESHRC302WGW01W39000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women White 39.0",
         "status":"etd",
-        "etd":"2026-11-20"
+        "etd":"2027-01-15"
       },
       {
         "code":"ESHRC302WGW01W40000",
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women White 40.0",
         "status":"etd",
-        "etd":"2026-11-20"
+        "etd":"2027-01-15"
       },
       {
         "code":"ESHRC302WGW01W41000",
@@ -3232,7 +3836,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC302",
         "desc2": "Women White 42.0",
         "status":"etd",
-        "etd":"2026-11-20"
+        "etd":"2027-01-15"
       }
     ],
     "price": null,
@@ -3262,7 +3866,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RC102",
         "desc2": "Black 40.0",
         "status":"etd",
-        "etd":"2027-02-17"
+        "etd":"2027-03-15"
       },
       {
         "code":"ESHRC102MGL01S41000",
@@ -3492,15 +4096,15 @@ const SHOE_DATA = [
         "code":"ESHRC102WGL01W40000",
         "desc1": "Bicycle Shoes SH-RC102",
         "desc2": "Women Black 40.0",
-        "status":"etd",
-        "etd":"2026-10-15"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC102WGL01W41000",
         "desc1": "Bicycle Shoes SH-RC102",
         "desc2": "Women Black 41.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHRC102WGL01W42000",
@@ -3541,8 +4145,8 @@ const SHOE_DATA = [
         "code":"ESHRC102WGP21W40000",
         "desc1": "Bicycle Shoes SH-RC102",
         "desc2": "Women Violet 40.0",
-        "status":"etd",
-        "etd":"2026-09-04"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRC102WGP21W41000",
@@ -3557,6 +4161,169 @@ const SHOE_DATA = [
         "desc2": "Women Violet 42.0",
         "status":"available",
         "etd":""
+      }
+    ],
+    "price": null,
+    "srp": null
+  },
+  {
+    "group": "RP102",
+    "name": "Bicycle Shoes SH-RP102",
+    "cat": "ROAD",
+    "items": [
+      {
+        "code":"ESHRP102MGL01S38000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 38.0",
+        "status":"etd",
+        "etd":"2026-11-20"
+      },
+      {
+        "code":"ESHRP102MGL01S39000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 39.0",
+        "status":"etd",
+        "etd":"2027-02-17"
+      },
+      {
+        "code":"ESHRP102MGL01S40000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 40.0",
+        "status":"etd",
+        "etd":"2026-12-14"
+      },
+      {
+        "code":"ESHRP102MGL01S41000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 41.0",
+        "status":"etd",
+        "etd":"2026-10-21"
+      },
+      {
+        "code":"ESHRP102MGL01S42000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 42.0",
+        "status":"etd",
+        "etd":"2026-10-21"
+      },
+      {
+        "code":"ESHRP102MGL01S43000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 43.0",
+        "status":"etd",
+        "etd":"2026-10-21"
+      },
+      {
+        "code":"ESHRP102MGL01S44000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 44.0",
+        "status":"etd",
+        "etd":"2026-10-21"
+      },
+      {
+        "code":"ESHRP102MGL01S45000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 45.0",
+        "status":"etd",
+        "etd":"2026-10-21"
+      },
+      {
+        "code":"ESHRP102MGL01S46000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 46.0",
+        "status":"etd",
+        "etd":"2026-10-21"
+      },
+      {
+        "code":"ESHRP102MGL01S47000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 47.0",
+        "status":"etd",
+        "etd":"2026-10-21"
+      },
+      {
+        "code":"ESHRP102MGL01S48000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "Black 48.0",
+        "status":"etd",
+        "etd":"2026-10-21"
+      },
+      {
+        "code":"ESHRP102MGW01S38000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 38.0",
+        "status":"etd",
+        "etd":"2026-12-14"
+      },
+      {
+        "code":"ESHRP102MGW01S39000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 39.0",
+        "status":"etd",
+        "etd":"2027-02-17"
+      },
+      {
+        "code":"ESHRP102MGW01S40000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 40.0",
+        "status":"etd",
+        "etd":"2027-02-17"
+      },
+      {
+        "code":"ESHRP102MGW01S41000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 41.0",
+        "status":"etd",
+        "etd":"2027-01-15"
+      },
+      {
+        "code":"ESHRP102MGW01S42000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 42.0",
+        "status":"etd",
+        "etd":"2027-02-17"
+      },
+      {
+        "code":"ESHRP102MGW01S43000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 43.0",
+        "status":"etd",
+        "etd":"2027-02-17"
+      },
+      {
+        "code":"ESHRP102MGW01S44000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 44.0",
+        "status":"etd",
+        "etd":"2027-02-17"
+      },
+      {
+        "code":"ESHRP102MGW01S45000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 45.0",
+        "status":"etd",
+        "etd":"2027-02-17"
+      },
+      {
+        "code":"ESHRP102MGW01S46000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 46.0",
+        "status":"available",
+        "etd":""
+      },
+      {
+        "code":"ESHRP102MGW01S47000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 47.0",
+        "status":"etd",
+        "etd":"2026-12-14"
+      },
+      {
+        "code":"ESHRP102MGW01S48000",
+        "desc1": "Bicycle Shoes SH-RP102",
+        "desc2": "White 48.0",
+        "status":"etd",
+        "etd":"2027-03-15"
       }
     ],
     "price": null,
@@ -3732,8 +4499,8 @@ const SHOE_DATA = [
         "code":"ESHTR903MCS08S44500",
         "desc1": "Bicycle Shoes TR903",
         "desc2": "Matte Gunmetal 44.5",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHTR903MCS08S45000",
@@ -3760,8 +4527,8 @@ const SHOE_DATA = [
         "code":"ESHTR903MCS08S46500",
         "desc1": "Bicycle Shoes TR903",
         "desc2": "Matte Gunmetal 46.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHTR903MCS08S47000",
@@ -3811,8 +4578,8 @@ const SHOE_DATA = [
         "code":"ESHTR501MCW01S39000",
         "desc1": "Bicycle Shoes SH-TR501M",
         "desc2": "White 39.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHTR501MCW01S40000",
@@ -3840,7 +4607,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-TR501M",
         "desc2": "White 43.0",
         "status":"etd",
-        "etd":"2026-11-16"
+        "etd":"2026-09-26"
       },
       {
         "code":"ESHTR501MCW01S44000",
@@ -3860,15 +4627,15 @@ const SHOE_DATA = [
         "code":"ESHTR501MCW01S46000",
         "desc1": "Bicycle Shoes SH-TR501M",
         "desc2": "White 46.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHTR501MCW01S47000",
         "desc1": "Bicycle Shoes SH-TR501M",
         "desc2": "White 47.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHTR501MCW01S48000",
@@ -3903,21 +4670,21 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-TR501W",
         "desc2": "Women White 37.0",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHTR501WCW01W38000",
         "desc1": "Bicycle Shoes SH-TR501W",
         "desc2": "Women White 38.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHTR501WCW01W39000",
         "desc1": "Bicycle Shoes SH-TR501W",
         "desc2": "Women White 39.0",
         "status":"etd",
-        "etd":"2027-01-18"
+        "etd":"2026-09-22"
       },
       {
         "code":"ESHTR501WCW01W40000",
@@ -3937,8 +4704,8 @@ const SHOE_DATA = [
         "code":"ESHTR501WCW01W42000",
         "desc1": "Bicycle Shoes SH-TR501W",
         "desc2": "Women White 42.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       }
     ],
     "price": null,
@@ -4135,8 +4902,8 @@ const SHOE_DATA = [
         "code":"ESHXC903MCL01S41000",
         "desc1": "Bicycle Shoes XC903",
         "desc2": "Black 41.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC903MCL01S42000",
@@ -4254,15 +5021,15 @@ const SHOE_DATA = [
         "code":"ESHXC903MCW01E45000",
         "desc1": "Bicycle Shoes XC903",
         "desc2": "White Wide 45.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC903MCW01E46000",
         "desc1": "Bicycle Shoes XC903",
         "desc2": "White Wide 46.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC903MCW01E47000",
@@ -4289,8 +5056,8 @@ const SHOE_DATA = [
         "code":"ESHXC903MCW01S40000",
         "desc1": "Bicycle Shoes XC903",
         "desc2": "White 40.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC903MCW01S41000",
@@ -4317,8 +5084,8 @@ const SHOE_DATA = [
         "code":"ESHXC903MCW01S43000",
         "desc1": "Bicycle Shoes XC903",
         "desc2": "White 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-22"
       },
       {
         "code":"ESHXC903MCW01S43500",
@@ -4331,8 +5098,8 @@ const SHOE_DATA = [
         "code":"ESHXC903MCW01S44000",
         "desc1": "Bicycle Shoes XC903",
         "desc2": "White 44.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC903MCW01S44500",
@@ -4366,15 +5133,15 @@ const SHOE_DATA = [
         "code":"ESHXC903MCW01S47000",
         "desc1": "Bicycle Shoes XC903",
         "desc2": "White 47.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC903MCW01S48000",
         "desc1": "Bicycle Shoes XC903",
         "desc2": "White 48.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code": "ESHXC903MCE22S40000",
@@ -4450,22 +5217,22 @@ const SHOE_DATA = [
         "code":"ESHXC903SCS01S40000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 40.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S41000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 41.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S42000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 42.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S42500",
@@ -4478,50 +5245,50 @@ const SHOE_DATA = [
         "code":"ESHXC903SCS01S43000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S43500",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 43.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S44000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 44.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S45000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 45.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S46000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S47000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 47.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903SCS01S48000",
         "desc1": "Bicycle Shoes XC903S",
         "desc2": "Silver 48.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHXC903WCW01W36000",
@@ -4585,36 +5352,36 @@ const SHOE_DATA = [
         "code":"ESHXC703MCL01E41000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black Wide 41.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01E42000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black Wide 42.0",
-        "status":"etd",
-        "etd":"2026-09-04"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01E43000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black Wide 43.0",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHXC703MCL01E44000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black Wide 44.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01E45000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black Wide 45.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHXC703MCL01E46000",
@@ -4627,8 +5394,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCL01S38000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 38.0",
-        "status":"etd",
-        "etd":"2026-09-04"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01S39000",
@@ -4648,15 +5415,15 @@ const SHOE_DATA = [
         "code":"ESHXC703MCL01S40000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 40.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01S40500",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 40.5",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHXC703MCL01S41000",
@@ -4669,8 +5436,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCL01S41500",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 41.5",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01S42000",
@@ -4683,8 +5450,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCL01S42500",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 42.5",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01S43000",
@@ -4726,7 +5493,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 45.5",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHXC703MCL01S46000",
@@ -4739,8 +5506,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCL01S46500",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 46.5",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01S47000",
@@ -4760,22 +5527,22 @@ const SHOE_DATA = [
         "code":"ESHXC703MCL01S49000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 49.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCL01S50000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Black 50.0",
-        "status":"etd",
-        "etd":"2026-09-04"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCP23S39000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Butterfly 39.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCP23S39500",
@@ -4788,15 +5555,15 @@ const SHOE_DATA = [
         "code":"ESHXC703MCP23S40000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Butterfly 40.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCP23S40500",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Butterfly 40.5",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCP23S41000",
@@ -4809,8 +5576,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCP23S41500",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Butterfly 41.5",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCP23S42000",
@@ -4838,7 +5605,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Butterfly 43.5",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHXC703MCP23S44000",
@@ -4886,8 +5653,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCP23S47000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Butterfly 47.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCP23S48000",
@@ -4900,8 +5667,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCS01S39000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Silver 39.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-16"
       },
       {
         "code":"ESHXC703MCS01S39500",
@@ -4914,8 +5681,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCS01S40000",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Silver 40.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCS01S40500",
@@ -4935,8 +5702,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCS01S41500",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Silver 41.5",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-01-18"
       },
       {
         "code":"ESHXC703MCS01S42000",
@@ -4991,8 +5758,8 @@ const SHOE_DATA = [
         "code":"ESHXC703MCS01S45500",
         "desc1": "Bicycle Shoes XC703",
         "desc2": "Silver 45.5",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC703MCS01S46000",
@@ -5085,7 +5852,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Ice Blue 38.0",
         "status":"etd",
-        "etd":"2027-02-28"
+        "etd":"2027-03-20"
       },
       {
         "code":"ESHXC503MGB32S39000",
@@ -5168,8 +5935,8 @@ const SHOE_DATA = [
         "code":"ESHXC503MGF09S39000",
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Sand Beige 39.0",
-        "status":"etd",
-        "etd":"2026-09-01"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC503MGF09S40000",
@@ -5238,8 +6005,8 @@ const SHOE_DATA = [
         "code":"ESHXC503MGL01E41000",
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Black Wide 41.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC503MGL01E42000",
@@ -5252,43 +6019,43 @@ const SHOE_DATA = [
         "code":"ESHXC503MGL01E43000",
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Black Wide 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC503MGL01E44000",
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Black Wide 44.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC503MGL01E45000",
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Black Wide 45.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC503MGL01E46000",
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Black Wide 46.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC503MGL01E47000",
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Black Wide 47.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC503MGL01S38000",
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Black 38.0",
         "status":"etd",
-        "etd":"2027-02-17"
+        "etd":"2027-03-15"
       },
       {
         "code":"ESHXC503MGL01S39000",
@@ -5442,7 +6209,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Women Black 38.0",
         "status":"etd",
-        "etd":"2026-09-04"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC503WGL01W39000",
@@ -5456,7 +6223,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC503",
         "desc2": "Women Black 40.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC503WGL01W41000",
@@ -5486,42 +6253,42 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 38.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGG13S39000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 39.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2027-02-17"
       },
       {
         "code":"ESHXC302MGG13S40000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 40.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGG13S41000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 41.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGG13S42000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 42.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGG13S43000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 43.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGG13S44000",
@@ -5535,189 +6302,189 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 45.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGG13S46000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 46.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGG13S47000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 47.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGG13S48000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Ice Gray 48.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01E41000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black Wide 41.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01E42000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black Wide 42.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01E43000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black Wide 43.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01E44000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black Wide 44.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01E45000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black Wide 45.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01E46000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black Wide 46.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01E47000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black Wide 47.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01S36000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 36.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHXC302MGL01S37000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 37.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGL01S38000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 38.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHXC302MGL01S39000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 39.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGL01S40000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 40.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHXC302MGL01S41000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 41.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHXC302MGL01S42000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 42.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGL01S43000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 43.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGL01S44000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 44.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGL01S45000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 45.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGL01S46000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 46.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGL01S47000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 47.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGL01S48000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 48.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01S49000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 49.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGL01S50000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Black 50.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302MGM01S38000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Brown 38.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHXC302MGM01S39000",
@@ -5765,8 +6532,8 @@ const SHOE_DATA = [
         "code":"ESHXC302MGM01S45000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Brown 45.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC302MGM01S46000",
@@ -5794,42 +6561,42 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Surf Blue 36.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302WGB33W37000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Surf Blue 37.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302WGB33W38000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Surf Blue 38.0",
         "status":"etd",
-        "etd":"2026-09-02"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302WGB33W39000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Surf Blue 39.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302WGB33W40000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Surf Blue 40.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302WGB33W41000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Surf Blue 41.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302WGB33W42000",
@@ -5857,14 +6624,14 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Black 38.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHXC302WGL01W39000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Black 39.0",
         "status":"etd",
-        "etd":"2026-12-14"
+        "etd":"2027-02-17"
       },
       {
         "code":"ESHXC302WGL01W40000",
@@ -5877,8 +6644,8 @@ const SHOE_DATA = [
         "code":"ESHXC302WGL01W41000",
         "desc1": "Bicycle Shoes XC302",
         "desc2": "Women Black 41.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-02-17"
       },
       {
         "code":"ESHXC302WGL01W42000",
@@ -5977,8 +6744,8 @@ const SHOE_DATA = [
         "code":"ESHXC102MGL01S38000",
         "desc1": "Bicycle Shoes XC102",
         "desc2": "Black 38.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC102MGL01S39000",
@@ -5991,15 +6758,15 @@ const SHOE_DATA = [
         "code":"ESHXC102MGL01S40000",
         "desc1": "Bicycle Shoes XC102",
         "desc2": "Black 40.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC102MGL01S41000",
         "desc1": "Bicycle Shoes XC102",
         "desc2": "Black 41.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC102MGL01S42000",
@@ -6054,15 +6821,15 @@ const SHOE_DATA = [
         "code":"ESHXC102MGL01S49000",
         "desc1": "Bicycle Shoes XC102",
         "desc2": "Black 49.0",
-        "status":"etd",
-        "etd":"2026-09-11"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHXC102MGL01S50000",
         "desc1": "Bicycle Shoes XC102",
         "desc2": "Black 50.0",
         "status":"etd",
-        "etd":"2026-09-11"
+        "etd":"2026-10-21"
       },
       {
         "code": "ESHXC102WGB24W36000",
@@ -6259,8 +7026,8 @@ const SHOE_DATA = [
         "code":"ESHRX910MCL01S41500",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "Black 41.5",
-        "status":"etd",
-        "etd":"2026-09-01"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCL01S42000",
@@ -6364,43 +7131,43 @@ const SHOE_DATA = [
         "code":"ESHRX910MCW01E43000",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White Wide 43.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01E44000",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White Wide 44.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01E45000",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White Wide 45.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01E46000",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White Wide 46.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01E47000",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White Wide 47.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01S38000",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White 38.0",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01S39000",
@@ -6413,8 +7180,8 @@ const SHOE_DATA = [
         "code":"ESHRX910MCW01S39500",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White 39.5",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01S40000",
@@ -6427,8 +7194,8 @@ const SHOE_DATA = [
         "code":"ESHRX910MCW01S40500",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White 40.5",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01S41000",
@@ -6469,8 +7236,8 @@ const SHOE_DATA = [
         "code":"ESHRX910MCW01S43500",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White 43.5",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01S44000",
@@ -6497,8 +7264,8 @@ const SHOE_DATA = [
         "code":"ESHRX910MCW01S45500",
         "desc1": "Bicycle Shoes RX910",
         "desc2": "White 45.5",
-        "status":"etd",
-        "etd":"2026-09-02"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX910MCW01S46000",
@@ -6618,8 +7385,8 @@ const SHOE_DATA = [
         "code":"ESHRX801MCL01S43000",
         "desc1": "Bicycle Shoes SH-RX801",
         "desc2": "Black 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHRX801MCL01S44000",
@@ -6633,14 +7400,14 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RX801",
         "desc2": "Black 45.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHRX801MCL01S46000",
         "desc1": "Bicycle Shoes SH-RX801",
         "desc2": "Black 46.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHRX801MCL01S47000",
@@ -6702,8 +7469,8 @@ const SHOE_DATA = [
         "code":"ESHRX801MCS01S45000",
         "desc1": "Bicycle Shoes SH-RX801",
         "desc2": "Silver 45.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHRX801MCS01S46000",
@@ -6823,8 +7590,8 @@ const SHOE_DATA = [
         "code":"ESHRX600MCE01S41000",
         "desc1": "Bicycle Shoes SH-RX600",
         "desc2": "Green 41.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code": "ESHRX600MCE01S42000",
@@ -6886,22 +7653,22 @@ const SHOE_DATA = [
         "code":"ESHRX600MCL01E42000",
         "desc1": "Bicycle Shoes SH-RX600",
         "desc2": "Black Wide 42.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX600MCL01E43000",
         "desc1": "Bicycle Shoes SH-RX600",
         "desc2": "Black Wide 43.0",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHRX600MCL01E44000",
         "desc1": "Bicycle Shoes SH-RX600",
         "desc2": "Black Wide 44.0",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHRX600MCL01E45000",
@@ -6914,15 +7681,15 @@ const SHOE_DATA = [
         "code":"ESHRX600MCL01E46000",
         "desc1": "Bicycle Shoes SH-RX600",
         "desc2": "Black Wide 46.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHRX600MCL01E47000",
         "desc1": "Bicycle Shoes SH-RX600",
         "desc2": "Black Wide 47.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHRX600MCL01S39000",
@@ -7062,7 +7829,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-RX600",
         "desc2": "Women Stone Gray 38.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHRX600WCG27W39000",
@@ -7126,22 +7893,22 @@ const SHOE_DATA = [
         "code":"ESHGE900MCL01S41000",
         "desc1": "Bicycle Shoes SH-GE900",
         "desc2": "Black 41.0",
-        "status":"etd",
-        "etd":"2026-09-04"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHGE900MCL01S42000",
         "desc1": "Bicycle Shoes SH-GE900",
         "desc2": "Black 42.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHGE900MCL01S43000",
         "desc1": "Bicycle Shoes SH-GE900",
         "desc2": "Black 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHGE900MCL01S44000",
@@ -7161,8 +7928,8 @@ const SHOE_DATA = [
         "code":"ESHGE900MCL01S46000",
         "desc1": "Bicycle Shoes SH-GE900",
         "desc2": "Black 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-16"
       },
       {
         "code":"ESHGE900MCL01S47000",
@@ -7182,8 +7949,8 @@ const SHOE_DATA = [
         "code":"ESHGE900GCL01S38000",
         "desc1": "Bicycle Shoes GE900GTX",
         "desc2": "Black 38.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHGE900GCL01S39000",
@@ -7252,8 +8019,8 @@ const SHOE_DATA = [
         "code":"ESHGE900GCL01S48000",
         "desc1": "Bicycle Shoes GE900GTX",
         "desc2": "Black 48.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHGE900HCW01S38000",
@@ -7431,8 +8198,8 @@ const SHOE_DATA = [
         "code":"ESHGE500MCE29S38000",
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Light Green 38.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHGE500MCE29S39000",
@@ -7446,7 +8213,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Light Green 40.0",
         "status":"etd",
-        "etd":"2026-09-18"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHGE500MCE29S41000",
@@ -7466,15 +8233,15 @@ const SHOE_DATA = [
         "code":"ESHGE500MCE29S43000",
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Light Green 43.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHGE500MCE29S44000",
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Light Green 44.0",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-11-16"
       },
       {
         "code":"ESHGE500MCE29S45000",
@@ -7495,7 +8262,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Light Green 47.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHGE500MCE29S48000",
@@ -7515,8 +8282,8 @@ const SHOE_DATA = [
         "code":"ESHGE500MCL01S39000",
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Black 39.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-26"
       },
       {
         "code":"ESHGE500MCL01S40000",
@@ -7544,7 +8311,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Black 43.0",
         "status":"etd",
-        "etd":"2026-11-16"
+        "etd":"2026-09-26"
       },
       {
         "code":"ESHGE500MCL01S44000",
@@ -7564,15 +8331,15 @@ const SHOE_DATA = [
         "code":"ESHGE500MCL01S46000",
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Black 46.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
-        "code": "ESHGE500MCL01S47000",
+        "code":"ESHGE500MCL01S47000",
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Black 47.0",
-        "status": "available",
-        "etd": ""
+        "status":"etd",
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHGE500MCL01S48000",
@@ -7620,8 +8387,8 @@ const SHOE_DATA = [
         "code":"ESHGE500WCB30W41000",
         "desc1": "Bicycle Shoes SH-GE500",
         "desc2": "Women Denim 41.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-01-18"
       },
       {
         "code":"ESHGE500WCB30W42000",
@@ -7932,15 +8699,15 @@ const SHOE_DATA = [
         "code":"ESHGF400MCL01S35000",
         "desc1": "ESHGF400MCL01S35000",
         "desc2": "Bicycle Shoes SH-GF400",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHGF400MCL01S36000",
         "desc1": "ESHGF400MCL01S36000",
         "desc2": "Bicycle Shoes SH-GF400",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2027-02-15"
       },
       {
         "code":"ESHGF400MCL01S37000",
@@ -8237,8 +9004,8 @@ const SHOE_DATA = [
         "code":"ESHEX900MCL01S48000",
         "desc1": "Bicycle Shoes SH-EX900",
         "desc2": "Black 48.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-02-15"
       }
     ],
     "price": null,
@@ -8288,8 +9055,8 @@ const SHOE_DATA = [
         "code":"ESHEX700GCL01S44000",
         "desc1": "Bicycle Shoes SH-EX700GTX",
         "desc2": "Black 44.0",
-        "status":"etd",
-        "etd":"2026-09-01"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHEX700GCL01S45000",
@@ -8408,42 +9175,42 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Black 41.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHEX700MCL01S42000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Black 42.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHEX700MCL01S43000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Black 43.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHEX700MCL01S44000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Black 44.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHEX700MCL01S45000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Black 45.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHEX700MCL01S46000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Black 46.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHEX700MCL01S47000",
@@ -8463,8 +9230,8 @@ const SHOE_DATA = [
         "code":"ESHEX700MCB26S40000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Dark Blue 40.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHEX700MCB26S41000",
@@ -8478,42 +9245,42 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Dark Blue 42.0",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHEX700MCB26S43000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Dark Blue 43.0",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHEX700MCB26S44000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Dark Blue 44.0",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHEX700MCB26S45000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Dark Blue 45.0",
         "status":"etd",
-        "etd":"2026-10-31"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHEX700MCB26S46000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Dark Blue 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHEX700MCB26S47000",
         "desc1": "Bicycle Shoes SH-EX700",
         "desc2": "Dark Blue 47.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHEX700MCB26S48000",
@@ -8563,8 +9330,8 @@ const SHOE_DATA = [
         "code":"ESHEX500MGE07S43000",
         "desc1": "Bicycle Shoes SH-EX500",
         "desc2": "Olive 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-03-20"
       },
       {
         "code":"ESHEX500MGE07S44000",
@@ -8634,7 +9401,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-EX500",
         "desc2": "Black 43.0",
         "status":"etd",
-        "etd":"2026-11-20"
+        "etd":"2026-09-26"
       },
       {
         "code":"ESHEX500MGL01S44000",
@@ -8755,21 +9522,21 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-EX300",
         "desc2": "Black 42.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHEX300MGL01S43000",
         "desc1": "Bicycle Shoes SH-EX300",
         "desc2": "Black 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-12-14"
       },
       {
         "code":"ESHEX300MGL01S44000",
         "desc1": "Bicycle Shoes SH-EX300",
         "desc2": "Black 44.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHEX300MGL01S45000",
@@ -8790,14 +9557,14 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-EX300",
         "desc2": "Black 47.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHEX300MGL01S48000",
         "desc1": "Bicycle Shoes SH-EX300",
         "desc2": "Black 48.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-20"
       },
       {
         "code":"ESHEX300MGN01S39000",
@@ -8909,7 +9676,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-EX300",
         "desc2": "Women Gray/Mint 41.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       },
       {
         "code":"ESHEX300WGG09W42000",
@@ -9002,21 +9769,21 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-ET701",
         "desc2": "Green 42.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHET701MCE01S43000",
         "desc1": "Bicycle Shoes SH-ET701",
         "desc2": "Green 43.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHET701MCE01S44000",
         "desc1": "Bicycle Shoes SH-ET701",
         "desc2": "Green 44.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHET701MCE01S45000",
@@ -9078,22 +9845,22 @@ const SHOE_DATA = [
         "code":"ESHET701MCL01S44000",
         "desc1": "Bicycle Shoes SH-ET701",
         "desc2": "Black 44.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHET701MCL01S45000",
         "desc1": "Bicycle Shoes SH-ET701",
         "desc2": "Black 45.0",
         "status":"etd",
-        "etd":"2027-01-29"
+        "etd":"2027-02-18"
       },
       {
         "code":"ESHET701MCL01S46000",
         "desc1": "Bicycle Shoes SH-ET701",
         "desc2": "Black 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-01-18"
       },
       {
         "code":"ESHET701MCL01S47000",
@@ -9128,7 +9895,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-ET701",
         "desc2": "Women Almond Brown 39.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHET701WCM14W40000",
@@ -9164,8 +9931,8 @@ const SHOE_DATA = [
         "code":"ESHET501MGB01S39000",
         "desc1": "Bicycle Shoes SH-ET501",
         "desc2": "Blue 39.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHET501MGB01S40000",
@@ -9200,7 +9967,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-ET501",
         "desc2": "Blue 44.0",
         "status":"etd",
-        "etd":"2029-05-27"
+        "etd":"2029-06-16"
       },
       {
         "code":"ESHET501MGB01S45000",
@@ -9255,8 +10022,8 @@ const SHOE_DATA = [
         "code":"ESHET501MGL01S43000",
         "desc1": "Bicycle Shoes SH-ET501",
         "desc2": "Black 43.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-02-17"
       },
       {
         "code":"ESHET501MGL01S44000",
@@ -9276,8 +10043,8 @@ const SHOE_DATA = [
         "code":"ESHET501MGL01S46000",
         "desc1": "Bicycle Shoes SH-ET501",
         "desc2": "Black 46.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2027-02-17"
       },
       {
         "code":"ESHET501MGL01S47000",
@@ -9333,7 +10100,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-ET501",
         "desc2": "Women Black 42.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-21"
       }
     ],
     "price": null,
@@ -9348,15 +10115,15 @@ const SHOE_DATA = [
         "code":"ESHIC501MCL01S420T",
         "desc1": "Bicycle Shoes SH-IC501 Fuze",
         "desc2": "Black 42.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-16"
       },
       {
         "code":"ESHIC501MCL01S430T",
         "desc1": "Bicycle Shoes SH-IC501 Fuze",
         "desc2": "Black 43.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHIC501MCL01S440T",
@@ -9369,8 +10136,8 @@ const SHOE_DATA = [
         "code":"ESHIC501MCL01S450T",
         "desc1": "Bicycle Shoes SH-IC501 Fuze",
         "desc2": "Black 45.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-16"
       },
       {
         "code":"ESHIC501MCL01S460T",
@@ -9418,8 +10185,8 @@ const SHOE_DATA = [
         "code":"ESHIC501MCL01W390T",
         "desc1": "Bicycle Shoes SH-IC501 Fuze",
         "desc2": "Black 39.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHIC501MCL01W400T",
@@ -9433,7 +10200,7 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-IC501 Fuze",
         "desc2": "Black 41.0",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-10-27"
       }
     ],
     "price": null,
@@ -9449,28 +10216,28 @@ const SHOE_DATA = [
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Black 42.0",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHIC100MCL01S43000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Black 43.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHIC100MCL01S44000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Black 44.0",
         "status":"etd",
-        "etd":"2026-10-15"
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHIC100MCL01S45000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Black 45.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-27"
       },
       {
         "code":"ESHIC100MCL01S46000",
@@ -9483,15 +10250,15 @@ const SHOE_DATA = [
         "code":"ESHIC100MCL01S47000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Black 47.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHIC100MCL01S48000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Black 48.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-11-16"
       },
       {
         "code":"ESHIC100MCL01W36000",
@@ -9504,36 +10271,73 @@ const SHOE_DATA = [
         "code":"ESHIC100MCL01W37000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Women Black 37.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHIC100MCL01W38000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Women Black 38.0",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-09-30"
       },
       {
         "code":"ESHIC100MCL01W39000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Women Black 39.0",
         "status":"etd",
-        "etd":"2026-09-30"
+        "etd":"2026-10-19"
       },
       {
         "code":"ESHIC100MCL01W40000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Women Black 40.0",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESHIC100MCL01W41000",
         "desc1": "Bicycle Shoes SH-IC100",
         "desc2": "Women Black 41.0",
+        "status":"available",
+        "etd":""
+      }
+    ],
+    "price": null,
+    "srp": null
+  },
+  {
+    "group": "Shoe Cleats SPD-SLR",
+    "name": "Shoe Cleats SPD-SLR",
+    "cat": "SHOE CLEATS",
+    "items": [
+      {
+        "code":"ICLSL100",
+        "desc1": "Shoe Cleats SPD-SLR CL-SL100",
+        "desc2": "Road Red 0 Degr. Clearance",
         "status":"etd",
-        "etd":"2026-09-17"
+        "etd":"2027-02-11"
+      },
+      {
+        "code":"ICLSL110",
+        "desc1": "Shoe Cleats SPD-SLR CL-SL110",
+        "desc2": "Road Yellow 6 Degr. Clearance",
+        "status":"etd",
+        "etd":"2027-01-30"
+      },
+      {
+        "code":"ICLSL120",
+        "desc1": "Shoe Cleats SPD-SLR CL-SL120",
+        "desc2": "Road Blue 2 Degr. Clearance",
+        "status":"etd",
+        "etd":"2026-10-25"
+      },
+      {
+        "code":"ICLSL130",
+        "desc1": "Shoe Cleats SPD-SLR CL-SL130",
+        "desc2": "Road Grey Wide Mounting Range",
+        "status":"etd",
+        "etd":"2027-01-30"
       }
     ],
     "price": null,
@@ -9633,14 +10437,14 @@ const SHOE_DATA = [
         "desc1": "Shoe Cleats Fixing Screw",
         "desc2": "PD-M737",
         "status":"etd",
-        "etd":"2026-09-14"
+        "etd":"2026-09-22"
       },
       {
         "code":"Y40B98150",
         "desc1": "Shoe Cleats Spacer/Fixing Bolt",
         "desc2": "SM-SH20",
         "status":"etd",
-        "etd":"2026-09-04"
+        "etd":"2026-10-24"
       }
     ]
   },
@@ -9653,8 +10457,8 @@ const SHOE_DATA = [
         "code":"ESMSH45",
         "desc1": "Shimano Shoe Cleats Cover",
         "desc2": "Black 1 Pair",
-        "status":"available",
-        "etd":""
+        "status":"etd",
+        "etd":"2026-10-12"
       },
       {
         "code":"ESMSHMT33CC",
@@ -9667,8 +10471,8 @@ const SHOE_DATA = [
         "code":"ESMSH41",
         "desc1": "SPD Cleat Adapters",
         "desc2": "SM-SH41 w/Cleat Bolt w/o Cleat",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESMSHCT500CC",
@@ -9681,8 +10485,8 @@ const SHOE_DATA = [
         "code":"ESMSHRP100CLNT",
         "desc1": "SPD-SL Cleat Nut 5 Hole Type",
         "desc2": "1PCS",
-        "status":"etd",
-        "etd":"2026-09-17"
+        "status":"available",
+        "etd":""
       },
       {
         "code":"ESMSHXC901MSKG01000",
@@ -9948,7 +10752,7 @@ const SHOE_DATA = [
         "desc1": "Dual Fit Rain Shoe Cover",
         "desc2": "Black XXL (Shoe 47-49)",
         "status":"etd",
-        "etd":"2026-11-30"
+        "etd":"2026-12-20"
       }
     ]
   },
@@ -9976,21 +10780,21 @@ const SHOE_DATA = [
         "desc1": "S-Phyre Tall Size Cover",
         "desc2": "Black L (Size 42-43)",
         "status":"etd",
-        "etd":"2026-11-30"
+        "etd":"2026-12-20"
       },
       {
         "code":"ECWFARWYS12UL0107",
         "desc1": "S-Phyre Tall Size Cover",
         "desc2": "Black XL (Size 44-46)",
         "status":"etd",
-        "etd":"2026-11-30"
+        "etd":"2026-12-20"
       },
       {
         "code":"ECWFARWYS12UL0108",
         "desc1": "S-Phyre Tall Size Cover",
         "desc2": "Black XXL (Size 47-49)",
         "status":"etd",
-        "etd":"2026-11-30"
+        "etd":"2026-12-20"
       }
     ]
   },
@@ -10053,7 +10857,7 @@ const SHOE_DATA = [
         "desc1": "S-Phyre Toe Size Cover",
         "desc2": "Black M (Size 40-41)",
         "status":"etd",
-        "etd":"2026-11-30"
+        "etd":"2026-12-20"
       },
       {
         "code":"ECWFARWYS14UL0106",
@@ -10067,7 +10871,7 @@ const SHOE_DATA = [
         "desc1": "S-Phyre Toe Size Cover",
         "desc2": "Black XL (Size 44-46)",
         "status":"etd",
-        "etd":"2026-09-30"
+        "etd":"2026-12-20"
       },
       {
         "code":"ECWFARWYS14UL0108",
@@ -10172,7 +10976,7 @@ const SHOE_DATA = [
         "desc1": "Dual Fit Windflex ToeShoeCover",
         "desc2": "Black XXXL (Shoe 50-52)",
         "status":"etd",
-        "etd":"2026-11-30"
+        "etd":"2026-12-20"
       }
     ]
   },
@@ -10506,8 +11310,11 @@ const AUTO_OPEN_CATS = new Set([
   'SHOE CLEATS', 'TRIATHLON', 'ENDURO', 'EXPLORER', 'BIKE TOUR', 'INDOOR', 'SHOE COVERS'
 ]);
 
+const NEW_GROUPS = ['RC910','RC810','RP102','Shoe Cleats SPD-SLR'];
+
 function renderModelCard(m) {
   const isCleats = m.cat === 'SHOE CLEATS' || m.cat === 'SHOE COVERS';
+  const newBadge = NEW_GROUPS.includes(m.group) ? '<span class="new-badge">NEW</span>' : '';
   const defaultOpen = AUTO_OPEN_CATS.has(m.cat);
 
   const priceHtml = (!isCleats && m.price)
@@ -10532,7 +11339,7 @@ function renderModelCard(m) {
   return `
   <div class="model-card${defaultOpen ? ' open' : ''}" id="mc-${m.group}">
     <div class="model-card-header" onclick="toggleCard('${m.group}')">
-      <span class="model-tag">${m.group}</span>
+      <span class="model-tag">${m.group}${newBadge}</span>
       ${!isCleats ? `<span class="model-name">${m.name}</span>` : ''}
       <span>${priceHtml}</span>
       <span class="model-toggle">&#x25BC;</span>
@@ -10654,12 +11461,13 @@ function escHtml(s) {
 
 // ─── SHIMANO PRODUCT HANDLE MAP ──────────────────────────────────────────────
 const SHIMANO_HANDLES = {
-  'RC903PWR':          'sh-rc903pwr',
-  'RC903':             'sh-rc903',
+  'RC910':             'sh-rc910',
+  'RC810':             'sh-rc810',
   'RC703':             'sh-rc703',
   'RC503':             'sh-rc503',
   'RC302':             'sh-rc302',
   'RC102':             'sh-rc102',
+  'RP102':             null,
   'XC903':             'sh-xc903',
   'XC703':             'sh-xc703',
   'XC503':             'sh-xc503',
@@ -10690,6 +11498,7 @@ const SHIMANO_HANDLES = {
 };
 
 const SHOE_DETAILS = {
+  "Shoe Cleats SPD-SLR": { tagline:"SPD-SLR Cleats CL-SL100 / SL110 / SL120 / SL130 \u2014 The New Road Standard", desc:"The cleat half of Shimano's new SPD-SLR road system, designed together with the PD-R9300 / PD-R8200 pedals and the RC910 / RC810 shoes. The lower-profile body is what makes the 2.3 mm stack reduction possible, the thinner rear section improves walkability, and alignment markings make setup repeatable. The cleats are up to 25 % lighter than their SPD-SL predecessors, and the engagement angle drops from 15.5\u00b0 to 10.5\u00b0 so clipping in is faster and more intuitive. Three float options cover the usual fitting range \u2014 red CL-SL100 fixed, blue CL-SL120 2\u00b0, yellow CL-SL110 6\u00b0 \u2014 while the grey CL-SL130 offers a wide mounting range for use on most other three-bolt road shoes (without the low-stack benefit of the full system). SPD-SLR cleats are not interchangeable with SPD-SL pedals.", weight:"4 SKUs \u00b7 Red 0\u00b0 / Blue 2\u00b0 / Yellow 6\u00b0 / Grey wide mounting range", features:["New SPD-SLR system","2.3 mm lower stack height","Up to 25 % lighter than SPD-SL","10.5\u00b0 engagement angle","Faster, easier clip-in","Thinner rear \u2014 better walkability","Alignment markings","CL-SL100 Red \u2014 0\u00b0","CL-SL120 Blue \u2014 2\u00b0","CL-SL110 Yellow \u2014 6\u00b0","CL-SL130 Grey \u2014 wide mounting range","Not compatible with SPD-SL pedals"] },
   "Dual Fit Thermal Shoe Cover": { tagline:"Dual Fit Thermal — Insulation for Freezing Rides  ·  CW-FABW-XS22U", desc:"Shimano's warmest Dual Fit cover, built for genuinely cold weather. The shell combines PU-coated recycled polyester with a fleece lining, a pairing Shimano positions as noticeably lighter, warmer and more supple than the petroleum-based synthetic rubber used in traditional neoprene covers. Optimal Panel Construction removes the seam that normally runs down the centre of the instep, closing off the main path for water and cold air. A YKK AquaGuard NATULON water-repellent zipper with rPET tape handles entry. The Dual Fit shape works over both SPD-SL road and SPD off-road shoes.", weight:"Sizes S–XXXL (shoe 37–52) · Black / Neon Yellow", features:["Dual Fit — SPD-SL & SPD","PU-coated recycled polyester","Insulated fleece lining","Optimal Panel Construction","YKK AquaGuard NATULON zipper","rPET zipper tape","Lighter & warmer than neoprene","Reinforced toe area","Reflective details","Sizes S–XXXL"] },
   "Waterproof Overshoe": { tagline:"Waterproof Overshoe — Ride and Walk Dry  ·  CW-FABW-XS72U", desc:"The most versatile cover in the range: designed to keep feet dry in the rain over SPD cycling shoes, trekking boots or ordinary trainers, not just race footwear. A double hook-and-loop closure at the heel and under the foot makes it quick to pull on and off. The main fabric is a stretch weave made with roughly half recycled polyester, finished with a protective PU coating; taped seams and a PFC-free water-repellent treatment do the actual waterproofing. Reflective print sits on the back of the leg, and reinforced material beneath the toes stands up to walking.", weight:"Sizes S–XXL (shoe 37–49) · Outer 100% PU / Inner 93% polyester, 7% elastane", features:["Fits SPD, trekking & casual shoes","Taped seams","PFC-free water-repellent finish","PU-coated stretch fabric","48% recycled polyester","Double hook-and-loop closure","Reflective rear print","Reinforced toe underside","Walk-friendly","Sizes S–XXL"] },
   "S-Phyre Flash Shoe Cover": { tagline:"S-PHYRE Flash — UCI-Legal Aero for the Race of Truth  ·  CW-FARW-XS13M", desc:"A time-trial cover developed through extensive wind tunnel work. Shimano tested several candidate materials before settling on an aero fabric for the upper section that measurably cut drag in the 50–60 km/h range. The part wrapping the shoe uses an elastic fabric that closes the gaps and bumps created by BOA dials, so nothing flaps at speed. Vertical grooves run up the cuff, non-slip silicone print holds the calf section in place, and the cuff height is UCI-compliant. A cutaway heel pattern allows natural heel movement and leaves the RC9 heel cup visible. Hook-and-loop fastening underneath for fast removal.", weight:"Sizes S–XXL (shoe 37–49) · 74% polyester, 26% elastane · Black / White", features:["Wind tunnel developed","UCI-compliant cuff height","Aero fabric upper","Vertical drag-reducing grooves","Elastic wrinkle-free shoe wrap","Silicone anti-slip calf print","Cutaway heel pattern","PU-coated stretch fabric","48% recycled polyester","Hook-and-loop bottom","Black & White","Sizes S–XXL"] },
@@ -10701,12 +11510,13 @@ const SHOE_DETAILS = {
   "Dual Fit Windflex ToeShoeCover": { tagline:"Dual Fit WINDFLEX Toe — Jersey-Pocket Sized  ·  CW-FABW-ZS34U", desc:"The toe-only WINDFLEX cover. Light and compact enough to stash in a jersey pocket and slip on or off in seconds mid-ride, which is the whole point when the temperature swings across a morning. The same WINDFLEX fabric blocks wind and wicks moisture, while a 1000D CORDURA-reinforced arch and moulded toe pad handle the abrasion of walking and pedalling.", weight:"Sizes S–XL (shoe 37–46) · WINDFLEX fabric, 1000D CORDURA reinforcement", features:["WINDFLEX wind-blocking fabric","Packs into a jersey pocket","On and off in seconds","1000D CORDURA arch reinforcement","Moulded toe pad","Moisture-wicking","Dual Fit — SPD-SL & SPD","Abrasion resistant","Shoulder-season weight","Sizes S–XL"] },
   "Dual Fit H2O Shoe Cover": { tagline:"Dual Fit H2O — Versatile Cover for Wet and Chilly Rides  ·  CW-FABW-ZS52U", desc:"Pairs water protection with insulated warmth for drizzly, breezy, chilly days — the conditions that fall between a light toe cap and a full winter cover. A durable waterproof coating handles light rain and road spray, while an insulated fleece lining adds heat retention. Refined construction pulls the cover in close around the shoe to keep feet warmer and drier. An offset YKK AquaGard NATULON water-repellent zipper with rPET tape improves both fit and water protection, a moulded toe pad provides lasting grip and wear resistance, and a wide hook-and-loop fastener underneath makes fitting straightforward.", weight:"Sizes S–XXL (shoe 37–49) · Waterproof-coated shell, fleece lining", features:["Durable waterproof coating","Insulated fleece lining","Refined close fit","Offset YKK AquaGard NATULON zipper","rPET zipper tape","Moulded toe pad","Wide hook-and-loop fastener","Light rain & road spray","Dual Fit — SPD-SL & SPD","Sizes S–XXL"] },
   "Dual Fit CR Shoe Cover": { tagline:"Dual Fit CR — Stretchy Neoprene for Cold and Rain  ·  CW-FABW-ZS62U", desc:"The cold-and-wet specialist. A 2mm neoprene body with PU coating is tuned for genuinely nasty conditions, and Optimal Panel Construction eliminates the seam through the centre of the instep so water and cold air have no easy way in. Covers are cut to match Shimano shoe lasts for a secure fit, a strategic bottom pattern keeps walking manageable, and a reinforced Hypalon elastomer toe bottom resists premature wear while blocking cold from below. A water-repellent YKK AquaGuard zipper with semi-auto lock slider stays put once closed.", weight:"Sizes S–XXL (shoe 37–49) · 2mm neoprene + PU coating", features:["2mm neoprene + PU coating","Optimal Panel Construction","YKK AquaGuard zipper","Semi-auto lock slider","Hypalon elastomer toe bottom","Matched to Shimano lasts","Walk-friendly sole pattern","Cold & wet conditions","Dual Fit — SPD-SL & SPD","Sizes S–XXL"] },
-  "RC903PWR": { tagline:"S-PHYRE PWR — Engineered for Maximum Power Output", desc:"Inspired by the RC9T track shoes, the RC903 PWR is designed for every possible watt advantage. Reinforced 360° surround wrapping anti-stretch microfiber upper (50% thicker than standard) with embedded plastic reinforcement layer delivers glove-like rigidity. Single BOA Li2 metal dial with power boost guide cable routing provides compound pulley leverage for a truly cinched-down fit. Ultra-stiff carbon sole rates 12/12 on Shimano's stiffness scale with only 1.39mm deflection. Stiffer heel cup prevents twisting during explosive 2500W+ sprint efforts. Color-shifting crystal finish on outsole and heel. Used by Tour de France riders including Mathieu van der Poel.", weight:"~245g (size 42)", features:["Single BOA Li2 metal dial","Carbon sole — stiffness 12/12","Anti-twist heel cup","Power boost cable guide","Velcro toe strap (track compatible)","360° surround wrapping upper","Low stack height midsole","DYNALAST shape","Variable perforation ventilation","Crystal finish outsole","SPD-SL 3-bolt","Sizes 40-48, Wide 40-46"] },
-  "RC903": { tagline:"S-PHYRE Elite — The Pro Peloton's Choice", desc:"The absolute favorite high-performance cycling shoe among professional pelotons worldwide. Tongue-less 360° surround wrapping upper with refined toe box fit and low-profile crossover lacing with dual BOA Li2 dials for micro-adjustable precision. Carbon fiber sole with Shimano's maximum stiffness rating of 12 — only 1.39mm deflection in testing. New anti-twist heel cup with integrated appearance stabilizes heel during hard efforts. DYNALAST shape with optimized toe-spring reduces tension in plantar, calves, and hamstrings. Available in standard, wide, and women's versions.", weight:"~230g (size 42)", features:["Dual BOA Li2 dials","Carbon sole — stiffness 12/12","Anti-twist heel stabilization","360° surround wrapping upper","DYNALAST toe-spring","Crossover lacing pattern","Perforated microfiber leather","Replaceable heel pad","BOA lifetime guarantee","Wide & Women's options","SPD-SL 3-bolt","Sizes 39-48 + half sizes"] },
+  "RC910": { tagline:"S-PHYRE RC910 \u2014 Built Around SPD-SLR, SHIMANO's Lowest Stack Ever", desc:"The new flagship of the S-PHYRE line, developed as one pedalling system together with the SPD-SLR pedal and CL-SL cleat. A new carbon hollow core sole produces the lowest stack height Shimano has ever built \u2014 the SPD-SLR platform drops the shoe-to-pedal interface by 2.3 mm, shortening the lever between foot and axle for a more direct, more stable connection under high power. The upper is premium Japanese microfiber, light and breathable with a seamless race fit, and DYNALAST 2.0 widens the forefoot (+3 mm front, +2 mm rear) while reducing toe spring for comfort over long days. A reinforced carbon heel structure with anti-twist stabilisation keeps the heel planted during sprints, and the extended SPD-SLR cleat adjustment range with clear alignment markings makes fine-tuning position straightforward. Closure is dual BOA\u00ae Li2F dials with textile laces for an even, micro-adjustable wrap.", weight:"Sizes 36\u201348 \u00b7 Narrow / Standard / Wide \u00b7 Blue, Black, White", features:["SPD-SLR platform \u2014 2.3 mm lower stack","Carbon hollow core sole","Dual BOA\u00ae Li2F dials + textile laces","Japanese microfiber upper","DYNALAST 2.0 \u2014 wider forefoot","Reduced toe spring","Reinforced carbon heel structure","Anti-twist stabilisation","Extended cleat adjustment range","Alignment markings","Narrow / Standard / Wide fits","Sizes 36\u201348"] },
+  "RC810": { tagline:"RC810 \u2014 Race-Proven Performance, Flagship DNA", desc:"Built for riders who want S-PHYRE technology without the flagship price. The RC810 takes its lead from the RC910: an optimised low-stack carbon sole with hollow channel and drainage for efficient, direct power transfer, SHIMANO DYNALAST 2.0 with a wider forefoot and reduced toe spring for a more natural fit over long distances, and dual BOA\u00ae Li2F dials for fast, even micro-adjustment. An integrated heel cup stabiliser structure holds the foot through hard accelerations, and replaceable heel pads extend the life of the shoe. Like the RC910 it uses the new SPD-SLR mounting platform with an expanded cleat adjustment range and easy-to-read alignment markings.", weight:"Sizes 36\u201350 \u00b7 Narrow / Standard / Wide \u00b7 Peach, Black, White", features:["SPD-SLR mounting platform","Low-stack carbon sole","Hollow channel + drainage","Dual BOA\u00ae Li2F dials","DYNALAST 2.0 \u2014 wider forefoot","Reduced toe spring","Integrated heel cup stabiliser","Replaceable heel pads","Expanded cleat adjustment range","Alignment markings","Narrow / Standard / Wide fits","Sizes 36\u201350"] },
   "RC703": { tagline:"High-Performance Road — Carbon Composite Excellence", desc:"Competitive road shoe bridging the gap between race-level and enthusiast performance. BOA L6 closure provides reliable single-dial adjustment. Carbon composite sole rated stiffness 10 delivers excellent power transfer without the harshness of full carbon. DYNALAST technology optimizes foot positioning. Lightweight synthetic upper with strategic ventilation. Available in multiple colors including Sage Green, plus black and white. Wide and women's versions available.", weight:"~245g (size 42)", features:["BOA L6 dial closure","Carbon composite sole — stiffness 10","DYNALAST technology","Lightweight synthetic upper","Strategic ventilation","Multiple color options","Wide option available","Women's specific fit","SPD-SL 3-bolt","Sizes 39-48 + half sizes"] },
   "RC503": { tagline:"Versatile Road — Performance Meets Value", desc:"The sweet spot for enthusiast road cyclists who want reliable performance without the top-tier price. BOA L6 closure system with glass fiber reinforced sole (stiffness 8) provides a great balance of power transfer and comfort for long rides. DYNALAST shape ensures proper foot positioning. Available in men's (White, Black, Cyber Blue) and women's (White, Black, Airy Blue) colorways. Wide option for broader feet.", weight:"~265g (size 42)", features:["BOA L6 closure","Glass fiber reinforced sole — stiffness 8","DYNALAST technology","Perforated synthetic upper","Multiple colorways","Wide option available","Women's specific fit","Comfortable for long rides","SPD-SL 3-bolt","Sizes 38-50"] },
   "RC302": { tagline:"Entry Road — BOA Convenience for Every Rider", desc:"Accessible road cycling shoe that brings BOA L6 dial convenience to entry-level riders. Glass fiber reinforced nylon sole (stiffness 6) provides adequate stiffness for fitness rides and sportives. Comfortable padding and secure fit. Available in White, Black, and Navy for men; White, Black, and Sage Green for women. Wide option ensures comfortable fit for all foot shapes.", weight:"~275g (size 42)", features:["BOA L6 dial closure","Glass fiber nylon sole — stiffness 6","Comfortable internal padding","Multiple color options","Wide option available","Women's specific (Sage Green)","3-hole SPD-SL cleat pattern","Durable construction","Sizes 36-50","Great value"] },
   "RC102": { tagline:"Comfortable Road — Simple & Reliable", desc:"Entry-level road shoe with straightforward Velcro strap closure for easy on/off. Fiberglass reinforced nylon sole provides reliable pedaling platform. Breathable synthetic upper keeps feet cool. Available in White, Black, Navy for men and Black, Violet for women. Ideal for fitness riding, indoor training, and commuting.", weight:"~290g (size 42)", features:["Velcro strap closure","Fiberglass nylon sole","Breathable synthetic upper","SPD-SL compatible","Men's & Women's versions","Multiple colors","Comfortable fit","Affordable price","Sizes 36-48","Indoor/outdoor versatile"] },
+  "RP102": { tagline:"RP102 \u2014 Straightforward Road Performance", desc:"An accessible road shoe for fitness riding, indoor training and commuting. A glass fiber reinforced sole rated stiffness index 6 gives a firm, efficient pedalling platform without the harshness of carbon, and the three-bolt SPD-SL pattern keeps it compatible with the full range of Shimano road pedals. Light at roughly 235 g in size 43, with a breathable synthetic upper. Available in Black and White, sizes 38\u201348.", weight:"~235 g (size 43) \u00b7 Sizes 38\u201348 \u00b7 Black, White", features:["Glass fiber sole \u2014 stiffness index 6","3-hole SPD-SL pattern","~235 g in size 43","Breathable synthetic upper","Black & White","Fitness / indoor / commute","Comfortable all-day fit","Sizes 38\u201348","Great value","Shimano road pedal compatible"] },
   "XC903": { tagline:"S-PHYRE XC — Race-Winning Off-Road Performance", desc:"Top-tier cross-country racing shoe worn by World Cup XC racers. Carbon sole with maximum stiffness rating of 12 paired with dual BOA Li2 dials for race-winning precision. Aggressive Michelin rubber outsole co-developed for supreme grip on roots, rocks, and run-ups. DYNALAST technology optimizes power transfer. Mud-shedding design with drainage channels. Available in Blue, Black, White, Silver, and Camouflage plus women's version.", weight:"~310g (size 42)", features:["Dual BOA Li2 dials","Carbon sole — stiffness 12/12","Michelin rubber outsole","DYNALAST technology","Mud-shedding design","Drainage channels","Anti-twist heel cup","Wide option available","Women's specific fit","Multiple colorways","SPD 2-bolt compatible","Sizes 38-48"] },
   "XC703": { tagline:"High-Performance XC — Trail-Ready Carbon Composite", desc:"Competitive cross-country shoe with carbon composite sole (stiffness 10) and BOA L6 closure. Grippy rubber outsole for confident traction on technical trails. Available in Black, Silver, and Butterfly pattern, plus women's black. Wide option for broader feet.", weight:"~330g (size 42)", features:["BOA L6 dial closure","Carbon composite sole — stiffness 10","Rubber outsole — trail grip","DYNALAST technology","Multiple colors + Butterfly","Wide option available","Women's specific fit","SPD 2-bolt compatible","Walk-friendly design","Sizes 38-50"] },
   "XC503": { tagline:"Versatile MTB — Trail & XC All-Rounder", desc:"Well-rounded mountain bike shoe for cross-country racing and trail adventures. BOA L6 closure with fiberglass reinforced sole (stiffness 8). Rubber outsole for off-bike traction. Available in Ice Blue, Sand Beige, Black for men and Sand Beige, Black for women.", weight:"~355g (size 42)", features:["BOA L6 closure","Fiberglass reinforced sole — stiffness 8","Rubber walking outsole","Multiple colors","Wide option available","Women's specific fit","SPD 2-bolt compatible","Comfortable padding","Walk-friendly","Sizes 38-50"] },
@@ -10827,6 +11637,60 @@ function setGalImg(group, idx) {
 }
 
 const STATIC_GALLERY = {
+ "RP102": [
+  {
+   "color": "Black",
+   "images": [
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCL01S4300U-SHIC6_01.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCL01S4300U-SHIC6_02.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCL01S4300U-SHIC6_03.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCL01S4300U-SHIC6_04.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCL01S4300U-SHIC6_05.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCL01S4300U-SHIC6_06.JPG&w=900"
+   ]
+  },
+  {
+   "color": "White",
+   "images": [
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCW01S4300U-SHIC165_01.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCW01S4300U-SHIC165_02.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCW01S4300U-SHIC165_03.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCW01S4300U-SHIC165_04.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCW01S4300U-SHIC165_05.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/ESHRP102MCW01S4300U-SHIC165_06.JPG&w=900"
+   ]
+  }
+ ],
+ "Shoe Cleats SPD-SLR": [
+  {
+   "color": "CL-SL100 - Road Red 0 Degr. Clearance",
+   "images": [
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/CL-SL100-ICLSL100_01.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/CL-SL100-ICLSL100_02.JPG&w=900"
+   ]
+  },
+  {
+   "color": "CL-SL110 - Road Yellow 6 Degr. Clearance",
+   "images": [
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/CL-SL110-ICLSL110_01.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/CL-SL110-ICLSL110_02.JPG&w=900"
+   ]
+  },
+  {
+   "color": "CL-SL120 - Road Blue 2 Degr. Clearance",
+   "images": [
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/CL-SL120-ICLSL120_01.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/CL-SL120-ICLSL120_02.JPG&w=900"
+   ]
+  },
+  {
+   "color": "CL-SL130 - Road Grey Wide Mounting Range",
+   "images": [
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/CL-SL130-ICLSL130_01.JPG&w=900",
+    "https://wsrv.nl/?url=www.shimanoshop-eu.com/Shop/Artikel_KenmerkOptie/CL-SL130-ICLSL130_02.JPG&w=900"
+   ]
+  }
+ ],
  "SD5": [
   {
    "color": "Black",
