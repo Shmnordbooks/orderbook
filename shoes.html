@@ -658,6 +658,90 @@ html.light .sidebar a:hover {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body data-catalog="shoes">
+<!-- ════════════════════════════════════════════════════════
+     PREMIUM CINEMATIC VIDEO INTRO — Floating Modal + Blur
+     ════════════════════════════════════════════════════════ -->
+<style>
+  /* ── Main content: blur while intro plays, still visible behind ── */
+  #main-content {
+    transition: filter 1.2s cubic-bezier(.4,0,.2,1), opacity 1.2s cubic-bezier(.4,0,.2,1);
+  }
+  #main-content.blurred {
+    filter: blur(8px) brightness(0.7) saturate(0.7);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* ── Overlay: dark neutral tint so the accent pops ── */
+  #introOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999998;
+    background: rgba(12, 14, 22, 0.5);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    transition: opacity 1s ease;
+  }
+  #introOverlay.intro-gone { opacity: 0; pointer-events: none; }
+
+  /* ── Floating video card ── */
+  #introVideoCard {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999999;
+    width: 72vw;
+    max-width: 880px;
+    min-width: 340px;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #000;
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,0.1),
+      0 16px 60px rgba(0,0,0,0.6),
+      0 4px 20px rgba(0,0,0,0.4);
+    opacity: 0;
+    transform: translate(-50%, -46%) scale(0.9);
+    animation: introCardIn 0.6s cubic-bezier(.22,1,.36,1) 0.15s forwards;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  #introVideoCard.intro-gone {
+    opacity: 0 !important;
+    transform: translate(-50%, -50%) scale(1.03) !important;
+  }
+
+  @keyframes introCardIn {
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  #introVideoCard video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+  }
+
+  /* ── Progress bar — shoes accent ── */
+  #introProgress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b, #fcd34d);
+    border-radius: 0 0 16px 16px;
+    width: 0%;
+    z-index: 3;
+    transition: width 0.12s linear;
+  }
+</style>
+
+<!-- ── Static wrapper: all page content lives inside here ── -->
+<div id="main-content" class="blurred">
 
 <header>
   <div class="header-inner">
@@ -903,6 +987,177 @@ html.light .sidebar a:hover {
     </div>
   </div>
 </div>
+
+</div><!-- /#main-content -->
+
+<!-- ════════════════════════════════════════════════════════
+     FLOATING VIDEO MODAL (outside #main-content so it's not blurred)
+     ════════════════════════════════════════════════════════ -->
+<div id="introOverlay"></div>
+<div id="introVideoCard">
+  <video id="introVideo" muted playsinline preload="auto"></video>
+  <div id="introProgress"></div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  var FADE_DURATION = 1000;   // card/overlay fade-out
+  var LOAD_TIMEOUT  = 5000;   // per-file: if it can't start, try the next one
+  var dismissed = false;
+
+  var mainContent = document.getElementById('main-content');
+  var overlay     = document.getElementById('introOverlay');
+  var card        = document.getElementById('introVideoCard');
+  var video       = document.getElementById('introVideo');
+  var progress    = document.getElementById('introProgress');
+
+  var videoList = [
+    'New_Cleats480.mp4',
+    'Dynalast_Sole_.mp4',
+    'Dynalast_Sole_3.mp4',
+    'Dynalast_Sole_4.mp4'
+  ];
+
+  var urlParams = new URLSearchParams(window.location.search);
+  var skipVideo = urlParams.get('skip') === 'true';
+
+  /* ── Skip mode: remove intro elements, unblur immediately ── */
+  if (skipVideo) {
+    if (overlay) overlay.remove();
+    if (card)    card.remove();
+    if (mainContent) mainContent.classList.remove('blurred');
+    return;
+  }
+
+  /* ── Dismiss function (runs only once) ── */
+  function dismissIntro() {
+    if (dismissed) return;
+    dismissed = true;
+
+    // 1. Fade out card + overlay via CSS class
+    if (card)    card.classList.add('intro-gone');
+    if (overlay) overlay.classList.add('intro-gone');
+
+    // 2. Unblur main content after a short delay
+    setTimeout(function() {
+      if (mainContent) mainContent.classList.remove('blurred');
+    }, 200);
+
+    // 3. Remove intro DOM after transitions finish
+    setTimeout(function() {
+      try {
+        if (video) { video.pause(); video.removeAttribute('src'); video.load(); }
+      } catch(e) {}
+      if (card)    card.remove();
+      if (overlay) overlay.remove();
+    }, FADE_DURATION + 400);
+  }
+
+  /* ── Shuffle so every visit gets a random order, and a broken/missing
+        file simply falls through to the next candidate instead of
+        leaving the dealer staring at a black card. ── */
+  function shuffled(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  /* ── Main init function ── */
+  function initIntro() {
+    if (!video || !card) { dismissIntro(); return; }
+
+    var queue     = shuffled(videoList);
+    var attempt   = -1;
+    var loadGuard = null;
+    var started   = false;
+
+    function logIntro(msg) {
+      try { console.warn('[shoes intro] ' + msg); } catch(e) {}
+    }
+
+    function playNext(reason) {
+      if (dismissed) return;
+      clearTimeout(loadGuard);
+
+      if (reason) logIntro(reason);
+
+      attempt++;
+      if (attempt >= queue.length) {
+        logIntro('no playable video found — check that the .mp4 files sit next to shoes.html');
+        dismissIntro();
+        return;
+      }
+
+      var file = queue[attempt];
+      video.src = file;
+      video.load();
+
+      // If nothing is decodable within LOAD_TIMEOUT, move on.
+      loadGuard = setTimeout(function() {
+        if (!started) playNext('timed out loading ' + file + ' (' + LOAD_TIMEOUT + 'ms)');
+      }, LOAD_TIMEOUT);
+
+      video.play().catch(function(err) {
+        // NotAllowedError = the browser refused to autoplay. That is not a
+        // file problem, so don't burn through the other clips — just close.
+        // Anything else (NotSupportedError, AbortError) is a source problem
+        // and is handled by the 'error' listener / loadGuard below.
+        if (err && err.name === 'NotAllowedError') {
+          logIntro('autoplay blocked by the browser');
+          clearTimeout(loadGuard);
+          setTimeout(dismissIntro, 1500);
+        }
+      });
+    }
+
+    video.addEventListener('playing', function() {
+      started = true;
+      clearTimeout(loadGuard);
+    });
+
+    // A missing file, an unsupported codec, or a non-faststart MP4 that
+    // never delivers metadata all land here → try the next clip.
+    video.addEventListener('error', function() {
+      var code = video.error ? video.error.code : '?';
+      playNext('failed to load ' + video.currentSrc.split('/').pop() + ' (media error ' + code + ')');
+    });
+
+    // Progress bar follows the real video position — no fixed time limit
+    video.addEventListener('timeupdate', function() {
+      if (!progress) return;
+      var dur = video.duration;
+      if (!dur || !isFinite(dur)) return;
+      progress.style.width = Math.min((video.currentTime / dur) * 100, 100) + '%';
+    });
+
+    // Dismiss only when the clip has finished
+    video.addEventListener('ended', function() {
+      clearTimeout(loadGuard);
+      if (progress) progress.style.width = '100%';
+      dismissIntro();
+    });
+
+    // Escape hatch — Esc closes the intro early
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') dismissIntro();
+    });
+
+    playNext();
+  }
+
+  /* ── Run init: handle case where DOMContentLoaded already fired ── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initIntro);
+  } else {
+    initIntro();
+  }
+})();
+</script>
 
 <script>
 const SHOE_DATA = [
