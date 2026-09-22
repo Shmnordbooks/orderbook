@@ -324,6 +324,19 @@
   background: rgba(255,255,255,.04) !important;
 }
 
+/* Sidebar kategori chip'i içindeki NEW rozeti.
+   Chip flex + gap:8px olduğu için margin-left sıfırlanır; overflow:hidden
+   ile kırpılmaması ve metin uzayınca ezilmemesi için flex-shrink:0. */
+.sidebar .cat-chip .sidebar-new-badge {
+  margin-left: 0 !important;
+  flex-shrink: 0 !important;
+  font-size: 9px !important;
+  padding: 1px 6px !important;
+  line-height: 1.5 !important;
+  color: #fff !important;
+  font-weight: 800 !important;
+}
+
 /* SVG ikonlar */
 .sidebar .cat-chip svg,
 .sidebar .sb-chip svg,
@@ -751,7 +764,7 @@ html.light .sidebar a:hover {
       Cover Page
     </button>
     <div class="sidebar-section-label">Categories</div>
-    <button class="cat-chip active" id="cat-SPD-SLR" onclick="setCat('SPD-SLR')">SPD-SLR</button>
+    <button class="cat-chip active" id="cat-SPD-SLR" onclick="setCat('SPD-SLR')">SPD-SLR<span class="new-badge sidebar-new-badge">NEW</span></button>
     <button class="cat-chip" id="cat-SPD-SL" onclick="setCat('SPD-SL')">SPD-SL</button>
     <button class="cat-chip" id="cat-SPD" onclick="setCat('SPD')">SPD</button>
     <button class="cat-chip" id="cat-FLAT" onclick="setCat('FLAT')">FLAT</button>
@@ -1483,10 +1496,18 @@ window.addEventListener('DOMContentLoaded', function() {
   var video       = document.getElementById('introVideo');
   var progress    = document.getElementById('introProgress');
 
+  // Asıl klipler — her ziyarette farklı biri oynasın diye karıştırılır.
   var videoList = [
     'SPDSLR-1.mp4',
     'SPDSLR2.mp4',
     'SPDSLR23.mp4'
+  ];
+
+  // Yedek klipler — sadece yukarıdakilerin HEPSİ başarısız olursa denenir.
+  // Repoya henüz yüklenmemiş bir dosya yüzünden bayinin boş siyah bir kart
+  // görmesini engeller. Karıştırılmaz; sıra her zaman en sonda kalır.
+  var fallbackList = [
+    'New_Cleats480.mp4'
   ];
 
   var urlParams = new URLSearchParams(window.location.search);
@@ -1540,7 +1561,7 @@ window.addEventListener('DOMContentLoaded', function() {
   function initIntro() {
     if (!video || !card) { dismissIntro(); return; }
 
-    var queue     = shuffled(videoList);
+    var queue     = shuffled(videoList).concat(fallbackList);
     var attempt   = -1;
     var loadGuard = null;
     var started   = false;
@@ -1557,7 +1578,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
       attempt++;
       if (attempt >= queue.length) {
-        logIntro('no playable video found — check that the .mp4 files sit next to pedals.html');
+        logIntro('no playable video found — check that the .mp4 files sit next to pedals.html: ' + videoList.concat(fallbackList).join(', '));
         dismissIntro();
         return;
       }
