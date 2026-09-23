@@ -57,6 +57,16 @@
       title: 'SHOE & CLEAT FINDER',
       sub:   'Pick the model, then the cleat that fits it'
     },
+    pedals: {
+      label: 'Pedal & cleat finder',
+      title: 'PEDAL & CLEAT FINDER',
+      sub:   'Pick the pedal, then the cleat it takes'
+    },
+    pro: {
+      label: 'PRO Product Finder',
+      title: 'PRO PRODUCT FINDER',
+      sub:   'Find the part by discipline and type'
+    },
     cleats: {
       label: 'Cleat compatibility',
       title: 'CLEAT COMPATIBILITY',
@@ -87,6 +97,172 @@
   }
 
   var HAS_SHOES = shoeGroups().length > 0;
+
+  /* ── The pedal catalog, read the same way ───────────────────────── */
+
+  function rawPedals() {
+    try { return (typeof PEDAL_DATA !== 'undefined' && PEDAL_DATA) || null; }
+    catch (e) { return null; }
+  }
+  function rawPedalDetails() {
+    try { return (typeof PEDAL_DETAILS !== 'undefined' && PEDAL_DETAILS) || {}; }
+    catch (e) { return {}; }
+  }
+  function pedalGroups() {
+    var d = rawPedals();
+    if (!d || !d.length) return [];
+    return d.filter(function (g) { return g && g.cat; });
+  }
+  var HAS_PEDALS = pedalGroups().length > 0;
+
+  /* ── The PRO catalog ────────────────────────────────────────────────
+     PRO is shaped differently from shoes and pedals: the page keeps a
+     flat list of SKUs and builds cardModelMap, keyed by the id of the
+     card each model is drawn on. That map is what the finder reads, so
+     a model here always corresponds to a card that exists on screen. */
+
+  function proMap() {
+    try { return (typeof cardModelMap !== 'undefined' && cardModelMap) || null; }
+    catch (e) { return null; }
+  }
+  function proCards() {
+    var m = proMap();
+    if (!m) return [];
+    return Object.keys(m).map(function (id) {
+      var v = m[id];
+      return { id: id, name: v.name, disc: v.disc, sub: v.sub,
+               price: v.price, srp: v.srp, items: v.items || [] };
+    });
+  }
+  var HAS_PRO = proCards().length > 0;
+
+  function proDiscLabel(d) {
+    try {
+      if (typeof CAT_LABELS !== 'undefined' && CAT_LABELS[d]) return titleCase(CAT_LABELS[d]);
+    } catch (e) {}
+    return titleCase(d);
+  }
+  function proSubLabel(sub) {
+    try {
+      if (typeof SUB_LABELS !== 'undefined' && SUB_LABELS[sub]) return SUB_LABELS[sub];
+    } catch (e) {}
+    return titleCase(String(sub).replace(/[-_]/g, ' '));
+  }
+  /* Disciplines in the order the page itself lists them. */
+  function proDiscs() {
+    var have = {}, out = [];
+    proCards().forEach(function (c) { have[c.disc] = 1; });
+    try {
+      if (typeof CAT_ORDER !== 'undefined' && CAT_ORDER.length) {
+        CAT_ORDER.forEach(function (d) { if (have[d]) { out.push(d); delete have[d]; } });
+      }
+    } catch (e) {}
+    Object.keys(have).forEach(function (d) { out.push(d); });
+    return out;
+  }
+  function proSubs(disc) {
+    var seen = [], out = [];
+    proCards().forEach(function (c) {
+      if (c.disc !== disc) return;
+      if (seen.indexOf(c.sub) === -1) { seen.push(c.sub); out.push(c.sub); }
+    });
+    return out;
+  }
+  function findPro(idOrName) {
+    var all = proCards(), i;
+    for (i = 0; i < all.length; i++) if (all[i].id === idOrName) return all[i];
+    for (i = 0; i < all.length; i++) if (all[i].name === idOrName) return all[i];
+    return null;
+  }
+  /* The page's own three-step lookup: exact name, then series keyword,
+     then sub-category. Calling it rather than repeating it keeps the
+     advisor and the card showing the same copy. */
+  function proDetailOf(c) {
+    try {
+      if (typeof getProDetail === 'function') return getProDetail(c.name, c.sub) || null;
+    } catch (e) {}
+    return null;
+  }
+  function proStatus(c) {
+    var n = { a: 0, e: 0, u: 0 };
+    (c.items || []).forEach(function (it) { if (n[it.st] !== undefined) n[it.st]++; });
+    var bits = [];
+    if (n.a) bits.push(n.a + ' available');
+    if (n.e) bits.push(n.e + ' on ETD');
+    if (n.u) bits.push(n.u + ' N/A');
+    return bits.join(' \u00b7 ');
+  }
+  function proVariants(c) {
+    var out = [];
+    (c.items || []).forEach(function (it) {
+      var d = String(it.d2 || '').trim();
+      if (d && out.indexOf(d) === -1) out.push(d);
+    });
+    return out;
+  }
+  function proIsNew(c) {
+    return (c.items || []).some(function (it) { return it.nw; });
+  }
+  /* No prices anywhere in the advisor: the catalog pages do not show
+     them either, and a dealer-facing panel quoting figures the page
+     beside it does not is a good way to start an argument about which
+     one is right. */
+
+  /* What each pedal family is for. Only the wording lives here; which
+     families exist, and how many models are in each, comes from the
+     catalog, so a new family still appears (under its own name). */
+  var PEDAL_CAT = {
+    'SPD-SLR': { label: 'Road \u2014 the new SPD-SLR system',
+                 sub: 'PD-R9300 and PD-R8200, launched September 2026' },
+    'SPD-SL':  { label: 'Road \u2014 SPD-SL',
+                 sub: 'The established road system, still fully supported' },
+    'SPD':     { label: 'Off-road, gravel and touring \u2014 SPD',
+                 sub: 'Two-bolt cleats, clip in from either side' },
+    'FLAT':    { label: 'Flat pedals',
+                 sub: 'No cleats at all' }
+  };
+
+  /* Each pedal's own description names the cleat in its box, so the
+     answer comes from the catalog rather than a list kept here. */
+  function boxedCleat(g) {
+    var codes = [];
+    (g.items || []).forEach(function (it) {
+      var m = String(it.desc1 || '').match(/\b(SM-SH\d+|CL-SL\d+|CL-MT\d+)\b/);
+      if (!m) return;
+      var code = m[1];
+      /* Some rows carry a truncated code (the field is length-capped).
+         Complete it only when exactly one known part starts with it. */
+      if (!CLEAT[code]) {
+        var hit = Object.keys(CLEAT).filter(function (k) { return k.indexOf(code) === 0; });
+        if (hit.length === 1) code = hit[0];
+      }
+      if (codes.indexOf(code) === -1) codes.push(code);
+    });
+    return codes;
+  }
+
+  /* Pedals vary by axle length and finish rather than size and colour. */
+  function pedalOptions(g) {
+    var out = [];
+    (g.items || []).forEach(function (it) {
+      var d = String(it.desc2 || '').trim();
+      if (d && out.indexOf(d) === -1) out.push(d);
+    });
+    return out;
+  }
+
+  function pedalCats() {
+    var seen = [], out = [];
+    pedalGroups().forEach(function (g) {
+      if (seen.indexOf(g.cat) === -1) { seen.push(g.cat); out.push(g.cat); }
+    });
+    return out;
+  }
+  function findPedal(name) {
+    var all = pedalGroups();
+    for (var i = 0; i < all.length; i++) if (all[i].group === name) return all[i];
+    return null;
+  }
 
   /* ── Derived facts, all computed from the catalog ───────────────── */
 
@@ -177,10 +353,17 @@
     return null;
   }
 
-  /* Any part or model number → the catalog group that shows it. */
+  /* Any part or model number → the catalog group that shows it, on
+     whichever catalog this page happens to be. */
   function resolveGroup(name) {
     var d = rawData() || [];
     for (var i = 0; i < d.length; i++) if (d[i].group === name) return d[i];
+    var p = findPedal(name);
+    if (p) return p;
+    var pr = findPro(name);
+    /* PRO cards are keyed by card id and grouped by discipline, so hand
+       back the same { group, cat } shape the jump expects. */
+    if (pr) return { group: pr.id, cat: pr.disc };
     var cg = cleatGroupFor(name);
     if (cg) for (var k = 0; k < d.length; k++) if (d[k].group === cg) return d[k];
     return null;
@@ -196,8 +379,15 @@
       if (typeof clearSearch === 'function') clearSearch();
     } catch (e) {}
     try {
-      var chip = document.querySelector('.cat-chip[data-cat="' + g.cat + '"]');
-      if (chip && typeof setCat === 'function') setCat(g.cat, chip);
+      /* shoes.html tags its chips with data-cat and wants setCat(cat, btn);
+         pedals.html ids them cat-<NAME> and takes setCat(cat) alone. */
+      var chip = document.querySelector('.cat-chip[data-cat="' + g.cat + '"]') ||
+                 document.getElementById('cat-' + g.cat) ||
+                 /* pro.html wires its chips through the onclick attribute */
+                 document.querySelector('.cat-chip[onclick*="setCat(\'' + g.cat + '\'"]');
+      if (typeof setCat === 'function') {
+        if (chip) setCat(g.cat, chip); else setCat(g.cat);
+      }
     } catch (e) {}
     setTimeout(function () {
       var card = document.getElementById('mc-' + g.group);
@@ -208,17 +398,33 @@
         if (!card.classList.contains('open') && typeof toggleCard === 'function') toggleCard(g.group);
       } catch (e) {}
       card.classList.add('ca-flash');
-      setTimeout(function () {
-        /* scrollIntoView would tuck the card under the sticky header, so
-           offset by the header's real height instead. */
+
+      /* scrollIntoView would tuck the card under the sticky header, so
+         offset by the header's real height instead. */
+      function bring(smooth) {
         var head = document.querySelector('header');
         var off = (head && getComputedStyle(head).position === 'sticky')
           ? head.getBoundingClientRect().height : 0;
         var y = card.getBoundingClientRect().top + (window.pageYOffset || 0) - off - 16;
         y = Math.max(0, y);
-        try { window.scrollTo({ top: y, behavior: 'smooth' }); }
+        try { window.scrollTo({ top: y, behavior: smooth ? 'smooth' : 'auto' }); }
         catch (e) { window.scrollTo(0, y); }
-      }, 140);
+      }
+      /* Galleries and filters render after the jump and push the page
+         around, so check back and correct rather than scrolling once and
+         leaving the dealer looking at the wrong product. */
+      function settle() {
+        var head = document.querySelector('header');
+        var off = (head && getComputedStyle(head).position === 'sticky')
+          ? head.getBoundingClientRect().height : 0;
+        var top = card.getBoundingClientRect().top;
+        if (top < off || top > window.innerHeight * 0.55) bring(false);
+      }
+      setTimeout(function () { bring(true); }, 140);
+      setTimeout(settle, 700);
+      setTimeout(settle, 1500);
+      /* the PRO catalog keeps growing while its galleries resolve */
+      setTimeout(settle, 2600);
       setTimeout(function () { card.classList.remove('ca-flash'); }, 2600);
     }, 120);
     return true;
@@ -227,7 +433,10 @@
   /* On a page without the shoe catalog, the link has to cross over to
      shoes.html; the advisor loads there too and picks the model up. */
   function catalogHref(name) {
-    return 'shoes.html?skip=true&model=' + encodeURIComponent(name);
+    /* A pedal lives on the pedals page, everything else on the shoes page. */
+    var page = /^PD-/i.test(name) ? 'pedals.html'
+             : (/^PRO-/.test(name) ? 'pro.html' : 'shoes.html');
+    return page + '?skip=true&model=' + encodeURIComponent(name);
   }
 
   function groupsWithWidth(w) {
@@ -279,8 +488,10 @@
     home: {
       q: 'What do you need to work out?',
       opts: [
-        { label: 'Which shoe?', sub: 'Find the right model by discipline, fit and level', go: 'shoe_cat', needsShoes: true },
-        { label: 'Which cleat?', sub: 'Match a cleat to the pedal and shoe the rider has', go: 'start' }
+        { label: 'Which shoe?',  sub: 'Find the right model by discipline, fit and level', go: 'shoe_cat',  needsShoes: true },
+        { label: 'Which pedal?', sub: 'Find the right model by system and level',          go: 'pedal_cat', needsPedals: true },
+        { label: 'Which PRO part?', sub: 'Find the part by discipline and type', go: 'pro_disc', needsPro: true },
+        { label: 'Which cleat?', sub: 'Match a cleat to the pedal and shoe the rider has', go: 'start', needsCleats: true }
       ]
     },
 
@@ -387,8 +598,10 @@
 
     r_spd: { dyn: 'spdCleat' },
 
-    /* Built fresh from the catalog each time it is shown. */
-    shoe_cat: { dyn: 'shoeCat' }
+    /* Built fresh from the catalog each time they are shown. */
+    shoe_cat:  { dyn: 'shoeCat' },
+    pedal_cat: { dyn: 'pedalCat' },
+    pro_disc:  { dyn: 'proDisc' }
   };
 
   /* ═══ 3. SHOE FINDER ══════════════════════════════════════════════ */
@@ -457,6 +670,110 @@
     });
   }
 
+  /* ── Pedal finder steps ─────────────────────────────────────────── */
+
+  var pedalPick = { cat: null, tier: null };
+
+  function stepPedalCat() {
+    var cats = pedalCats();
+    return {
+      q: 'What kind of pedal?',
+      hint: 'Straight from the catalog \u2014 ' + pedalGroups().length +
+            ' models across ' + cats.length + ' systems.',
+      opts: cats.map(function (c) {
+        var n = pedalGroups().filter(function (g) { return g.cat === c; }).length;
+        var w = PEDAL_CAT[c];
+        return {
+          label: w ? w.label : c,
+          sub: (w ? w.sub + ' \u00b7 ' : '') + n + (n === 1 ? ' model' : ' models'),
+          act: 'pcat:' + c
+        };
+      })
+    };
+  }
+
+  function stepPedalTier() {
+    var pool = pedalPool();
+    var order = ['flagship', 'performance', 'versatile', 'entry'];
+    var present = order.filter(function (t) {
+      return pool.some(function (g) { return tier(g.group) === t; });
+    });
+    var subs = {
+      flagship:    'XTR and DURA-ACE \u2014 top of the range',
+      performance: 'Deore XT, ULTEGRA and Saint',
+      versatile:   'All-round, everyday use',
+      entry:       'Value and first-time buyers'
+    };
+    return {
+      q: 'What level?',
+      hint: pool.length + (pool.length === 1 ? ' model matches' : ' models match') + ' so far.',
+      opts: present.map(function (t) {
+        var n = pool.filter(function (g) { return tier(g.group) === t; }).length;
+        return { label: TIER_LABEL[t], sub: subs[t] + ' \u00b7 ' + n, act: 'ptier:' + t };
+      }).concat([{ label: 'No preference', sub: 'Show every match', act: 'ptier:any' }])
+    };
+  }
+
+  function pedalPool() {
+    return pedalGroups().filter(function (g) {
+      if (pedalPick.cat && g.cat !== pedalPick.cat) return false;
+      if (pedalPick.tier && pedalPick.tier !== 'any' && tier(g.group) !== pedalPick.tier) return false;
+      return true;
+    });
+  }
+
+  /* ── PRO finder steps ───────────────────────────────────────────── */
+
+  var proPick = { disc: null, sub: null };
+
+  function stepProDisc() {
+    var ds = proDiscs();
+    return {
+      q: 'What is the part for?',
+      hint: 'Straight from the catalog \u2014 ' + proCards().length +
+            ' models across ' + ds.length + ' areas.',
+      opts: ds.map(function (d) {
+        var n = proCards().filter(function (c) { return c.disc === d; }).length;
+        var subs = proSubs(d).map(proSubLabel);
+        return {
+          label: proDiscLabel(d),
+          sub: subs.slice(0, 4).join(', ') + (subs.length > 4 ? '\u2026' : '') +
+               ' \u00b7 ' + n + (n === 1 ? ' model' : ' models'),
+          act: 'prodisc:' + d
+        };
+      })
+    };
+  }
+
+  function stepProSub() {
+    var subs = proSubs(proPick.disc);
+    return {
+      q: 'Which type of part?',
+      hint: proDiscLabel(proPick.disc) + ' \u00b7 ' +
+            proCards().filter(function (c) { return c.disc === proPick.disc; }).length + ' models.',
+      opts: subs.map(function (sub) {
+        var list = proCards().filter(function (c) {
+          return c.disc === proPick.disc && c.sub === sub;
+        });
+        var fresh = list.filter(proIsNew).length;
+        return {
+          label: proSubLabel(sub),
+          sub: list.length + (list.length === 1 ? ' model' : ' models') +
+               (fresh ? ' \u00b7 ' + fresh + ' new' : ''),
+          act: 'prosub:' + sub
+        };
+      })
+    };
+  }
+
+  function proPool() {
+    return proCards().filter(function (c) {
+      if (proPick.disc && c.disc !== proPick.disc) return false;
+      if (proPick.sub && c.sub !== proPick.sub) return false;
+      return true;
+    });
+  }
+
   /* ═══ 4. RENDERING ════════════════════════════════════════════════ */
 
   function esc(s) {
@@ -468,19 +785,25 @@
 
   /* One shape for "go to the catalog", used by every result — a filled
      accent block that reads as an instruction, not a caption. */
-  function catalogCta(name) {
-    if (HAS_SHOES && !resolveGroup(name)) return '';
-    var inner = '<b>Click to open ' + esc(name) + ' in the catalog' +
+  function catalogCta(name, label) {
+    var here = !!resolveGroup(name);
+    label = label || name;
+    /* Nothing to offer when this page has no catalog of its own to send
+       them to and the product is not one we can link across for. */
+    if (!here && !HAS_SHOES && !HAS_PEDALS) return '';
+    var inner = '<b>Click to open ' + esc(label) + ' in the catalog' +
                 '<span class="ca-arrow">&#8599;</span></b>' +
-                '<span>Jumps to the card with every size and colour, ready to add to the order</span>';
-    return HAS_SHOES
+                '<span>Jumps to the card with every option, ready to add to the order</span>';
+    /* On this page's own catalog it is a button; otherwise a real link
+       across to the page that stocks it. */
+    return here
       ? '<button class="ca-opt ca-opt-go" data-act="jump:' + esc(name) + '">' + inner + '</button>'
       : '<a class="ca-opt ca-opt-go" href="' + catalogHref(name) + '">' + inner + '</a>';
   }
 
   function partLinkable(pn) {
     if (!CLEAT[pn]) return false;
-    return HAS_SHOES ? !!resolveGroup(pn) : true;
+    return !!resolveGroup(pn) || HAS_SHOES || HAS_PEDALS;
   }
 
   /* The part number is the link: it takes the dealer to the card that
@@ -492,13 +815,12 @@
       '<span class="ca-dot" style="background:' + c.hex + '"></span>' +
       '<span class="ca-pn">' + pn + '<span class="ca-arrow">&#8599;</span></span>' +
       '<span class="ca-meta">' + c.float + '<br>' + c.sys + ' &middot; ' + c.colour + '</span>';
-    if (HAS_SHOES) {
-      if (!resolveGroup(pn)) return '<div class="ca-part">' + inner + '</div>';
+    if (resolveGroup(pn)) {
       return '<button class="ca-part ca-part-link" data-act="jump:' + pn + '" ' +
              'title="Open ' + pn + ' in the catalog">' + inner + '</button>';
     }
     return '<a class="ca-part ca-part-link" href="' + catalogHref(pn) + '" ' +
-           'title="Open ' + pn + ' in the shoes catalog">' + inner + '</a>';
+           'title="Open ' + pn + ' in the catalog">' + inner + '</a>';
   }
 
   function paras(arr) {
@@ -539,6 +861,158 @@
     return '<p class="ca-q">' + title + '</p>' +
            (hint ? '<p class="ca-hint">' + hint + '</p>' : '') +
            '<div class="ca-shoes">' + list.map(shoeRow).join('') + '</div>';
+  }
+
+  function pedalRow(g) {
+    var d = rawPedalDetails()[g.group] || {};
+    var t = tier(g.group);
+    var box = boxedCleat(g);
+    var isNew = newGroups().indexOf(g.group) !== -1;
+    return '<div class="ca-shoe-wrap">' +
+      '<button class="ca-shoe" data-act="pedal:' + esc(g.group) + '">' +
+        '<span class="ca-shoe-top"><b>' + esc(g.group) + '</b>' +
+          (isNew ? '<span class="ca-new">NEW</span>' : '') +
+          (t ? '<span class="ca-tier">' + TIER_LABEL[t] + '</span>' : '') + '</span>' +
+        (d.tagline ? '<span class="ca-shoe-tag">' +
+          esc(String(d.tagline).split('\u2014')[1] || d.tagline).trim() + '</span>' : '') +
+        '<span class="ca-shoe-meta">' + esc(g.cat) +
+          (box.length ? ' &middot; ships with ' + esc(box.join(', ')) : ' &middot; no cleats') +
+        '</span>' +
+      '</button>' +
+      '<button class="ca-jump" data-act="jump:' + esc(g.group) + '" ' +
+        'aria-label="Open ' + esc(g.group) + ' in the catalog" ' +
+        'title="Open ' + esc(g.group) + ' in the catalog">&#8599;</button>' +
+    '</div>';
+  }
+
+  function pedalList(list, title, hint) {
+    if (!list.length) {
+      return '<p class="ca-q">' + title + '</p>' +
+             '<p class="ca-hint">Nothing in the catalog matches that combination right now. ' +
+             'Loosen one of the answers, or check the order book directly.</p>';
+    }
+    return '<p class="ca-q">' + title + '</p>' +
+           (hint ? '<p class="ca-hint">' + hint + '</p>' : '') +
+           '<div class="ca-shoes">' + list.map(pedalRow).join('') + '</div>';
+  }
+
+  function pedalDetail(name) {
+    var g = findPedal(name);
+    if (!g) return '<p class="ca-q">Not in the catalog</p>';
+    var d = rawPedalDetails()[name] || {};
+    var t = tier(name), box = boxedCleat(g), opts = pedalOptions(g);
+
+    var html = '<div class="ca-res">';
+    html += '<button class="ca-lead ca-lead-link" data-act="jump:' + esc(name) + '" ' +
+            'title="Open ' + esc(name) + ' in the catalog">' + esc(g.name || name) +
+            '<span class="ca-arrow">&#8599;</span></button>';
+    if (d.tagline) html += '<p class="ca-p" style="margin-bottom:12px">' + esc(d.tagline) + '</p>';
+    html += '<div class="ca-spec">';
+    html += '<div><span>System</span>' + esc(g.cat) + '</div>';
+    if (t) html += '<div><span>Level</span>' + TIER_LABEL[t] + '</div>';
+    html += '<div><span>In the box</span>' +
+            (box.length ? esc(box.join(', ')) + ' cleats' : 'No cleats \u2014 flat pedal') + '</div>';
+    if (opts.length > 1) html += '<div><span>Options</span>' + esc(opts.join(', ')) + '</div>';
+    /* The catalog's weight field is a real weight on most pedals and a
+       short spec line on the newest ones; label it for what it is. */
+    if (d.weight) {
+      html += '<div><span>' + (/(^\s*~|\d\s*g\b)/.test(String(d.weight)) ? 'Weight' : 'Spec') +
+              '</span>' + esc(d.weight) + '</div>';
+    }
+    html += '<div><span>SKUs</span>' + (g.items || []).length + ' in the order book</div>';
+    html += '</div></div>';
+
+    html += catalogCta(name);
+
+    if (d.desc) html += '<p class="ca-p">' + esc(d.desc) + '</p>';
+    if (d.features && d.features.length) {
+      html += '<p class="ca-lbl" style="margin-top:14px">KEY FEATURES</p><ul class="ca-feat">' +
+        d.features.slice(0, 6).map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') +
+        '</ul>';
+    }
+
+    /* Which cleats this pedal takes — routed by its own family. */
+    if (g.cat === 'FLAT') {
+      html += '<div class="ca-note" style="margin-top:14px"><strong>No cleats.</strong> ' +
+        'A flat pedal \u2014 any shoe with a grippy sole works.</div>';
+    } else if (g.cat === 'SPD-SLR') {
+      html += '<div style="margin-top:14px"><button class="ca-opt" data-go="slr_shoe">' +
+        '<b>Which cleat for this pedal?</b>' +
+        '<span>SPD-SLR \u2014 the answer depends on the rider\u2019s shoes</span></button></div>';
+    } else if (g.cat === 'SPD-SL') {
+      html += '<div style="margin-top:14px"><button class="ca-opt" data-go="sl_float">' +
+        '<b>Which cleat for this pedal?</b>' +
+        '<span>SPD-SL \u2014 pick the float the rider wants</span></button></div>';
+    } else {
+      html += '<div style="margin-top:14px"><button class="ca-opt" data-go="r_spd">' +
+        '<b>Which cleat for this pedal?</b>' +
+        '<span>SPD two-bolt \u2014 single or multi-release</span></button></div>';
+    }
+    if (box.length) box.forEach(function (c) { html += catalogCta(c); });
+    return html;
+  }
+
+  function proRow(c) {
+    var v = proVariants(c);
+    return '<div class="ca-shoe-wrap">' +
+      '<button class="ca-shoe" data-act="pro:' + esc(c.id) + '">' +
+        '<span class="ca-shoe-top"><b>' + esc(c.name) + '</b>' +
+          (proIsNew(c) ? '<span class="ca-new">NEW</span>' : '') +
+          '<span class="ca-tier">' + esc(proSubLabel(c.sub)) + '</span></span>' +
+        '<span class="ca-shoe-meta">' +
+          v.length + (v.length === 1 ? ' option' : ' options') +
+          (proStatus(c) ? ' &middot; ' + proStatus(c) : '') +
+        '</span>' +
+      '</button>' +
+      '<button class="ca-jump" data-act="jump:' + esc(c.id) + '" ' +
+        'aria-label="Open ' + esc(c.name) + ' in the catalog" ' +
+        'title="Open ' + esc(c.name) + ' in the catalog">&#8599;</button>' +
+    '</div>';
+  }
+
+  function proList(list, title, hint) {
+    if (!list.length) {
+      return '<p class="ca-q">' + title + '</p>' +
+             '<p class="ca-hint">Nothing in the catalog matches that right now. ' +
+             'Step back and try another type, or check the order book directly.</p>';
+    }
+    return '<p class="ca-q">' + title + '</p>' +
+           (hint ? '<p class="ca-hint">' + hint + '</p>' : '') +
+           '<div class="ca-shoes">' + list.map(proRow).join('') + '</div>';
+  }
+
+  function proDetail(id) {
+    var c = findPro(id);
+    if (!c) return '<p class="ca-q">Not in the catalog</p>';
+    var det = proDetailOf(c), v = proVariants(c);
+
+    var html = '<div class="ca-res">';
+    html += '<button class="ca-lead ca-lead-link" data-act="jump:' + esc(c.id) + '" ' +
+            'title="Open ' + esc(c.name) + ' in the catalog">' + esc(c.name) +
+            '<span class="ca-arrow">&#8599;</span></button>';
+    if (det && det.tagline) html += '<p class="ca-p" style="margin-bottom:12px">' + esc(det.tagline) + '</p>';
+    html += '<div class="ca-spec">';
+    html += '<div><span>For</span>' + esc(proDiscLabel(c.disc)) + '</div>';
+    html += '<div><span>Type</span>' + esc(proSubLabel(c.sub)) + '</div>';
+    if (proStatus(c)) html += '<div><span>Stock</span>' + proStatus(c) + '</div>';
+    html += '<div><span>SKUs</span>' + (c.items || []).length + ' in the order book</div>';
+    html += '</div></div>';
+
+    html += catalogCta(c.id, c.name);
+
+    if (det && det.desc) html += '<p class="ca-p">' + esc(det.desc) + '</p>';
+    if (det && det.features && det.features.length) {
+      html += '<p class="ca-lbl" style="margin-top:14px">KEY FEATURES</p><ul class="ca-feat">' +
+        det.features.slice(0, 6).map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') +
+        '</ul>';
+    }
+    if (v.length) {
+      html += '<p class="ca-lbl" style="margin-top:14px">OPTIONS IN THIS MODEL</p><ul class="ca-feat">' +
+        v.slice(0, 14).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') +
+        (v.length > 14 ? '<li>and ' + (v.length - 14) + ' more \u2014 see the catalog</li>' : '') +
+        '</ul>';
+    }
+    return html;
   }
 
   /* Full detail card for one model */
@@ -654,32 +1128,89 @@
             'Flagship models in this catalog', '');
       } },
 
-    { id: 'box',
+    { id: 'pronew', pro: true, chip: 'What is new this season?',
+      build: function () {
+        var fresh = proCards().filter(proIsNew);
+        return proList(fresh, 'New this season',
+          fresh.length + ' of ' + proCards().length + ' models carry at least one new SKU.');
+      } },
+
+    { id: 'protools', pro: true, chip: 'Tools & maintenance',
+      build: function () {
+        var list = proCards().filter(function (c) { return c.disc === 'tools'; });
+        return proList(list, 'Tools and maintenance',
+          'Workshop side of the PRO range \u2014 stands, torque wrenches, mini-tools and consumables.');
+      } },
+
+    { id: 'pbox', pedals: true, chip: 'What cleat comes with each pedal?',
+      build: function () {
+        var rows = pedalGroups().filter(function (g) { return boxedCleat(g).length; });
+        if (!rows.length) {
+          return '<p class="ca-q">Cleats in the box</p>' +
+                 '<p class="ca-hint">No pedal in this catalog states a supplied cleat.</p>';
+        }
+        /* Grouped by the cleat, because that is the question a dealer is
+           really asking: which box do I already have this cleat in? */
+        var byCleat = {};
+        rows.forEach(function (g) {
+          var k = boxedCleat(g).join(', ');
+          (byCleat[k] = byCleat[k] || []).push(g.group);
+        });
+        return '<p class="ca-q">Cleats supplied with the pedals</p>' +
+          '<p class="ca-hint">Read from each model\u2019s own catalog entry, so it always ' +
+          'matches the order book.</p>' +
+          Object.keys(byCleat).sort().map(function (k) {
+            return '<div class="ca-part" style="display:block">' +
+              '<span class="ca-pn">' + esc(k) + '</span>' +
+              '<span class="ca-shoe-meta" style="margin-top:4px">' +
+              esc(byCleat[k].join(', ')) + '</span></div>';
+          }).join('') +
+          paras(['A pedal always ships with a cleat, so a customer buying pedals and cleats ' +
+                 'together may be paying for a set they will not use \u2014 worth checking before the order goes in.']);
+      } },
+
+    { id: 'pflat', pedals: true, chip: 'Flat pedals',
+      build: function () {
+        return pedalList(pedalGroups().filter(function (g) { return g.cat === 'FLAT'; }),
+          'Flat pedals', 'No cleats and no shoe restriction \u2014 any grippy sole works.');
+      } },
+
+    { id: 'pnew', pedals: true, chip: 'What is new this season?',
+      build: function () {
+        var ng = newGroups().map(findPedal).filter(Boolean);
+        if (ng.length) return pedalList(ng, 'New this season', 'Flagged as NEW in this catalog.');
+        var slr = pedalGroups().filter(function (g) { return g.cat === 'SPD-SLR'; });
+        return pedalList(slr, 'New this season',
+          'SPD-SLR launched on 17 September 2026 \u2014 the first change to Shimano\u2019s road ' +
+          'pedal interface in over 20 years.');
+      } },
+
+    { id: 'box', cleats: true,
       chip: 'What comes in the pedal box?',
       q: 'Which cleat is supplied with the pedals?',
       a: ['Both the PD-R9300 and the PD-R8200 ship with a set of <strong>CL-SL110 yellow</strong> cleats, with 6&deg; of float (&plusmn;3&deg;).',
           'This matters at the counter: a customer on non-Shimano shoes who needs the CL-SL130 will end up with an unused yellow set. Tell them before they pay.'] },
 
-    { id: 'mix',
+    { id: 'mix', cleats: true,
       chip: 'Do the old cleats fit the new pedals?',
       q: 'Are SPD-SL and SPD-SLR interchangeable?',
       a: ['No, in neither direction. ' + NEVER_MIX,
           'SPD-SLR is the first change to Shimano’s road pedal interface in over 20 years, and compatibility with SPD-SL was deliberately dropped to lower the stack height.'] },
 
-    { id: 'nonshimano',
+    { id: 'nonshimano', cleats: true,
       chip: 'Customer has non-Shimano shoes',
       q: 'Which cleat for a non-Shimano shoe?',
       a: ['<strong>On SPD-SL pedals:</strong> nothing changes &mdash; SM-SH10, SM-SH11 or SM-SH12 as before. Shoe brand is irrelevant.',
           '<strong>On the new SPD-SLR pedals:</strong> order the grey <strong>CL-SL130</strong>. The low-stack cleats have almost no fore-aft adjustment of their own, and a non-Shimano shoe usually lacks the extended slots that compensate for it. The CL-SL130 restores the old adjustment range, trading away the lower stack and the weight saving.',
           'Shimano says it works with <em>most</em> &mdash; not all &mdash; non-Shimano three-hole road shoes.'] },
 
-    { id: 'discontinued',
+    { id: 'discontinued', cleats: true,
       chip: 'Is SPD-SL discontinued?',
       q: 'Is SPD-SL being dropped?',
       a: ['No. Shimano has confirmed it will continue to supply the full range of SPD-SL cleats for as long as there is meaningful demand.',
           'A customer on SPD-SL pedals has no reason to change anything. SM-SH10, SM-SH11 and SM-SH12 remain in the order book alongside the new CL-SL range.'] },
 
-    { id: 'whatschanged',
+    { id: 'whatschanged', cleats: true,
       chip: 'What changed with SPD-SLR?',
       q: 'What is new about SPD-SLR?',
       a: ['<strong>Stack height</strong> drops 2.3 mm at the pedal and cleat interface, bringing the foot closer to the axle.',
@@ -687,7 +1218,7 @@
           '<strong>Cleats</strong> are up to 22% lighter than the SPD-SL equivalents.',
           '<strong>Adjustment</strong> moves from the cleat into the shoe, which is why the new RC910 and RC810 have extended cleat slots.'] },
 
-    { id: 'float',
+    { id: 'float', cleats: true,
       chip: 'Which float should they pick?',
       q: 'How do the float options compare?',
       a: ['<strong>6&deg; (&plusmn;3&deg;), yellow</strong> &mdash; SM-SH11 or CL-SL110. The default, and right for most riders.',
@@ -697,7 +1228,13 @@
   ];
 
   function activeFaq() {
-    return FAQ.filter(function (f) { return !f.shoes || HAS_SHOES; });
+    return FAQ.filter(function (f) {
+      if (f.shoes  && !HAS_SHOES)  return false;
+      if (f.pedals && !HAS_PEDALS) return false;
+      if (f.pro    && !HAS_PRO)    return false;
+      if (f.cleats && !HAS_CLEAT_FLOW) return false;
+      return true;
+    });
   }
 
   /* ═══ 6. PANEL SHELL ══════════════════════════════════════════════ */
@@ -895,7 +1432,10 @@
   style.textContent = CSS;
   (document.head || document.documentElement).appendChild(style);
 
-  var W = HAS_SHOES ? WORDS.shoes : WORDS.cleats;
+  var W = HAS_SHOES ? WORDS.shoes
+        : HAS_PEDALS ? WORDS.pedals
+        : HAS_PRO    ? WORDS.pro
+        : WORDS.cleats;
 
   var root = document.createElement('div');
   root.innerHTML =
@@ -927,7 +1467,12 @@
   var bodyEl  = document.getElementById('caBody');
   var backBtn = document.getElementById('caBack');
 
-  var HOME = HAS_SHOES ? 'home' : 'start';
+  /* The cleat tree belongs with shoes and pedals; on a page that has
+     neither it would be answering a question nobody asked here. */
+  var HAS_CLEAT_FLOW = HAS_SHOES || HAS_PEDALS;
+  var PATHS = (HAS_SHOES ? 1 : 0) + (HAS_PEDALS ? 1 : 0) +
+              (HAS_PRO ? 1 : 0) + (HAS_CLEAT_FLOW ? 1 : 0);
+  var HOME = PATHS > 1 ? 'home' : (HAS_PRO ? 'pro_disc' : 'start');
   var trail = [];
 
   function askBlock() {
@@ -973,7 +1518,11 @@
     if (s.warn) html += '<div class="ca-warn">' + s.warn + '</div>';
     if (s.opts) {
       html += '<div style="margin-top:14px">' + s.opts.filter(function (o) {
-        return !o.needsShoes || HAS_SHOES;
+        if (o.needsShoes  && !HAS_SHOES)  return false;
+        if (o.needsPedals && !HAS_PEDALS) return false;
+        if (o.needsPro    && !HAS_PRO)    return false;
+        if (o.needsCleats && !HAS_CLEAT_FLOW) return false;
+        return true;
       }).map(function (o) {
         var attr = o.act ? 'data-act="' + o.act + '"' : 'data-go="' + o.go + '"';
         return '<button class="ca-opt" ' + attr + '><b>' + o.label + '</b>' +
@@ -1005,6 +1554,16 @@
       paint(stepHtml(stepShoeCat()), key);
       return;
     }
+    if (s.dyn === 'pedalCat') {
+      pedalPick = { cat: null, tier: null };
+      paint(stepHtml(stepPedalCat()), key);
+      return;
+    }
+    if (s.dyn === 'proDisc') {
+      proPick = { disc: null, sub: null };
+      paint(stepHtml(stepProDisc()), key);
+      return;
+    }
     paint(stepHtml(s), key);
   }
 
@@ -1023,7 +1582,29 @@
         'Tap a model for sizes, colours, fitment and features.'), a);
       return;
     }
-    if (kind === 'shoe') { paint(shoeDetail(val), a); return; }
+    if (kind === 'shoe')  { paint(shoeDetail(val), a); return; }
+    if (kind === 'pedal') { paint(pedalDetail(val), a); return; }
+    if (kind === 'pro')   { paint(proDetail(val), a); return; }
+    if (kind === 'prodisc') { proPick.disc = val; proPick.sub = null;
+                              paint(stepHtml(stepProSub()), a); return; }
+    if (kind === 'prosub') {
+      proPick.sub = val;
+      paint(proList(proPool(),
+        proDiscLabel(proPick.disc) + ' &middot; ' + esc(proSubLabel(val)),
+        'Tap a model for options, stock and the full description.'), a);
+      return;
+    }
+    if (kind === 'pcat')  { pedalPick.cat = val; pedalPick.tier = null;
+                            paint(stepHtml(stepPedalTier()), a); return; }
+    if (kind === 'ptier') {
+      pedalPick.tier = val;
+      var ppool = pedalPool();
+      var pw = PEDAL_CAT[pedalPick.cat];
+      var head = (pw ? pw.label : pedalPick.cat);
+      if (pedalPick.tier && pedalPick.tier !== 'any') head += ' &middot; ' + TIER_LABEL[pedalPick.tier];
+      paint(pedalList(ppool, head, 'Tap a model for the cleat it ships with, options and features.'), a);
+      return;
+    }
     if (kind === 'jump') {
       if (!jumpToModel(val)) {
         /* Not in this page's catalog — hand over to the shoes page. */
@@ -1051,6 +1632,26 @@
         sub: (p ? p.label : titleCase(g.cat)) +
              (v.min !== null ? ' &middot; ' + v.min + '&ndash;' + v.max : ''),
         act: 'shoe:' + g.group
+      });
+    });
+    pedalGroups().forEach(function (g) {
+      var box = boxedCleat(g);
+      out.push({
+        label: g.group,
+        sub: g.cat + (box.length ? ' \u00b7 ships with ' + box.join(', ') : ' \u00b7 no cleats'),
+        act: 'pedal:' + g.group
+      });
+    });
+    proCards().forEach(function (c) {
+      out.push({
+        label: c.name,
+        sub: proDiscLabel(c.disc) + ' \u00b7 ' + proSubLabel(c.sub),
+        act: 'pro:' + c.id
+      });
+      /* a dealer often has only the SKU in front of them */
+      (c.items || []).forEach(function (it) {
+        if (!it.s) return;
+        out.push({ label: it.s, sub: c.name + ' \u00b7 ' + (it.d2 || ''), act: 'pro:' + c.id });
       });
     });
     Object.keys(CLEAT).forEach(function (pn) {
@@ -1131,12 +1732,15 @@
   function reset() {
     trail = [];
     pick = { cat: null, fit: null, tier: null };
+    pedalPick = { cat: null, tier: null };
+    proPick = { disc: null, sub: null };
     go(HOME);
   }
 
   function replay(key) {
     if (!key) { reset(); return; }
-    if (key.indexOf(':') !== -1 && /^(cat|fit|tier|shoe):/.test(key)) act(key);
+    if (key.indexOf(':') !== -1 &&
+        /^(cat|fit|tier|shoe|pcat|ptier|pedal|prodisc|prosub|pro):/.test(key)) act(key);
     else if (key.indexOf('faq:') === 0) {
       var f = FAQ.filter(function (x) { return x.id === key.slice(4); })[0];
       if (f) showFaq(f); else reset();
@@ -1186,7 +1790,7 @@
      The advisor runs on this page anyway, so it handles its own links
      and the catalog page needs no code of its own. */
   (function deepLink() {
-    if (!HAS_SHOES) return;
+    if (!HAS_SHOES && !HAS_PEDALS && !HAS_PRO) return;
     var m;
     try { m = new URLSearchParams(window.location.search).get('model'); } catch (e) { return; }
     if (!m) return;
