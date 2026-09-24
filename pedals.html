@@ -1418,7 +1418,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script src="shared-cart.js"></script>
-<script src="shimano-advisor.js"></script>
+<script src="shimano-advisor.js?v=20260924b"></script>
 <script>
 // Update Order Summary badge from shared cart
 (function updateSharedBadge(){
@@ -1558,9 +1558,70 @@ window.addEventListener('DOMContentLoaded', function() {
     return a;
   }
 
+  /* ── Skip control ─────────────────────────────────────────────────
+     The intro is short, but a dealer who has already seen it should not
+     have to sit it out. Esc, or a click anywhere, ends it at once.
+     Nothing about the video itself changes: the same dismissIntro()
+     the timer already calls is simply made reachable by hand. */
+  function addSkipUi() {
+    if (!card) return;
+    var touch = false;
+    try { touch = window.matchMedia('(hover: none)').matches; } catch (e) {}
+
+    var st = document.createElement('style');
+    st.textContent =
+      '#introSkip{position:absolute;right:14px;bottom:14px;z-index:4;' +
+        'display:inline-flex;align-items:center;gap:7px;padding:7px 13px;' +
+        'border:1px solid rgba(255,255,255,.28);border-radius:999px;' +
+        'background:rgba(10,12,18,.55);-webkit-backdrop-filter:blur(6px);' +
+        'backdrop-filter:blur(6px);color:#fff;cursor:pointer;' +
+        'font-family:Arial,Helvetica,sans-serif;font-size:11px;font-weight:600;' +
+        'letter-spacing:.09em;line-height:1;white-space:nowrap;opacity:0;' +
+        'transition:background .16s ease,border-color .16s ease;' +
+        'animation:introSkipIn .5s ease .9s forwards}' +
+      '#introSkip:hover{background:rgba(10,12,18,.82);border-color:rgba(255,255,255,.58)}' +
+      '#introSkip:focus-visible{outline:2px solid #7fd0ff;outline-offset:2px}' +
+      '#introSkip i{font-style:normal;padding:2px 6px;border-radius:4px;' +
+        'border:1px solid rgba(255,255,255,.38);background:rgba(255,255,255,.14)}' +
+      '@keyframes introSkipIn{to{opacity:.94}}' +
+      '#introVideoCard,#introOverlay{cursor:pointer}' +
+      '@media (max-width:560px){#introSkip{right:10px;bottom:10px;padding:6px 10px;' +
+        'font-size:10px;letter-spacing:.06em}}';
+    document.head.appendChild(st);
+
+    var btn = document.createElement('button');
+    btn.id = 'introSkip';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Skip intro video');
+    btn.innerHTML = touch
+      ? 'TAP TO SKIP ▸▸'
+      : '<i>Esc</i>SKIP VIDEO ▸▸';
+    card.appendChild(btn);
+
+    /* Never swallow the key once the intro is gone — Esc belongs to the
+       rest of the page after that. */
+    function skip(e) {
+      if (dismissed) return;
+      if (e && e.preventDefault) { e.preventDefault(); e.stopPropagation(); }
+      dismissIntro();
+    }
+    function onKey(e) {
+      if (dismissed) { document.removeEventListener('keydown', onKey, true); return; }
+      if (e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) {
+        document.removeEventListener('keydown', onKey, true);
+        skip(e);
+      }
+    }
+    btn.addEventListener('click', skip);
+    card.addEventListener('click', skip);
+    if (overlay) overlay.addEventListener('click', skip);
+    document.addEventListener('keydown', onKey, true);
+  }
+
   /* ── Main init function ── */
   function initIntro() {
     if (!video || !card) { dismissIntro(); return; }
+    addSkipUi();
 
     var queue     = shuffled(videoList).concat(fallbackList);
     var attempt   = -1;

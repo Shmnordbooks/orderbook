@@ -67,6 +67,11 @@
       title: 'PRO PRODUCT FINDER',
       sub:   'Find the part by discipline and type'
     },
+    lazer: {
+      label: 'Helmet Finder',
+      title: 'HELMET FINDER',
+      sub:   'Find the helmet by discipline, size and colour'
+    },
     cleats: {
       label: 'Cleat compatibility',
       title: 'CLEAT COMPATIBILITY',
@@ -135,6 +140,103 @@
     });
   }
   var HAS_PRO = proCards().length > 0;
+
+  /* ── The Lazer helmet catalog ───────────────────────────────────────
+     RAW is an object keyed by model name, each carrying its category,
+     its SKU rows and a colour map the page builds. Sizes are not a
+     field: they sit at the end of each row's description, so they are
+     read back out of the rows rather than assumed. */
+
+  function rawLazer() {
+    try { return (typeof RAW !== 'undefined' && RAW && !Array.isArray(RAW)) ? RAW : null; }
+    catch (e) { return null; }
+  }
+  function rawLazerDetails() {
+    try { return (typeof LAZER_DETAILS !== 'undefined' && LAZER_DETAILS) || {}; }
+    catch (e) { return {}; }
+  }
+  function helmets() {
+    var r = rawLazer();
+    if (!r) return [];
+    return Object.keys(r).map(function (name) {
+      var v = r[name] || {};
+      return { name: name, cat: v.cat || '', items: v.items || [],
+               colors: Object.keys(v.colors || {}) };
+    }).filter(function (h) { return h.cat; });
+  }
+  var HAS_HELMETS = helmets().length > 0;
+
+  /* Any catalog at all on this page. Every guard that used to list the
+     catalogs one by one now asks this instead — adding a catalog to the
+     advisor should not mean hunting for the places that forgot it. */
+  var HAS_CATALOG = HAS_SHOES || HAS_PEDALS || HAS_PRO || HAS_HELMETS;
+
+  var HELMET_CAT = {
+    'on-road':  { label: 'On-road',  sub: 'Road, TT and performance riding' },
+    'off-road': { label: 'Off-road', sub: 'MTB, trail, enduro and full-face' },
+    'leisure':  { label: 'Leisure',  sub: 'Urban, commuting and everyday' },
+    'kids':     { label: 'Kids',     sub: 'Children\u2019s helmets' }
+  };
+  function helmetCatLabel(c) {
+    return (HELMET_CAT[c] && HELMET_CAT[c].label) || titleCase(String(c).replace(/[-_]/g, ' '));
+  }
+  function helmetCats() {
+    var order = ['on-road', 'off-road', 'leisure', 'kids'];
+    var have = {}, out = [];
+    helmets().forEach(function (h) { have[h.cat] = 1; });
+    order.forEach(function (c) { if (have[c]) { out.push(c); delete have[c]; } });
+    Object.keys(have).forEach(function (c) { out.push(c); });
+    return out;
+  }
+  function findHelmet(name) {
+    var all = helmets(), i;
+    for (i = 0; i < all.length; i++) if (all[i].name === name) return all[i];
+    /* model names are shouted in some rows and title-cased in others */
+    for (i = 0; i < all.length; i++)
+      if (String(all[i].name).toLowerCase() === String(name).toLowerCase()) return all[i];
+    return null;
+  }
+  /* Sizes live at the end of a row's description, mixed in with colour
+     names and the odd note, so only recognised size tokens are taken.
+     A model with none (the one-size kids helmets) simply reports none
+     rather than having a size invented for it. */
+  var SIZE_TOKEN = /\b(XXS|XS|S|M|L|XL|XXL|Uni|S-M|M-L|S&M|M&L|L&XL|S&M&L)\b/g;
+  var SIZE_ORDER = ['XXS','XS','S','S-M','S&M','M','M-L','M&L','L','L&XL','XL','XXL','S&M&L','Uni'];
+  function helmetSizes(h) {
+    var seen = {};
+    (h.items || []).forEach(function (it) {
+      var m = String(it.desc2 || '').match(SIZE_TOKEN);
+      if (m) m.forEach(function (x) {
+        seen[x.toUpperCase() === 'UNI' ? 'Uni' : x.toUpperCase()] = 1;
+      });
+    });
+    return Object.keys(seen).sort(function (a, b) {
+      var ia = SIZE_ORDER.indexOf(a), ib = SIZE_ORDER.indexOf(b);
+      return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+    });
+  }
+  function helmetWeight(h) {
+    var d = rawLazerDetails()[h.name] || {};
+    return d.weight || '';
+  }
+  function helmetGrams(h) {
+    var m = String(helmetWeight(h)).match(/(\d+)\s*g/);
+    return m ? +m[1] : null;
+  }
+  function helmetStock(h) {
+    var n = { a: 0, e: 0, u: 0 };
+    (h.items || []).forEach(function (it) {
+      var e = String(it.etd || '');
+      if (e === 'available') n.a++;
+      else if (e === 'unavail') n.u++;
+      else if (e) n.e++;
+    });
+    var bits = [];
+    if (n.a) bits.push(n.a + ' available');
+    if (n.e) bits.push(n.e + ' on ETD');
+    if (n.u) bits.push(n.u + ' N/A');
+    return bits.join(' \u00b7 ');
+  }
 
   function proDiscLabel(d) {
     try {
@@ -364,6 +466,10 @@
     /* PRO cards are keyed by card id and grouped by discipline, so hand
        back the same { group, cat } shape the jump expects. */
     if (pr) return { group: pr.id, cat: pr.disc };
+    var hl = findHelmet(name);
+    /* Lazer draws its cards without ids and rebuilds them on every
+       filter change, so its jump has to work differently. */
+    if (hl) return { group: hl.name, cat: hl.cat, lazer: true };
     var cg = cleatGroupFor(name);
     if (cg) for (var k = 0; k < d.length; k++) if (d[k].group === cg) return d[k];
     return null;
@@ -375,6 +481,7 @@
     var g = resolveGroup(name);
     if (!g) return false;
     close();
+    if (g.lazer) { jumpToHelmet(g); return true; }
     try {
       if (typeof clearSearch === 'function') clearSearch();
     } catch (e) {}
@@ -430,12 +537,76 @@
     return true;
   }
 
+  /* Lazer has no card ids to scroll to: the only stable handle is the
+     header's own toggleModel call, and render() replaces every node, so
+     the card is looked up again after each step rather than held on to. */
+  function lazerCard(name) {
+    var sel = '[onclick*=\'toggleModel("' + name + '")\'],' +
+              '[onclick*="toggleModel(\'' + name + '\')"]';
+    var head;
+    try { head = document.querySelector(sel); } catch (e) { head = null; }
+    if (!head) return null;
+    return (head.closest && head.closest('.model-card')) || head.parentElement || head;
+  }
+
+  function jumpToHelmet(g) {
+    try {
+      var input = document.getElementById('sI');
+      if (input && input.value) { input.value = ''; if (typeof doSearch === 'function') doSearch(); }
+    } catch (e) {}
+    try {
+      var chip = document.querySelector('.cat-chip[onclick*="fCat(\'' + g.cat + '\'"]');
+      if (typeof fCat === 'function') { if (chip) fCat(g.cat, chip); else fCat(g.cat); }
+    } catch (e) {}
+    setTimeout(function () {
+      /* open it only if it is closed, so a second visit does not shut it */
+      try {
+        var isOpen = (typeof openModels !== 'undefined' && openModels && openModels.has)
+          ? openModels.has(g.group) : false;
+        if (!isOpen && typeof toggleModel === 'function') toggleModel(g.group);
+      } catch (e) {}
+      setTimeout(function () {
+        var card = lazerCard(g.group);
+        if (!card) return;
+        card.classList.add('ca-flash');
+        function bring(smooth) {
+          var c = lazerCard(g.group);
+          if (!c) return;
+          var head = document.querySelector('header');
+          var off = (head && getComputedStyle(head).position === 'sticky')
+            ? head.getBoundingClientRect().height : 0;
+          var y = c.getBoundingClientRect().top + (window.pageYOffset || 0) - off - 16;
+          y = Math.max(0, y);
+          try { window.scrollTo({ top: y, behavior: smooth ? 'smooth' : 'auto' }); }
+          catch (e) { window.scrollTo(0, y); }
+        }
+        function settle() {
+          var c = lazerCard(g.group);
+          if (!c) return;
+          var head = document.querySelector('header');
+          var off = (head && getComputedStyle(head).position === 'sticky')
+            ? head.getBoundingClientRect().height : 0;
+          var top = c.getBoundingClientRect().top;
+          if (top < off || top > window.innerHeight * 0.55) bring(false);
+        }
+        bring(true);
+        setTimeout(settle, 700);
+        setTimeout(settle, 1600);
+        setTimeout(function () {
+          var c = lazerCard(g.group);
+          if (c) c.classList.remove('ca-flash');
+        }, 2600);
+      }, 160);
+    }, 120);
+  }
+
   /* On a page without the shoe catalog, the link has to cross over to
      shoes.html; the advisor loads there too and picks the model up. */
   function catalogHref(name) {
     /* A pedal lives on the pedals page, everything else on the shoes page. */
     var page = /^PD-/i.test(name) ? 'pedals.html'
-             : (/^PRO-/.test(name) ? 'pro.html' : 'shoes.html');
+             : /^PRO-/.test(name)  ? 'pro.html'
+             : 'shoes.html';
     return page + '?skip=true&model=' + encodeURIComponent(name);
   }
 
@@ -491,6 +662,7 @@
         { label: 'Which shoe?',  sub: 'Find the right model by discipline, fit and level', go: 'shoe_cat',  needsShoes: true },
         { label: 'Which pedal?', sub: 'Find the right model by system and level',          go: 'pedal_cat', needsPedals: true },
         { label: 'Which PRO part?', sub: 'Find the part by discipline and type', go: 'pro_disc', needsPro: true },
+        { label: 'Which helmet?', sub: 'Find the helmet by discipline and size', go: 'helmet_cat', needsHelmets: true },
         { label: 'Which cleat?', sub: 'Match a cleat to the pedal and shoe the rider has', go: 'start', needsCleats: true }
       ]
     },
@@ -601,7 +773,8 @@
     /* Built fresh from the catalog each time they are shown. */
     shoe_cat:  { dyn: 'shoeCat' },
     pedal_cat: { dyn: 'pedalCat' },
-    pro_disc:  { dyn: 'proDisc' }
+    pro_disc:  { dyn: 'proDisc' },
+    helmet_cat:{ dyn: 'helmetCat' }
   };
 
   /* ═══ 3. SHOE FINDER ══════════════════════════════════════════════ */
@@ -774,6 +947,254 @@
     });
   }
 
+  /* ── Helmet finder steps ────────────────────────────────────────── */
+
+  var helmetPick = { cat: null };
+
+  function stepHelmetCat() {
+    var cats = helmetCats();
+    return {
+      q: 'What kind of riding?',
+      hint: 'Straight from the catalog \u2014 ' + helmets().length +
+            ' models across ' + cats.length + ' categories.',
+      opts: cats.map(function (c) {
+        var list = helmets().filter(function (h) { return h.cat === c; });
+        var w = HELMET_CAT[c];
+        return {
+          label: helmetCatLabel(c),
+          sub: (w ? w.sub + ' \u00b7 ' : '') + list.length +
+               (list.length === 1 ? ' model' : ' models'),
+          act: 'hcat:' + c
+        };
+      })
+    };
+  }
+
+  /* ── Product photos ─────────────────────────────────────────────────
+     Every catalog stores its images differently, so each one is read on
+     its own terms. Nothing here touches the pages' gallery code: the
+     maps are read, and for the two catalogs that resolve images over the
+     network the advisor keeps its own small cache rather than driving
+     loadGallery, whose job is the card on the page. */
+
+  var thumbCache = {};
+
+  function firstOf(arr) { return (arr && arr.length) ? arr[0] : ''; }
+
+  /* lazer.html keeps its photos in LAZER_IMAGES[model][colour] and reads
+     them back through its own imgCandidates(). That function is what the
+     working gallery uses, so the advisor calls it rather than rebuilding
+     the url itself — whatever the card shows, the tile shows. */
+  function lazerColourUrls(name, colour) {
+    try {
+      if (typeof window.imgCandidates === 'function') {
+        var r = window.imgCandidates(name, colour, 'thumb');
+        if (r && r.length) return [].slice.call(r);
+      }
+    } catch (e) {}
+    try {
+      var m = (typeof LAZER_IMAGES !== 'undefined') ? LAZER_IMAGES[name] : null;
+      var v = m && m[colour];
+      if (v) return Array.isArray(v) ? v.slice() : [v];
+    } catch (e) {}
+    return [];
+  }
+
+  function helmetImage(h) {
+    if (!h || !h.name) return [];
+    var cols = (h.colors && h.colors.length) ? h.colors.slice() : [];
+    try {
+      if (typeof LAZER_IMAGES !== 'undefined' && LAZER_IMAGES[h.name]) {
+        Object.keys(LAZER_IMAGES[h.name]).forEach(function (c) {
+          if (cols.indexOf(c) === -1) cols.push(c);
+        });
+      }
+    } catch (e) {}
+    var out = [], seen = {};
+    for (var i = 0; i < cols.length && out.length < 6; i++) {
+      lazerColourUrls(h.name, cols[i]).forEach(function (u) {
+        if (u && !seen[u]) { seen[u] = 1; out.push(u); }
+      });
+    }
+    return out;
+  }
+
+  /* pro.html: PRO_IMG_MAP[sku] holds indexes into PRO_IMG_FILES, and the
+     file names carry spaces and ampersands — the page runs every one of
+     them through encodeURIComponent in proModelImages(). Calling that
+     same function keeps the two in step instead of repeating the rule
+     here and getting the encoding wrong. */
+  function proImage(c) {
+    if (!c) return [];
+    try {
+      var m = proMap();
+      var raw = (m && c.id && m[c.id]) ? m[c.id] : c;
+      if (typeof window.proModelImages === 'function') {
+        var r = window.proModelImages(raw);
+        if (r && r.length) return [].slice.call(r, 0, 4);
+      }
+    } catch (e) {}
+    try {
+      if (typeof PRO_IMG_MAP === 'undefined' || typeof PRO_IMG_FILES === 'undefined') return [];
+      var base = (typeof PRO_IMG_BASE !== 'undefined') ? PRO_IMG_BASE : '';
+      var items = c.items || [], out = [], seen = {};
+      for (var i = 0; i < items.length && out.length < 4; i++) {
+        var idx = PRO_IMG_MAP[items[i].s];
+        if (!idx) continue;
+        for (var j = 0; j < idx.length && out.length < 4; j++) {
+          var f = PRO_IMG_FILES[+idx[j]];
+          if (!f) continue;
+          var u = base + encodeURIComponent(f);
+          if (!seen[u]) { seen[u] = 1; out.push(u); }
+        }
+      }
+      return out;
+    } catch (e) {}
+    return [];
+  }
+
+  /* shoes.html / pedals.html: a static map for some, a product handle
+     for the rest. Whatever the page already fetched is reused first. */
+  function galleryImage(group) {
+    try {
+      if (typeof galCache !== 'undefined' && galCache[group] && galCache[group].length) {
+        var g = galCache[group][0];
+        if (g && g.images) { var u = firstOf(g.images); if (u) return u; }
+      }
+    } catch (e) {}
+    try {
+      if (typeof STATIC_GALLERY !== 'undefined' && STATIC_GALLERY[group] && STATIC_GALLERY[group].length) {
+        var t = STATIC_GALLERY[group][0];
+        if (t && t.images) { var v = firstOf(t.images); if (v) return v; }
+      }
+    } catch (e) {}
+    return '';
+  }
+
+  function handleFor(group) {
+    try {
+      if (typeof SHIMANO_HANDLES !== 'undefined' && SHIMANO_HANDLES[group]) return SHIMANO_HANDLES[group];
+    } catch (e) {}
+    try {
+      if (typeof PEDAL_HANDLES !== 'undefined' && PEDAL_HANDLES[group]) return PEDAL_HANDLES[group];
+    } catch (e) {}
+    return '';
+  }
+
+  /* How to actually fetch a given image, in the order worth trying.
+     The catalogs' own code says the shimanoshop host is served over http
+     and its https requests get blocked, so those go straight through the
+     wsrv.nl proxy — the same call the pages fall back to — rather than
+     spending a request on a form that is known to fail. */
+  function srcChain(src) {
+    var out = [];
+    if (!src) return out;
+    if (src.indexOf('wsrv.nl') !== -1) { out.push(src); return out; }
+    if (src.indexOf('shimanoshop-eu.com') !== -1) {
+      var http = src.replace(/^https:/, 'http:');
+      out.push('https://wsrv.nl/?url=' + encodeURIComponent(http) + '&w=300&we&output=jpg');
+      /* the exact call lazer.html and pro.html fall back to — proven to
+         work on the live site, so it is worth a second try before giving
+         up on the picture */
+      out.push('https://wsrv.nl/?url=' + encodeURIComponent(http) + '&w=900&we&output=jpg');
+      out.push(src);
+      return out;
+    }
+    /* Shopify-backed hosts serve a sized copy from the same path */
+    out.push(src.replace(/(\.\w+)(\?|$)/, '_400x$1$2'));
+    out.push(src);
+    out.push('https://wsrv.nl/?url=' +
+             encodeURIComponent(src.replace(/^https?:\/\//, '')) + '&w=300');
+    return out;
+  }
+
+  /* The tile is always rendered empty and filled in afterwards, so one
+     piece of code owns the retry chain whether the url was known up
+     front or had to be looked up. A product with no picture simply has
+     none — no placeholder box, no broken-image icon. */
+  function thumbHtml(url, handle, alt) {
+    var list = (url == null) ? [] : (Array.isArray(url) ? url.slice() : [url]);
+    list = list.filter(function (u) { return !!u; });
+    /* the whole candidate list travels in the attribute; '|' cannot occur
+       in an encoded url, so it is safe as the separator */
+    url = list.join('|');
+    if (!url && !handle) return '';
+    return '<div class="ca-thumb-box"' +
+      (url ? ' data-src="' + esc(url) + '"' : '') +
+      (handle ? ' data-handle="' + esc(handle) + '"' : '') +
+      ' data-alt="' + esc(alt || '') + '"></div>';
+  }
+
+  function specWrap(rows, thumb) {
+    if (!thumb) return '<div class="ca-spec">' + rows + '</div>';
+    return '<div class="ca-specwrap"><div class="ca-spec">' + rows + '</div>' + thumb + '</div>';
+  }
+
+  /* Fill in the tiles that only had a handle. Same endpoint the page
+     itself uses, with the advisor's own cache so a model is looked up
+     once per session. */
+  function hydrateThumbs() {
+    /* urls already in hand */
+    var direct = bodyEl.querySelectorAll('.ca-thumb-box[data-src]');
+    Array.prototype.forEach.call(direct, function (box) {
+      setThumb(box, box.getAttribute('data-src'));
+    });
+    /* and the ones that still need looking up */
+    var boxes = bodyEl.querySelectorAll('.ca-thumb-box[data-handle]');
+    Array.prototype.forEach.call(boxes, function (box) {
+      var handle = box.getAttribute('data-handle');
+      if (!handle) return;
+      if (thumbCache[handle] === '') { box.remove(); return; }
+      if (thumbCache[handle]) { setThumb(box, thumbCache[handle]); return; }
+      if (typeof fetch !== 'function') { box.remove(); return; }
+      fetch('https://ride.shimano.com/products/' + handle + '.js')
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          var src = '';
+          if (d && d.media && d.media.length) {
+            for (var i = 0; i < d.media.length && !src; i++) {
+              src = d.media[i].src ||
+                    (d.media[i].preview_image && d.media[i].preview_image.src) || '';
+            }
+          }
+          if (!src && d && d.images && d.images.length) {
+            src = typeof d.images[0] === 'string' ? d.images[0] : (d.images[0].src || '');
+          }
+          thumbCache[handle] = src;
+          if (!src) { box.remove(); return; }
+          setThumb(box, src);
+        })
+        .catch(function () { thumbCache[handle] = ''; box.remove(); });
+    });
+  }
+
+  function setThumb(box, src) {
+    if (!box || !box.parentNode) return;
+    var seeds = Array.isArray(src) ? src : String(src || '').split('|');
+    var list = [], seen = {}, i = 0;
+    seeds.forEach(function (sd) {
+      srcChain(sd).forEach(function (u) {
+        if (u && !seen[u] && list.length < 12) { seen[u] = 1; list.push(u); }
+      });
+    });
+    if (!list.length) { box.remove(); return; }
+    var img = document.createElement('img');
+    img.className = 'ca-thumb';
+    img.loading = 'lazy';
+    img.alt = box.getAttribute('data-alt') || '';
+    /* the catalog pages retry their own images on a capturing listener;
+       this one handles itself, so stop the event travelling on */
+    img.addEventListener('error', function (e) {
+      if (e && e.stopPropagation) e.stopPropagation();
+      i++;
+      if (i < list.length) { img.src = list[i]; return; }
+      if (box.parentNode) box.remove();
+    });
+    img.src = list[0];
+    box.innerHTML = '';
+    box.appendChild(img);
+  }
+
   /* ═══ 4. RENDERING ════════════════════════════════════════════════ */
 
   function esc(s) {
@@ -790,10 +1211,15 @@
     label = label || name;
     /* Nothing to offer when this page has no catalog of its own to send
        them to and the product is not one we can link across for. */
-    if (!here && !HAS_SHOES && !HAS_PEDALS) return '';
-    var inner = '<b>Click to open ' + esc(label) + ' in the catalog' +
-                '<span class="ca-arrow">&#8599;</span></b>' +
-                '<span>Jumps to the card with every option, ready to add to the order</span>';
+    if (!here && !HAS_CATALOG) return '';
+    /* The arrow is an inline-block, and a line may break on either side
+       of one — on a long model name that left the arrow stranded on a
+       line of its own. Tying it to the last word keeps them together. */
+    var lbl = esc(label), m = lbl.match(/^([\s\S]*\s)(\S+)$/);
+    var head = m ? m[1] : '', tail = m ? m[2] : lbl;
+    var inner = '<b>Click to order ' + head +
+                '<span class="ca-nb">' + tail + '<span class="ca-arrow">&#8599;</span></span></b>' +
+                '<span>Opens the product card — every size, colour and stock date, ready to add</span>';
     /* On this page's own catalog it is a button; otherwise a real link
        across to the page that stocks it. */
     return here
@@ -803,7 +1229,7 @@
 
   function partLinkable(pn) {
     if (!CLEAT[pn]) return false;
-    return !!resolveGroup(pn) || HAS_SHOES || HAS_PEDALS;
+    return !!resolveGroup(pn) || HAS_CATALOG;
   }
 
   /* The part number is the link: it takes the dealer to the card that
@@ -901,26 +1327,27 @@
     if (!g) return '<p class="ca-q">Not in the catalog</p>';
     var d = rawPedalDetails()[name] || {};
     var t = tier(name), box = boxedCleat(g), opts = pedalOptions(g);
+    var img = galleryImage(name), handle = img ? '' : handleFor(name);
 
     var html = '<div class="ca-res">';
     html += '<button class="ca-lead ca-lead-link" data-act="jump:' + esc(name) + '" ' +
             'title="Open ' + esc(name) + ' in the catalog">' + esc(g.name || name) +
             '<span class="ca-arrow">&#8599;</span></button>';
     if (d.tagline) html += '<p class="ca-p" style="margin-bottom:12px">' + esc(d.tagline) + '</p>';
-    html += '<div class="ca-spec">';
-    html += '<div><span>System</span>' + esc(g.cat) + '</div>';
-    if (t) html += '<div><span>Level</span>' + TIER_LABEL[t] + '</div>';
-    html += '<div><span>In the box</span>' +
+    var rows = '';
+    rows += '<div><span>System</span>' + esc(g.cat) + '</div>';
+    if (t) rows += '<div><span>Level</span>' + TIER_LABEL[t] + '</div>';
+    rows += '<div><span>In the box</span>' +
             (box.length ? esc(box.join(', ')) + ' cleats' : 'No cleats \u2014 flat pedal') + '</div>';
-    if (opts.length > 1) html += '<div><span>Options</span>' + esc(opts.join(', ')) + '</div>';
+    if (opts.length > 1) rows += '<div><span>Options</span>' + esc(opts.join(', ')) + '</div>';
     /* The catalog's weight field is a real weight on most pedals and a
        short spec line on the newest ones; label it for what it is. */
     if (d.weight) {
-      html += '<div><span>' + (/(^\s*~|\d\s*g\b)/.test(String(d.weight)) ? 'Weight' : 'Spec') +
+      rows += '<div><span>' + (/(^\s*~|\d\s*g\b)/.test(String(d.weight)) ? 'Weight' : 'Spec') +
               '</span>' + esc(d.weight) + '</div>';
     }
-    html += '<div><span>SKUs</span>' + (g.items || []).length + ' in the order book</div>';
-    html += '</div></div>';
+    rows += '<div><span>SKUs</span>' + (g.items || []).length + ' in the order book</div>';
+    html += specWrap(rows, thumbHtml(img, handle, name)) + '</div>';
 
     html += catalogCta(name);
 
@@ -991,12 +1418,12 @@
             'title="Open ' + esc(c.name) + ' in the catalog">' + esc(c.name) +
             '<span class="ca-arrow">&#8599;</span></button>';
     if (det && det.tagline) html += '<p class="ca-p" style="margin-bottom:12px">' + esc(det.tagline) + '</p>';
-    html += '<div class="ca-spec">';
-    html += '<div><span>For</span>' + esc(proDiscLabel(c.disc)) + '</div>';
-    html += '<div><span>Type</span>' + esc(proSubLabel(c.sub)) + '</div>';
-    if (proStatus(c)) html += '<div><span>Stock</span>' + proStatus(c) + '</div>';
-    html += '<div><span>SKUs</span>' + (c.items || []).length + ' in the order book</div>';
-    html += '</div></div>';
+    var rows = '';
+    rows += '<div><span>For</span>' + esc(proDiscLabel(c.disc)) + '</div>';
+    rows += '<div><span>Type</span>' + esc(proSubLabel(c.sub)) + '</div>';
+    if (proStatus(c)) rows += '<div><span>Stock</span>' + proStatus(c) + '</div>';
+    rows += '<div><span>SKUs</span>' + (c.items || []).length + ' in the order book</div>';
+    html += specWrap(rows, thumbHtml(proImage(c), '', c.name)) + '</div>';
 
     html += catalogCta(c.id, c.name);
 
@@ -1015,30 +1442,96 @@
     return html;
   }
 
+  function helmetRow(h) {
+    var sizes = helmetSizes(h), d = rawLazerDetails()[h.name] || {};
+    return '<div class="ca-shoe-wrap">' +
+      '<button class="ca-shoe" data-act="helmet:' + esc(h.name) + '">' +
+        '<span class="ca-shoe-top"><b>' + esc(h.name) + '</b>' +
+          '<span class="ca-tier">' + esc(helmetCatLabel(h.cat)) + '</span></span>' +
+        (d.tagline ? '<span class="ca-shoe-tag">' + esc(d.tagline) + '</span>' : '') +
+        '<span class="ca-shoe-meta">' +
+          h.colors.length + (h.colors.length === 1 ? ' colour' : ' colours') +
+          (sizes.length ? ' &middot; ' + esc(sizes.join(', ')) : '') +
+          (helmetWeight(h) ? ' &middot; ' + esc(helmetWeight(h)) : '') +
+        '</span>' +
+      '</button>' +
+      '<button class="ca-jump" data-act="jump:' + esc(h.name) + '" ' +
+        'aria-label="Open ' + esc(h.name) + ' in the catalog" ' +
+        'title="Open ' + esc(h.name) + ' in the catalog">&#8599;</button>' +
+    '</div>';
+  }
+
+  function helmetList(list, title, hint) {
+    if (!list.length) {
+      return '<p class="ca-q">' + title + '</p>' +
+             '<p class="ca-hint">Nothing in the catalog matches that right now. ' +
+             'Step back and try another category, or check the order book directly.</p>';
+    }
+    return '<p class="ca-q">' + title + '</p>' +
+           (hint ? '<p class="ca-hint">' + hint + '</p>' : '') +
+           '<div class="ca-shoes">' + list.map(helmetRow).join('') + '</div>';
+  }
+
+  function helmetDetail(name) {
+    var h = findHelmet(name);
+    if (!h) return '<p class="ca-q">Not in the catalog</p>';
+    var d = rawLazerDetails()[h.name] || {};
+    var sizes = helmetSizes(h);
+
+    var html = '<div class="ca-res">';
+    html += '<button class="ca-lead ca-lead-link" data-act="jump:' + esc(h.name) + '" ' +
+            'title="Open ' + esc(h.name) + ' in the catalog">' + esc(h.name) +
+            '<span class="ca-arrow">&#8599;</span></button>';
+    if (d.tagline) html += '<p class="ca-p" style="margin-bottom:12px">' + esc(d.tagline) + '</p>';
+    var rows = '';
+    rows += '<div><span>For</span>' + esc(helmetCatLabel(h.cat)) + '</div>';
+    if (sizes.length) rows += '<div><span>Sizes</span>' + esc(sizes.join(', ')) + '</div>';
+    if (h.colors.length) {
+      rows += '<div><span>Colours</span>' +
+        esc(h.colors.slice(0, 8).join(', ')) +
+        (h.colors.length > 8 ? ' and ' + (h.colors.length - 8) + ' more' : '') + '</div>';
+    }
+    if (d.weight) rows += '<div><span>Weight</span>' + esc(d.weight) + '</div>';
+    if (helmetStock(h)) rows += '<div><span>Stock</span>' + helmetStock(h) + '</div>';
+    rows += '<div><span>SKUs</span>' + (h.items || []).length + ' in the order book</div>';
+    html += specWrap(rows, thumbHtml(helmetImage(h), '', h.name)) + '</div>';
+
+    html += catalogCta(h.name);
+
+    if (d.desc) html += '<p class="ca-p">' + esc(d.desc) + '</p>';
+    if (d.features && d.features.length) {
+      html += '<p class="ca-lbl" style="margin-top:14px">KEY FEATURES</p><ul class="ca-feat">' +
+        d.features.slice(0, 6).map(function (f) { return '<li>' + esc(f) + '</li>'; }).join('') +
+        '</ul>';
+    }
+    return html;
+  }
+
   /* Full detail card for one model */
   function shoeDetail(name) {
     var g = findGroup(name);
     if (!g) return '<p class="ca-q">Not in the catalog</p>';
     var v = variants(g), p = pedalSys(name), d = rawDetails()[name] || {};
     var t = tier(name);
+    var img = galleryImage(name), handle = img ? '' : handleFor(name);
     var html = '<div class="ca-res">';
     html += '<button class="ca-lead ca-lead-link" data-act="jump:' + esc(name) + '" ' +
             'title="Open ' + esc(name) + ' in the catalog">' + esc(g.name || name) +
             '<span class="ca-arrow">&#8599;</span></button>';
     if (d.tagline) html += '<p class="ca-p" style="margin-bottom:12px">' + esc(d.tagline) + '</p>';
-    html += '<div class="ca-spec">';
-    if (p) html += '<div><span>Fitment</span>' + p.label + '</div>';
-    html += '<div><span>Widths</span>' + v.widths.join(', ') + '</div>';
-    if (v.min !== null) html += '<div><span>Sizes</span>' + v.min + ' &ndash; ' + v.max + '</div>';
-    if (v.colours.length) html += '<div><span>Colours</span>' + esc(v.colours.join(', ')) + '</div>';
-    if (t) html += '<div><span>Level</span>' + TIER_LABEL[t] + '</div>';
+    var rows = '';
+    if (p) rows += '<div><span>Fitment</span>' + p.label + '</div>';
+    rows += '<div><span>Widths</span>' + v.widths.join(', ') + '</div>';
+    if (v.min !== null) rows += '<div><span>Sizes</span>' + v.min + ' &ndash; ' + v.max + '</div>';
+    if (v.colours.length) rows += '<div><span>Colours</span>' + esc(v.colours.join(', ')) + '</div>';
+    if (t) rows += '<div><span>Level</span>' + TIER_LABEL[t] + '</div>';
     /* The catalog's `weight` field holds a real weight on most models but a
        sizes/colours blurb on others — show it only when it is a weight, so
        the card never repeats the rows just above it. */
     if (d.weight && /(^\s*~|\d\s*g\b)/.test(String(d.weight)))
-      html += '<div><span>Weight</span>' + esc(d.weight) + '</div>';
-    html += '<div><span>SKUs</span>' + v.skus + ' in the order book</div>';
-    html += '</div></div>';
+      rows += '<div><span>Weight</span>' + esc(d.weight) + '</div>';
+    rows += '<div><span>SKUs</span>' + v.skus + ' in the order book</div>';
+    html += specWrap(rows, thumbHtml(img, handle, name)) + '</div>';
 
     /* Straight under the spec block, before the prose — the dealer should
        not have to read to the bottom to find the way into the catalog. */
@@ -1126,6 +1619,45 @@
                  'Below it the numbering steps down in order: 8 and 7 series for performance, 5 and 6 for versatile all-rounders, 1 to 3 for entry level. The first digit of the model number is the quickest way to place any shoe in the range.']) +
           shoeList(shoeGroups().filter(function (g) { return tier(g.group) === 'flagship'; }),
             'Flagship models in this catalog', '');
+      } },
+
+    { id: 'hsizes', lazer: true, chip: 'Which sizes does each come in?',
+      build: function () {
+        var bySize = {};
+        helmets().forEach(function (h) {
+          helmetSizes(h).forEach(function (sz) { (bySize[sz] = bySize[sz] || []).push(h.name); });
+        });
+        var keys = Object.keys(bySize).sort(function (a, b) {
+          var ia = SIZE_ORDER.indexOf(a), ib = SIZE_ORDER.indexOf(b);
+          return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        });
+        var none = helmets().filter(function (h) { return !helmetSizes(h).length; });
+        return '<p class="ca-q">Helmets by size</p>' +
+          '<p class="ca-hint">Read back from the SKU rows, so it always matches the order book.</p>' +
+          keys.map(function (k) {
+            return '<div class="ca-part" style="display:block">' +
+              '<span class="ca-pn">' + esc(k) + '</span>' +
+              '<span class="ca-shoe-meta" style="margin-top:4px">' +
+              esc(bySize[k].join(', ')) + '</span></div>';
+          }).join('') +
+          (none.length
+            ? paras(['<strong>' + esc(none.map(function (h) { return h.name; }).join(', ')) +
+                     '</strong> carry no size in their rows \u2014 check the catalog for how they are sold.'])
+            : '');
+      } },
+
+    { id: 'hlight', lazer: true, chip: 'Lightest helmets',
+      build: function () {
+        var list = helmets().filter(function (h) { return helmetGrams(h) !== null; })
+          .sort(function (a, b) { return helmetGrams(a) - helmetGrams(b); }).slice(0, 8);
+        return helmetList(list, 'Lightest helmets',
+          'By the weight each model states in this catalog \u2014 lightest first.');
+      } },
+
+    { id: 'hkids', lazer: true, chip: 'Kids helmets',
+      build: function () {
+        return helmetList(helmets().filter(function (h) { return h.cat === 'kids'; }),
+          'Kids helmets', 'Sized by an adjustable fit system rather than shell size.');
       } },
 
     { id: 'pronew', pro: true, chip: 'What is new this season?',
@@ -1232,6 +1764,7 @@
       if (f.shoes  && !HAS_SHOES)  return false;
       if (f.pedals && !HAS_PEDALS) return false;
       if (f.pro    && !HAS_PRO)    return false;
+      if (f.lazer  && !HAS_HELMETS) return false;
       if (f.cleats && !HAS_CLEAT_FLOW) return false;
       return true;
     });
@@ -1319,6 +1852,13 @@
     '.ca-shoe-tag{display:block;font-size:13px;color:#c3d0dc;line-height:1.4;margin-bottom:3px}',
     '.ca-shoe-meta{display:block;font-size:11.5px;color:#7d8c9c;line-height:1.4}',
 
+    '.ca-specwrap{display:flex;gap:14px;align-items:flex-start;margin-top:4px}',
+    '.ca-specwrap .ca-spec{flex:1;min-width:0;margin-top:0}',
+    '.ca-thumb-box{flex:0 0 92px;width:92px;height:92px;border-radius:8px;overflow:hidden;',
+      'background:#eef2f6;border:1px solid #24313f;display:flex;align-items:center;',
+      'justify-content:center}',
+    '.ca-thumb{width:100%;height:100%;object-fit:contain;display:block}',
+    '@media (max-width:420px){.ca-thumb-box{flex-basis:76px;width:76px;height:76px}}',
     '.ca-spec{display:grid;grid-template-columns:1fr;gap:6px;margin-top:4px}',
     '.ca-spec div{display:flex;gap:10px;font-size:13px;color:#cdd9e4;line-height:1.45}',
     '.ca-spec span{flex:0 0 74px;color:#7d8c9c;font-size:11.5px;letter-spacing:.06em;padding-top:1px}',
@@ -1339,6 +1879,9 @@
     '.ca-part-link:focus-visible{outline:2px solid #7fd0ff;outline-offset:2px}',
     '.ca-panel .ca-arrow{display:inline-block;margin-left:5px;font-size:.82em;color:#4aa8e0;',
       'opacity:.75;line-height:1;transition:opacity .16s,transform .16s}',
+    /* the arrow is an atomic inline, so a line may break beside it —
+       this keeps it welded to the last word of the model name */
+    '.ca-panel .ca-nb{white-space:nowrap}',
 
     '.ca-lead-link{display:block;width:100%;text-align:left;background:none;border:none;padding:0;',
       'cursor:pointer;color:#63b8e8;font-family:"Barlow Condensed",Arial,sans-serif;font-size:20px;',
@@ -1432,9 +1975,10 @@
   style.textContent = CSS;
   (document.head || document.documentElement).appendChild(style);
 
-  var W = HAS_SHOES ? WORDS.shoes
-        : HAS_PEDALS ? WORDS.pedals
-        : HAS_PRO    ? WORDS.pro
+  var W = HAS_SHOES   ? WORDS.shoes
+        : HAS_PEDALS  ? WORDS.pedals
+        : HAS_PRO     ? WORDS.pro
+        : HAS_HELMETS ? WORDS.lazer
         : WORDS.cleats;
 
   var root = document.createElement('div');
@@ -1470,9 +2014,22 @@
   /* The cleat tree belongs with shoes and pedals; on a page that has
      neither it would be answering a question nobody asked here. */
   var HAS_CLEAT_FLOW = HAS_SHOES || HAS_PEDALS;
-  var PATHS = (HAS_SHOES ? 1 : 0) + (HAS_PEDALS ? 1 : 0) +
-              (HAS_PRO ? 1 : 0) + (HAS_CLEAT_FLOW ? 1 : 0);
-  var HOME = PATHS > 1 ? 'home' : (HAS_PRO ? 'pro_disc' : 'start');
+  var PATHS = (HAS_SHOES ? 1 : 0) + (HAS_PEDALS ? 1 : 0) + (HAS_PRO ? 1 : 0) +
+              (HAS_HELMETS ? 1 : 0) + (HAS_CLEAT_FLOW ? 1 : 0);
+  /* The footnote should describe what this page actually answers; on a
+     helmet page a line about cleat research is just noise. */
+  var SOURCE_NOTE = (function () {
+    var bits = [];
+    if (HAS_CATALOG) bits.push('Answers are read live from this catalog, so they always match the order book.');
+    if (HAS_CLEAT_FLOW) bits.push('Cleat answers follow a fixed, verified path \u2014 nothing here is ' +
+                                  'generated text. Shimano technical material, 17 September 2026.');
+    return bits.join(' ');
+  })();
+
+  var HOME = PATHS > 1 ? 'home'
+           : HAS_PRO     ? 'pro_disc'
+           : HAS_HELMETS ? 'helmet_cat'
+           : 'start';
   var trail = [];
 
   function askBlock() {
@@ -1483,13 +2040,23 @@
       (SHOW_SEARCH
         ? '<p class="ca-lbl" style="margin-top:16px">FIND A MODEL OR PART NUMBER</p>' +
           '<div class="ca-ask"><input id="caInput" type="text" autocomplete="off" ' +
-          'placeholder="RC910, XC703, CL-SL130\u2026" aria-label="Search a model or part number">' +
+          'placeholder="' + esc(searchHint()) + '" aria-label="Search a model or part number">' +
           '</div><div class="ca-sug" id="caSug"></div>'
         : '') +
-      '<p class="ca-src">' +
-      (HAS_SHOES ? 'Shoe answers are read live from this catalog, so they always match the order book. ' : '') +
-      'Cleat answers follow a fixed, verified path &mdash; nothing here is generated text. ' +
-      'Shimano technical material, 17 September 2026.</p>';
+      '<p class="ca-src">' + SOURCE_NOTE + '</p>';
+  }
+
+  /* Example searches taken from this page's own catalog, so the box
+     never suggests a product this page does not stock. */
+  function searchHint() {
+    var seen = {}, out = [];
+    searchIndex().forEach(function (e) {
+      if (out.length >= 3) return;
+      var l = String(e.label);
+      if (l.length > 14 || seen[l]) return;
+      seen[l] = 1; out.push(l);
+    });
+    return out.length ? out.join(', ') + '\u2026' : 'Search a model\u2026';
   }
 
   function paint(html, key) {
@@ -1497,6 +2064,7 @@
     backBtn.hidden = trail.length < 2;
     bodyEl.innerHTML = html + askBlock();
     bodyEl.scrollTop = 0;
+    try { hydrateThumbs(); } catch (e) {}
   }
 
   function stepHtml(s) {
@@ -1521,6 +2089,7 @@
         if (o.needsShoes  && !HAS_SHOES)  return false;
         if (o.needsPedals && !HAS_PEDALS) return false;
         if (o.needsPro    && !HAS_PRO)    return false;
+        if (o.needsHelmets && !HAS_HELMETS) return false;
         if (o.needsCleats && !HAS_CLEAT_FLOW) return false;
         return true;
       }).map(function (o) {
@@ -1564,6 +2133,11 @@
       paint(stepHtml(stepProDisc()), key);
       return;
     }
+    if (s.dyn === 'helmetCat') {
+      helmetPick = { cat: null };
+      paint(stepHtml(stepHelmetCat()), key);
+      return;
+    }
     paint(stepHtml(s), key);
   }
 
@@ -1584,7 +2158,15 @@
     }
     if (kind === 'shoe')  { paint(shoeDetail(val), a); return; }
     if (kind === 'pedal') { paint(pedalDetail(val), a); return; }
-    if (kind === 'pro')   { paint(proDetail(val), a); return; }
+    if (kind === 'pro')    { paint(proDetail(val), a); return; }
+    if (kind === 'helmet') { paint(helmetDetail(val), a); return; }
+    if (kind === 'hcat') {
+      helmetPick.cat = val;
+      paint(helmetList(helmets().filter(function (h) { return h.cat === val; }),
+        helmetCatLabel(val) + ' helmets',
+        'Tap a model for sizes, colours, weight and the full description.'), a);
+      return;
+    }
     if (kind === 'prodisc') { proPick.disc = val; proPick.sub = null;
                               paint(stepHtml(stepProSub()), a); return; }
     if (kind === 'prosub') {
@@ -1652,6 +2234,15 @@
       (c.items || []).forEach(function (it) {
         if (!it.s) return;
         out.push({ label: it.s, sub: c.name + ' \u00b7 ' + (it.d2 || ''), act: 'pro:' + c.id });
+      });
+    });
+    helmets().forEach(function (h) {
+      var sizes = helmetSizes(h);
+      out.push({
+        label: h.name,
+        sub: helmetCatLabel(h.cat) + ' \u00b7 ' + h.colors.length + ' colours' +
+             (sizes.length ? ' \u00b7 ' + sizes.join(', ') : ''),
+        act: 'helmet:' + h.name
       });
     });
     Object.keys(CLEAT).forEach(function (pn) {
@@ -1734,13 +2325,14 @@
     pick = { cat: null, fit: null, tier: null };
     pedalPick = { cat: null, tier: null };
     proPick = { disc: null, sub: null };
+    helmetPick = { cat: null };
     go(HOME);
   }
 
   function replay(key) {
     if (!key) { reset(); return; }
     if (key.indexOf(':') !== -1 &&
-        /^(cat|fit|tier|shoe|pcat|ptier|pedal|prodisc|prosub|pro):/.test(key)) act(key);
+        /^(cat|fit|tier|shoe|pcat|ptier|pedal|prodisc|prosub|pro|hcat|helmet):/.test(key)) act(key);
     else if (key.indexOf('faq:') === 0) {
       var f = FAQ.filter(function (x) { return x.id === key.slice(4); })[0];
       if (f) showFaq(f); else reset();
@@ -1790,7 +2382,7 @@
      The advisor runs on this page anyway, so it handles its own links
      and the catalog page needs no code of its own. */
   (function deepLink() {
-    if (!HAS_SHOES && !HAS_PEDALS && !HAS_PRO) return;
+    if (!HAS_CATALOG) return;
     var m;
     try { m = new URLSearchParams(window.location.search).get('model'); } catch (e) { return; }
     if (!m) return;
