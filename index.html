@@ -1715,7 +1715,9 @@
 <script src="news-data.js"></script>
 <script src="ticker-data.js"></script>
 <script src="news-ticker.js"></script>
-<script src="events-data.js"></script>
-<script src="events-panel.js"></script>
+<script>
+/* Upcoming Events: load with a cache-buster so weekly updates show immediately */
+(function(){var v=Date.now();['events-data.js','events-panel.js'].forEach(function(f){var s=document.createElement('script');s.src=f+'?v='+v;s.async=false;document.body.appendChild(s);});})();
+</script>
 </body>
 </html>
