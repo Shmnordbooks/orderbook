@@ -41,7 +41,7 @@
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
-window.SHIMANO_EVENTS_CONTACT = "";
+window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 window.SHIMANO_EVENTS = [
   {
