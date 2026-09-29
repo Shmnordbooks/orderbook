@@ -8,7 +8,7 @@
   var DATA = window.SHIMANO_EVENTS;
   if (!root || !DATA || !DATA.length) return;
 
-  var PER_PAGE = 4;        // rows visible at once
+  var PER_PAGE = 5;        // rows visible at once
   var ROTATE_MS = 7000;    // page rotation interval
   var MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
   var DAY = 86400000;
@@ -51,7 +51,7 @@
     '@keyframes evPulse{0%{box-shadow:0 0 0 0 rgba(0,200,150,.55)}70%{box-shadow:0 0 0 7px rgba(0,200,150,0)}100%{box-shadow:0 0 0 0 rgba(0,200,150,0)}}',
     '#evPanel .ev-title{white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:.28em;color:#0082CA;}',
     '#evPanel .ev-region{white-space:nowrap;margin-left:auto;font-size:9.5px;font-weight:600;letter-spacing:.18em;color:rgba(255,255,255,.35);}',
-    '#evPanel .ev-list{transition:opacity .45s ease;}',
+    '#evPanel .ev-list{transition:opacity .3s ease;}',
     '#evPanel .ev-list.fade{opacity:0;}',
     '#evPanel a.ev-row{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:12px;',
     'padding:9px 14px;text-decoration:none;color:inherit;border-bottom:1px solid rgba(255,255,255,0.05);transition:background .15s;}',
@@ -75,8 +75,11 @@
     '#evPanel .ev-foot{display:flex;align-items:center;justify-content:space-between;padding:7px 14px 9px;',
     'white-space:nowrap;overflow:hidden;border-top:1px solid rgba(0,130,202,0.12);font-size:9px;letter-spacing:.14em;color:rgba(255,255,255,.28);}',
     '#evPanel .ev-pages{display:flex;gap:5px;}',
-    '#evPanel .ev-pg{width:5px;height:5px;border-radius:50%;background:rgba(0,130,202,.3);}',
-    '#evPanel .ev-pg.on{background:#0082CA;}',
+    '#evPanel .ev-pages{gap:2px;}',
+    '#evPanel .ev-pg{width:15px;height:15px;padding:0;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;}',
+    '#evPanel .ev-pg::before{content:"";width:6px;height:6px;border-radius:50%;background:rgba(0,130,202,.3);transition:background .15s,transform .15s;}',
+    '#evPanel .ev-pg:hover::before{background:rgba(0,130,202,.7);transform:scale(1.25);}',
+    '#evPanel .ev-pg.on::before{background:#0082CA;}',
     '#evPanel .ev-suggest{background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:10px;font-weight:700;letter-spacing:.16em;color:#0082CA;transition:color .15s;}',
     '#evPanel .ev-suggest:hover{color:#4db4ff;}',
     '#evModal{position:absolute;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:rgba(2,5,12,.72);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);padding:16px;}',
@@ -110,7 +113,7 @@
     '@media (max-width:1500px){#evPanel{right:24px;width:290px;}#evPanel .ev-name{font-size:14px;}}',
     '@media (max-width:768px){#evPanel{left:16px;right:16px;width:auto;bottom:62px;}',
     '#evPanel a.ev-row:nth-child(n+2){display:none;}#evPanel .ev-foot{display:none;}}',
-    '@media (max-height:680px) and (min-width:769px){#evPanel a.ev-row:nth-child(n+3){display:none;}}'
+    '@media (max-height:760px) and (min-width:769px){#evPanel a.ev-row{padding:6px 14px;}#evPanel .ev-head{padding:8px 14px 7px;}#evPanel .ev-day{font-size:17px;}#evPanel .ev-name{font-size:14px;}}'
   ].join('');
   var st = document.createElement('style');
   st.id = 'evPanelStyle';
@@ -148,12 +151,12 @@
   /* ---------- panel ---------- */
   var pages = Math.ceil(events.length / PER_PAGE);
   var dots = '';
-  if (pages > 1) for (var p = 0; p < pages; p++) dots += '<span class="ev-pg' + (p === 0 ? ' on' : '') + '"></span>';
+  if (pages > 1) for (var p = 0; p < pages; p++) dots += '<button type="button" class="ev-pg' + (p === 0 ? ' on' : '') + '" data-page="' + p + '" aria-label="Page ' + (p + 1) + '"></button>';
   var panel = document.createElement('div');
   panel.id = 'evPanel';
   panel.innerHTML =
     '<div class="ev-head"><span class="ev-dot"></span><span class="ev-title">UPCOMING EVENTS</span>' +
-    '<span class="ev-region">GCC · KAZ · UZB</span></div>' +
+    '</div>' +
     '<div class="ev-list"></div>' +
     '<div class="ev-foot">' + (CONTACT ? '<button type="button" class="ev-suggest">+ SUGGEST AN EVENT</button>' : '<span>DATES MAY CHANGE</span>') +
     '<span class="ev-pages">' + dots + '</span></div>';
@@ -172,18 +175,30 @@
   render();
 
   var paused = false;
+  var timer = null;
+  function goTo(n) {
+    if (n === page) return;
+    listEl.classList.add('fade');
+    setTimeout(function () {
+      page = (n + pages) % pages;
+      render();
+      listEl.classList.remove('fade');
+    }, 300);
+  }
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(function () { if (!paused) goTo(page + 1); }, ROTATE_MS);
+  }
   if (pages > 1) {
     panel.addEventListener('mouseenter', function () { paused = true; });
     panel.addEventListener('mouseleave', function () { paused = false; });
-    setInterval(function () {
-      if (paused) return;
-      listEl.classList.add('fade');
-      setTimeout(function () {
-        page = (page + 1) % pages;
-        render();
-        listEl.classList.remove('fade');
-      }, 450);
-    }, ROTATE_MS);
+    for (var d = 0; d < dotEls.length; d++) {
+      dotEls[d].addEventListener('click', function () {
+        goTo(+this.getAttribute('data-page'));
+        startTimer();
+      });
+    }
+    startTimer();
   }
 
   /* ---------- suggest an event (mailto) ---------- */
