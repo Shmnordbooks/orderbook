@@ -162,6 +162,29 @@
     '<span class="ev-pages">' + dots + '</span></div>';
   root.appendChild(panel);
 
+  /* ---------- align panel bottom with the LAZER baseline ---------- */
+  function alignToLazer() {
+    var ref = root.querySelector('a[href="lazer.html"].cover-title');
+    if (!ref || window.innerWidth <= 768 || !ref.offsetParent) { panel.style.bottom = ''; return; }
+    var mark = document.createElement('span');
+    mark.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline;';
+    ref.appendChild(mark);
+    var baseline = mark.getBoundingClientRect().bottom;
+    ref.removeChild(mark);
+    var rootRect = root.getBoundingClientRect();
+    var bottom = rootRect.bottom - baseline;
+    var minTop = 96;                                   /* keep clear of the top bar */
+    var maxBottom = rootRect.height - minTop - panel.offsetHeight;
+    if (bottom > maxBottom) bottom = maxBottom;
+    if (bottom < 60) { panel.style.bottom = ''; return; }
+    panel.style.bottom = Math.round(bottom) + 'px';
+  }
+  alignToLazer();
+  setTimeout(alignToLazer, 1300);                      /* after the cover slide-in animation */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignToLazer);
+  var rsT;
+  window.addEventListener('resize', function () { clearTimeout(rsT); rsT = setTimeout(alignToLazer, 120); });
+
   var listEl = panel.querySelector('.ev-list');
   var dotEls = panel.querySelectorAll('.ev-pg');
   var page = 0;
