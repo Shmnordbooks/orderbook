@@ -21,9 +21,14 @@
    - Pro road      : UCI calendar, Wikipedia "UCI Asia Tour / ProSeries",
                      velowire.com, procyclingstats.com
    - Triathlon     : triathlon.org/events, ironman.com, t100triathlon.com
+                     (Dubai + Saudi T100), challenge-family (Sir Bani Yas)
    - Gran fondo    : ucigranfondoworldseries.com, granfondoguide.com,
                      battistrada.com
    - Aggregators   : finishers.com, ahotu.com (filter by country + cycling)
+   - Registration  : hopasports.com (UAE MTB/road/triathlon — best local source),
+                     premieronline.com, supersportsuae.com, sported.ae/race-calendar
+   - Councils      : mediaoffice.abudhabi (Bike Abu Dhabi Gran Fondo),
+                     dubai.letapeseries.com (L'Etape Dubai, January)
    - UAE           : dubaifitnesschallenge.com, abudhabi media office,
                      cyclechallenge.ae (Spinneys 92 + Build-Up Rides)
    - KSA           : riyadhwheelers.com, experiencealula.com, racearabia.sa
@@ -166,5 +171,68 @@ window.SHIMANO_EVENTS = [
     city: "Ile River Valley", country: "KAZ",
     type: "community", label: "Ultra Ride",
     url: "https://athletex.kz/"
+  },
+  {
+    name: "Mleiha MTB Challenge",
+    start: "2026-10-11", end: "2026-10-11",
+    city: "Mleiha, Sharjah", country: "UAE",
+    type: "local", label: "MTB",
+    url: "https://www.hopasports.com/"
+  },
+  {
+    name: "Ajman Triathlon",
+    start: "2026-10-18", end: "2026-10-18",
+    city: "Ajman", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://www.hopasports.com/"
+  },
+  {
+    name: "Masfout MTB Challenge",
+    start: "2026-10-25", end: "2026-10-25",
+    city: "Masfout", country: "UAE",
+    type: "local", label: "MTB",
+    url: "https://www.hopasports.com/"
+  },
+  {
+    name: "Khorfakkan Clouds Race",
+    start: "2026-10-31", end: "2026-10-31",
+    city: "Khor Fakkan", country: "UAE",
+    type: "community", label: "Road Race",
+    url: "https://www.hopasports.com/"
+  },
+  {
+    name: "Dubai T100",
+    start: "2026-11-13", end: "2026-11-15",
+    city: "Al Mamzar, Dubai", country: "UAE",
+    type: "triathlon", label: "T100",
+    url: "https://gulfnews.com/sport/uae-sport/50-days-to-dubai-t100-moves-to-al-mamzar-new-olympic-distance-and-an-all-female-pro-race-1.500686138"
+  },
+  {
+    name: "Road To Awareness",
+    start: "2026-11-20", end: "2026-11-22",
+    city: "Fujairah", country: "UAE",
+    type: "community", label: "Road Ride",
+    url: "https://www.hopasports.com/"
+  },
+  {
+    name: "Saudi Arabia T100",
+    start: "2026-11-27", end: "2026-11-28",
+    city: "Venue TBA", country: "KSA",
+    type: "triathlon", label: "T100",
+    url: "https://t100triathlon.com/saudi-arabia/participate/"
+  },
+  {
+    name: "Fujairah Int. Triathlon",
+    start: "2026-12-13", end: "2026-12-13",
+    city: "Fujairah", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://www.hopasports.com/"
+  },
+  {
+    name: "Challenge Sir Bani Yas",
+    start: "2027-01-30", end: "2027-01-31",
+    city: "Sir Bani Yas Island", country: "UAE",
+    type: "triathlon", label: "Challenge",
+    url: "https://www.ahotu.com/calendar/triathlon/united-arab-emirates"
   }
 ];
