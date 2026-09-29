@@ -226,13 +226,6 @@
 
   /* ---------- suggest an event (mailto) ---------- */
   if (CONTACT) {
-    var COUNTRIES = [['UAE','United Arab Emirates'],['KSA','Saudi Arabia'],['OMN','Oman'],['QAT','Qatar'],['BHR','Bahrain'],['KWT','Kuwait'],['KAZ','Kazakhstan'],['UZB','Uzbekistan'],['OTHER','Other']];
-    var TYPES = [['Pro race (UCI)','Pro race (UCI)'],['Triathlon / Duathlon','Triathlon / Duathlon'],['Gran fondo / Mass ride','Gran fondo / Mass ride'],['Club / Local race','Club / Local race'],['MTB / Gravel','MTB / Gravel'],['Other','Other']];
-    function opts(list) {
-      var h = '<option value="">Select…</option>';
-      for (var q = 0; q < list.length; q++) h += '<option value="' + esc(list[q][0]) + '">' + esc(list[q][1]) + '</option>';
-      return h;
-    }
     var modal = document.createElement('div');
     modal.id = 'evModal';
     modal.setAttribute('role', 'dialog');
@@ -240,17 +233,10 @@
     modal.innerHTML =
       '<div class="evm-box">' +
         '<div class="evm-head"><span class="evm-title">SUGGEST AN EVENT</span><button type="button" class="evm-x" aria-label="Close">×</button></div>' +
-        '<div class="evm-intro">Know a cycling or triathlon event in your region? Share the details and we will add it to the calendar after review.</div>' +
+        '<div class="evm-intro">Know a cycling or triathlon event in your region? Just share its name and a link — we will check the details and add it to the calendar.</div>' +
         '<form novalidate>' +
-          '<div class="evm-f full"><label>EVENT NAME <b>*</b></label><input name="name" maxlength="80" required></div>' +
-          '<div class="evm-f"><label>START DATE <b>*</b></label><input type="date" name="start" required></div>' +
-          '<div class="evm-f"><label>END DATE</label><input type="date" name="end"></div>' +
-          '<div class="evm-f"><label>CITY <b>*</b></label><input name="city" maxlength="50" required></div>' +
-          '<div class="evm-f"><label>COUNTRY <b>*</b></label><select name="country" required>' + opts(COUNTRIES) + '</select></div>' +
-          '<div class="evm-f full"><label>EVENT TYPE <b>*</b></label><select name="type" required>' + opts(TYPES) + '</select></div>' +
-          '<div class="evm-f full"><label>WEBSITE OR SOCIAL MEDIA LINK</label><input type="url" name="url" placeholder="https://"></div>' +
-          '<div class="evm-f full"><label>YOUR NAME &amp; COMPANY <b>*</b></label><input name="from" maxlength="80" required></div>' +
-          '<div class="evm-f full"><label>NOTES</label><textarea name="notes" maxlength="500" placeholder="Distances, registration deadline, expected participants…"></textarea></div>' +
+          '<div class="evm-f full"><label>EVENT NAME <b>*</b></label><input name="name" maxlength="80" placeholder="e.g. Hatta MTB Challenge" required></div>' +
+          '<div class="evm-f full"><label>WEBSITE OR INSTAGRAM LINK <b>*</b></label><input name="url" maxlength="300" placeholder="https://…" required></div>' +
           '<div class="evm-actions"><span class="evm-note">Your email app will open with the details filled in. Just press send.</span>' +
           '<button type="submit" class="evm-send">SEND</button></div>' +
         '</form>' +
@@ -275,28 +261,19 @@
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var f = form.elements, ok = true;
-      ['name', 'start', 'city', 'country', 'type', 'from'].forEach(function (k) {
+      ['name', 'url'].forEach(function (k) {
         var bad = !String(f[k].value).trim();
         f[k].classList.toggle('evm-err', bad);
         if (bad) ok = false;
       });
-      if (f.end.value && f.start.value && f.end.value < f.start.value) { f.end.classList.add('evm-err'); ok = false; }
-      else f.end.classList.remove('evm-err');
       if (!ok) return;
       var v = function (k) { return String(f[k].value || '').trim(); };
       var body =
         'EVENT SUGGESTION — Shimano Order Book\n\n' +
         'Event name : ' + v('name') + '\n' +
-        'Start date : ' + v('start') + '\n' +
-        'End date   : ' + (v('end') || v('start')) + '\n' +
-        'City       : ' + v('city') + '\n' +
-        'Country    : ' + v('country') + '\n' +
-        'Type       : ' + v('type') + '\n' +
-        'Link       : ' + (v('url') || '-') + '\n' +
-        'Suggested by: ' + v('from') + '\n\n' +
-        'Notes:\n' + (v('notes') || '-') + '\n';
+        'Link       : ' + v('url') + '\n';
       var href = 'mailto:' + CONTACT +
-        '?subject=' + encodeURIComponent('Event suggestion: ' + v('name') + ' (' + v('country') + ', ' + v('start') + ')') +
+        '?subject=' + encodeURIComponent('Event suggestion: ' + v('name')) +
         '&body=' + encodeURIComponent(body);
       window.location.href = href;
       modal.classList.add('sent');
