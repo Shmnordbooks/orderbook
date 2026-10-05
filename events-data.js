@@ -37,7 +37,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-09-29
+   Last checked: 2026-10-05
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -71,6 +71,13 @@ window.SHIMANO_EVENTS = [
     city: "Al Qudra", country: "UAE",
     type: "community", label: "Gran Fondo",
     url: "https://cyclechallenge.ae/"
+  },
+  {
+    name: "Khorfakkan Triathlon",
+    start: "2026-11-01", end: "2026-11-01",
+    city: "Khor Fakkan", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://www.hopasports.com/en/event/oceanic-khorfakkan-triathlon-series-race-1-of-2-2"
   },
   {
     name: "Dubai Ride",
