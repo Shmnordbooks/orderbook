@@ -26,7 +26,8 @@
                      battistrada.com
    - Aggregators   : finishers.com, ahotu.com (filter by country + cycling)
    - Registration  : hopasports.com (UAE MTB/road/triathlon — best local source),
-                     premieronline.com, supersportsuae.com, sported.ae/race-calendar
+                     sported.ae/event-type/cycling + /triathlon (very complete for UAE),
+                     premieronline.com, supersportsuae.com
    - Councils      : mediaoffice.abudhabi (Bike Abu Dhabi Gran Fondo),
                      dubai.letapeseries.com (L'Etape Dubai, January)
    - UAE           : dubaifitnesschallenge.com, abudhabi media office,
@@ -37,7 +38,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-09-29
+   Last checked: 2026-10-05
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -71,6 +72,13 @@ window.SHIMANO_EVENTS = [
     city: "Al Qudra", country: "UAE",
     type: "community", label: "Gran Fondo",
     url: "https://cyclechallenge.ae/"
+  },
+  {
+    name: "Khorfakkan Triathlon",
+    start: "2026-11-01", end: "2026-11-01",
+    city: "Khor Fakkan", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://www.hopasports.com/en/event/oceanic-khorfakkan-triathlon-series-race-1-of-2-2"
   },
   {
     name: "Dubai Ride",
@@ -234,5 +242,48 @@ window.SHIMANO_EVENTS = [
     city: "Sir Bani Yas Island", country: "UAE",
     type: "triathlon", label: "Challenge",
     url: "https://www.ahotu.com/calendar/triathlon/united-arab-emirates"
+  },
+  {
+    name: "Falcon Daman Series R1",
+    start: "2026-10-06", end: "2026-10-06",
+    city: "Hudayriyat, Abu Dhabi", country: "UAE",
+    type: "local", label: "Race Series",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "Dubai Police Triathlon",
+    start: "2026-10-11", end: "2026-10-11",
+    city: "Al Mamzar, Dubai", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://www.sported.ae/event-type/triathlon/"
+  },
+  {
+    name: "Mamzar Triathlon R1",
+    start: "2026-10-25", end: "2026-10-25",
+    city: "Al Mamzar, Dubai", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://www.sported.ae/event-type/triathlon/"
+  },
+  {
+    name: "Ajman Cycling Race",
+    start: "2026-11-22", end: "2026-11-22",
+    city: "Ajman", country: "UAE",
+    type: "community", label: "Road Race",
+    url: "https://www.ahotu.com/calendar/cycling/united-arab-emirates"
+  },
+  {
+    name: "JAIS Ride",
+    start: "2026-12-05", end: "2026-12-05",
+    city: "Jebel Jais, RAK", country: "UAE",
+    type: "community", label: "Mountain Ride",
+    url: "https://www.ahotu.com/calendar/cycling/united-arab-emirates"
+  },
+  {
+    name: "IRONMAN 70.3 Bahrain",
+    start: "2026-12-11", end: "2026-12-11",
+    city: "Manama", country: "BHR",
+    type: "triathlon", label: "IRONMAN 70.3",
+    tbc: true,
+    url: "https://www.ahotu.com/calendar/triathlon/bahrain"
   }
 ];
