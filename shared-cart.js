@@ -46,6 +46,18 @@
     });
   }
 
+  /* Product master data (EAN, HS code, origin, weight) — written daily by the
+     stock update tool into product-info.js. Loaded only when exporting. */
+  function loadProductInfo() {
+    if (window.SHIMANO_PRODUCT_INFO) return Promise.resolve();
+    return injectScript('product-info.js?v=' + Date.now()).catch(function(){});
+  }
+  function infoFor(code) {
+    var db = window.SHIMANO_PRODUCT_INFO || {};
+    var r = db[String(code || '').trim().toUpperCase().replace(/^\+/, '')];
+    return r ? { ean: r[0] || '', hs: r[1] || '', origin: r[2] || '', kg: Number(r[3]) || 0 } : { ean: '', hs: '', origin: '', kg: 0 };
+  }
+
   var SHARED_KEY   = 'shimano_all_orders';
   var PAGE_LABELS  = { hardgoods:'HARDGOODS', shoes:'SHOES', pedals:'PEDALS', lazer:'LAZER',
                        eyewear:'EYEWEAR', pro:'PRO BIKEGEAR', catalogues:'CATALOGUES' };
@@ -398,7 +410,7 @@ margin-top:8px;transition:all .2s}\
     var btn = document.getElementById('aoExport'), spin = document.getElementById('aoSpin');
     if (btn) btn.disabled = true;
     if (spin) spin.style.display = 'inline-block';
-    loadSheetJS().then(function() { exportSheetJS(allItems, dealerName); })
+    Promise.all([loadSheetJS(), loadProductInfo()]).then(function() { exportSheetJS(allItems, dealerName); })
       .catch(function() { exportXML(allItems, dealerName); })
       .finally(function() { if (btn) btn.disabled = false; if (spin) spin.style.display = 'none'; });
   }
@@ -416,17 +428,33 @@ margin-top:8px;transition:all .2s}\
     var valueFont = {font:{sz:10, color:{rgb:'000000'}}, border:noBorder, alignment:{horizontal:'left'}};
 
     var rows = [];
-    rows.push(['Order:', orderNo, 'Date:', dateDisplay, 'Dealer:', dealerName]);   // 0
-    rows.push(['', '', '', '', '', '']);                                           // 1 spacer
-    rows.push(['Catalog', 'Item Code', 'Description', 'Model / Spec', 'QTY', '']);  // 2 header
+    var HEAD = ['Catalog', 'Item Code', 'Description', 'Model / Spec', 'QTY', 'EAN', 'HS Code', 'Origin', 'Weight (kg)'];
+    var NC = HEAD.length, LAST = NC - 1, QTY = 4, KG = 8;
+    var blank = function(){ var a = []; for (var k = 0; k < NC; k++) a.push(''); return a; };
+    var r0 = blank(); r0[0]='Order:'; r0[1]=orderNo; r0[2]='Date:'; r0[3]=dateDisplay; r0[4]='Dealer:'; r0[5]=dealerName;
+    rows.push(r0);                 // 0
+    rows.push(blank());            // 1 spacer
+    rows.push(HEAD.slice());       // 2 header
 
+    var totQty = 0, totKg = 0, anyKg = false;
     for (var i = 0; i < items.length; i++) {
-      var it = items[i];
-      rows.push([it.source, it.code, it.desc1, it.desc2, it.qty, '']);
+      var it = items[i], inf = infoFor(it.code);
+      var kg = inf.kg ? Math.round(inf.kg * it.qty * 1000) / 1000 : '';
+      if (inf.kg) { totKg += inf.kg * it.qty; anyKg = true; }
+      totQty += Number(it.qty) || 0;
+      rows.push([it.source, it.code, it.desc1, it.desc2, it.qty, inf.ean, inf.hs, inf.origin, kg]);
     }
+    var tr = blank(); tr[3] = 'TOTAL'; tr[QTY] = totQty; tr[KG] = anyKg ? Math.round(totKg * 100) / 100 : '';
+    rows.push(blank());
+    rows.push(tr);
+    var totalRow = rows.length - 1;
 
     var ws = X.utils.aoa_to_sheet(rows);
-    ws['!cols'] = [{wch:16},{wch:22},{wch:40},{wch:28},{wch:10},{wch:2}];
+    ws['!cols'] = [{wch:16},{wch:22},{wch:40},{wch:28},{wch:8},{wch:16},{wch:12},{wch:14},{wch:11}];
+    // EAN and HS codes must stay text (no 4.9E+12, no lost leading zeros)
+    for (var rr = 3; rr < totalRow - 1; rr++) [5, 6].forEach(function(cc){
+      var a = X.utils.encode_cell({r:rr, c:cc}); if (ws[a] && ws[a].v !== '') { ws[a].t = 's'; ws[a].v = String(ws[a].v); ws[a].z = '@'; }
+    });
 
     if (!ws['!sheetViews']) ws['!sheetViews'] = [{}];
     ws['!sheetViews'][0].showGridLines = false;
@@ -443,7 +471,7 @@ margin-top:8px;transition:all .2s}\
     ['A1','C1','E1'].forEach(function(a){ if(ws[a]) ws[a].s = labelFont; });
     ['B1','D1','F1'].forEach(function(a){ if(ws[a]) ws[a].s = valueFont; });
 
-    for (c = 0; c <= 5; c++) {
+    for (c = 0; c <= LAST; c++) {
       addr = X.utils.encode_cell({r:1, c:c});
       if (ws[addr]) ws[addr].s = {border:noBorder, font:{sz:4}};
     }
@@ -454,17 +482,16 @@ margin-top:8px;transition:all .2s}\
       alignment:{horizontal:'center', vertical:'center'},
       border:noBorder
     };
-    ['A3','B3','C3','D3','E3'].forEach(function(a){ if(ws[a]) ws[a].s = hdrStyle; });
-    if (ws['F3']) ws['F3'].s = {border:noBorder};
+    for (c = 0; c <= LAST; c++) { addr = X.utils.encode_cell({r:2, c:c}); if (ws[addr]) ws[addr].s = hdrStyle; }
 
     for (r = 3; r <= range.e.r; r++) {
-      for (c = 0; c <= 4; c++) {
+      for (c = 0; c <= LAST; c++) {
         addr = X.utils.encode_cell({r:r, c:c});
         if (ws[addr]) {
           ws[addr].s = {
-            font:{sz:10, color:{rgb:'222222'}},
-            border:noBorder,
-            alignment: c === 4 ? {horizontal:'center'} : {horizontal:'left'}
+            font:{sz:10, bold: r === totalRow, color:{rgb: c >= 5 && r !== totalRow ? '555555' : '222222'}},
+            border: r === totalRow ? {top:{style:'thin', color:{rgb:'0082CA'}}} : noBorder,
+            alignment: (c === QTY || c === KG) ? {horizontal:'center'} : {horizontal:'left'}
           };
         }
       }
@@ -484,14 +511,16 @@ margin-top:8px;transition:all .2s}\
       '<Column ss:Width="80"/><Column ss:Width="130"/><Column ss:Width="220"/><Column ss:Width="200"/><Column ss:Width="55"/><Column ss:Width="80"/>\n'+
       '<Row ss:StyleID="h"><Cell><Data ss:Type="String">Catalog</Data></Cell><Cell><Data ss:Type="String">SKU</Data></Cell>'+
       '<Cell><Data ss:Type="String">Description 1</Data></Cell><Cell><Data ss:Type="String">Description 2</Data></Cell>'+
-      '<Cell><Data ss:Type="String">QTY</Data></Cell><Cell><Data ss:Type="String">Price</Data></Cell></Row>\n';
+      '<Cell><Data ss:Type="String">QTY</Data></Cell><Cell><Data ss:Type="String">Price</Data></Cell>'+
+      '<Cell><Data ss:Type="String">EAN</Data></Cell><Cell><Data ss:Type="String">HS Code</Data></Cell><Cell><Data ss:Type="String">Origin</Data></Cell></Row>\n';
     for(var i=0;i<items.length;i++){var it=items[i];
       x+='<Row ss:StyleID="d"><Cell><Data ss:Type="String">'+esc(it.source)+'</Data></Cell>'+
         '<Cell><Data ss:Type="String">'+esc(it.code)+'</Data></Cell>'+
         '<Cell><Data ss:Type="String">'+esc(it.desc1)+'</Data></Cell>'+
         '<Cell><Data ss:Type="String">'+esc(it.desc2)+'</Data></Cell>'+
         '<Cell><Data ss:Type="Number">'+it.qty+'</Data></Cell>'+
-        '<Cell><Data ss:Type="'+(it.price!==''&&!isNaN(Number(it.price))?'Number':'String')+'">'+esc(String(it.price||''))+'</Data></Cell></Row>\n';
+        '<Cell><Data ss:Type="'+(it.price!==''&&!isNaN(Number(it.price))?'Number':'String')+'">'+esc(String(it.price||''))+'</Data></Cell>'+
+        (function(f){return '<Cell><Data ss:Type="String">'+esc(f.ean)+'</Data></Cell><Cell><Data ss:Type="String">'+esc(f.hs)+'</Data></Cell><Cell><Data ss:Type="String">'+esc(f.origin)+'</Data></Cell>';})(infoFor(it.code))+'</Row>\n';
     }
     x+='<Row/><Row ss:StyleID="t"><Cell/><Cell/><Cell/><Cell><Data ss:Type="String">TOTAL</Data></Cell>'+
       '<Cell><Data ss:Type="Number">'+tq+'</Data></Cell><Cell/></Row>\n</Table></Worksheet></Workbook>';
