@@ -1,10 +1,21 @@
 /* ═══════════════════════════════════════════════════════════════
    SHIMANO NEWS TICKER — TV-style scrolling marquee
-   Reads TWO sources:
-     - window.SHIMANO_NEWS   (full news, from news-data.js)
-     - window.SHIMANO_TICKER (ticker-only items, from ticker-data.js)
-   Ticker-only items show first (highest priority), then news.
-   Items with ticker:false are excluded from the strip.
+   Sources (in display order):
+     1. window.SHIMANO_TICKER      (manual quick lines, ticker-data.js)
+     2. window.SHIMANO_TICKER_AUTO (auto lines from stock changes, ticker-auto.js —
+                                    written by .github/workflows/ticker-auto.yml)
+     3. window.SHIMANO_EVENTS      (events-data.js — events starting within
+                                    EVENT_WINDOW_DAYS appear automatically)
+     4. window.SHIMANO_NEWS        (full news, news-data.js; ticker:false hides)
+   ticker-auto.js and events-data.js are loaded by this file itself, so no
+   HTML page needs editing.
+
+   Lifetime rules for items in sources 1-2 (all optional):
+     publishAt : "YYYY-MM-DD"  hidden until this day
+     expires   : "YYYY-MM-DD"  hidden after this day (inclusive)
+     pin       : true          never auto-hides
+     added     : "YYYY-MM-DD"  with no expires/pin, item hides after
+                               DEFAULT_TTL_DAYS days
    ═══════════════════════════════════════════════════════════════ */
 (function(){
   'use strict';
@@ -13,23 +24,85 @@
 
   if (sessionStorage.getItem('shimano_ticker_hidden') === '1') return;
 
-  function boot(){
-    var newsArr = Array.isArray(window.SHIMANO_NEWS) ? window.SHIMANO_NEWS : [];
-    var tickerArr = Array.isArray(window.SHIMANO_TICKER) ? window.SHIMANO_TICKER : [];
-    if (!newsArr.length && !tickerArr.length){
-      return setTimeout(function(){
-        var n = Array.isArray(window.SHIMANO_NEWS) ? window.SHIMANO_NEWS : [];
-        var t = Array.isArray(window.SHIMANO_TICKER) ? window.SHIMANO_TICKER : [];
-        if (n.length || t.length) build(n, t);
-      }, 300);
-    }
-    build(newsArr, tickerArr);
+  var DEFAULT_TTL_DAYS = 21;   /* manual lines with "added" and no expires/pin */
+  var EVENT_WINDOW_DAYS = 30;  /* show events starting within this many days */
+  var EVENT_MAX = 6;           /* at most this many event lines */
+  var MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+  function loadScript(src, done){
+    var s = document.createElement('script');
+    s.src = src + '?v=' + Date.now();
+    s.onload = s.onerror = function(){ done(); };
+    document.head.appendChild(s);
   }
 
-  function build(newsArr, tickerArr){
+  function boot(){
+    var pending = 0, fired = false;
+    function finish(){
+      if (fired) return; fired = true;
+      build(
+        Array.isArray(window.SHIMANO_NEWS) ? window.SHIMANO_NEWS : [],
+        Array.isArray(window.SHIMANO_TICKER) ? window.SHIMANO_TICKER : [],
+        Array.isArray(window.SHIMANO_TICKER_AUTO) ? window.SHIMANO_TICKER_AUTO : [],
+        Array.isArray(window.SHIMANO_EVENTS) ? window.SHIMANO_EVENTS : []
+      );
+    }
+    function need(src){ pending++; loadScript(src, function(){ if (--pending === 0) finish(); }); }
+    /* events-data.js is only on index.html by default — load it everywhere */
+    if (!Array.isArray(window.SHIMANO_EVENTS)) need('events-data.js');
+    if (!Array.isArray(window.SHIMANO_TICKER_AUTO)) need('ticker-auto.js');
+    if (!pending) finish();
+    else setTimeout(finish, 2500); /* never block the ticker on a slow/missing file */
+  }
+
+  /* ---- date helpers (local midnight, "YYYY-MM-DD") ---- */
+  function parseDay(str){
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(str || ''));
+    return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+  }
+  function today(){ var d = new Date(); return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
+  function dayDiff(a, b){ return Math.round((a - b) / 86400000); }
+
+  /* Is a manual/auto ticker item currently live? */
+  function isLive(n){
+    if (!n || !n.title) return false;
+    var t = today();
+    var pub = parseDay(n.publishAt);
+    if (pub && t < pub) return false;
+    var exp = parseDay(n.expires);
+    if (exp) return t <= exp;
+    if (n.pin === true) return true;
+    var added = parseDay(n.added);
+    if (added) return dayDiff(t, added) <= DEFAULT_TTL_DAYS;
+    return true;
+  }
+
+  /* Upcoming/ongoing events inside the window, soonest first */
+  function eventItems(evts){
+    var t = today(), out = [];
+    evts.forEach(function(e){
+      var s = parseDay(e && e.start), en = parseDay(e && (e.end || e.start));
+      if (!s || !en || !e.name) return;
+      if (en < t) return;                          /* already over */
+      if (dayDiff(s, t) > EVENT_WINDOW_DAYS) return; /* too far ahead */
+      var loc = [e.city, e.country].filter(Boolean).join(', ');
+      var when = s <= t ? 'NOW' : s.getDate() + ' ' + MONTHS[s.getMonth()];
+      out.push({
+        _s: s,
+        date: 'EVENT \u00B7 ' + when + (e.tbc ? ' (TBC)' : ''),
+        title: e.name + (loc ? ' \u2013 ' + loc : ''),
+        link: e.url || ''
+      });
+    });
+    out.sort(function(a, b){ return a._s - b._s; });
+    return out.slice(0, EVENT_MAX);
+  }
+
+  function build(newsArr, tickerArr, autoArr, eventsArr){
     var newsFiltered = newsArr.filter(function(n){ return n && n.ticker !== false; });
-    var tickerFiltered = tickerArr.filter(function(n){ return n && n.title; });
-    var items = tickerFiltered.concat(newsFiltered);
+    var tickerFiltered = tickerArr.filter(isLive);
+    var autoFiltered = autoArr.filter(isLive);
+    var items = tickerFiltered.concat(autoFiltered, eventItems(eventsArr), newsFiltered);
     if (!items.length) return;
 
     var sidebar = document.querySelector('.sidebar');
