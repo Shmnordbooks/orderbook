@@ -9,16 +9,9 @@
   if (!root || !DATA || !DATA.length) return;
 
   var MAX_ROWS = 10;       // most rows shown at once (screen permitting)
-  /* Show up to MAX_ROWS events; on short screens fewer rows per page so the
-     panel never runs off the top (the rest rotate on the next pages).
-     On phones the CSS shows a single row, so rotate one event at a time. */
-  function fitRows() {
-    if (window.innerWidth <= 768) return 1;
-    var rowH = window.innerHeight <= 760 ? 46 : 53;               // matches the row padding in the CSS below
-    var n = Math.floor((window.innerHeight - 96 - 60 - 80) / rowH); // top bar clearance, bottom margin, header + footer
-    return Math.max(4, Math.min(MAX_ROWS, n));
-  }
-  var PER_PAGE = fitRows();    // rows visible at once
+  var MIN_ROWS = 3;        // never fewer than this on desktop
+  var PHONE = function () { return window.innerWidth <= 768; };
+  var PER_PAGE = PHONE() ? 1 : MAX_ROWS;   // refined by layout() once the panel is in the page
   var ROTATE_MS = 7000;    // page rotation interval
   var MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
   var DAY = 86400000;
@@ -123,6 +116,8 @@
     '@media (max-width:1500px){#evPanel{right:24px;width:290px;}#evPanel .ev-name{font-size:14px;}}',
     '@media (max-width:768px){#evPanel{left:16px;right:16px;width:auto;bottom:62px;}',
     '#evPanel a.ev-row:nth-child(n+2){display:none;}#evPanel .ev-foot{display:none;}}',
+    '#evPanel.compact a.ev-row{padding:5px 14px;}#evPanel.compact .ev-head{padding:8px 14px 6px;}#evPanel.compact .ev-foot{padding:5px 14px 7px;}',
+    '#evPanel.compact .ev-name{-webkit-line-clamp:1;}#evPanel.compact .ev-day{font-size:17px;}#evPanel.compact .ev-day.range{font-size:14px;}',
     '@media (max-height:760px) and (min-width:769px){#evPanel a.ev-row{padding:6px 14px;}#evPanel .ev-head{padding:8px 14px 7px;}#evPanel .ev-day{font-size:17px;}#evPanel .ev-name{font-size:14px;}}'
   ].join('');
   var st = document.createElement('style');
@@ -159,9 +154,7 @@
   }
 
   /* ---------- panel ---------- */
-  var pages = Math.ceil(events.length / PER_PAGE);
-  var dots = '';
-  if (pages > 1) for (var p = 0; p < pages; p++) dots += '<button type="button" class="ev-pg' + (p === 0 ? ' on' : '') + '" data-page="' + p + '" aria-label="Page ' + (p + 1) + '"></button>';
+  var pages = 1;
   var panel = document.createElement('div');
   panel.id = 'evPanel';
   panel.innerHTML =
@@ -169,7 +162,7 @@
     '</div>' +
     '<div class="ev-list"></div>' +
     '<div class="ev-foot">' + (CONTACT ? '<button type="button" class="ev-suggest">+ SUGGEST AN EVENT</button>' : '<span>DATES MAY CHANGE</span>') +
-    '<span class="ev-pages">' + dots + '</span></div>';
+    '<span class="ev-pages"></span></div>';
   root.appendChild(panel);
 
   /* ---------- align panel bottom with the LAZER baseline ---------- */
@@ -189,23 +182,26 @@
     if (bottom < 60) { panel.style.bottom = ''; return; }
     panel.style.bottom = Math.round(bottom) + 'px';
   }
-  alignToLazer();
-  setTimeout(alignToLazer, 1300);                      /* after the cover slide-in animation */
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(alignToLazer);
-  var rsT;
-  window.addEventListener('resize', function () { clearTimeout(rsT); rsT = setTimeout(alignToLazer, 120); });
-
   var listEl = panel.querySelector('.ev-list');
-  var dotEls = panel.querySelectorAll('.ev-pg');
+  var pagesEl = panel.querySelector('.ev-pages');
   var page = 0;
-  function render() {
+  function pageHtml(pg) {
     var html = '';
-    var slice = events.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
+    var slice = events.slice(pg * PER_PAGE, pg * PER_PAGE + PER_PAGE);
     for (var k = 0; k < slice.length; k++) html += row(slice[k]);
-    listEl.innerHTML = html;
+    return html;
+  }
+  function buildDots() {
+    pages = Math.ceil(events.length / PER_PAGE);
+    var dots = '';
+    if (pages > 1) for (var p = 0; p < pages; p++) dots += '<button type="button" class="ev-pg" data-page="' + p + '" aria-label="Page ' + (p + 1) + '"></button>';
+    pagesEl.innerHTML = dots;
+  }
+  function render() {
+    listEl.innerHTML = pageHtml(page);
+    var dotEls = pagesEl.children;
     for (var j = 0; j < dotEls.length; j++) dotEls[j].className = 'ev-pg' + (j === page ? ' on' : '');
   }
-  render();
 
   var paused = false;
   var timer = null;
@@ -220,19 +216,62 @@
   }
   function startTimer() {
     if (timer) clearInterval(timer);
-    timer = setInterval(function () { if (!paused) goTo(page + 1); }, ROTATE_MS);
+    timer = null;
+    if (pages > 1) timer = setInterval(function () { if (!paused) goTo(page + 1); }, ROTATE_MS);
   }
-  if (pages > 1) {
-    panel.addEventListener('mouseenter', function () { paused = true; });
-    panel.addEventListener('mouseleave', function () { paused = false; });
-    for (var d = 0; d < dotEls.length; d++) {
-      dotEls[d].addEventListener('click', function () {
-        goTo(+this.getAttribute('data-page'));
-        startTimer();
-      });
-    }
+  panel.addEventListener('mouseenter', function () { paused = true; });
+  panel.addEventListener('mouseleave', function () { paused = false; });
+  pagesEl.addEventListener('click', function (ev) {
+    var t = ev.target;
+    if (!t || !t.getAttribute || t.getAttribute('data-page') == null) return;
+    goTo(+t.getAttribute('data-page'));
     startTimer();
+  });
+
+  /* ---------- fit to the screen: measure the real panel height ----------
+     Names that wrap to two lines make rows taller, so row heights can't be
+     guessed. Try 10 rows; if the tallest page doesn't fit under the top bar,
+     switch to compact rows (one-line names), then drop rows one by one. */
+  function fits(avail) {
+    var total = Math.ceil(events.length / PER_PAGE);
+    for (var pg = 0; pg < total; pg++) {
+      listEl.innerHTML = pageHtml(pg);
+      if (panel.offsetHeight > avail) return false;
+    }
+    return true;
   }
+  function layout() {
+    var prevPer = PER_PAGE;
+    if (PHONE()) {
+      panel.classList.remove('compact');
+      PER_PAGE = 1;
+    } else {
+      if (!panel.offsetHeight) return;                  /* cover page hidden right now: ResizeObserver / timers retry */
+      var avail = root.getBoundingClientRect().height - 96 - 60;   /* top-bar clearance + bottom margin */
+      var done = false;
+      for (var c = 0; c < 2 && !done; c++) {
+        panel.classList.toggle('compact', c === 1);
+        for (var n = MAX_ROWS; n >= (c === 0 ? MAX_ROWS : MIN_ROWS); n--) {
+          PER_PAGE = n;
+          if (fits(avail)) { done = true; break; }
+        }
+      }
+    }
+    if (PER_PAGE !== prevPer) page = 0;
+    buildDots();
+    if (page > pages - 1) page = 0;
+    render();
+    startTimer();
+    alignToLazer();
+  }
+  buildDots(); render();                               /* first paint, then refine below */
+  layout();
+  setTimeout(layout, 1300);                            /* after the cover slide-in animation */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+  var rsT;
+  function relayout() { clearTimeout(rsT); rsT = setTimeout(layout, 120); }
+  window.addEventListener('resize', relayout);
+  if (window.ResizeObserver) new ResizeObserver(relayout).observe(root);
 
   /* ---------- suggest an event (mailto) ---------- */
   if (CONTACT) {
