@@ -1,0 +1,49 @@
+# Rebuilds ticker-auto.js after every stock update push.
+# Compares the catalog pages before/after the push and adds ticker lines
+# ("PEDALS: back in stock", "LAZER: new product", "Stock updated: ...").
+name: Ticker auto lines
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - hardgoods.html
+      - shoes.html
+      - pedals.html
+      - eyewear.html
+      - lazer.html
+      - pro.html
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ticker-auto
+  cancel-in-progress: false
+
+jobs:
+  ticker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Generate ticker-auto.js
+        env:
+          BEFORE: ${{ github.event.before }}
+        run: |
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            echo "No previous revision, skipping."; exit 0
+          fi
+          python3 tools/gen_ticker_auto.py --old-ref "$BEFORE"
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- ticker-auto.js; then
+            echo "No change."; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ticker-auto.js
+          git commit -m "Ticker: auto lines from stock update"
+          git pull --rebase origin main
+          git push origin HEAD:main
