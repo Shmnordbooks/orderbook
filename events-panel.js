@@ -166,6 +166,13 @@
   root.appendChild(panel);
 
   /* ---------- align panel bottom with the LAZER baseline ---------- */
+  /* Top limit: the panel sits below the thin line under the top bar (not over it). */
+  function topLimit() {
+    var tb = root.querySelector('.cover-topbar');
+    if (tb && tb.offsetParent === root) return tb.offsetTop + tb.offsetHeight + 14;   // layout position, ignores the slide-in animation
+    return 96;
+  }
+
   function alignToLazer() {
     var ref = root.querySelector('a[href="lazer.html"].cover-title');
     if (!ref || window.innerWidth <= 768 || !ref.offsetParent) { panel.style.bottom = ''; return; }
@@ -176,7 +183,7 @@
     ref.removeChild(mark);
     var rootRect = root.getBoundingClientRect();
     var bottom = rootRect.bottom - baseline;
-    var minTop = 96;                                   /* keep clear of the top bar */
+    var minTop = topLimit();                           /* keep clear of the top bar and its line */
     var maxBottom = rootRect.height - minTop - panel.offsetHeight;
     if (bottom > maxBottom) bottom = maxBottom;
     if (bottom < 60) { panel.style.bottom = ''; return; }
@@ -247,7 +254,7 @@
       PER_PAGE = 1;
     } else {
       if (!panel.offsetHeight) return;                  /* cover page hidden right now: ResizeObserver / timers retry */
-      var avail = root.getBoundingClientRect().height - 96 - 60;   /* top-bar clearance + bottom margin */
+      var avail = root.getBoundingClientRect().height - topLimit() - 60;   /* below the top-bar line + bottom margin */
       var done = false;
       for (var c = 0; c < 2 && !done; c++) {
         panel.classList.toggle('compact', c === 1);
