@@ -2,6 +2,48 @@
    Replaced on every stock update push. */
 window.SHIMANO_TICKER_AUTO = [
   {
+    "title": "HARDGOODS: 186 new products added",
+    "link": "hardgoods.html",
+    "added": "2026-10-06",
+    "expires": "2026-10-13",
+    "auto": "change"
+  },
+  {
+    "title": "SHOES: 120 new products added",
+    "link": "shoes.html",
+    "added": "2026-10-06",
+    "expires": "2026-10-13",
+    "auto": "change"
+  },
+  {
+    "title": "PEDALS: new – SPD-SLR w/ Cleat CL-SL11, SPD w/ Cleat SM-SH51, Flat for Explorer",
+    "link": "pedals.html",
+    "added": "2026-10-06",
+    "expires": "2026-10-13",
+    "auto": "change"
+  },
+  {
+    "title": "EYEWEAR: 29 new products added",
+    "link": "eyewear.html",
+    "added": "2026-10-06",
+    "expires": "2026-10-13",
+    "auto": "change"
+  },
+  {
+    "title": "LAZER: 84 new products added",
+    "link": "lazer.html",
+    "added": "2026-10-06",
+    "expires": "2026-10-13",
+    "auto": "change"
+  },
+  {
+    "title": "PRO: 278 new products added",
+    "link": "pro.html",
+    "added": "2026-10-06",
+    "expires": "2026-10-13",
+    "auto": "change"
+  },
+  {
     "title": "Stock updated: 06 Oct 2026",
     "added": "2026-10-06",
     "expires": "2026-10-13",
