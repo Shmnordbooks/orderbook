@@ -8,7 +8,17 @@
   var DATA = window.SHIMANO_EVENTS;
   if (!root || !DATA || !DATA.length) return;
 
-  var PER_PAGE = 5;        // rows visible at once
+  var MAX_ROWS = 10;       // most rows shown at once (screen permitting)
+  /* Show up to MAX_ROWS events; on short screens fewer rows per page so the
+     panel never runs off the top (the rest rotate on the next pages).
+     On phones the CSS shows a single row, so rotate one event at a time. */
+  function fitRows() {
+    if (window.innerWidth <= 768) return 1;
+    var rowH = window.innerHeight <= 760 ? 46 : 53;               // matches the row padding in the CSS below
+    var n = Math.floor((window.innerHeight - 96 - 60 - 80) / rowH); // top bar clearance, bottom margin, header + footer
+    return Math.max(4, Math.min(MAX_ROWS, n));
+  }
+  var PER_PAGE = fitRows();    // rows visible at once
   var ROTATE_MS = 7000;    // page rotation interval
   var MONTHS = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
   var DAY = 86400000;
