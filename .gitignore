@@ -1,0 +1,8 @@
+# Company data files must never be published (repo is public).
+# The stock tool reads them locally; they are not needed by the site.
+*.xlsm
+*.xlsx
+*.xls
+*.csv
+github-token.txt
+__pycache__/
