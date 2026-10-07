@@ -204,7 +204,7 @@
       + '#shimano-ticker .st-item.st-active{color:#3b9eff}'
       + '#shimano-ticker .st-item.st-active .st-caret{transform:translateY(-3px);color:#3b9eff}'
       /* ---- product popup ---- */
-      + '#st-pop{position:fixed;z-index:9999;width:420px;max-width:calc(100vw - 24px);'
+      + '#st-pop{position:fixed;z-index:9999;width:460px;max-width:calc(100vw - 24px);'
       +   'max-height:min(62vh,500px);display:flex;flex-direction:column;'
       +   'background:#0c0c15;border:1px solid #24243a;border-radius:10px;'
       +   'box-shadow:0 -12px 40px rgba(0,0,0,.6),0 0 0 1px rgba(0,130,202,.08);'
@@ -241,8 +241,9 @@
       + '#st-pop .sp-txt{flex:1;min-width:0}'
       + '#st-pop .sp-n{display:block;font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
       + '#st-pop .sp-d{display:block;font-size:12px;color:#8a8aa2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}'
-      + '#st-pop .sp-c{flex-shrink:0;font-size:12px;font-weight:600;color:#3b9eff;letter-spacing:.04em;'
-      +   'font-variant-numeric:tabular-nums}'
+      /* code column on the left, like the catalog tables */
+      + '#st-pop .sp-c{flex:0 0 var(--sp-cw,12ch);font-size:13px;font-weight:700;color:#3b9eff;'
+      +   'letter-spacing:.02em;font-variant-numeric:tabular-nums;white-space:nowrap}'
       + '#st-pop .sp-empty{padding:16px;color:#6b6b82;font-size:13px;text-align:center}'
       + '#st-pop .sp-foot{display:block;padding:10px 16px;border-top:1px solid #1c1c2c;color:#3b9eff;'
       +   'font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none}'
@@ -397,9 +398,10 @@
           var href = page ? page + '?skip=true&find=' + encodeURIComponent(p.c) : '';
           html += '<a class="sp-row"' + (href ? ' href="' + escapeAttr(href) + '"' : '')
                +  ' data-code="' + escapeAttr(p.c) + '">'
+               +  '<span class="sp-c">' + escapeHTML(p.c) + '</span>'
                +  '<span class="sp-txt"><span class="sp-n">' + escapeHTML(main) + '</span>'
                +  (sub ? '<span class="sp-d">' + escapeHTML(sub) + '</span>' : '')
-               +  '</span><span class="sp-c">' + escapeHTML(p.c) + '</span></a>';
+               +  '</span></a>';
         });
       });
       return html;
@@ -419,6 +421,9 @@
       if (n.link && !samePage(n.link)) html += '<a class="sp-foot" href="' + escapeAttr(n.link) + '">Open ' + escapeHTML(pageName(n.link)) + ' catalogue &rarr;</a>';
       el.innerHTML = html;
       var list = el.querySelector('.sp-list');
+      /* code column as wide as the longest code, so codes never wrap */
+      var longest = n.items.reduce(function(m, p){ return Math.max(m, String(p.c).length); }, 0);
+      list.style.setProperty('--sp-cw', Math.ceil(longest * 1.12 + 1) + 'ch'); /* bold digits run a bit wider than 1ch */
       var search = el.querySelector('.sp-search');
       if (search) search.addEventListener('input', function(){
         list.innerHTML = rowsHTML(n, search.value.trim());
