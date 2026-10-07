@@ -169,23 +169,17 @@
       +   'background:#ff3b3b;margin-right:8px;animation:st-pulse 1.4s infinite}'
       + '@keyframes st-pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,59,59,.6)}'
       +   '50%{opacity:.6;box-shadow:0 0 0 6px rgba(255,59,59,0)}}'
-      /* IMPORTANT: track is the scroll viewport. overflow:hidden clips the strip
-         until it scrolls into view from the right edge, character by character.
+      /* track is the scroll viewport: overflow:hidden clips the strip, which a
+         small JS loop moves (see "Scrolling" below) so it can also be dragged.
          Left-side fade kept for soft exit; right side is sharp so text enters crisply. */
       + '#shimano-ticker .st-track{flex:1;overflow:hidden;position:relative;height:100%;'
+      +   'cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none;'
       +   'mask-image:linear-gradient(90deg,transparent 0,#000 30px,#000 100%);'
       +   '-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30px,#000 100%)}'
+      + '#shimano-ticker.st-dragging .st-track,#shimano-ticker.st-dragging .st-item{cursor:grabbing}'
       + '#shimano-ticker .st-strip{display:inline-flex;align-items:center;height:100%;'
-      +   'white-space:nowrap;will-change:transform;'
-      +   'animation:st-scroll var(--st-dur,90s) linear infinite}'
-      + '#shimano-ticker:hover .st-strip,#shimano-ticker.st-hold .st-strip{animation-play-state:paused}'
-      /* Strip starts fully OFF-SCREEN to the right (translateX = track width in px)
-         and ends fully OFF-SCREEN to the left (translateX = -stripWidth).
-         Values are injected as CSS vars after measuring, so the first frame
-         is already past the right edge — letters emerge one by one. */
-      + '@keyframes st-scroll{'
-      +   '0%{transform:translate3d(var(--st-start,100%),0,0)}'
-      +   '100%{transform:translate3d(calc(-1 * var(--st-end,100%)),0,0)}}'
+      +   'white-space:nowrap;will-change:transform;transform:translate3d(100vw,0,0)}'
+      + '#shimano-ticker .st-item{-webkit-user-drag:none}'
       + '#shimano-ticker .st-item{display:inline-flex;align-items:center;gap:10px;'
       +   'padding:0 28px;color:#e8e8f0;font-size:14px;font-weight:500;'
       +   'text-decoration:none;letter-spacing:.02em;transition:color .2s}'
@@ -310,30 +304,97 @@
     document.body.style.paddingBottom = '34px';
     pop = setupPopup(bar, strip, items);
 
-    /* Measure after mount. Start = trackWidth (first char sits just past right edge).
-       End   = stripWidth (last char has just cleared left edge).
-       Duration = total travel distance / speed — keeps visual speed constant
-       regardless of message length or viewport width. */
+    /* ═══ Scrolling ═══════════════════════════════════════════════
+       The strip enters fully off-screen on the right (x = track width) and
+       leaves fully off-screen on the left (x = -strip width), then wraps.
+       A requestAnimationFrame loop moves it at SPEED px/s, so the dealer can
+       also drag it (mouse or finger) or scroll it with the wheel/trackpad,
+       in either direction, instead of waiting for a line to come round again.
+       It stops while hovered, while a product popup is open and while dragged. */
+    var SPEED = 90;            /* pixels per second */
+    var DRAG_START = 5;        /* px of movement before a press becomes a drag */
+    var trackW = 0, stripW = 0, x = null, last = 0, hovering = false;
+    var drag = null, justDragged = false;
+
     function calibrate(){
-      var trackW = track.clientWidth;
-      var stripW = strip.scrollWidth;
+      trackW = track.clientWidth;
+      stripW = strip.scrollWidth;
+      if (x === null && trackW) x = trackW;   /* first frame: just past the right edge */
+    }
+    function wrap(){
       if (!trackW || !stripW) return;
-      var speed = 90; /* pixels per second */
-      var dist = trackW + stripW;
-      var dur = Math.max(20, Math.round(dist / speed));
-      strip.style.setProperty('--st-start', trackW + 'px');
-      strip.style.setProperty('--st-end',   stripW + 'px');
-      strip.style.setProperty('--st-dur',   dur + 's');
-      /* Restart animation so new vars apply from frame 0 */
-      strip.style.animation = 'none';
-      void strip.offsetWidth; // force reflow
-      strip.style.animation = '';
+      var span = trackW + stripW;
+      while (x < -stripW) x += span;
+      while (x > trackW)  x -= span;
+    }
+    function paint(){ strip.style.transform = 'translate3d(' + Math.round(x) + 'px,0,0)'; }
+    function frame(t){
+      var dt = last ? Math.min(0.1, (t - last) / 1000) : 0;
+      last = t;
+      if (x !== null){
+        var still = hovering || drag || bar.classList.contains('st-hold');
+        if (!still) x -= SPEED * dt;
+        wrap(); paint();
+      }
+      if (bar.isConnected) requestAnimationFrame(frame);
     }
     calibrate();
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(calibrate).catch(function(){});
     }
     setTimeout(calibrate, 400);
+    requestAnimationFrame(frame);
+
+    /* hover pause for real mice only (a tap would otherwise leave it paused) */
+    bar.addEventListener('pointerenter', function(e){ if (e.pointerType === 'mouse') hovering = true; });
+    bar.addEventListener('pointerleave', function(e){ if (e.pointerType === 'mouse') hovering = false; });
+
+    track.addEventListener('pointerdown', function(e){
+      if (e.button !== 0 || x === null) return;
+      drag = { id: e.pointerId, startX: e.clientX, startPos: x, moved: false };
+    });
+    track.addEventListener('pointermove', function(e){
+      if (!drag || e.pointerId !== drag.id) return;
+      var dx = e.clientX - drag.startX;
+      if (!drag.moved){
+        if (Math.abs(dx) < DRAG_START) return;
+        drag.moved = true;
+        bar.classList.add('st-dragging');
+        try { track.setPointerCapture(e.pointerId); } catch(err){}
+        if (pop) pop.hide(true);
+      }
+      x = drag.startPos + dx;
+      wrap(); paint();
+    });
+    function endDrag(e){
+      if (!drag || (e && e.pointerId !== drag.id)) return;
+      if (drag.moved){
+        justDragged = true;                 /* swallow the click that follows */
+        setTimeout(function(){ justDragged = false; }, 0);
+      }
+      bar.classList.remove('st-dragging');
+      drag = null;
+    }
+    track.addEventListener('pointerup', endDrag);
+    track.addEventListener('pointercancel', endDrag);
+    track.addEventListener('lostpointercapture', endDrag);
+    /* a drag that ends over a link must not open it (capture phase: runs first) */
+    track.addEventListener('click', function(e){
+      if (justDragged){ e.preventDefault(); e.stopPropagation(); justDragged = false; }
+    }, true);
+    track.addEventListener('dragstart', function(e){ e.preventDefault(); });
+
+    /* wheel / trackpad: scroll the ticker sideways */
+    track.addEventListener('wheel', function(e){
+      if (x === null) return;
+      var d = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!d) return;
+      e.preventDefault();
+      if (e.deltaMode === 1) d *= 16;       /* lines -> px */
+      x -= d;
+      wrap(); paint();
+      if (pop) pop.hide(true);
+    }, { passive: false });
 
     window.addEventListener('resize', function(){
       if (sidebar){
@@ -445,6 +506,7 @@
     }
 
     function show(a){
+      if (bar.classList.contains('st-dragging')) return;
       var idx = +a.getAttribute('data-st-list');
       var n = items[idx];
       if (!n || !n.items) return;
@@ -492,10 +554,11 @@
       });
     }
 
-    /* touch (and keyboard): first activation opens the list instead of navigating */
+    /* touch: first tap opens the list instead of navigating
+       (with a mouse the list opens on hover and a click follows the link) */
     strip.addEventListener('click', function(e){
       var a = listItem(e.target);
-      if (!a) return;
+      if (!a || canHover) return;
       if (anchor !== a || !el.classList.contains('open')){
         e.preventDefault();
         show(a);
