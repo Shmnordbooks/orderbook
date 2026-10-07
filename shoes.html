@@ -13866,7 +13866,8 @@ document.getElementById('searchInput').addEventListener('input', function() {
 // ─── RENDER ──────────────────────────────────────────────────────────────────
 function getFilteredModels() {
   return SHOE_DATA.filter(m => {
-    const catOk = currentCat === 'ALL' || m.cat === currentCat;
+    /* a search looks through every category, not just the selected one */
+    const catOk = !!searchQuery || currentCat === 'ALL' || m.cat === currentCat;
     if (!catOk) return false;
     if (!searchQuery) return true;
     // search in group, name, items

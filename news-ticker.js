@@ -55,15 +55,6 @@
   window.__shimanoTickerFind = function(code){
     var inp = document.getElementById('searchInput') || document.getElementById('sI');
     if (!inp) return false;
-    /* shoes/eyewear only search inside the selected category; widen to all
-       categories so the product is found wherever it sits */
-    try {
-      /* global "let" bindings of the catalog page are reachable by name */
-      if (typeof getFilteredModels === 'function' && typeof currentCat === 'string'
-          && /currentCat\s*===\s*'ALL'/.test(String(getFilteredModels)) && currentCat !== 'ALL') {
-        currentCat = 'ALL'; // eslint-disable-line no-undef
-      }
-    } catch(e){}
     inp.value = code;
     inp.dispatchEvent(new Event('input', { bubbles: true }));
     inp.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true }));
