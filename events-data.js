@@ -1,13 +1,13 @@
 /* ============================================================
    UPCOMING EVENTS — data file
-   Region: GCC, Kazakhstan, Uzbekistan, Egypt, Morocco
+   Region: GCC, Kazakhstan, Uzbekistan, Egypt, Morocco, Türkiye
    ------------------------------------------------------------
    How to add an event: copy one block, change the fields.
      name     : event name
      start    : "YYYY-MM-DD"
      end      : "YYYY-MM-DD"  (same as start for one-day events)
      city     : city / area
-     country  : UAE, KSA, OMN, QAT, BHR, KWT, KAZ, UZB, EGY, MAR
+     country  : UAE, KSA, OMN, QAT, BHR, KWT, KAZ, UZB, EGY, MAR, TUR
      type     : "pro"       -> UCI / professional race        (blue)
                 "triathlon" -> triathlon / duathlon / Ironman (purple)
                 "community" -> mass ride, gran fondo, open    (green)
@@ -79,6 +79,13 @@ window.SHIMANO_EVENTS = [
     city: "Al Qudra", country: "UAE",
     type: "community", label: "Gran Fondo",
     url: "https://cyclechallenge.ae/"
+  },
+  {
+    name: "IRONMAN 70.3 Türkiye",
+    start: "2026-11-01", end: "2026-11-01",
+    city: "Belek, Antalya", country: "TUR",
+    type: "triathlon", label: "IRONMAN 70.3",
+    url: "https://www.ahotu.com/event/ironman-70-3-turkey"
   },
   {
     name: "Khorfakkan Triathlon",
