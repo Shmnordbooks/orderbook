@@ -1,13 +1,13 @@
 /* ============================================================
    UPCOMING EVENTS — data file
-   Region: GCC, Kazakhstan, Uzbekistan
+   Region: GCC, Kazakhstan, Uzbekistan, Egypt, Morocco
    ------------------------------------------------------------
    How to add an event: copy one block, change the fields.
      name     : event name
      start    : "YYYY-MM-DD"
      end      : "YYYY-MM-DD"  (same as start for one-day events)
      city     : city / area
-     country  : UAE, KSA, OMN, QAT, BHR, KWT, KAZ, UZB
+     country  : UAE, KSA, OMN, QAT, BHR, KWT, KAZ, UZB, EGY, MAR
      type     : "pro"       -> UCI / professional race        (blue)
                 "triathlon" -> triathlon / duathlon / Ironman (purple)
                 "community" -> mass ride, gran fondo, open    (green)
@@ -38,7 +38,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-05
+   Last checked: 2026-10-07
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -65,6 +65,13 @@ window.SHIMANO_EVENTS = [
     city: "Salalah", country: "OMN",
     type: "triathlon", label: "IRONMAN 70.3",
     url: "https://timesofoman.com/article/175243-middle-east-ironman-703-team-championship-to-be-held-in-dhofar-on-24-october-2026"
+  },
+  {
+    name: "IRONMAN 70.3 Agadir",
+    start: "2026-10-25", end: "2026-10-25",
+    city: "Agadir", country: "MAR",
+    type: "triathlon", label: "IRONMAN 70.3",
+    url: "https://barlamantoday.com/2026/09/22/agadir-to-host-second-ironman-70-3-triathlon-in-october/"
   },
   {
     name: "Spinneys Build-Up Ride 2",
@@ -186,6 +193,13 @@ window.SHIMANO_EVENTS = [
     city: "Mleiha, Sharjah", country: "UAE",
     type: "local", label: "MTB",
     url: "https://www.hopasports.com/"
+  },
+  {
+    name: "IRONMAN 70.3 Sharm",
+    start: "2026-10-16", end: "2026-10-16",
+    city: "Sharm El-Sheikh", country: "EGY",
+    type: "triathlon", label: "IRONMAN 70.3",
+    url: "https://egyptianstreets.com/2026/05/27/ironman-70-3-to-take-place-in-sharm-el-sheikh-in-october-2026/"
   },
   {
     name: "Ajman Triathlon",
