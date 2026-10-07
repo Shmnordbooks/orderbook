@@ -185,7 +185,9 @@
       +   'text-decoration:none;letter-spacing:.02em;transition:color .2s}'
       + '#shimano-ticker .st-item.st-nolink{cursor:default}'
       + '#shimano-ticker .st-item:not(.st-nolink):hover{color:#3b9eff}'
-      + '#shimano-ticker .st-item .st-date{color:#6b6b82;font-size:12px;font-weight:600;'
+      /* event / news date in orange: stands out from the white titles and does
+         not clash with Shimano blue, which already means "link" / hover here */
+      + '#shimano-ticker .st-item .st-date{color:#ff9a3c;font-size:12px;font-weight:700;'
       +   'letter-spacing:.1em;text-transform:uppercase}'
       + '#shimano-ticker .st-sep{color:#1e1e2e;font-size:18px;user-select:none;padding:0 4px}'
       + '#shimano-ticker .st-close{flex-shrink:0;background:none;border:none;color:#6b6b82;'
