@@ -2,6 +2,20 @@
    Replaced on every stock update push. */
 window.SHIMANO_TICKER_AUTO = [
   {
+    "title": "HARDGOODS: 21 back in stock",
+    "link": "hardgoods.html",
+    "added": "2026-10-07",
+    "expires": "2026-10-14",
+    "auto": "change"
+  },
+  {
+    "title": "SHOES: 46 back in stock",
+    "link": "shoes.html",
+    "added": "2026-10-07",
+    "expires": "2026-10-14",
+    "auto": "change"
+  },
+  {
     "title": "HARDGOODS: 186 new products added",
     "link": "hardgoods.html",
     "added": "2026-10-06",
@@ -44,9 +58,9 @@ window.SHIMANO_TICKER_AUTO = [
     "auto": "change"
   },
   {
-    "title": "Stock updated: 06 Oct 2026",
-    "added": "2026-10-06",
-    "expires": "2026-10-13",
+    "title": "Stock updated: 07 Oct 2026",
+    "added": "2026-10-07",
+    "expires": "2026-10-14",
     "auto": "stamp"
   }
 ];
