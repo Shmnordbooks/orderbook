@@ -2,6 +2,16 @@
    Replaced on every stock update push. */
 window.SHIMANO_TICKER_AUTO = [
   {
+    "title": "LAZER: back in stock – Lazer Helmet Vento KC CE-CPSC",
+    "link": "lazer.html",
+    "added": "2026-10-08",
+    "expires": "2026-10-15",
+    "auto": "change",
+    "items": [
+      {"c": "BLC2547892946", "n": "Lazer Helmet Vento KC CE-CPSC", "d": "Pure White L"}
+    ]
+  },
+  {
     "title": "HARDGOODS: 21 back in stock",
     "link": "hardgoods.html",
     "added": "2026-10-07",
@@ -842,9 +852,9 @@ window.SHIMANO_TICKER_AUTO = [
     ]
   },
   {
-    "title": "Stock updated: 07 Oct 2026",
-    "added": "2026-10-07",
-    "expires": "2026-10-14",
+    "title": "Stock updated: 08 Oct 2026",
+    "added": "2026-10-08",
+    "expires": "2026-10-15",
     "auto": "stamp"
   }
 ];
