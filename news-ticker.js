@@ -52,13 +52,145 @@
     else window.addEventListener('load', start);
   })();
 
-  window.__shimanoTickerFind = function(code){
-    var inp = document.getElementById('searchInput') || document.getElementById('sI');
-    if (!inp) return false;
-    inp.value = code;
+  /* Opening a product from the ticker: the catalog search is used to bring the
+     product into view, but a dealer must never get "stuck" on one SKU. A bar
+     under the header says what is shown and offers "Show all products"; the
+     product row is highlighted. Clearing the search (button, Esc, or typing)
+     removes the bar and keeps the product highlighted in the full list. */
+  function searchBox(){ return document.getElementById('searchInput') || document.getElementById('sI'); }
+  function setSearch(inp, v){
+    inp.value = v;
     inp.dispatchEvent(new Event('input', { bubbles: true }));
     inp.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true }));
+  }
+  /* element that shows the code on screen (row / chip), not script text */
+  function findRow(code){
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null), n;
+    while ((n = w.nextNode())){
+      if (n.nodeValue.indexOf(code) < 0) continue;
+      var el = n.parentElement;
+      if (!el || el.closest('script,style,#shimano-ticker,#st-pop,#st-find')) continue;
+      if (!el.offsetParent && el.getClientRects().length === 0) continue;
+      /* climb to the row: first ancestor that is visibly wider than the text */
+      var row = el;
+      for (var i = 0; i < 4 && row.parentElement; i++){
+        if (row.offsetWidth > el.offsetWidth + 60 && row.offsetHeight < 140) break;
+        row = row.parentElement;
+      }
+      return row;
+    }
+    return null;
+  }
+  function ensureFindStyles(){
+    if (!document.getElementById('st-find-style')){
+      var st = document.createElement('style'); st.id = 'st-find-style';
+      st.textContent = '@keyframes stFindPulse{0%,100%{box-shadow:0 0 0 2px #0082CA,0 0 18px rgba(0,130,202,.55)}50%{box-shadow:0 0 0 2px #3b9eff,0 0 4px rgba(0,130,202,.2)}}'
+        + '.st-find-hit{animation:stFindPulse 1.2s ease-in-out 4;border-radius:8px;position:relative;z-index:1}'
+        + '#st-find{position:fixed;left:50%;transform:translateX(-50%);top:72px;z-index:9997;display:flex;align-items:center;gap:12px;'
+        + 'padding:8px 8px 8px 16px;background:#0b1622;border:1px solid #0082CA;border-radius:999px;box-shadow:0 8px 28px rgba(0,0,0,.45);'
+        + 'font-family:"Barlow Condensed",sans-serif;font-size:14px;color:#e8e8f0;letter-spacing:.02em;max-width:calc(100vw - 32px)}'
+        + '#st-find b{color:#3b9eff;font-weight:700}'
+        + '#st-find button{border:0;cursor:pointer;border-radius:999px;padding:7px 14px;font:inherit;font-weight:700;letter-spacing:.06em;'
+        + 'text-transform:uppercase;background:#0082CA;color:#fff;white-space:nowrap}'
+        + '#st-find button:hover{background:#0a95e6}'
+        + '#st-find .x{background:transparent;color:#6b6b82;padding:7px 10px;font-size:16px}'
+        + '@media(max-width:700px){#st-find{top:auto;bottom:46px;font-size:13px}}';
+      document.head.appendChild(st);
+    }
+  }
+  function flash(row){
+    ensureFindStyles();
+    if (!row) return;
+    document.querySelectorAll('.st-find-hit').forEach(function(e){ e.classList.remove('st-find-hit'); });
+    void row.offsetWidth;
+    row.classList.add('st-find-hit');
+    setTimeout(function(){ row.classList.remove('st-find-hit'); }, 5200);
+    try { row.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e){ row.scrollIntoView(); }
+  }
+  function visible(el){ return !!el && el.getClientRects().length > 0; }
+  /* open whatever hides the product: a collapsed model card, a Lazer model,
+     the right Hardgoods category / table page. Each page has its own globals. */
+  function reveal(code){
+    try {
+      /* Lazer: models open via openModels + render() */
+      if (typeof RAW === 'object' && typeof openModels !== 'undefined' && typeof render === 'function'){
+        for (var k in RAW){
+          var its = (RAW[k] && RAW[k].items) || [];
+          for (var i = 0; i < its.length; i++) if (its[i].sku === code){ openModels.add(k); render(); return; }
+        }
+        return;
+      }
+      /* Hardgoods: table with category chips and 50-row pages */
+      if (typeof allItems !== 'undefined' && typeof setCatFilter === 'function' && typeof render === 'function'){
+        if (findRow(code)) return;
+        var it = allItems.filter(function(x){ return x.code === code; })[0];
+        if (!it) return;
+        var label = (typeof CATEGORY_LABELS !== 'undefined' && CATEGORY_LABELS[it.cat]) || it.cat;
+        var btn = Array.prototype.filter.call(document.querySelectorAll('.cat-chip'), function(b){ return b.textContent.trim() === label; })[0];
+        if (btn && currentCat !== it.cat) setCatFilter(it.cat, btn);
+        for (var p = 1; p <= 120 && !findRow(code); p++){ currentPage = p + 1; render(); }
+        if (!findRow(code)){ currentPage = 1; render(); }
+        return;
+      }
+      /* Shoes / Pedals / Eyewear: show the product's category, then open its card */
+      var DATA = typeof SHOE_DATA !== 'undefined' ? SHOE_DATA : typeof PEDAL_DATA !== 'undefined' ? PEDAL_DATA
+               : typeof EYEWEAR_DATA !== 'undefined' ? EYEWEAR_DATA : null;
+      if (DATA && typeof setCat === 'function' && typeof currentCat !== 'undefined'){
+        var grp = DATA.filter(function(g){ return (g.items || []).some(function(x){ return x.code === code; }); })[0];
+        if (grp && grp.cat && currentCat !== grp.cat){
+          var chip = document.querySelector('.cat-chip[data-cat="' + grp.cat + '"]') || document.getElementById('cat-' + grp.cat);
+          if (chip || setCat.length < 2) setCat(grp.cat, chip);
+        }
+      }
+      var row = document.getElementById('row-' + code);
+      var card = row && row.closest('.model-card');
+      if (card && !visible(row) && typeof toggleCard === 'function' && /^mc-/.test(card.id)){
+        toggleCard(card.id.slice(3));
+      }
+    } catch(e){}
+  }
+  /* wait for the catalog to redraw, open what is needed, then highlight */
+  function locate(code){
+    var tries = 0;
+    (function step(){
+      reveal(code);
+      var row = findRow(code);
+      if (row){ flash(row); return; }
+      if (++tries < 12) setTimeout(step, 250);
+    })();
+  }
+  function removeBar(){ var b = document.getElementById('st-find'); if (b) b.remove(); }
+  function showAll(code){
+    var inp = searchBox();
+    removeBar();
+    if (inp) setSearch(inp, '');
+    /* after the full catalog has redrawn, point at the product again */
+    setTimeout(function(){ locate(code); }, 350);
+  }
+
+  window.__shimanoTickerFind = function(code){
+    var inp = searchBox();
+    if (!inp) return false;
+    setSearch(inp, code);
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch(e){ window.scrollTo(0, 0); }
+    setTimeout(function(){ locate(code); }, 350);
+
+    removeBar();
+    var bar = document.createElement('div');
+    bar.id = 'st-find';
+    bar.innerHTML = '<span>Showing <b>' + escapeHTML(code) + '</b> from the news ticker</span>'
+      + '<button type="button" class="all">Show all products</button>'
+      + '<button type="button" class="x" aria-label="Close">&times;</button>';
+    ensureFindStyles();
+    document.body.appendChild(bar);
+    bar.querySelector('.all').onclick = function(){ showAll(code); };
+    bar.querySelector('.x').onclick = function(){ showAll(code); };
+    /* the dealer typed in the search box himself: the bar has done its job */
+    var own = function(e){ if (e.isTrusted){ removeBar(); inp.removeEventListener('input', own); } };
+    inp.addEventListener('input', own);
+    document.addEventListener('keydown', function esc(e){
+      if (e.key === 'Escape' && document.getElementById('st-find')){ showAll(code); document.removeEventListener('keydown', esc); }
+    });
     return true;
   };
 
