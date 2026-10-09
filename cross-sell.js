@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   CROSS-SELL — "Complete the setup" suggestions in the ALL ORDERS panel
+   CROSS-SELL — "Matching Parts" suggestions in the ALL ORDERS panel
    ───────────────────────────────────────────────────────────────────────
    Pilot scope: pedals, shoes and cleats.
 
@@ -395,7 +395,7 @@
 
     injectCss();
     actions = [];
-    var html = '<div class="xs-head">Complete the setup</div>';
+    var html = '<div class="xs-head">Matching Parts</div>';
     blocks.forEach(function (b) {
       if (b.warn) { html += '<div class="xs-warn">' + esc(b.warn) + '</div>'; return; }
       html += '<div class="xs-sub">' + esc(b.title) + '</div>';
