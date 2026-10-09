@@ -2,6 +2,72 @@
    Replaced on every stock update push. */
 window.SHIMANO_TICKER_AUTO = [
   {
+    "title": "HARDGOODS: 8 back in stock",
+    "link": "hardgoods.html",
+    "added": "2026-10-09",
+    "expires": "2026-10-16",
+    "auto": "change",
+    "items": [
+      {"c": "EBBUN300KB10X", "n": "Bottom Bracket BSA 110/68mm", "d": "BB-UN300 Square Chaincase", "g": "Bottom Bracket"},
+      {"c": "Y0SR9802T", "n": "Chainring 40T GRX", "d": "FC-RX610", "g": "Chainring"},
+      {"c": "Y1RC98070", "n": "Chainring 48T-MK Tiagra", "d": "FC-4700 for 48-34T", "g": "Chainring"},
+      {"c": "IRDM8100GS", "n": "Rear Derailleur 12s GS", "d": "RD-M8100 Deore XT", "g": "Dreailleur"},
+      {"c": "ESMRT64MEC", "n": "Rotor 180mm Center Lock Ext.", "d": "SM-RT64 w/LRing", "g": "Rotors"},
+      {"c": "IRTCL900LE", "n": "Rotor 203mm Lock Ext.", "d": "RT-CL900 w/LRing", "g": "RT"},
+      {"c": "ISLM4100RAP1", "n": "Shift Lever Right 10s w/o OGD", "d": "SL-M4100-R", "g": "Shifters"},
+      {"c": "Y3B598030", "n": "Axle Set Rear", "d": "FH-M475", "g": "Spare Parts"}
+    ]
+  },
+  {
+    "title": "SHOES: back in stock – RC503, XC302, SH-EX500",
+    "link": "shoes.html",
+    "added": "2026-10-09",
+    "expires": "2026-10-16",
+    "auto": "change",
+    "items": [
+      {"c": "ESHRC503MGW01S42000", "n": "Bicycle Shoes RC503", "d": "White 42.0"},
+      {"c": "ESHEX500MGL01S45000", "n": "Bicycle Shoes SH-EX500", "d": "Black 45.0"},
+      {"c": "ESHXC302MGM01S44000", "n": "Bicycle Shoes XC302", "d": "Brown 44.0"},
+      {"c": "ESHXC302MGG13S45000", "n": "Bicycle Shoes XC302", "d": "Ice Gray 45.0"}
+    ]
+  },
+  {
+    "title": "LAZER: 12 back in stock",
+    "link": "lazer.html",
+    "added": "2026-10-09",
+    "expires": "2026-10-16",
+    "auto": "change",
+    "items": [
+      {"c": "BLC2747894451", "n": "Lazer Helmet Blade KC CE-CPSC", "d": "Matte Clay L"},
+      {"c": "BLC2747894459", "n": "Lazer Helmet Blade KC CE-CPSC", "d": "Matte Cobalt Blue S"},
+      {"c": "BLC2747894287", "n": "Lazer Helmet Cerro KC CE-CPSC", "d": "Matte Shady Pink S"},
+      {"c": "BLC2227890233", "n": "Lazer Helmet Jackal KC CE-CPSC", "d": "Matte Black M"},
+      {"c": "BLC2547893054", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Latte L"},
+      {"c": "BLC2547893055", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Latte M"},
+      {"c": "BLC2547893056", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Latte S"},
+      {"c": "BLC2237891678", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Matte Black XL"},
+      {"c": "BLC2237891691", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "White L"},
+      {"c": "PLZ2447892672", "n": "Lazer Part Padding", "d": "Lupo KC Uni"},
+      {"c": "PLZ2227891302", "n": "Lazer Part Padding", "d": "Vento KC L"},
+      {"c": "PLZ2227891303", "n": "Lazer Part Padding", "d": "Vento KC S&M"}
+    ]
+  },
+  {
+    "title": "PRO: 6 back in stock",
+    "link": "pro.html",
+    "added": "2026-10-09",
+    "expires": "2026-10-16",
+    "auto": "change",
+    "items": [
+      {"c": "PRBT0033", "n": "PRO Team Bottle", "d": "White 800ml", "g": "bottles"},
+      {"c": "PRTL0064", "n": "PRO Tool Disc Truing Tool", "g": "maintenance"},
+      {"c": "PRSA0320", "n": "STEALTH OFFROAD SADDLE", "d": "BLACK 142MM", "g": "saddles"},
+      {"c": "PRSP0277", "n": "KORYAK DROPPER POST 120", "d": "31.6MM / INTERNAL", "g": "seatposts"},
+      {"c": "PRSP0245", "n": "LT DROPPER POST 150", "d": "30.9MM / INTERNA", "g": "seatposts"},
+      {"c": "PRSS0336", "n": "LT ADJUSTABLE STEM", "d": "BLACK 110MM / 31.8MM", "g": "stems"}
+    ]
+  },
+  {
     "title": "LAZER: back in stock – Lazer Helmet Vento KC CE-CPSC",
     "link": "lazer.html",
     "added": "2026-10-08",
@@ -852,9 +918,9 @@ window.SHIMANO_TICKER_AUTO = [
     ]
   },
   {
-    "title": "Stock updated: 08 Oct 2026",
-    "added": "2026-10-08",
-    "expires": "2026-10-15",
+    "title": "Stock updated: 09 Oct 2026",
+    "added": "2026-10-09",
+    "expires": "2026-10-16",
     "auto": "stamp"
   }
 ];
