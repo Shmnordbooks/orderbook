@@ -155,7 +155,8 @@
 
   function analyseCart() {
     var shared = getShared(), sys = {}, inCart = {}, families = {}, boxCleats = {};
-    function slot(s) { return sys[s] || (sys[s] = { pedal: false, shoe: false, cleat: false }); }
+    var shoeLists = [];
+    function slot(s) { return sys[s] || (sys[s] = { pedal: false, shoe: false, shoePrimary: false, cleat: false }); }
 
     Object.keys(shared.pedals || {}).forEach(function (code) {
       inCart[code] = 1;
@@ -174,13 +175,15 @@
       var g = idx.shoeByCode[code];
       var list = g && SHOE_SYSTEM[g.group];
       if (!list) return;
+      shoeLists.push(list);
+      slot(list[0]).shoePrimary = true;
       list.forEach(function (s, n) {
         slot(s).shoe = true;
         if (n === 0) families[s + ':' + (SHOE_FAMILY[g.cat] || 'mtb')] = 1;
       });
     });
 
-    return { sys: sys, inCart: inCart, families: families, boxCleats: boxCleats };
+    return { sys: sys, inCart: inCart, families: families, boxCleats: boxCleats, shoeLists: shoeLists };
   }
 
   /* ── Suggestions ───────────────────────────────────────────────────── */
@@ -235,6 +238,14 @@
     return out.slice(0, 3);
   }
 
+  /* A shoe needs pedals only if none of its systems already has pedals
+     in the cart (RC910 + SPD-SL pedals is a complete pair). */
+  function shoesNeedPedals(s, a) {
+    return a.shoeLists.some(function (list) {
+      return list[0] === s && !list.some(function (x) { return a.sys[x] && a.sys[x].pedal; });
+    });
+  }
+
   function buildBlocks(a) {
     var blocks = [];
     SYS_ORDER.forEach(function (s) {
@@ -243,15 +254,17 @@
       var label = SYS_LABEL[s];
       if (st.pedal && !st.shoe) {
         var sh = shoesFor(s, a);
-        if (sh.length) blocks.push({ title: label + ' shoes for the pedals in this order', rows: sh });
+        if (sh.length) blocks.push({ key: s + ':shoes', title: label + ' shoes for the pedals in this order', rows: sh });
       }
-      if (st.shoe && !st.pedal) {
+      /* Secondary systems (e.g. SPD-SL on an RC910) never trigger
+         suggestions on their own; the shoe's primary system does. */
+      if (st.shoePrimary && !st.pedal && shoesNeedPedals(s, a)) {
         var pd = pedalsFor(s, a);
-        if (pd.length) blocks.push({ title: label + ' pedals for the shoes in this order', rows: pd });
+        if (pd.length) blocks.push({ key: s + ':pedals', title: label + ' pedals for the shoes in this order', rows: pd });
       }
-      if (s !== 'FLAT' && (st.pedal || st.shoe) && !st.cleat) {
+      if (s !== 'FLAT' && (st.pedal || (st.shoePrimary && shoesNeedPedals(s, a))) && !st.cleat) {
         var cl = cleatsFor(s, a);
-        if (cl.length) blocks.push({ title: 'Spare ' + label + ' cleats', rows: cl,
+        if (cl.length) blocks.push({ key: s + ':cleats', title: 'Spare ' + label + ' cleats', rows: cl,
           note: s === 'SPD-SLR' ? 'SPD-SLR pedals take CL-SL cleats only. SM-SH cleats do not fit.' : '' });
       }
     });
@@ -259,7 +272,7 @@
     /* Mixed-system warning: SPD-SLR pedals with only SM-SH road cleats */
     var slr = a.sys['SPD-SLR'], sl = a.sys['SPD-SL'];
     if (slr && slr.pedal && !slr.cleat && sl && sl.cleat && !sl.pedal) {
-      blocks.unshift({ warn: 'This order has SPD-SLR pedals and SM-SH (SPD-SL) cleats. They do not fit each other. SPD-SLR pedals need CL-SL cleats.' });
+      blocks.unshift({ key: 'warn:slr-cleats', warn: 'This order has SPD-SLR pedals and SM-SH (SPD-SL) cleats. They do not fit each other. SPD-SLR pedals need CL-SL cleats.' });
     }
     return blocks;
   }
@@ -352,6 +365,20 @@
       '<button class="xs-btn" data-xs="' + n + '">+ Add</button></div>';
   }
 
+  /* ── Dismiss ───────────────────────────────────────────────────────────
+     The X hides the suggestions shown at that moment for the rest of the
+     browser session. A suggestion of a new kind (e.g. a second pedal
+     system added later) still appears. */
+  var DISMISS_KEY = 'xs_dismissed';
+  function getDismissed() {
+    try { return JSON.parse(sessionStorage.getItem(DISMISS_KEY)) || {}; } catch (e) { return {}; }
+  }
+  function dismiss(keys) {
+    var d = getDismissed();
+    keys.forEach(function (k) { d[k] = 1; });
+    try { sessionStorage.setItem(DISMISS_KEY, JSON.stringify(d)); } catch (e) {}
+  }
+
   var cssDone = false;
   function injectCss() {
     if (cssDone) return; cssDone = true;
@@ -359,6 +386,12 @@
     css.textContent =
       '.xs-wrap{margin:14px 14px 18px;border:1px solid rgba(0,130,202,.35);border-radius:10px;' +
       'background:rgba(0,130,202,.06);overflow:hidden}' +
+      '.xs-headrow{display:flex;align-items:center;justify-content:space-between;' +
+      'border-bottom:1px solid rgba(0,130,202,.2)}' +
+      '.xs-headrow .xs-head{border-bottom:none}' +
+      '.xs-x{background:none;border:none;color:var(--text-muted,#6b6b82);cursor:pointer;padding:6px;' +
+      'margin-right:8px;border-radius:6px;display:flex;transition:all .15s}' +
+      '.xs-x:hover{color:var(--text,#e8e8f0);background:rgba(255,255,255,.08)}' +
       '.xs-head{padding:10px 14px;font-family:"Barlow Condensed",Arial,sans-serif;font-size:12px;font-weight:700;' +
       'letter-spacing:.12em;text-transform:uppercase;color:#0082CA;border-bottom:1px solid rgba(0,130,202,.2)}' +
       '.xs-sub{padding:8px 14px 4px;font-size:11px;color:var(--text-muted,#6b6b82);font-weight:600}' +
@@ -390,12 +423,16 @@
 
     if (!(data.pedals && data.shoes && loading)) { loadData().then(render); return; }
 
-    var blocks = buildBlocks(analyseCart());
+    var hidden = getDismissed();
+    var blocks = buildBlocks(analyseCart()).filter(function (b) { return !hidden[b.key]; });
     if (!blocks.length) return;
 
     injectCss();
     actions = [];
-    var html = '<div class="xs-head">Matching Parts</div>';
+    var html = '<div class="xs-headrow"><div class="xs-head">Matching Parts</div>' +
+      '<button class="xs-x" data-xs-close title="Hide suggestions">' +
+      '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">' +
+      '<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button></div>';
     blocks.forEach(function (b) {
       if (b.warn) { html += '<div class="xs-warn">' + esc(b.warn) + '</div>'; return; }
       html += '<div class="xs-sub">' + esc(b.title) + '</div>';
@@ -406,8 +443,14 @@
 
     var wrap = document.createElement('div');
     wrap.className = 'xs-wrap'; wrap.id = 'xsWrap';
+    wrap.lang = 'en'; // pages are lang="tr"; keeps "MATCHING" from becoming "MATCHİNG"
     wrap.innerHTML = html;
     wrap.addEventListener('click', function (e) {
+      if (e.target.closest('[data-xs-close]')) {
+        dismiss(blocks.map(function (b) { return b.key; }));
+        wrap.remove();
+        return;
+      }
       var btn = e.target.closest('[data-xs]');
       if (!btn) return;
       var fn = actions[Number(btn.getAttribute('data-xs'))];
