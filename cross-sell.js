@@ -156,13 +156,14 @@
   function analyseCart() {
     var shared = getShared(), sys = {}, inCart = {}, families = {}, boxCleats = {};
     var shoeLists = [];
-    function slot(s) { return sys[s] || (sys[s] = { pedal: false, shoe: false, shoePrimary: false, cleat: false }); }
+    function slot(s) { return sys[s] || (sys[s] = { pedal: false, shoe: false, shoePrimary: false, cleat: false, pedalQty: 0, shoeQty: 0 }); }
 
     Object.keys(shared.pedals || {}).forEach(function (code) {
       inCart[code] = 1;
       var g = idx.pedalByCode[code];
       if (!g || !SYS_LABEL[g.cat]) return;
       slot(g.cat).pedal = true;
+      slot(g.cat).pedalQty += Number(shared.pedals[code].qty) || 0;
       families[g.cat + ':' + pedalFamily(g)] = 1;
       var it = (g.items || []).filter(function (x) { return x.code === code; })[0];
       var m = it && String(it.desc1).match(/SM-SH\d+|CL-MT\d+|CL-SL\d+/);
@@ -177,6 +178,7 @@
       if (!list) return;
       shoeLists.push(list);
       slot(list[0]).shoePrimary = true;
+      slot(list[0]).shoeQty += Number(shared.shoes[code].qty) || 0;
       list.forEach(function (s, n) {
         slot(s).shoe = true;
         if (n === 0) families[s + ':' + (SHOE_FAMILY[g.cat] || 'mtb')] = 1;
@@ -260,11 +262,14 @@
          suggestions on their own; the shoe's primary system does. */
       if (st.shoePrimary && !st.pedal && shoesNeedPedals(s, a)) {
         var pd = pedalsFor(s, a);
-        if (pd.length) blocks.push({ key: s + ':pedals', title: label + ' pedals for the shoes in this order', rows: pd });
+        /* one pair of pedals per pair of shoes, as a starting point */
+        if (pd.length) blocks.push({ key: s + ':pedals', title: label + ' pedals for the shoes in this order', rows: pd,
+          qty: Math.max(1, st.shoeQty) });
       }
       if (s !== 'FLAT' && (st.pedal || (st.shoePrimary && shoesNeedPedals(s, a))) && !st.cleat) {
         var cl = cleatsFor(s, a);
         if (cl.length) blocks.push({ key: s + ':cleats', title: 'Spare ' + label + ' cleats', rows: cl,
+          qty: Math.max(1, st.pedalQty, st.shoeQty),
           note: s === 'SPD-SLR' ? 'SPD-SLR pedals take CL-SL cleats only. SM-SH cleats do not fit.' : '' });
       }
     });
@@ -278,11 +283,11 @@
   }
 
   /* ── Add to cart ───────────────────────────────────────────────────── */
-  function addItem(catalog, it) {
+  function addItem(catalog, it, addQty) {
     var shared = getShared();
     var slotObj = shared[catalog] || (shared[catalog] = {});
     var cur = slotObj[it.code];
-    var qty = (cur && cur.qty ? cur.qty : 0) + 1;
+    var qty = (cur && cur.qty ? cur.qty : 0) + (addQty > 0 ? addQty : 1);
     var entry = { qty: qty, desc1: it.desc1 || '', desc2: it.desc2 || '', price: '' };
     slotObj[it.code] = entry;
     try { localStorage.setItem(SHARED_KEY, JSON.stringify(shared)); } catch (e) {}
@@ -348,7 +353,7 @@
   }
 
   var actions = [];
-  function rowHtml(r) {
+  function rowHtml(r, defQty) {
     var n = actions.length;
     if (r.kind === 'shoe') {
       actions.push(function () { openShoe(r.group); });
@@ -358,10 +363,19 @@
         '<button class="xs-btn" data-xs="' + n + '">Sizes →</button></div>';
     }
     var it = r.item, catalog = r.kind === 'pedal' ? 'pedals' : 'shoes';
-    actions.push(function () { addItem(catalog, it); });
+    actions.push(function (btn) {
+      var inp = btn.parentNode.querySelector('.xs-qty');
+      var q = Math.max(1, Math.min(999, parseInt(inp && inp.value, 10) || 1));
+      btn.disabled = true; if (inp) inp.disabled = true;
+      btn.classList.add('xs-done');
+      btn.textContent = '\u2713 ' + q + ' added';
+      /* show the confirmation briefly, then let the panel redraw */
+      setTimeout(function () { addItem(catalog, it, q); }, 700);
+    });
     var desc = r.kind === 'pedal' ? (r.name || it.desc2) : (it.desc1.replace(/^Shoe Cleats (Set )?(SPD-SLR |SPD-SL )?/, '') + ' · ' + it.desc2);
     return '<div class="xs-row"><div class="xs-main"><span class="xs-code">' + esc(it.code) + '</span>' +
       '<span class="xs-desc">' + esc(desc) + ' ' + statusTag(it) + '</span></div>' +
+      '<input class="xs-qty" type="number" min="1" max="999" step="1" value="' + (defQty || 1) + '" aria-label="Quantity">' +
       '<button class="xs-btn" data-xs="' + n + '">+ Add</button></div>';
   }
 
@@ -407,6 +421,11 @@
       'color:#0082CA;font-family:"Barlow Condensed",Arial,sans-serif;font-size:12px;font-weight:700;' +
       'letter-spacing:.05em;cursor:pointer;transition:all .15s}' +
       '.xs-btn:hover{background:#0082CA;color:#fff}' +
+      '.xs-btn.xs-done,.xs-btn.xs-done:hover{border-color:var(--avail,#00c896);background:var(--avail,#00c896);color:#04110c;cursor:default}' +
+      '.xs-qty{width:46px;flex-shrink:0;padding:4px 4px;background:var(--surface,#111118);border:1px solid var(--border,#2a2a3a);' +
+      'border-radius:6px;color:var(--text,#e8e8f0);font-family:"Barlow Condensed",Arial,sans-serif;font-size:13px;' +
+      'font-weight:600;text-align:center;outline:none}' +
+      '.xs-qty:focus{border-color:#0082CA}' +
       '.xs-pad{height:6px}';
     document.head.appendChild(css);
   }
@@ -437,7 +456,7 @@
       if (b.warn) { html += '<div class="xs-warn">' + esc(b.warn) + '</div>'; return; }
       html += '<div class="xs-sub">' + esc(b.title) + '</div>';
       if (b.note) html += '<div class="xs-note">' + esc(b.note) + '</div>';
-      b.rows.forEach(function (r) { html += rowHtml(r); });
+      b.rows.forEach(function (r) { html += rowHtml(r, b.qty); });
     });
     html += '<div class="xs-pad"></div>';
 
@@ -454,7 +473,7 @@
       var btn = e.target.closest('[data-xs]');
       if (!btn) return;
       var fn = actions[Number(btn.getAttribute('data-xs'))];
-      if (fn) fn();
+      if (fn && !btn.disabled) fn(btn);
     });
     body.appendChild(wrap);
   }
