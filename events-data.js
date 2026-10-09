@@ -38,7 +38,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-07
+   Last checked: 2026-10-09
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -267,6 +267,27 @@ window.SHIMANO_EVENTS = [
   {
     name: "Falcon Daman Series R1",
     start: "2026-10-06", end: "2026-10-06",
+    city: "Hudayriyat, Abu Dhabi", country: "UAE",
+    type: "local", label: "Race Series",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "Falcon Daman Series R2",
+    start: "2026-11-03", end: "2026-11-03",
+    city: "Hudayriyat, Abu Dhabi", country: "UAE",
+    type: "local", label: "Race Series",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "Falcon Daman Series R3",
+    start: "2026-12-08", end: "2026-12-08",
+    city: "Hudayriyat, Abu Dhabi", country: "UAE",
+    type: "local", label: "Race Series",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "Falcon Daman Series R4",
+    start: "2027-01-05", end: "2027-01-05",
     city: "Hudayriyat, Abu Dhabi", country: "UAE",
     type: "local", label: "Race Series",
     url: "https://www.sported.ae/event-type/cycling/"
