@@ -394,7 +394,19 @@ margin-top:8px;transition:all .2s}\
       chipHtml += '<span class="ao-chip" style="background:' + colorOf(cpg) + '22;color:' + colorOf(cpg) + '">' + labelOf(cpg) + ': ' + cq + '</span>';
     }
     chips.innerHTML = chipHtml;
+
+    // Optional add-on: cross-sell.js appends its suggestions under the list
+    if (window.__crossSell && typeof window.__crossSell.render === 'function') {
+      try { window.__crossSell.render(); } catch (e) {}
+    }
   }
+
+  // Hooks for add-ons (cross-sell.js) that change the shared cart directly
+  window._aoRefresh = function () { renderPanel(); updateBadge(); };
+  window._aoClose = function () {
+    var pn = document.getElementById('aoPanel');
+    if (pn && pn.classList.contains('open')) togglePanel();
+  };
 
   /* ═══════════════════════════════════════════════════════
      EXPORT
