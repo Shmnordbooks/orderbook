@@ -66,7 +66,7 @@
     '#evPanel .ev-day.range{font-size:15px;}',
     '#evPanel .ev-mon{font-size:9.5px;font-weight:700;letter-spacing:.14em;color:rgba(255,255,255,.45);margin-top:3px;white-space:nowrap;}',
     '#evPanel .ev-name{font-size:15px;font-weight:700;letter-spacing:.03em;line-height:1.1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}',
-    '#evPanel .ev-meta{font-size:10px;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.42);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}',
+    '#evPanel .ev-meta{font-size:10px;font-weight:600;letter-spacing:.14em;color:#ff9f43;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}',
     '#evPanel .ev-side{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}',
     '#evPanel .ev-tag{font-size:8.5px;font-weight:700;letter-spacing:.12em;padding:2px 6px;border-radius:2px;white-space:nowrap;}',
     '#evPanel .ev-tag.pro{color:#4db4ff;background:rgba(0,130,202,.14);border:1px solid rgba(0,130,202,.35);}',
