@@ -325,7 +325,6 @@ window.SHIMANO_EVENTS = [
     start: "2026-12-11", end: "2026-12-11",
     city: "Manama", country: "BHR",
     type: "triathlon", label: "IRONMAN 70.3",
-    tbc: true,
-    url: "https://www.ahotu.com/calendar/triathlon/bahrain"
+    url: "https://www.ironman.com/races/im703-bahrain"
   }
 ];
