@@ -2,6 +2,70 @@
    Replaced on every stock update push. */
 window.SHIMANO_TICKER_AUTO = [
   {
+    "title": "HARDGOODS: 18 back in stock",
+    "link": "hardgoods.html",
+    "added": "2026-10-12",
+    "expires": "2026-10-19",
+    "auto": "change",
+    "items": [
+      {"c": "EBLMT200RL", "n": "Brake Lever Right 3-fgr Black", "d": "BL-MT200 Altus Disc Brake", "g": "Brake Sets"},
+      {"c": "Y0RA98010", "n": "Chainring 46T Cues", "d": "FC-U6010-2", "g": "Chainring"},
+      {"c": "EFCEN500EXL", "n": "Crankarm Set E-Bike Black", "d": "FC-EN500 175mm w/o CR", "g": "Crankset"},
+      {"c": "EFCM41002CX66", "n": "Crankset 10-Speed", "d": "FC-M4100-2 36/26T 170mm", "g": "Crankset"},
+      {"c": "EFCM51001EXA2", "n": "Crankset 10/11-Speed", "d": "FC-M5100-1 32T 175mm", "g": "Crankset"},
+      {"c": "EFCR4000AX04", "n": "Crankset 11-Speed Black", "d": "FC-R4000 50/34T 165mm", "g": "Crankset"},
+      {"c": "EFCMT210BCX62L", "n": "Crankset 9-Speed Black", "d": "FC-MT210-2 36/22T 170mm", "g": "Crankset"},
+      {"c": "EFCU40102CX60X", "n": "Crankset 9/10-Speed", "d": "FC-U4010-2 46/30T 170mm", "g": "Crankset"},
+      {"c": "EFCU60301AXB0X", "n": "Crankset 9/10/11-Speed", "d": "FC-U6030-1 40T 165mm w/o CG", "g": "Crankset"},
+      {"c": "EFCU60301CXB0X", "n": "Crankset 9/10/11-Speed", "d": "FC-U6030-1 40T 170mm w/o CG", "g": "Crankset"},
+      {"c": "EFCU60301AXB2X", "n": "Crankset 9/10/11-Speed", "d": "FC-U6030-1 42T 165mm w/o CG", "g": "Crankset"},
+      {"c": "EFCU60301EXB2X", "n": "Crankset 9/10/11-Speed", "d": "FC-U6030-1 42T 175mm w/o CG", "g": "Crankset"},
+      {"c": "EFCU60401DXB0X", "n": "Crankset 9/10/11-Speed", "d": "FC-U6040-1 40T 172.5mm w/o CG", "g": "Crankset"},
+      {"c": "EFHTC500HLCL", "n": "Freehub 11/12s 142/28ThruBlack", "d": "FH-TC500-HL Disc Brake CL", "g": "HUBS"},
+      {"c": "EFHTC500HMBC", "n": "Freehub 8/11s 148/28 ThruBlack", "d": "FH-TC500-HM-B Disc Brake CL", "g": "HUBS"},
+      {"c": "Y0H298010", "n": "Complete Hub Axle 142mm", "d": "WH-RX570-TL-R12", "g": "Spare Parts"},
+      {"c": "Y3J798010", "n": "Complete Quick Release 168mm", "d": "FH-UR600", "g": "Spare Parts"},
+      {"c": "Y3HW98010", "n": "Complete Quick Release 174mm", "d": "FH-MT401", "g": "Spare Parts"}
+    ]
+  },
+  {
+    "title": "SHOES: back in stock – SH-RC810, Shoe Cleats SPD-SLR CL-SL120",
+    "link": "shoes.html",
+    "added": "2026-10-12",
+    "expires": "2026-10-19",
+    "auto": "change",
+    "items": [
+      {"c": "ESHRC810MCL01S47000", "n": "Bicycle Shoes SH-RC810", "d": "Black 47.0"},
+      {"c": "ICLSL120", "n": "Shoe Cleats SPD-SLR CL-SL120", "d": "Road Blue 2 Degr. Clearance"}
+    ]
+  },
+  {
+    "title": "LAZER: 17 back in stock",
+    "link": "lazer.html",
+    "added": "2026-10-12",
+    "expires": "2026-10-19",
+    "auto": "change",
+    "items": [
+      {"c": "BLC2747894470", "n": "Lazer Helmet Blade KC CE-CPSC", "d": "Matte Sage Green M"},
+      {"c": "BLC2747894475", "n": "Lazer Helmet Blade KC CE-CPSC", "d": "White L"},
+      {"c": "BLC2747894476", "n": "Lazer Helmet Blade KC CE-CPSC", "d": "White M"},
+      {"c": "BLC2747894477", "n": "Lazer Helmet Blade KC CE-CPSC", "d": "White S"},
+      {"c": "BLC2447892218", "n": "Lazer Helmet Cerro KC CE-CPSC", "d": "Matte Taupe L"},
+      {"c": "BLC2747894294", "n": "Lazer Helmet Cerro KC CE-CPSC", "d": "Matte Wet Sand L"},
+      {"c": "BLC2747894296", "n": "Lazer Helmet Cerro KC CE-CPSC", "d": "Matte Wet Sand S"},
+      {"c": "BLC2237891793", "n": "Lazer Helmet Codax KC CE-CPSC", "d": "Matte Black Uni +net"},
+      {"c": "BLC2647893582", "n": "Lazer Helmet Finch KC CE", "d": "Matte White Uni"},
+      {"c": "BLC2237891826", "n": "Lazer Helmet Tempo KC CE-CPSC", "d": "Blue Uni"},
+      {"c": "BLC2747894482", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Matte Clay M"},
+      {"c": "BLC2747894483", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Matte Clay S"},
+      {"c": "BLC2647893735", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Matte Tyrian L"},
+      {"c": "BLC2647893736", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Matte Tyrian M"},
+      {"c": "BLC2547893036", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Pine Green L"},
+      {"c": "BLC2237891690", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "White XL"},
+      {"c": "PLZ2447892673", "n": "Lazer Part Padding", "d": "Finch KC Uni"}
+    ]
+  },
+  {
     "title": "HARDGOODS: 8 back in stock",
     "link": "hardgoods.html",
     "added": "2026-10-09",
@@ -918,9 +982,9 @@ window.SHIMANO_TICKER_AUTO = [
     ]
   },
   {
-    "title": "Stock updated: 09 Oct 2026",
-    "added": "2026-10-09",
-    "expires": "2026-10-16",
+    "title": "Stock updated: 12 Oct 2026",
+    "added": "2026-10-12",
+    "expires": "2026-10-19",
     "auto": "stamp"
   }
 ];
