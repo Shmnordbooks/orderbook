@@ -54,7 +54,7 @@
     rows.push(r0);                                                       // 0
     var rn = blank(); rn[0] = (note.ok ? '✓ ' : '⚠ ') + note.text; rows.push(rn);   // 1 note
     var ri = blank(); ri[0] = 'Dealer prices in EUR, FCA Venray (NL). Price list of ' + PR.generated +
-      '. Campaign prices apply to available (in-stock) items only. Minimum order: \u20ac' +
+      '. Minimum order: \u20ac' +
       Number(PR.minOrder).toLocaleString('en-US') +
       ' of available items.'; rows.push(ri);                              // 2 info
     rows.push(blank());                                                  // 3
