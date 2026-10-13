@@ -18,8 +18,14 @@ Pricing rules (agreed Oct 2026):
   reference base = median of the offices' base prices (missing ones ignored)
   list price     = max(reference / (1 + extra cost), reference * (1 - max discount))
   SRP            = highest office retail price, VAT included as published (decided 13 Oct 2026)
+  cost floor     = optional; list / campaign prices never below purchase price x (1 + floor).
+                   Factors live ONLY in the local all_items 'Pricing Params' sheet (Cost factor,
+                   List markup floor, Campaign markup floor). Costs are used here only and are
+                   NEVER written to prices-data.js — this repo and the site are public.
   campaign       = only for items in stock; highest active campaign wins (no stacking);
-                   never below reference * (1 - campaign floor)
+                   never below reference * (1 - campaign floor) nor the campaign cost floor
+  volume tiers   = in-stock order value 15k / 20k / 30k EUR -> 2 / 3 / 5 % (applied in the browser
+                   to in-stock items that are not on a campaign)
 Dealer-facing text (campaign labels) must be English.
 """
 import argparse, json, math, re, statistics, sys
@@ -39,7 +45,10 @@ DEFAULTS = {
     "minimum order": 7500,       # EUR, in-stock (shippable) value
     "rounding": 0.01,
     "vat SBX": 0.21, "vat SFCC": 0.20, "vat SIB": 0.22, "vat SSP": 0.21,
+    # cost floors: set in the local 'Pricing Params' sheet only (0 = no floor)
+    "cost factor": 0.0, "list markup floor": 0.0, "campaign markup floor": 0.0,
 }
+DEFAULT_TIERS = [(15000, 0.02), (20000, 0.03), (30000, 0.05)]  # in-stock value (EUR) -> volume discount
 CAMPAIGN_COLUMNS = ["Active", "Label", "Discount %", "Start", "End", "Product Group", "Brand", "SKUs"]
 
 
@@ -93,12 +102,47 @@ def read_prices(rows):
     return out
 
 
+def read_tiers(rows):
+    """'Volume tiers' row in Pricing Params, e.g. 15000:2%, 20000:3%, 30000:5%"""
+    for r in rows or []:
+        if r and r[0] and str(r[0]).strip().lower() == "volume tiers" and len(r) > 1 and r[1]:
+            out = []
+            for part in str(r[1]).split(","):
+                a, b = part.split(":")
+                pct = float(b.replace("%", "").replace(",", ".").strip())
+                out.append((float(a.replace(".", "").strip()), pct / 100 if pct > 1 or "%" in b else pct))
+            return sorted(out)
+    return DEFAULT_TIERS
+
+
+def read_costs(rows, factor):
+    """Purchase price per SKU from the all_items 'Stock Availability' sheet (Unit Cost x factor).
+    Used ONLY as a floor inside this script — costs are never written to any output."""
+    if not rows:
+        return {}
+    hi = next((i for i, r in enumerate(rows[:5]) if r and "Unit Cost" in [str(c).strip() for c in r if c]), None)
+    if hi is None:
+        return {}
+    head = [str(c).strip() if c else "" for c in rows[hi]]
+    ci, ui = head.index("Item Number"), head.index("Unit Cost")
+    out = {}
+    for r in rows[hi + 1:]:
+        if ci < len(r) and ui < len(r) and r[ci]:
+            v = num(r[ui])
+            if v:
+                k = str(r[ci]).strip().lstrip("+")
+                out[k] = max(out.get(k, 0), v * factor)
+    return out
+
+
 def read_params(rows):
     p = dict(DEFAULTS)
     for r in rows or []:
         if not r or not r[0] or len(r) < 2:
             continue
         k = str(r[0]).strip().lower()
+        if k == "volume tiers":
+            continue
         for d in DEFAULTS:
             if k == d.lower():
                 v = r[1]
@@ -159,11 +203,17 @@ def rnd(x, step):
     return round(round(x / step) * step, 2)
 
 
-def build(xlsx, today=None):
+def build(xlsx, today=None, cost_xlsx=None):
     today = today or date.today()
     warnings = []
     prices = read_prices(load_sheet(xlsx, "Prices"))
-    P = read_params(load_sheet(xlsx, "Pricing Params"))
+    prm_rows = load_sheet(xlsx, "Pricing Params")
+    P = read_params(prm_rows)
+    tiers = read_tiers(prm_rows)
+    costs = read_costs(load_sheet(cost_xlsx or xlsx, "Stock Availability"), P["cost factor"]) if P["cost factor"] > 0 else {}
+    if not costs:
+        warnings.append("Cost floors NOT applied (no Cost factor in Pricing Params, or no Unit Cost column)")
+    raised = capped = 0
     camps = read_campaigns(load_sheet(xlsx, "Campaigns"), prices, warnings)
 
     stock = {}
@@ -187,6 +237,11 @@ def build(xlsx, today=None):
             continue
         ref = statistics.median(bases)
         lst = rnd(max(ref / (1 + P["extra cost"]), ref * (1 - P["max discount"])), P["rounding"])
+        cost = costs.get(code)
+        if cost:
+            fl = math.ceil(cost * (1 + P["list markup floor"]) * 100) / 100
+            if lst < fl:
+                lst, raised = fl, raised + 1
         srps = [v for v in pr["srp"].values() if v]  # VAT included, as the offices publish it
         srp = round(max(srps), 2) if srps else 0
         flag = {"available": 1, "etd": 2}.get(st, 0)
@@ -201,9 +256,11 @@ def build(xlsx, today=None):
                 best = i
         if best is not None:
             floor = ref * (1 - P["campaign floor"])
+            if cost:
+                floor = max(floor, math.ceil(cost * (1 + P["campaign markup floor"]) * 100) / 100)
             net = rnd(lst * (1 - active[best]["pct"]), P["rounding"])
             if net < floor:
-                warnings.append(f"{code}: campaign '{active[best]['label']}' capped at floor")
+                capped += 1
                 net = rnd(floor, P["rounding"])
             if net < lst:
                 rec.append(best)
@@ -215,8 +272,12 @@ def build(xlsx, today=None):
         "currency": "EUR",
         "minOrder": P["minimum order"],
         "campaigns": camp_out,
+        # [in-stock value EUR, discount]; applies to in-stock items that are not on a campaign
+        "volumeTiers": [[a, b] for a, b in tiers],
         "items": items,  # code: [list, srpInclVat, stock(1=avail,2=etd,0=n/a), campaignId?, campaignNet?]
     }
+    if costs:
+        warnings.append(f"cost floor: {raised} list prices raised, {capped} campaign prices capped")
     return data, missing, warnings
 
 
@@ -225,9 +286,10 @@ def main():
     ap.add_argument("--xlsx", required=True)
     ap.add_argument("--out", default=str(ROOT / "prices-data.js"))
     ap.add_argument("--today", help="YYYY-MM-DD, for testing campaign dates")
+    ap.add_argument("--cost-xlsx", help="workbook with the 'Stock Availability' sheet (default: --xlsx)")
     a = ap.parse_args()
     today = datetime.strptime(a.today, "%Y-%m-%d").date() if a.today else None
-    data, missing, warnings = build(a.xlsx, today)
+    data, missing, warnings = build(a.xlsx, today, a.cost_xlsx)
     js = ("/* Generated by tools/build_prices.py — do not edit by hand. */\n"
           "window.SHIMANO_PRICES = " + json.dumps(data, separators=(",", ":"), ensure_ascii=False) + ";\n")
     Path(a.out).write_text(js, encoding="utf-8")

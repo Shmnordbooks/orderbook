@@ -348,6 +348,8 @@ margin-top:8px;transition:all .2s}\
     if (!body) return;
 
     var shared = getShared(), allCount = 0, html = '', totalQty = 0;
+    var PRT = window.ShimanoPricing ? window.ShimanoPricing.totals(collectAll()) : null, LNS = {};
+    if (PRT) PRT.lines.forEach(function (l) { LNS[l.item.catalog + '|' + l.item.code] = l; });
     var pageOrder = pageOrderFor(shared);
 
     for (var p = 0; p < pageOrder.length; p++) {
@@ -372,7 +374,7 @@ margin-top:8px;transition:all .2s}\
           '<span class="ao-rq">\u00D7' + v.qty + '</span>' +
           (PR ? '<span class="pp-ao-p' + (pi && pi.status !== 'available' ? ' etd' : '') + '" title="' +
             (pi ? (pi.status === 'available' ? 'Available' : 'ETD \u2014 backorder') : 'Price on request') + '">' +
-            (pi ? PR.eur(pi.net * (v.qty || 0)) : '\u2014') + '</span>' : '') +
+            (pi && LNS[pg + '|' + code] ? PR.eur(LNS[pg + '|' + code].total) : '\u2014') + '</span>' : '') +
           '<button class="ao-rx" onclick="_aoDeleteItem(\'' + pg + '\',\'' + code.replace(/'/g,"\\'") + '\')" title="Remove">' +
             '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
           '</button></div>';

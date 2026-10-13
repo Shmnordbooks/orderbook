@@ -42,7 +42,7 @@
     var orderNo = 'SHM-' + ymd + '-' + String(Math.floor(Math.random() * 9000) + 1000);
     var dDisp = String(now.getDate()).padStart(2, '0') + '/' + String(now.getMonth() + 1).padStart(2, '0') + '/' + now.getFullYear();
 
-    var HEAD = ['Catalog', 'Item Code', 'Description', 'Model / Spec', 'Status', 'QTY', 'List Price', 'Campaign',
+    var HEAD = ['Catalog', 'Item Code', 'Description', 'Model / Spec', 'Status', 'QTY', 'List Price', 'Discount',
       'Net Price', 'Line Total', 'SRP', 'EAN', 'HS Code', 'Origin', 'Weight (kg)'];
     var NC = HEAD.length, C = {};
     HEAD.forEach(function (h, i) { C[h] = i; });
@@ -61,8 +61,8 @@
     rows.push(HEAD.slice());                                             // 4 header
     var first = rows.length, totQty = 0, totKg = 0, anyKg = false;
 
-    items.forEach(function (it) {
-      var p = PR.info(it.code), f = infoFor(it.code), q = Number(it.qty) || 0;
+    t.lines.forEach(function (ln) {
+      var it = ln.item, p = ln.p, f = infoFor(it.code), q = ln.qty;
       var st = !p ? '' : p.status === 'available' ? 'Available' : p.status === 'etd' ? 'ETD (backorder)' : 'N/A';
       var kg = f.kg ? Math.round(f.kg * q * 1000) / 1000 : '';
       if (f.kg) { totKg += f.kg * q; anyKg = true; }
@@ -72,9 +72,9 @@
       r[C['Model / Spec']] = it.desc2; r[C['Status']] = st; r[C['QTY']] = q;
       if (p) {
         r[C['List Price']] = p.list;
-        r[C['Campaign']] = p.campaign ? p.campaign.label : '';
-        r[C['Net Price']] = p.net;
-        r[C['Line Total']] = Math.round(p.net * q * 100) / 100;
+        r[C['Discount']] = ln.label;
+        r[C['Net Price']] = ln.unit;
+        r[C['Line Total']] = ln.total;
         r[C['SRP']] = p.srp || '';
       } else {
         r[C['List Price']] = 'Price on request';
@@ -89,7 +89,8 @@
     var rAv = sumRow('Available (shippable)', t.available);
     var rEtd = sumRow('ETD (backorder)', t.etd);
     var rTot = sumRow('ORDER TOTAL', t.grand);
-    var rSave = t.savings > 0 ? sumRow('Campaign savings (included)', t.savings) : -1;
+    var rSave = t.campaignSavings > 0 ? sumRow('Campaign savings (included)', t.campaignSavings) : -1;
+    var rVol = t.volumeSavings > 0 ? sumRow('Volume discount ' + PR.pctLabel(t.tier.pct) + ' (included)', t.volumeSavings) : -1;
     rows[rTot][C['QTY']] = totQty;
     rows[rTot][C['Weight (kg)']] = anyKg ? Math.round(totKg * 100) / 100 : '';
 
@@ -124,12 +125,12 @@
           if (c >= C['EAN']) s.font.color = { rgb: '555555' };
           if (c === C['QTY'] || c === C['Weight (kg)']) s.alignment = { horizontal: 'center' };
           if (c === C['Status']) s.font.color = { rgb: ws[a].v === 'Available' ? '0B8A5A' : 'B26B00' };
-          if (c === C['Campaign'] && ws[a].v) s.font = { name: 'Arial', sz: 9, bold: true, color: { rgb: 'C8102E' } };
+          if (c === C['Discount'] && ws[a].v) s.font = { name: 'Arial', sz: 9, bold: true, color: { rgb: 'C8102E' } };
           if (r % 2 === 0) s.fill = { fgColor: { rgb: 'F6F8FA' } };
         }
         if (r > last + 1) {
           s.font = { name: 'Arial', sz: 10, bold: r === rTot || r === rAv, color: { rgb: r === rSave ? '0B8A5A' : '222222' } };
-          if (r === rSave) s.font.italic = true;
+          if (r === rSave || r === rVol) { s.font.italic = true; s.font.color = { rgb: '0B8A5A' }; }
           if (r === rTot) s.border = { top: { style: 'thin', color: { rgb: '0082CA' } } };
           if (c === LBL) s.alignment = { horizontal: 'right' };
           if (c === C['QTY'] || c === C['Weight (kg)']) s.alignment = { horizontal: 'center' };

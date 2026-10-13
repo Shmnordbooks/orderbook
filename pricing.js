@@ -40,19 +40,42 @@
     return out;
   }
 
-  /* Cart totals: items = [{code, qty, ...}] */
+  var TIERS = (D.volumeTiers || []).map(function (x) { return { min: Number(x[0]), pct: Number(x[1]) }; })
+    .sort(function (a, b) { return a.min - b.min; });
+  function r2(x) { return Math.round(x * 100) / 100; }
+  function pctLabel(p) { return (Math.round(p * 1000) / 10) + '%'; }
+
+  /* Cart lines + totals: items = [{code, qty, ...}]
+     Volume tier is chosen on the in-stock value (campaign prices included) and applied to
+     in-stock items that are NOT on a campaign. Same numbers in panel and Excel. */
   function totals(items) {
-    var t = { available: 0, etd: 0, other: 0, noPrice: 0, savings: 0 };
+    var t = { available: 0, etd: 0, other: 0, noPrice: 0, savings: 0, campaignSavings: 0, volumeSavings: 0,
+      lines: [], tier: null, next: null };
+    var gross = 0;
     items.forEach(function (it) {
-      var q = Number(it.qty) || 0, p = info(it.code);
+      var p = info(it.code), q = Number(it.qty) || 0;
+      if (p && q && p.status === 'available') gross += p.net * q;
+    });
+    TIERS.forEach(function (x) { if (gross >= x.min) t.tier = x; });
+    for (var i = 0; i < TIERS.length; i++) if (gross < TIERS[i].min) { t.next = { min: TIERS[i].min, pct: TIERS[i].pct, missing: TIERS[i].min - gross }; break; }
+    items.forEach(function (it) {
+      var q = Number(it.qty) || 0, p = info(it.code), ln = { item: it, p: p, qty: q, unit: null, label: '', total: 0 };
+      t.lines.push(ln);
       if (!q) return;
       if (!p) { t.noPrice += q; return; }
-      var line = p.net * q;
-      if (p.status === 'available') t.available += line;
-      else if (p.status === 'etd') t.etd += line;
-      else t.other += line;
-      if (p.campaign) t.savings += (p.list - p.net) * q;
+      ln.unit = p.net;
+      if (p.campaign) { ln.label = p.campaign.label; t.campaignSavings += (p.list - p.net) * q; }
+      else if (t.tier && p.status === 'available') {
+        ln.unit = r2(p.list * (1 - t.tier.pct));
+        ln.label = 'VOLUME -' + pctLabel(t.tier.pct);
+        t.volumeSavings += (p.list - ln.unit) * q;
+      }
+      ln.total = r2(ln.unit * q);
+      if (p.status === 'available') t.available += ln.total;
+      else if (p.status === 'etd') t.etd += ln.total;
+      else t.other += ln.total;
     });
+    t.savings = t.campaignSavings + t.volumeSavings;
     t.grand = t.available + t.etd + t.other;
     t.min = MIN;
     t.missing = Math.max(0, MIN - t.available);
@@ -83,9 +106,12 @@
       '<div class="pp-sum-row"><span>Available</span><b>' + eur(t.available) + '</b></div>' +
       (t.etd > 0 ? '<div class="pp-sum-row pp-muted"><span>ETD (backorder)</span><b>' + eur(t.etd) + '</b></div>' : '') +
       '<div class="pp-sum-row pp-grand"><span>Order total</span><b>' + eur(t.grand) + '</b></div>' +
-      (t.savings > 0 ? '<div class="pp-sum-row pp-save"><span>Campaign savings (included)</span><b>' + eur(t.savings) + '</b></div>' : '') +
+      (t.campaignSavings > 0 ? '<div class="pp-sum-row pp-save"><span>Campaign savings (included)</span><b>' + eur(t.campaignSavings) + '</b></div>' : '') +
+      (t.volumeSavings > 0 ? '<div class="pp-sum-row pp-save"><span>Volume discount ' + pctLabel(t.tier.pct) + ' (included)</span><b>' + eur(t.volumeSavings) + '</b></div>' : '') +
       '<div class="pp-bar"><i style="width:' + pct.toFixed(1) + '%" class="' + (t.ok ? 'ok' : '') + '"></i></div>' +
       '<div class="pp-note ' + (t.ok ? 'ok' : 'warn') + '">' + n.text + '</div>' +
+      (t.next && t.ok ? '<div class="pp-note pp-tier">Add ' + eur(t.next.missing) + ' more in available items to unlock a ' +
+        pctLabel(t.next.pct) + ' volume discount.</div>' : '') +
       (t.noPrice > 0 ? '<div class="pp-note pp-muted">' + t.noPrice + ' pcs without a list price (price on request) are not included.</div>' : '') +
       '</div>';
   }
@@ -113,6 +139,7 @@
     '.pp-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.08);margin:8px 0 6px;overflow:hidden}' +
     '.pp-bar i{display:block;height:100%;background:#f59e0b;border-radius:3px}.pp-bar i.ok{background:#00c896}' +
     '.pp-note{font-family:Barlow,Arial,sans-serif;font-size:11px;line-height:1.4;padding:6px 8px;border-radius:6px;margin-top:4px}' +
+    '.pp-note.pp-tier{background:rgba(0,130,202,.12);color:#5bb4ff}' +
     '.pp-note.warn{background:rgba(245,158,11,.12);color:#f5b544}.pp-note.ok{background:rgba(0,200,150,.1);color:#00c896}' +
     '.ao-row.pp-ao{grid-template-columns:96px 1fr 34px 66px 22px !important}' +
     '.pp-ao-p{font-family:"Barlow Condensed",Arial,sans-serif;font-size:12px;text-align:right;color:var(--text,#e8e8f0)}' +
@@ -215,6 +242,6 @@
   }
   window.addEventListener('load', function () { unifyExport(); setTimeout(unifyExport, 1500); });
 
-  window.ShimanoPricing = { info: info, totals: totals, minOrderNote: minOrderNote, panelHTML: panelHTML, eur: eur,
+  window.ShimanoPricing = { info: info, totals: totals, tiers: TIERS, pctLabel: pctLabel, minOrderNote: minOrderNote, panelHTML: panelHTML, eur: eur,
     generated: D.generated, minOrder: MIN };
 })();
