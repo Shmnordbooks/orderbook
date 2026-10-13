@@ -135,7 +135,7 @@
           if (c === C['QTY'] || c === C['Weight (kg)']) s.alignment = { horizontal: 'center' };
         }
         if (money.indexOf(c) > -1 && typeof ws[a].v === 'number' && r >= first) {
-          ws[a].z = '#,##0.00'; s.numFmt = '#,##0.00'; s.alignment = { horizontal: 'right' };
+          ws[a].z = '"€"#,##0.00'; s.numFmt = '"€"#,##0.00'; s.alignment = { horizontal: 'right' };
         }
         if ((c === C['EAN'] || c === C['HS Code']) && r >= first && r <= last && ws[a].v !== '') {
           ws[a].t = 's'; ws[a].v = String(ws[a].v); ws[a].z = '@';
