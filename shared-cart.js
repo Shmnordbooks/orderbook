@@ -364,10 +364,14 @@ margin-top:8px;transition:all .2s}\
       for (var i = 0; i < entries.length; i++) {
         var code = entries[i][0], v = entries[i][1];
         var desc = [v.desc1, v.desc2].filter(Boolean).join(' \u00B7 ');
-        html += '<div class="ao-row">' +
+        var PR = window.ShimanoPricing, pi = PR ? PR.info(code) : null;
+        html += '<div class="ao-row' + (PR ? ' pp-ao' : '') + '">' +
           '<span class="ao-rc">' + code + '</span>' +
           '<span class="ao-rd" title="' + desc.replace(/"/g,'&quot;') + '">' + desc + '</span>' +
           '<span class="ao-rq">\u00D7' + v.qty + '</span>' +
+          (PR ? '<span class="pp-ao-p' + (pi && pi.status !== 'available' ? ' etd' : '') + '" title="' +
+            (pi ? (pi.status === 'available' ? 'Available' : 'ETD \u2014 backorder') : 'Price on request') + '">' +
+            (pi ? PR.eur(pi.net * (v.qty || 0)) : '\u2014') + '</span>' : '') +
           '<button class="ao-rx" onclick="_aoDeleteItem(\'' + pg + '\',\'' + code.replace(/'/g,"\\'") + '\')" title="Remove">' +
             '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
           '</button></div>';
@@ -394,6 +398,17 @@ margin-top:8px;transition:all .2s}\
       chipHtml += '<span class="ao-chip" style="background:' + colorOf(cpg) + '22;color:' + colorOf(cpg) + '">' + labelOf(cpg) + ': ' + cq + '</span>';
     }
     chips.innerHTML = chipHtml;
+
+    // Prices, in-stock vs ETD totals and the minimum-order note (pricing.js)
+    var money = document.getElementById('aoMoney');
+    if (window.ShimanoPricing) {
+      if (!money) {
+        money = document.createElement('div');
+        money.id = 'aoMoney';
+        foot.insertBefore(money, foot.firstChild);
+      }
+      money.innerHTML = window.ShimanoPricing.panelHTML(collectAll());
+    }
 
     // Optional add-on: cross-sell.js appends its suggestions under the list
     if (window.__crossSell && typeof window.__crossSell.render === 'function') {
@@ -422,10 +437,18 @@ margin-top:8px;transition:all .2s}\
     var btn = document.getElementById('aoExport'), spin = document.getElementById('aoSpin');
     if (btn) btn.disabled = true;
     if (spin) spin.style.display = 'inline-block';
+    if (typeof window.ShimanoOrderExport === 'function') {   // priced export (order-export.js)
+      window.ShimanoOrderExport(allItems, dealerName)
+        .catch(function() { exportXML(allItems, dealerName); })
+        .finally(function() { if (btn) btn.disabled = false; if (spin) spin.style.display = 'none'; });
+      return;
+    }
     Promise.all([loadSheetJS(), loadProductInfo()]).then(function() { exportSheetJS(allItems, dealerName); })
       .catch(function() { exportXML(allItems, dealerName); })
       .finally(function() { if (btn) btn.disabled = false; if (spin) spin.style.display = 'none'; });
   }
+
+  window._aoDoExport = doExport;   // pages' own "Export" buttons use this (pricing.js)
 
   function exportSheetJS(items, dealerName) {
     var X = _styledXLSX || window.XLSX, wb = X.utils.book_new();
