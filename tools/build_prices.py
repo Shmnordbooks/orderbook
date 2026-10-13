@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Builds prices-data.js (dealer list price, SRP excl. VAT, stock flag, campaigns)
+Builds prices-data.js (dealer list price, SRP incl. VAT, stock flag, campaigns)
 for every SKU that appears in the six catalog pages.
 
 Inputs — one Excel workbook (normally all_items.xlsm, or a values-only copy):
@@ -17,7 +17,7 @@ stock flags in prices-data.js match what the pages show:
 Pricing rules (agreed Oct 2026):
   reference base = median of the offices' base prices (missing ones ignored)
   list price     = max(reference / (1 + extra cost), reference * (1 - max discount))
-  SRP excl. VAT  = highest of (office SRP / (1 + that country's VAT))
+  SRP            = highest office retail price, VAT included as published (decided 13 Oct 2026)
   campaign       = only for items in stock; highest active campaign wins (no stacking);
                    never below reference * (1 - campaign floor)
 Dealer-facing text (campaign labels) must be English.
@@ -187,7 +187,7 @@ def build(xlsx, today=None):
             continue
         ref = statistics.median(bases)
         lst = rnd(max(ref / (1 + P["extra cost"]), ref * (1 - P["max discount"])), P["rounding"])
-        srps = [v / (1 + P["vat " + o]) for o, v in pr["srp"].items() if v]
+        srps = [v for v in pr["srp"].values() if v]  # VAT included, as the offices publish it
         srp = round(max(srps), 2) if srps else 0
         flag = {"available": 1, "etd": 2}.get(st, 0)
         rec = [lst, srp, flag]
@@ -215,7 +215,7 @@ def build(xlsx, today=None):
         "currency": "EUR",
         "minOrder": P["minimum order"],
         "campaigns": camp_out,
-        "items": items,  # code: [list, srpExVat, stock(1=avail,2=etd,0=n/a), campaignId?, campaignNet?]
+        "items": items,  # code: [list, srpInclVat, stock(1=avail,2=etd,0=n/a), campaignId?, campaignNet?]
     }
     return data, missing, warnings
 
