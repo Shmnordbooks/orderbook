@@ -2,7 +2,7 @@
    SHIMANO ORDER EXPORT — one Excel export for every catalog
    window.ShimanoOrderExport(items, dealerName) -> Promise
    items: [{source, catalog, code, desc1, desc2, qty}]
-   Adds status, list / campaign / net prices, line totals, SRP incl. VAT,
+   Adds status, list / campaign / net prices, line totals, SRP,
    in-stock vs ETD totals and the minimum-order note (pricing.js).
    Never blocks: the file always downloads; the note tells the dealer
    whether the shippable value meets the minimum.
@@ -43,7 +43,7 @@
     var dDisp = String(now.getDate()).padStart(2, '0') + '/' + String(now.getMonth() + 1).padStart(2, '0') + '/' + now.getFullYear();
 
     var HEAD = ['Catalog', 'Item Code', 'Description', 'Model / Spec', 'Status', 'QTY', 'List Price', 'Campaign',
-      'Net Price', 'Line Total', 'SRP incl. VAT', 'EAN', 'HS Code', 'Origin', 'Weight (kg)'];
+      'Net Price', 'Line Total', 'SRP', 'EAN', 'HS Code', 'Origin', 'Weight (kg)'];
     var NC = HEAD.length, C = {};
     HEAD.forEach(function (h, i) { C[h] = i; });
     var blank = function () { var a = []; for (var k = 0; k < NC; k++) a.push(''); return a; };
@@ -53,7 +53,7 @@
     var r0 = blank(); r0[0] = 'Order:'; r0[1] = orderNo; r0[2] = 'Date:'; r0[3] = dDisp; r0[4] = 'Dealer:'; r0[5] = dealerName;
     rows.push(r0);                                                       // 0
     var rn = blank(); rn[0] = (note.ok ? '✓ ' : '⚠ ') + note.text; rows.push(rn);   // 1 note
-    var ri = blank(); ri[0] = 'Dealer prices in EUR, FCA Venray (NL), excl. VAT; SRP = recommended retail price incl. VAT. Price list of ' + PR.generated +
+    var ri = blank(); ri[0] = 'Dealer prices in EUR, FCA Venray (NL), excl. VAT. Price list of ' + PR.generated +
       '. Campaign prices apply to available (in-stock) items only. Minimum order: \u20ac' +
       Number(PR.minOrder).toLocaleString('en-US') +
       ' of available items.'; rows.push(ri);                              // 2 info
@@ -75,7 +75,7 @@
         r[C['Campaign']] = p.campaign ? p.campaign.label : '';
         r[C['Net Price']] = p.net;
         r[C['Line Total']] = Math.round(p.net * q * 100) / 100;
-        r[C['SRP incl. VAT']] = p.srp || '';
+        r[C['SRP']] = p.srp || '';
       } else {
         r[C['List Price']] = 'Price on request';
       }
@@ -103,7 +103,7 @@
 
     var none = { top: { style: 'none' }, bottom: { style: 'none' }, left: { style: 'none' }, right: { style: 'none' } };
     var range = X.utils.decode_range(ws['!ref']);
-    var money = [C['List Price'], C['Net Price'], C['Line Total'], C['SRP incl. VAT']];
+    var money = [C['List Price'], C['Net Price'], C['Line Total'], C['SRP']];
     for (var r = range.s.r; r <= range.e.r; r++) {
       for (var c = range.s.c; c <= range.e.c; c++) {
         var a = X.utils.encode_cell({ r: r, c: c });
