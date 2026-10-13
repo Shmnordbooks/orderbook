@@ -53,7 +53,7 @@
     var r0 = blank(); r0[0] = 'Order:'; r0[1] = orderNo; r0[2] = 'Date:'; r0[3] = dDisp; r0[4] = 'Dealer:'; r0[5] = dealerName;
     rows.push(r0);                                                       // 0
     var rn = blank(); rn[0] = (note.ok ? '✓ ' : '⚠ ') + note.text; rows.push(rn);   // 1 note
-    var ri = blank(); ri[0] = 'Dealer prices in EUR, FCA Venray (NL), excl. VAT. Price list of ' + PR.generated +
+    var ri = blank(); ri[0] = 'Dealer prices in EUR, FCA Venray (NL). Price list of ' + PR.generated +
       '. Campaign prices apply to available (in-stock) items only. Minimum order: \u20ac' +
       Number(PR.minOrder).toLocaleString('en-US') +
       ' of available items.'; rows.push(ri);                              // 2 info
