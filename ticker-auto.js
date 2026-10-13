@@ -983,8 +983,8 @@ window.SHIMANO_TICKER_AUTO = [
   },
   {
     "title": "Stock updated: 12 Oct 2026",
-    "added": "2026-10-12",
-    "expires": "2026-10-19",
+    "added": "2026-10-13",
+    "expires": "2026-10-20",
     "auto": "stamp"
   }
 ];
