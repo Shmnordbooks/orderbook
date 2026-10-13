@@ -82,8 +82,8 @@
     return '<div class="pp-sum">' +
       '<div class="pp-sum-row"><span>Available</span><b>' + eur(t.available) + '</b></div>' +
       (t.etd > 0 ? '<div class="pp-sum-row pp-muted"><span>ETD (backorder)</span><b>' + eur(t.etd) + '</b></div>' : '') +
-      (t.savings > 0 ? '<div class="pp-sum-row pp-save"><span>Campaign savings</span><b>−' + eur(t.savings) + '</b></div>' : '') +
       '<div class="pp-sum-row pp-grand"><span>Order total</span><b>' + eur(t.grand) + '</b></div>' +
+      (t.savings > 0 ? '<div class="pp-sum-row pp-save"><span>Campaign savings (included)</span><b>' + eur(t.savings) + '</b></div>' : '') +
       '<div class="pp-bar"><i style="width:' + pct.toFixed(1) + '%" class="' + (t.ok ? 'ok' : '') + '"></i></div>' +
       '<div class="pp-note ' + (t.ok ? 'ok' : 'warn') + '">' + n.text + '</div>' +
       (t.noPrice > 0 ? '<div class="pp-note pp-muted">' + t.noPrice + ' pcs without a list price (price on request) are not included.</div>' : '') +
