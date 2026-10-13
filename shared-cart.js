@@ -170,7 +170,8 @@
         if (typeof window.saveOrder === 'function') window.saveOrder();
         if (typeof window.updateOrderPanel === 'function') window.updateOrderPanel();
         if (typeof window.updateStats === 'function') window.updateStats();
-        var inputs2 = document.querySelectorAll('.qty-input[data-code="' + code + '"]');
+        if (typeof window.updB === 'function') window.updB();   // lazer.html badge
+        var inputs2 = document.querySelectorAll('.qty-input[data-code="' + code + '"], .qty-input[data-sku="' + code + '"]');
         for (var j = 0; j < inputs2.length; j++) { inputs2[j].value = ''; inputs2[j].dataset.hasValue = 'false'; }
       }
       _lastHash = ''; // force re-sync
