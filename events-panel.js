@@ -208,6 +208,21 @@
     if (bottom < 60) { panel.style.bottom = ''; return; }
     panel.style.bottom = Math.round(bottom) + 'px';
   }
+  /* keep the UPDATED label in sync with the "Last checked:" line that every scan updates */
+  try {
+    fetch('events-data.js?v=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.text() : ''; }).then(function (txt) {
+      var m = /Last checked:\s*(\d{4}-\d{2}-\d{2})/.exec(txt || '');
+      if (!m) return;
+      var cur = window.SHIMANO_EVENTS_UPDATED || '';
+      if (m[1] <= cur) return;
+      window.SHIMANO_EVENTS_UPDATED = m[1];
+      var head = panel.querySelector('.ev-head');
+      var old = head.querySelector('.ev-updated');
+      if (old) old.parentNode.removeChild(old);
+      head.insertAdjacentHTML('beforeend', updatedLabel());
+    }).catch(function () {});
+  } catch (e) {}
+
   var listEl = panel.querySelector('.ev-list');
   var pagesEl = panel.querySelector('.ev-pages');
   var monthsEl = panel.querySelector('.ev-months');
