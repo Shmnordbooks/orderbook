@@ -19,7 +19,7 @@ the ticker. English only: dealer-facing text.
 
 Usage: python3 tools/gen_ticker_auto.py --old-ref <git-sha> [--out ticker-auto.js]
 """
-import argparse, json, re, subprocess, sys
+import argparse, json, os, re, subprocess, sys
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -162,7 +162,7 @@ def main():
     ap.add_argument("--out", default="ticker-auto.js")
     a = ap.parse_args()
     out_path = ROOT / a.out
-    today = date.today()
+    today = date.fromisoformat(os.environ["TICKER_TODAY"]) if os.environ.get("TICKER_TODAY") else date.today()   # TICKER_TODAY: test only
     exp = (today + timedelta(days=LIFETIME_DAYS)).isoformat()
 
     fresh = []
@@ -190,6 +190,8 @@ def main():
         f["added"] = today.isoformat()
         f["expires"] = exp
         f["auto"] = "change"
+        for it in f.get("items", []):
+            it["t"] = today.isoformat()      # day this product entered the line
 
     stamp = {"title": f"Stock updated: {stock_stamp()}", "added": today.isoformat(),
              "expires": exp, "auto": "stamp"}
@@ -199,6 +201,10 @@ def main():
 
     # One line per catalogue and kind: "back in stock" (or "new") lines from several
     # stock updates are merged instead of scrolling past one after another.
+    # Every product keeps its own date ("t") and leaves the line LIFETIME_DAYS
+    # after that day, so the count is "back in stock in the last 7 days" and
+    # never just keeps growing.
+    cutoff = (today - timedelta(days=LIFETIME_DAYS - 1)).isoformat()
     labels = dict(PAGES)
     merged, order = {}, []
     for x in fresh + kept:                # newest first
@@ -206,14 +212,18 @@ def main():
         kind = "back in stock" if "back in stock" in x.get("title", "") else "new"
         key = (page, kind)
         if key not in merged:
-            merged[key] = {"codes": [], "added": x.get("added", ""), "expires": x.get("expires", "")}
+            merged[key] = {"codes": [], "t": {}}
             order.append(key)
         m = merged[key]
-        m["added"] = max(m["added"], x.get("added", ""))
-        m["expires"] = max(m["expires"], x.get("expires", ""))
         for it in x.get("items", []):
-            if it.get("c") and it["c"] not in m["codes"]:
-                m["codes"].append(it["c"])
+            c, t = it.get("c"), it.get("t") or x.get("added", "")
+            if not c or t < cutoff:
+                continue                       # older than a week: drop
+            if c not in m["t"]:
+                m["codes"].append(c)
+                m["t"][c] = t
+            else:
+                m["t"][c] = max(m["t"][c], t)
     lines = []
     for page, kind in order:
         m, cur = merged[(page, kind)], current.get(page, {})
@@ -225,7 +235,11 @@ def main():
         if not pairs or page not in labels:
             continue
         ln = line(labels[page], page, len(pairs), "new" if kind == "new" else kind, pairs)
-        ln.update({"added": m["added"], "expires": m["expires"], "auto": "change"})
+        for it in ln["items"]:
+            it["t"] = m["t"][it["c"]]
+        newest = max(it["t"] for it in ln["items"])
+        ln.update({"added": newest, "auto": "change",
+                   "expires": (date.fromisoformat(newest) + timedelta(days=LIFETIME_DAYS)).isoformat()})
         lines.append(ln)
 
     # "Stock updated" always first
