@@ -1558,14 +1558,34 @@ const PRO_IMG_DISCLAIMER = '<strong>Images are for illustration purposes only.</
   'the item code and description are binding, the image is not.';
 
 // Image host is served over http; if https fails, retry once through the wsrv.nl proxy.
+// The retry marker is kept PER SOURCE URL, not per element: #lbImg and each card's
+// main <img> are reused for every photo, so an element-level flag would permanently
+// disable the fallback after the first failure (broken image on photo 2/3 and on the
+// next product opened).
+var _proImgProxied = Object.create(null);
+
+function proImgProxy(url) {
+  return 'https://wsrv.nl/?url=' + encodeURIComponent(String(url).replace(/^https:/, 'http:')) + '&w=900&we&output=jpg';
+}
+
+// The variant of `url` known to load: proxied once a direct request has failed in this
+// session, otherwise the original. Avoids the broken-image flash on every src change.
+function proImgSrc(url) {
+  if (!url) return '';
+  return _proImgProxied[url] ? proImgProxy(url) : url;
+}
+
 document.addEventListener('error', function(e) {
   var el = e.target;
   if (!el || el.tagName !== 'IMG') return;
-  if (el.getAttribute('data-img-retry') === '1') return;
   var src = el.getAttribute('src') || '';
+  if (!src) return;
+  if (src.indexOf('https://wsrv.nl/') === 0) return;      // already proxied — stop, no loop
   if (src.indexOf('shimanoshop-eu.com') === -1) return;
-  el.setAttribute('data-img-retry', '1');
-  el.src = 'https://wsrv.nl/?url=' + encodeURIComponent(src.replace(/^https:/, 'http:')) + '&w=900&we&output=jpg';
+  if (el.getAttribute('data-img-retry') === src) return;  // this exact src already retried
+  el.setAttribute('data-img-retry', src);
+  _proImgProxied[src] = 1;
+  el.src = proImgProxy(src);
 }, true);
 
 // ─── GROUP DATA INTO MODELS ───────────────────────────────────────────────────
@@ -2023,7 +2043,7 @@ function buildGallery(cardId, images) {
   for (var i = 0; i < 5; i++) {
     if (i < images.length) {
       thumbsHtml += '<div class="model-gallery-thumb' + (i === 0 ? ' active' : '') + '" onclick="setGalImg(\'' + cardId + '\',' + i + ')" data-gidx="' + i + '">' +
-        '<img src="' + images[i] + '" alt="Image ' + (i+1) + '" loading="lazy">' +
+        '<img src="' + proImgSrc(images[i]) + '" alt="Image ' + (i+1) + '" loading="lazy">' +
       '</div>';
     } else {
       thumbsHtml += '<div class="model-gallery-thumb" style="cursor:default;display:flex;align-items:center;justify-content:center">' +
@@ -2034,7 +2054,7 @@ function buildGallery(cardId, images) {
   thumbsHtml += '</div>';
 
   galEl.innerHTML = '<div class="model-gallery-main" id="gal-main-' + cardId + '" onclick="openLightbox(\'' + cardId + '\',0)">' +
-    '<img src="' + mainImg + '" alt="Product" id="gal-mainimg-' + cardId + '" loading="lazy">' +
+    '<img src="' + proImgSrc(mainImg) + '" alt="Product" id="gal-mainimg-' + cardId + '" loading="lazy">' +
   '</div>' + thumbsHtml + (function(){ var m = cardModelMap[cardId]; return m ? buildDetailHtml(m.name, m.sub) : ''; })() +
     '<div class="img-disclaimer">' + PRO_IMG_DISCLAIMER + '</div>';
   galEl.style.display = 'flex';
@@ -2044,7 +2064,7 @@ function setGalImg(cardId, idx) {
   var images = galCache[cardId] || [];
   var mainImg = document.getElementById('gal-mainimg-' + cardId);
   if (!mainImg || !images[idx]) return;
-  mainImg.src = images[idx];
+  mainImg.src = proImgSrc(images[idx]);
   var thumbs = document.querySelectorAll('#gal-' + cardId + ' .model-gallery-thumb');
   thumbs.forEach(function(t) {
     var gidx = parseInt(t.dataset.gidx);
@@ -2059,10 +2079,10 @@ function openLightbox(cardId, idx) {
   var images = galCache[cardId] || [];
   if (!images.length) return;
   lbImages = images;
-  lbIndex = idx || 0;
+  lbIndex = Math.min(Math.max(parseInt(idx, 10) || 0, 0), images.length - 1);
   lbCardId = cardId;
   var m = cardModelMap[cardId];
-  document.getElementById('lbImg').src = lbImages[lbIndex];
+  lbShow();
   document.getElementById('lbModel').textContent = m ? m.name : '';
   document.getElementById('lbName').textContent = m ? (m.items.length + ' SKUs · ' + (CAT_LABELS[m.disc]||'') + ' / ' + (SUB_LABELS[m.sub]||'')) : '';
   document.getElementById('lbDisclaimer').innerHTML = PRO_IMG_DISCLAIMER;
@@ -2075,9 +2095,20 @@ function closeLightbox() {
   document.body.style.overflow = '';
 }
 
+// Single place that puts a photo into the reused #lbImg element.
+function lbShow() {
+  var el = document.getElementById('lbImg');
+  if (!el || !lbImages.length) return;
+  var url = lbImages[lbIndex];
+  if (!url) return;
+  el.removeAttribute('data-img-retry');   // belt and braces: never carry a stale marker
+  el.src = proImgSrc(url);
+}
+
 function lbNav(dir) {
+  if (lbImages.length < 2) return;
   lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
-  document.getElementById('lbImg').src = lbImages[lbIndex];
+  lbShow();
 }
 
 document.addEventListener('keydown', function(e) {
