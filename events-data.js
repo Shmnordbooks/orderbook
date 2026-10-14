@@ -38,7 +38,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-09
+   Last checked: 2026-10-14
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -326,5 +326,40 @@ window.SHIMANO_EVENTS = [
     city: "Manama", country: "BHR",
     type: "triathlon", label: "IRONMAN 70.3",
     url: "https://www.ironman.com/races/im703-bahrain"
+  },
+  {
+    name: "UAE Tour Community Race",
+    start: "2026-10-17", end: "2026-10-17",
+    city: "Al Wathba, Abu Dhabi", country: "UAE",
+    type: "community", label: "Age Group",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "UCI Granfondo Antalya",
+    start: "2026-11-08", end: "2026-11-08",
+    city: "Antalya", country: "TUR",
+    type: "community", label: "UCI Gran Fondo",
+    url: "https://www.ahotu.com/calendar/cycling/turkey"
+  },
+  {
+    name: "Falcon Daman Series R5",
+    start: "2027-02-02", end: "2027-02-02",
+    city: "Hudayriyat, Abu Dhabi", country: "UAE",
+    type: "local", label: "Race Series",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "Falcon Daman Series R6",
+    start: "2027-03-02", end: "2027-03-02",
+    city: "Hudayriyat, Abu Dhabi", country: "UAE",
+    type: "local", label: "Race Series",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "Atlas Mountain Race",
+    start: "2027-03-13", end: "2027-03-13",
+    city: "Marrakesh", country: "MAR",
+    type: "community", label: "Ultra Ride",
+    url: "https://www.ahotu.com/calendar/cycling/morocco"
   }
 ];
