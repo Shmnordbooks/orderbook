@@ -54,6 +54,7 @@
     '#evPanel .ev-dot{width:6px;height:6px;border-radius:50%;background:#00c896;animation:evPulse 2s infinite;}',
     '@keyframes evPulse{0%{box-shadow:0 0 0 0 rgba(0,200,150,.55)}70%{box-shadow:0 0 0 7px rgba(0,200,150,0)}100%{box-shadow:0 0 0 0 rgba(0,200,150,0)}}',
     '#evPanel .ev-title{white-space:nowrap;font-size:11px;font-weight:700;letter-spacing:.28em;color:#0082CA;}',
+    '#evPanel .ev-updated{margin-left:auto;white-space:nowrap;font-size:9.5px;font-weight:600;letter-spacing:.16em;color:rgba(255,255,255,.38);}',
     '#evPanel .ev-region{white-space:nowrap;margin-left:auto;font-size:9.5px;font-weight:600;letter-spacing:.18em;color:rgba(255,255,255,.35);}',
     '#evPanel .ev-list{transition:opacity .3s ease;}',
     '#evPanel .ev-list.fade{opacity:0;}',
@@ -159,12 +160,23 @@
       '</div></a>';
   }
 
+  /* "UPDATED 14 OCT" label — from window.SHIMANO_EVENTS_UPDATED ("YYYY-MM-DD") */
+  function updatedLabel() {
+    var u = window.SHIMANO_EVENTS_UPDATED;
+    if (!u) return '';
+    var d = parse(u);
+    if (isNaN(d)) return '';
+    var txt = d.getDate() + ' ' + MONTHS[d.getMonth()] + (d.getFullYear() !== today.getFullYear() ? ' ' + d.getFullYear() : '');
+    return '<span class="ev-updated" title="Calendar last updated">UPDATED ' + esc(txt) + '</span>';
+  }
+
   /* ---------- panel ---------- */
   var pages = 1;
   var panel = document.createElement('div');
   panel.id = 'evPanel';
   panel.innerHTML =
     '<div class="ev-head"><span class="ev-dot"></span><span class="ev-title">UPCOMING EVENTS</span>' +
+    updatedLabel() +
     '</div>' +
     '<div class="ev-list"></div>' +
     '<div class="ev-months"></div>' +

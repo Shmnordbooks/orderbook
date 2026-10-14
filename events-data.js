@@ -44,6 +44,10 @@
    Leave empty ("") to hide the Suggest button. */
 window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
+/* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
+   Update together with "Last checked" above on every scan. */
+window.SHIMANO_EVENTS_UPDATED = "2026-10-14";
+
 window.SHIMANO_EVENTS = [
   {
     name: "Riyadh 25 Mile TT",
