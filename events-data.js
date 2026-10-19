@@ -38,7 +38,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-14
+   Last checked: 2026-10-19
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -46,7 +46,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-10-14";
+window.SHIMANO_EVENTS_UPDATED = "2026-10-19";
 
 window.SHIMANO_EVENTS = [
   {
@@ -365,5 +365,26 @@ window.SHIMANO_EVENTS = [
     city: "Marrakesh", country: "MAR",
     type: "community", label: "Ultra Ride",
     url: "https://www.ahotu.com/calendar/cycling/morocco"
+  },
+  {
+    name: "Riyadh 60K Road Race",
+    start: "2026-10-30", end: "2026-10-30",
+    city: "Riyadh", country: "KSA",
+    type: "local", label: "Club Race",
+    url: "https://riyadhwheelers.com/race-schedule/"
+  },
+  {
+    name: "Riyadh 25 Mile TT",
+    start: "2026-11-27", end: "2026-11-27",
+    city: "Riyadh", country: "KSA",
+    type: "local", label: "Club Race",
+    url: "https://riyadhwheelers.com/race-schedule/"
+  },
+  {
+    name: "Bike Abu Dhabi GF",
+    start: "2026-12-20", end: "2026-12-20",
+    city: "Abu Dhabi – Al Ain", country: "UAE",
+    type: "community", label: "Gran Fondo",
+    url: "https://www.granfondoguide.com/Events/Index/10610/bike-abu-dhabi-gran-fondo"
   }
 ];
