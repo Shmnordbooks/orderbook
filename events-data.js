@@ -38,7 +38,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-19
+   Last checked: 2026-10-21
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -46,7 +46,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-10-19";
+window.SHIMANO_EVENTS_UPDATED = "2026-10-21";
 
 window.SHIMANO_EVENTS = [
   {
@@ -386,5 +386,54 @@ window.SHIMANO_EVENTS = [
     city: "Abu Dhabi – Al Ain", country: "UAE",
     type: "community", label: "Gran Fondo",
     url: "https://www.granfondoguide.com/Events/Index/10610/bike-abu-dhabi-gran-fondo"
+  },
+  {
+    name: "Aamal Ride",
+    start: "2026-11-13", end: "2026-11-13",
+    city: "Old Doha Port", country: "QAT",
+    type: "community", label: "Community Ride",
+    url: "https://ride.aamal.qa/"
+  },
+  {
+    name: "IRONMAN Oman",
+    start: "2026-12-05", end: "2026-12-05",
+    city: "Muttrah", country: "OMN",
+    type: "triathlon", label: "IRONMAN",
+    url: "https://www.ahotu.com/event/ironman-oman"
+  },
+  {
+    name: "Al Salam Elite Race",
+    start: "2027-01-17", end: "2027-01-17",
+    city: "Dubai", country: "UAE",
+    type: "pro", label: "Al Salam Champ",
+    url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
+  },
+  {
+    name: "Al Salam Women's Race",
+    start: "2027-01-24", end: "2027-01-24",
+    city: "Dubai", country: "UAE",
+    type: "community", label: "Al Salam Champ",
+    url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
+  },
+  {
+    name: "Al Salam Desert Race",
+    start: "2027-01-31", end: "2027-01-31",
+    city: "Dubai", country: "UAE",
+    type: "community", label: "Al Salam Champ",
+    url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
+  },
+  {
+    name: "IRONSTAR Egypt",
+    start: "2027-02-05", end: "2027-02-06",
+    city: "Sharm El-Sheikh", country: "EGY",
+    type: "triathlon", label: "IRONSTAR",
+    url: "https://iron-star.com/en/event/ironstar-113-egypt-2027"
+  },
+  {
+    name: "Arqoub Al Sadeera Race",
+    start: "2027-03-14", end: "2027-03-14",
+    city: "Dubai", country: "UAE",
+    type: "community", label: "Al Salam Champ",
+    url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
   }
 ];
