@@ -142,10 +142,9 @@ window.SHIMANO_EVENTS = [
   },
   {
     name: "AlUla Tour",
-    start: "2027-01-27", end: "2027-01-31",
+    start: "2027-01-25", end: "2027-01-29",
     city: "AlUla", country: "KSA",
     type: "pro", label: "UCI ProSeries",
-    tbc: true,
     url: "https://www.experiencealula.com/en/whats-on/events/alula-tour"
   },
   {
