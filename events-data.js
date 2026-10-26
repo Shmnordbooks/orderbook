@@ -25,6 +25,7 @@
    - Gran fondo    : ucigranfondoworldseries.com, granfondoguide.com,
                      battistrada.com
    - Aggregators   : finishers.com, ahotu.com (filter by country + cycling)
+                     thesportspal.com/triathlon-events-uae, dubaicyclelanes.com/tracks/cycling-events
    - Registration  : hopasports.com (UAE MTB/road/triathlon — best local source),
                      sported.ae/event-type/cycling + /triathlon (very complete for UAE),
                      premieronline.com, supersportsuae.com
@@ -38,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-21
+   Last checked: 2026-10-26
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -46,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-10-21";
+window.SHIMANO_EVENTS_UPDATED = "2026-10-26";
 
 window.SHIMANO_EVENTS = [
   {
@@ -384,6 +385,7 @@ window.SHIMANO_EVENTS = [
     start: "2026-12-20", end: "2026-12-20",
     city: "Abu Dhabi – Al Ain", country: "UAE",
     type: "community", label: "Gran Fondo",
+    tbc: true,
     url: "https://www.granfondoguide.com/Events/Index/10610/bike-abu-dhabi-gran-fondo"
   },
   {
@@ -434,5 +436,75 @@ window.SHIMANO_EVENTS = [
     city: "Dubai", country: "UAE",
     type: "community", label: "Al Salam Champ",
     url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
+  },
+  {
+    name: "Women's Cup Dubai",
+    start: "2026-12-06", end: "2026-12-06",
+    city: "Al Mamzar, Dubai", country: "UAE",
+    type: "triathlon", label: "World Tri Cup",
+    url: "https://triathlon.org/events/2026-world-triathlon-womens-cup-dubai"
+  },
+  {
+    name: "RAK Triathlon",
+    start: "2027-01-16", end: "2027-01-17",
+    city: "Ras Al Khaimah", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://thesportspal.com/triathlon-events-uae"
+  },
+  {
+    name: "Tour of Antalya",
+    start: "2027-03-04", end: "2027-03-07",
+    city: "Antalya", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Khorfakkan Triathlon R2",
+    start: "2027-03-14", end: "2027-03-14",
+    city: "Khor Fakkan", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://thesportspal.com/triathlon-events-uae"
+  },
+  {
+    name: "L'Etape Dubai",
+    start: "2027-03-20", end: "2027-03-21",
+    city: "Dubai", country: "UAE",
+    type: "community", label: "Gran Fondo",
+    url: "https://dubai.letapeseries.com/"
+  },
+  {
+    name: "Mamzar Triathlon R2",
+    start: "2027-03-21", end: "2027-03-21",
+    city: "Al Mamzar, Dubai", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://thesportspal.com/triathlon-events-uae"
+  },
+  {
+    name: "Grand Prix Fergana",
+    start: "2027-04-08", end: "2027-04-09",
+    city: "Fergana", country: "UZB",
+    type: "pro", label: "UCI Asia Tour",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Mersin",
+    start: "2027-04-08", end: "2027-04-11",
+    city: "Mersin", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Bostonliq",
+    start: "2027-04-14", end: "2027-04-15",
+    city: "Gazalkent", country: "UZB",
+    type: "pro", label: "UCI Asia Tour",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Türkiye",
+    start: "2027-04-25", end: "2027-05-02",
+    city: "Antalya – Ankara", country: "TUR",
+    type: "pro", label: "UCI ProSeries",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
   }
 ];
