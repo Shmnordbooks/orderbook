@@ -274,7 +274,10 @@
     var newsFiltered = newsArr.filter(function(n){ return n && n.ticker !== false; });
     var tickerFiltered = tickerArr.filter(isLive);
     var autoFiltered = autoArr.filter(isLive);
-    var items = tickerFiltered.concat(autoFiltered, eventItems(eventsArr), newsFiltered);
+    /* "Stock updated: …" always opens the strip */
+    var stampFirst = autoFiltered.filter(function(n){ return n.auto === 'stamp'; });
+    var autoRest = autoFiltered.filter(function(n){ return n.auto !== 'stamp'; });
+    var items = stampFirst.concat(tickerFiltered, autoRest, eventItems(eventsArr), newsFiltered);
     if (!items.length) return;
 
     var sidebar = document.querySelector('.sidebar');

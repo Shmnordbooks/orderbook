@@ -25,6 +25,7 @@
    - Gran fondo    : ucigranfondoworldseries.com, granfondoguide.com,
                      battistrada.com
    - Aggregators   : finishers.com, ahotu.com (filter by country + cycling)
+                     thesportspal.com/triathlon-events-uae, dubaicyclelanes.com/tracks/cycling-events
    - Registration  : hopasports.com (UAE MTB/road/triathlon — best local source),
                      sported.ae/event-type/cycling + /triathlon (very complete for UAE),
                      premieronline.com, supersportsuae.com
@@ -38,11 +39,15 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-09
+   Last checked: 2026-10-26
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
 window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
+
+/* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
+   Update together with "Last checked" above on every scan. */
+window.SHIMANO_EVENTS_UPDATED = "2026-10-26";
 
 window.SHIMANO_EVENTS = [
   {
@@ -138,10 +143,9 @@ window.SHIMANO_EVENTS = [
   },
   {
     name: "AlUla Tour",
-    start: "2027-01-27", end: "2027-01-31",
+    start: "2027-01-25", end: "2027-01-29",
     city: "AlUla", country: "KSA",
     type: "pro", label: "UCI ProSeries",
-    tbc: true,
     url: "https://www.experiencealula.com/en/whats-on/events/alula-tour"
   },
   {
@@ -326,5 +330,181 @@ window.SHIMANO_EVENTS = [
     city: "Manama", country: "BHR",
     type: "triathlon", label: "IRONMAN 70.3",
     url: "https://www.ironman.com/races/im703-bahrain"
+  },
+  {
+    name: "UAE Tour Community Race",
+    start: "2026-10-17", end: "2026-10-17",
+    city: "Al Wathba, Abu Dhabi", country: "UAE",
+    type: "community", label: "Age Group",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "UCI Granfondo Antalya",
+    start: "2026-11-08", end: "2026-11-08",
+    city: "Antalya", country: "TUR",
+    type: "community", label: "UCI Gran Fondo",
+    url: "https://www.ahotu.com/calendar/cycling/turkey"
+  },
+  {
+    name: "Falcon Daman Series R5",
+    start: "2027-02-02", end: "2027-02-02",
+    city: "Hudayriyat, Abu Dhabi", country: "UAE",
+    type: "local", label: "Race Series",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "Falcon Daman Series R6",
+    start: "2027-03-02", end: "2027-03-02",
+    city: "Hudayriyat, Abu Dhabi", country: "UAE",
+    type: "local", label: "Race Series",
+    url: "https://www.sported.ae/event-type/cycling/"
+  },
+  {
+    name: "Atlas Mountain Race",
+    start: "2027-03-13", end: "2027-03-13",
+    city: "Marrakesh", country: "MAR",
+    type: "community", label: "Ultra Ride",
+    url: "https://www.ahotu.com/calendar/cycling/morocco"
+  },
+  {
+    name: "Riyadh 60K Road Race",
+    start: "2026-10-30", end: "2026-10-30",
+    city: "Riyadh", country: "KSA",
+    type: "local", label: "Club Race",
+    url: "https://riyadhwheelers.com/race-schedule/"
+  },
+  {
+    name: "Riyadh 25 Mile TT",
+    start: "2026-11-27", end: "2026-11-27",
+    city: "Riyadh", country: "KSA",
+    type: "local", label: "Club Race",
+    url: "https://riyadhwheelers.com/race-schedule/"
+  },
+  {
+    name: "Bike Abu Dhabi GF",
+    start: "2026-12-20", end: "2026-12-20",
+    city: "Abu Dhabi – Al Ain", country: "UAE",
+    type: "community", label: "Gran Fondo",
+    tbc: true,
+    url: "https://www.granfondoguide.com/Events/Index/10610/bike-abu-dhabi-gran-fondo"
+  },
+  {
+    name: "Aamal Ride",
+    start: "2026-11-13", end: "2026-11-13",
+    city: "Old Doha Port", country: "QAT",
+    type: "community", label: "Community Ride",
+    url: "https://ride.aamal.qa/"
+  },
+  {
+    name: "IRONMAN Oman",
+    start: "2026-12-05", end: "2026-12-05",
+    city: "Muttrah", country: "OMN",
+    type: "triathlon", label: "IRONMAN",
+    url: "https://www.ahotu.com/event/ironman-oman"
+  },
+  {
+    name: "Al Salam Elite Race",
+    start: "2027-01-17", end: "2027-01-17",
+    city: "Dubai", country: "UAE",
+    type: "pro", label: "Al Salam Champ",
+    url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
+  },
+  {
+    name: "Al Salam Women's Race",
+    start: "2027-01-24", end: "2027-01-24",
+    city: "Dubai", country: "UAE",
+    type: "community", label: "Al Salam Champ",
+    url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
+  },
+  {
+    name: "Al Salam Desert Race",
+    start: "2027-01-31", end: "2027-01-31",
+    city: "Dubai", country: "UAE",
+    type: "community", label: "Al Salam Champ",
+    url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
+  },
+  {
+    name: "IRONSTAR Egypt",
+    start: "2027-02-05", end: "2027-02-06",
+    city: "Sharm El-Sheikh", country: "EGY",
+    type: "triathlon", label: "IRONSTAR",
+    url: "https://iron-star.com/en/event/ironstar-113-egypt-2027"
+  },
+  {
+    name: "Arqoub Al Sadeera Race",
+    start: "2027-03-14", end: "2027-03-14",
+    city: "Dubai", country: "UAE",
+    type: "community", label: "Al Salam Champ",
+    url: "https://www.expatmedia.net/dubai-cycling-championship-five-races/2026/10/"
+  },
+  {
+    name: "Women's Cup Dubai",
+    start: "2026-12-06", end: "2026-12-06",
+    city: "Al Mamzar, Dubai", country: "UAE",
+    type: "triathlon", label: "World Tri Cup",
+    url: "https://triathlon.org/events/2026-world-triathlon-womens-cup-dubai"
+  },
+  {
+    name: "RAK Triathlon",
+    start: "2027-01-16", end: "2027-01-17",
+    city: "Ras Al Khaimah", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://thesportspal.com/triathlon-events-uae"
+  },
+  {
+    name: "Tour of Antalya",
+    start: "2027-03-04", end: "2027-03-07",
+    city: "Antalya", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Khorfakkan Triathlon R2",
+    start: "2027-03-14", end: "2027-03-14",
+    city: "Khor Fakkan", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://thesportspal.com/triathlon-events-uae"
+  },
+  {
+    name: "L'Etape Dubai",
+    start: "2027-03-20", end: "2027-03-21",
+    city: "Dubai", country: "UAE",
+    type: "community", label: "Gran Fondo",
+    url: "https://dubai.letapeseries.com/"
+  },
+  {
+    name: "Mamzar Triathlon R2",
+    start: "2027-03-21", end: "2027-03-21",
+    city: "Al Mamzar, Dubai", country: "UAE",
+    type: "triathlon", label: "Triathlon",
+    url: "https://thesportspal.com/triathlon-events-uae"
+  },
+  {
+    name: "Grand Prix Fergana",
+    start: "2027-04-08", end: "2027-04-09",
+    city: "Fergana", country: "UZB",
+    type: "pro", label: "UCI Asia Tour",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Mersin",
+    start: "2027-04-08", end: "2027-04-11",
+    city: "Mersin", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Bostonliq",
+    start: "2027-04-14", end: "2027-04-15",
+    city: "Gazalkent", country: "UZB",
+    type: "pro", label: "UCI Asia Tour",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Türkiye",
+    start: "2027-04-25", end: "2027-05-02",
+    city: "Antalya – Ankara", country: "TUR",
+    type: "pro", label: "UCI ProSeries",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
   }
 ];
