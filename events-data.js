@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-26
+   Last checked: 2026-10-28
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-10-26";
+window.SHIMANO_EVENTS_UPDATED = "2026-10-28";
 
 window.SHIMANO_EVENTS = [
   {
@@ -383,10 +383,9 @@ window.SHIMANO_EVENTS = [
   {
     name: "Bike Abu Dhabi GF",
     start: "2026-12-20", end: "2026-12-20",
-    city: "Abu Dhabi – Al Ain", country: "UAE",
+    city: "Al Ain – Abu Dhabi", country: "UAE",
     type: "community", label: "Gran Fondo",
-    tbc: true,
-    url: "https://www.granfondoguide.com/Events/Index/10610/bike-abu-dhabi-gran-fondo"
+    url: "https://abudhabigranfondo.ae/"
   },
   {
     name: "Aamal Ride",
