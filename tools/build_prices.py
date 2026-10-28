@@ -19,6 +19,9 @@ Pricing rules (agreed Oct 2026):
   list price     = max(reference / (1 + extra cost), reference * (1 - max discount))
   SRP            = highest office retail price, VAT included as published (decided 13 Oct 2026)
   cost cap       = optional; list price = lower of EU parity and purchase price x cap.
+                   Items with a purchase price but no EU price get purchase price x cap.
+  new models     = optional; items flagged new in the catalog pages ("new": true / nw:1) get
+                   purchase price x 'New model markup' (decided Oct 2026, first 6-12 months).
   cost floor     = optional; list / campaign prices never below purchase price x (1 + floor).
                    Factors live ONLY in the local all_items 'Pricing Params' sheet (Cost factor,
                    List markup floor, Campaign markup floor). Costs are used here only and are
@@ -34,7 +37,8 @@ from datetime import date, datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from gen_ticker_auto import PAGES, parse  # same item/status parser as the ticker
+from gen_ticker_auto import PAGES, parse, OBJ, CODE  # same item/status parser as the ticker
+NEW_FLAG = re.compile(r'["\']?(?:new|nw)["\']?\s*:\s*(?:true|1)\b')
 
 ROOT = Path(__file__).resolve().parent.parent
 OFFICES = ["SBX", "SFCC", "SIB", "SSP"]
@@ -48,6 +52,7 @@ DEFAULTS = {
     "vat SBX": 0.21, "vat SFCC": 0.20, "vat SIB": 0.22, "vat SSP": 0.21,
     # cost floors: set in the local 'Pricing Params' sheet only (0 = no floor)
     "cost factor": 0.0, "list markup floor": 0.0, "campaign markup floor": 0.0, "cost markup cap": 0.0,
+    "new model markup": 0.0,
 }
 DEFAULT_TIERS = [(15000, 0.02), (20000, 0.03), (30000, 0.05)]  # in-stock value (EUR) -> volume discount
 CAMPAIGN_COLUMNS = ["Active", "Label", "Discount %", "Start", "End", "Product Group", "Brand", "SKUs"]
@@ -217,10 +222,16 @@ def build(xlsx, today=None, cost_xlsx=None):
     raised = capped = lowered = 0
     camps = read_campaigns(load_sheet(xlsx, "Campaigns"), prices, warnings)
 
-    stock = {}
+    stock, new = {}, set()
     for page, _ in PAGES:
-        for code, (st, *_rest) in parse((ROOT / page).read_text(encoding="utf-8")).items():
+        text = (ROOT / page).read_text(encoding="utf-8")
+        for code, (st, *_rest) in parse(text).items():
             stock[code] = st
+        for m in OBJ.finditer(text):
+            c = CODE.search(m.group(0))
+            if c and NEW_FLAG.search(m.group(0)):
+                new.add(c.group(1))
+    newp = nocap = 0
 
     items, missing, active = {}, [], []
     for c in camps:
@@ -233,13 +244,21 @@ def build(xlsx, today=None, cost_xlsx=None):
     for code, st in stock.items():
         pr = prices.get(code)
         bases = [v for v in (pr["base"].values() if pr else []) if v]
+        cost = costs.get(code)
         if not pr or not bases or statistics.median(bases) < 0.5:
-            missing.append(code)
+            if cost and P["cost markup cap"] > 0:   # no EU price: purchase price x cap
+                lst = rnd(cost * P["cost markup cap"], P["rounding"])
+                srps = [v for v in (pr["srp"].values() if pr else []) if v]
+                items[code] = [lst, round(max(srps), 2) if srps else 0, {"available": 1, "etd": 2}.get(st, 0)]
+                nocap += 1
+            else:
+                missing.append(code)
             continue
         ref = statistics.median(bases)
         lst = rnd(max(ref / (1 + P["extra cost"]), ref * (1 - P["max discount"])), P["rounding"])
-        cost = costs.get(code)
-        if cost and P["cost markup cap"] > 0:   # "lower of": EU parity or purchase price x cap
+        if cost and code in new and P["new model markup"] > 0:   # new model: purchase price x markup
+            lst, newp = rnd(cost * P["new model markup"], P["rounding"]), newp + 1
+        elif cost and P["cost markup cap"] > 0:   # "lower of": EU parity or purchase price x cap
             cap = rnd(cost * P["cost markup cap"], P["rounding"])
             if cap < lst:
                 lst, lowered = cap, lowered + 1
@@ -283,7 +302,7 @@ def build(xlsx, today=None, cost_xlsx=None):
     }
     if costs:
         warnings.append(f"cost rules: {lowered} list prices lowered to the cost cap, {raised} raised to the floor, "
-                        f"{capped} campaign prices capped")
+                        f"{capped} campaign prices capped, {newp} new-model prices, {nocap} priced from cost only (no EU price)")
     return data, missing, warnings
 
 
