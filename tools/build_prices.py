@@ -39,6 +39,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from gen_ticker_auto import PAGES, parse, OBJ, CODE  # same item/status parser as the ticker
 NEW_FLAG = re.compile(r'["\']?(?:new|nw)["\']?\s*:\s*(?:true|1)\b')
+TEST_ITEM = re.compile(r"\bTEST\b")      # e.g. "PRO TEST Saddle ..." demo / test-ride items
+SIZE_PAGES = {"shoes.html", "lazer.html", "eyewear.html"}
+DESC1 = re.compile(r"""["']?(?:desc1|d1)["']?\s*:\s*["']([^"']*)["']""")
+DESC2 = re.compile(r"""["']?(?:desc2|d2)["']?\s*:\s*["']([^"']*)["']""")
+SIZE_TAIL = re.compile(r"\s*\b(\d{2}(\.\d)?|XXS|XS|S|M|L|XL|XXL|S/M|M/L|L/XL)\s*$")
 
 ROOT = Path(__file__).resolve().parent.parent
 OFFICES = ["SBX", "SFCC", "SIB", "SSP"]
@@ -222,15 +227,24 @@ def build(xlsx, today=None, cost_xlsx=None):
     raised = capped = lowered = 0
     camps = read_campaigns(load_sheet(xlsx, "Campaigns"), prices, warnings)
 
-    stock, new = {}, set()
+    stock, new, excluded, sizegrp = {}, set(), set(), {}
     for page, _ in PAGES:
         text = (ROOT / page).read_text(encoding="utf-8")
         for code, (st, *_rest) in parse(text).items():
             stock[code] = st
         for m in OBJ.finditer(text):
-            c = CODE.search(m.group(0))
-            if c and NEW_FLAG.search(m.group(0)):
+            o = m.group(0)
+            c = CODE.search(o)
+            if not c:
+                continue
+            if NEW_FLAG.search(o):
                 new.add(c.group(1))
+            if TEST_ITEM.search(o):            # demo / test-ride items: never priced
+                excluded.add(c.group(1))
+            if page in SIZE_PAGES:             # same model + colour, different size -> one price
+                d1, d2 = DESC1.search(o), DESC2.search(o)
+                if d1 and d2:
+                    sizegrp[c.group(1)] = page + "|" + d1.group(1) + "|" + SIZE_TAIL.sub("", d2.group(1)).strip()
         ng = re.search(r"NEW_GROUPS\s*=\s*\[([^\]]*)\]", text)   # pedals/shoes mark new models by group
         if ng:
             groups = set(re.findall(r"['\"]([^'\"]+)['\"]", ng.group(1)))
@@ -241,7 +255,7 @@ def build(xlsx, today=None, cost_xlsx=None):
                     hi += 1
                 if hi and heads[hi - 1][1] in groups:
                     new.add(c.group(1))
-    newp = nocap = 0
+    newp = nocap = unified = 0
 
     items, missing, active = {}, [], []
     for c in camps:
@@ -251,23 +265,30 @@ def build(xlsx, today=None, cost_xlsx=None):
     camp_out = [{"id": i, "label": c["label"], "pct": c["pct"],
                  "end": c["end"].isoformat() if c["end"] else ""} for i, c in enumerate(active)]
 
+    base = {}   # code -> (list, srp, flag, ref or None, cost or None, pr)
     for code, st in stock.items():
+        if code in excluded:
+            missing.append(code)
+            continue
         pr = prices.get(code)
         bases = [v for v in (pr["base"].values() if pr else []) if v]
         cost = costs.get(code)
+        flag = {"available": 1, "etd": 2}.get(st, 0)
+        srps = [v for v in (pr["srp"].values() if pr else []) if v]  # VAT included, as the offices publish it
+        srp = round(max(srps), 2) if srps else 0
         if not pr or not bases or statistics.median(bases) < 0.5:
             if cost and P["cost markup cap"] > 0:   # no EU price: purchase price x cap
-                lst = rnd(cost * P["cost markup cap"], P["rounding"])
-                srps = [v for v in (pr["srp"].values() if pr else []) if v]
-                items[code] = [lst, round(max(srps), 2) if srps else 0, {"available": 1, "etd": 2}.get(st, 0)]
+                base[code] = (rnd(cost * P["cost markup cap"], P["rounding"]), srp, flag, None, cost, pr)
                 nocap += 1
             else:
                 missing.append(code)
             continue
         ref = statistics.median(bases)
-        lst = rnd(max(ref / (1 + P["extra cost"]), ref * (1 - P["max discount"])), P["rounding"])
-        if cost and code in new and P["new model markup"] > 0:   # new model: purchase price x markup
-            lst, newp = rnd(cost * P["new model markup"], P["rounding"]), newp + 1
+        par = rnd(max(ref / (1 + P["extra cost"]), ref * (1 - P["max discount"])), P["rounding"])
+        lst = par
+        if cost and code in new and P["new model markup"] > 0:
+            # new model: purchase price x markup, kept between EU parity and the EU dealer price
+            lst, newp = min(max(rnd(cost * P["new model markup"], P["rounding"]), par), rnd(ref, P["rounding"])), newp + 1
         elif cost and P["cost markup cap"] > 0:   # "lower of": EU parity or purchase price x cap
             cap = rnd(cost * P["cost markup cap"], P["rounding"])
             if cap < lst:
@@ -276,20 +297,41 @@ def build(xlsx, today=None, cost_xlsx=None):
             fl = math.ceil(cost * (1 + P["list markup floor"]) * 100) / 100
             if lst < fl:
                 lst, raised = fl, raised + 1
-        srps = [v for v in pr["srp"].values() if v]  # VAT included, as the offices publish it
-        srp = round(max(srps), 2) if srps else 0
-        flag = {"available": 1, "etd": 2}.get(st, 0)
+        base[code] = (lst, srp, flag, ref, cost, pr)
+
+    # one price per model + colour on size-run pages: the median of the size prices (robust to one
+    # odd purchase price); a size whose own floor is higher keeps its floor (floor always wins)
+    grp = {}
+    for code, rec in base.items():
+        g = sizegrp.get(code)
+        if g:
+            grp.setdefault(g, []).append(rec)
+    top = {g: (rnd(statistics.median(r[0] for r in recs), P["rounding"]), max(r[1] for r in recs))
+           for g, recs in grp.items()}
+    for code, rec in list(base.items()):
+        g = sizegrp.get(code)
+        if not g:
+            continue
+        lst = top[g][0]
+        if rec[4]:
+            lst = max(lst, math.ceil(rec[4] * (1 + P["list markup floor"]) * 100) / 100)
+        if lst != rec[0]:
+            unified += 1
+        base[code] = (lst, top[g][1]) + rec[2:]
+
+    for code, (lst, srp, flag, ref, cost, pr) in base.items():
+        if srp and srp < lst:   # SRP of a single piece next to a box / display price: do not show
+            srp = 0
         rec = [lst, srp, flag]
         best = None
         for i, c in enumerate(active):
-            hit = code.upper() in c["skus"] or (
-                (c["pgs"] or c["brands"]) and
+            hit = code.upper() in c["skus"] or (pr and (c["pgs"] or c["brands"]) and
                 (not c["pgs"] or pr["pg"].lower() in c["pgs"]) and
                 (not c["brands"] or pr["brand"].lower() in c["brands"]))
             if hit and (best is None or c["pct"] > active[best]["pct"]):
                 best = i
         if best is not None:
-            floor = ref * (1 - P["campaign floor"])
+            floor = ref * (1 - P["campaign floor"]) if ref else 0
             if cost:
                 floor = max(floor, math.ceil(cost * (1 + P["campaign markup floor"]) * 100) / 100)
             net = rnd(lst * (1 - active[best]["pct"]), P["rounding"])
@@ -312,7 +354,8 @@ def build(xlsx, today=None, cost_xlsx=None):
     }
     if costs:
         warnings.append(f"cost rules: {lowered} list prices lowered to the cost cap, {raised} raised to the floor, "
-                        f"{capped} campaign prices capped, {newp} new-model prices, {nocap} priced from cost only (no EU price)")
+                        f"{capped} campaign prices capped, {newp} new-model prices, {nocap} priced from cost only (no EU price), "
+                        f"{unified} size prices unified to the model price, {len(excluded)} test items not priced")
     return data, missing, warnings
 
 
