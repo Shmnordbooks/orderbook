@@ -231,6 +231,16 @@ def build(xlsx, today=None, cost_xlsx=None):
             c = CODE.search(m.group(0))
             if c and NEW_FLAG.search(m.group(0)):
                 new.add(c.group(1))
+        ng = re.search(r"NEW_GROUPS\s*=\s*\[([^\]]*)\]", text)   # pedals/shoes mark new models by group
+        if ng:
+            groups = set(re.findall(r"['\"]([^'\"]+)['\"]", ng.group(1)))
+            heads = [(g.start(), g.group(1)) for g in re.finditer(r'"group"\s*:\s*"([^"]+)"', text)]
+            hi = 0
+            for c in CODE.finditer(text):
+                while hi < len(heads) and heads[hi][0] < c.start():
+                    hi += 1
+                if hi and heads[hi - 1][1] in groups:
+                    new.add(c.group(1))
     newp = nocap = 0
 
     items, missing, active = {}, [], []
