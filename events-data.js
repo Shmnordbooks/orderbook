@@ -35,11 +35,11 @@
                      cyclechallenge.ae (Spinneys 92 + Build-Up Rides)
    - KSA           : riyadhwheelers.com, experiencealula.com, racearabia.sa
    - OMN           : tour-of-oman.com, timesofoman.com
-   - QAT           : qatarcycling.org/events/calendar
+   - QAT           : qatarcycling.org/events/calendar, qatartriathlon.org/events
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-10-30
+   Last checked: 2026-11-02
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,16 +47,9 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-10-30";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-02";
 
 window.SHIMANO_EVENTS = [
-  {
-    name: "Riyadh 25 Mile TT",
-    start: "2026-10-02", end: "2026-10-02",
-    city: "Riyadh", country: "KSA",
-    type: "local", label: "Club Race",
-    url: "https://riyadhwheelers.com/race-schedule/"
-  },
   {
     name: "Ak Bulak XCO",
     start: "2026-10-04", end: "2026-10-04",
@@ -512,5 +505,33 @@ window.SHIMANO_EVENTS = [
     city: "Taroudant", country: "MAR",
     type: "community", label: "Gran Fondo",
     url: "https://www.finishers.com/en/event/atlas-gran-fondo-2"
+  },
+  {
+    name: "Education City Tri #1",
+    start: "2026-11-06", end: "2026-11-06",
+    city: "Education City, Doha", country: "QAT",
+    type: "triathlon", label: "Triathlon",
+    url: "https://qatartriathlon.org/events"
+  },
+  {
+    name: "Trail Seeker MTB Race",
+    start: "2026-11-08", end: "2026-11-08",
+    city: "Dubai", country: "UAE",
+    type: "local", label: "MTB",
+    url: "https://www.premieronline.com/calendar"
+  },
+  {
+    name: "Education City Tri #2",
+    start: "2027-01-22", end: "2027-01-22",
+    city: "Education City, Doha", country: "QAT",
+    type: "triathlon", label: "Triathlon",
+    url: "https://qatartriathlon.org/events"
+  },
+  {
+    name: "Sahara Gravel",
+    start: "2027-02-13", end: "2027-02-20",
+    city: "Marrakech – Erg Lihoudi", country: "MAR",
+    type: "community", label: "Gravel Stages",
+    url: "https://www.granfondoguide.com/Events/Index/12084/sahara-gravel"
   }
 ];
