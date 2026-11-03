@@ -2,17 +2,17 @@
    Replaced on every stock update push. */
 window.SHIMANO_TICKER_AUTO = [
   {
-    "title": "Stock updated: 02 Nov 2026",
-    "added": "2026-11-02",
-    "expires": "2026-11-09",
+    "title": "Stock updated: 03 Nov 2026",
+    "added": "2026-11-03",
+    "expires": "2026-11-10",
     "auto": "stamp"
   },
   {
-    "title": "HARDGOODS: 92 back in stock",
+    "title": "HARDGOODS: 96 back in stock",
     "link": "hardgoods.html",
-    "added": "2026-11-02",
+    "added": "2026-11-03",
     "auto": "change",
-    "expires": "2026-11-09",
+    "expires": "2026-11-10",
     "items": [
       {"c": "IM92002JLFPRA100", "n": "Disc Brake Set Front Black", "d": "BL-M9220(L), BR-M9200(F)", "g": "BR", "t": "2026-10-28"},
       {"c": "IM92002JRRXRA170", "n": "Disc Brake Set Rear Black", "d": "BL-M9220(R), BR-M9200(R)", "g": "BR", "t": "2026-10-28"},
@@ -35,10 +35,14 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "IRDR7100", "n": "Rear Derailleur 12s", "d": "RD-R7100 105", "g": "Dreailleur", "t": "2026-10-30"},
       {"c": "IRDM8100SGS", "n": "Rear Derailleur 12s SGS", "d": "RD-M8100 Deore XT Front Single", "g": "Dreailleur", "t": "2026-10-30"},
       {"c": "EFHM8130BB", "n": "Freehub12s157/32ThruSuperBoost", "d": "FH-M8130-B Disc Brake CL", "g": "HUBS", "t": "2026-10-30"},
-      {"c": "PTBRK1", "n": "ParkTool Big Rolling Kit", "d": "BRK-1", "g": "Parktool", "t": "2026-10-27"},
+      {"c": "PTBBT3512", "n": "ParkTool BB Tool", "d": "BBT-35-12 12-Notch", "g": "Parktool", "t": "2026-11-03"},
+      {"c": "PT1971", "n": "ParkTool Clamp Adapter", "d": "1971 for D-Shaped Seat Posts", "g": "Parktool", "t": "2026-11-03"},
       {"c": "PT100925", "n": "ParkTool Cone Wrench", "d": "SCW-19 19mm", "g": "Parktool", "t": "2026-11-02"},
+      {"c": "PTMK17", "n": "ParkTool Master Tool Kit", "d": "MK-17", "g": "Parktool", "t": "2026-11-03"},
       {"c": "PTPRS26", "n": "ParkTool Repair Stand", "d": "PRS-26 Team Issue", "g": "Parktool", "t": "2026-10-30"},
+      {"c": "PTND1", "n": "ParkTool Spoke Nipple Driver", "d": "ND-1", "g": "Parktool", "t": "2026-11-03"},
       {"c": "Y3JF98010", "n": "Tension & Guide Pulley Set", "d": "RD-U6000", "g": "Pulley", "t": "2026-10-30"},
+      {"c": "ESMRT10S2", "n": "Rotor 160mm Center Lock", "d": "SM-RT10 w/LRing", "g": "Rotors", "t": "2026-11-03"},
       {"c": "ERTCL700LE", "n": "Rotor 203mm Lock Ext.", "d": "RT-CL700 w/LRing", "g": "Rotors", "t": "2026-10-30"},
       {"c": "ESLRV400LSB", "n": "Shift Lever Left 3s w/ OGD", "d": "SL-RV400-L", "g": "Shifters", "t": "2026-10-30"},
       {"c": "ESLTX50R7AT", "n": "Shift Lever Right 7s w/ OGD", "d": "SL-TX50 Tourney", "g": "Shifters", "t": "2026-10-30"},
@@ -49,11 +53,11 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "Y13098710", "n": "Prof Chain Tool 12-Speed", "d": "TL-CN35", "g": "SHIMANO TOOLS", "t": "2026-10-28"},
       {"c": "Y2RT98010", "n": "Banjo Bolt&O-Ring", "d": "BR-M8100", "g": "Spare Parts", "t": "2026-10-28"},
       {"c": "Y6P198030", "n": "Bell Crank Unit", "d": "SL-3S41", "g": "Spare Parts", "t": "2026-10-30"},
+      {"c": "Y73E98020", "n": "Cassette Joint Unit Belt Drive", "d": "CJ-8S20", "g": "Spare Parts", "t": "2026-11-03"},
       {"c": "Y0TT98010", "n": "Chainring 46T-NW Cues", "d": "FC-U6030", "g": "Spare Parts", "t": "2026-10-30"},
       {"c": "Y38V98010", "n": "Complete Freewheel Body", "d": "FH-M8010", "g": "Spare Parts", "t": "2026-10-28"},
       {"c": "Y31T98010", "n": "Complete Hub Axle 146mm", "d": "FH-T3000", "g": "Spare Parts", "t": "2026-10-28"},
       {"c": "Y0JR98050", "n": "Gear Fixing Bolt", "d": "FC-RX810", "g": "Spare Parts", "t": "2026-10-28"},
-      {"c": "Y3J106000", "n": "Inner Plate", "d": "RD-R8150", "g": "Spare Parts", "t": "2026-10-28"},
       {"c": "Y5ZN00080", "n": "Inner Plate", "d": "RD-RX817", "g": "Spare Parts", "t": "2026-10-28"},
       {"c": "Y5YX16000", "n": "Inner Plate GS Type", "d": "RD-M7000", "g": "Spare Parts", "t": "2026-10-28"},
       {"c": "Y3HK26000", "n": "Inner Plate SGS Type", "d": "RD-M6100", "g": "Spare Parts", "t": "2026-10-28"},
@@ -109,18 +113,20 @@ window.SHIMANO_TICKER_AUTO = [
     ]
   },
   {
-    "title": "SHOES: 17 back in stock",
+    "title": "SHOES: 18 back in stock",
     "link": "shoes.html",
-    "added": "2026-11-02",
+    "added": "2026-11-03",
     "auto": "change",
-    "expires": "2026-11-09",
+    "expires": "2026-11-10",
     "items": [
+      {"c": "ESHRC503MGL01E43000", "n": "Bicycle Shoes RC503", "d": "Black Wide 43.0", "t": "2026-11-03"},
       {"c": "ESHRX910MCL01S41500", "n": "Bicycle Shoes RX910", "d": "Black 41.5", "t": "2026-10-30"},
       {"c": "ESHRX910MCW01E44500", "n": "Bicycle Shoes RX910", "d": "White Wide 44.5", "t": "2026-10-30"},
       {"c": "ESHET501WGL01W40000", "n": "Bicycle Shoes SH-ET501", "d": "Women Black 40.0", "t": "2026-10-30"},
       {"c": "ESHEX500MGE07S48000", "n": "Bicycle Shoes SH-EX500", "d": "Olive 48.0", "t": "2026-10-30"},
       {"c": "ESHRC102MGW01S41000", "n": "Bicycle Shoes SH-RC102", "d": "White 41.0", "t": "2026-10-30"},
-      {"c": "ESHRC810MCW01S42000", "n": "Bicycle Shoes SH-RC810", "d": "White 42.0", "t": "2026-11-02"},
+      {"c": "ESHRC703MCW01E43000", "n": "Bicycle Shoes SH-RC703", "d": "White Wide 43.0", "t": "2026-11-03"},
+      {"c": "ESHRC810MCW01S42500", "n": "Bicycle Shoes SH-RC810", "d": "White 42.5", "t": "2026-11-03"},
       {"c": "ESHRP102MGW01S44000", "n": "Bicycle Shoes SH-RP102", "d": "White 44.0", "t": "2026-10-30"},
       {"c": "ESHTR501WCW01W37000", "n": "Bicycle Shoes SH-TR501W", "d": "Women White 37.0", "t": "2026-10-30"},
       {"c": "ESHTR903MCS08S43000", "n": "Bicycle Shoes TR903", "d": "Matte Gunmetal 43.0", "t": "2026-10-30"},
@@ -130,45 +136,28 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "ESHXC903MCW01S48000", "n": "Bicycle Shoes XC903", "d": "White 48.0", "t": "2026-10-30"},
       {"c": "ESHXC903MCW01E42000", "n": "Bicycle Shoes XC903", "d": "White Wide 42.0", "t": "2026-10-30"},
       {"c": "ESHXC903MCW01E44000", "n": "Bicycle Shoes XC903", "d": "White Wide 44.0", "t": "2026-10-30"},
-      {"c": "ECWFABWZS34UL0107", "n": "Dual Fit Windflex ToeShoeCover", "d": "Black XL (Shoe 44-46)", "t": "2026-10-30"},
-      {"c": "ICLSL120", "n": "Shoe Cleats SPD-SLR CL-SL120", "d": "Road Blue 2 Degr. Clearance", "t": "2026-10-27"}
+      {"c": "ECWFABWZS34UL0107", "n": "Dual Fit Windflex ToeShoeCover", "d": "Black XL (Shoe 44-46)", "t": "2026-10-30"}
     ]
   },
   {
-    "title": "PRO: 28 back in stock",
+    "title": "PEDALS: back in stock – SPD-SL w/Cleat SM-SH11",
+    "link": "pedals.html",
+    "added": "2026-11-03",
+    "auto": "change",
+    "expires": "2026-11-10",
+    "items": [
+      {"c": "IPDR8000", "n": "Pedal SPD-SL w/Cleat SM-SH11", "d": "PD-R8000 Ultegra", "g": "PD-R8000", "t": "2026-11-03"}
+    ]
+  },
+  {
+    "title": "PRO: back in stock – PRO Storage Bottle, PRO Stem Vibe 1 1/4",
     "link": "pro.html",
     "added": "2026-10-30",
     "auto": "change",
     "expires": "2026-11-06",
     "items": [
-      {"c": "PRTA0095", "n": "PRO Tape Peaked Performance", "d": "Black EVA / 2.5mm", "g": "bartape", "t": "2026-10-27"},
-      {"c": "PRTA0100", "n": "PRO Tape Peaked Sport", "d": "Black Cork 2.5mm", "g": "bartape", "t": "2026-10-27"},
-      {"c": "PRTA0130", "n": "PRO Tape Peaked Sport Box", "d": "Black Cork 2.5mm/ 24 PCS/Box", "g": "bartape", "t": "2026-10-27"},
       {"c": "PRBT0022", "n": "PRO Storage Bottle", "d": "White 500cc", "g": "bottles", "t": "2026-10-30"},
-      {"c": "PRTLB032", "n": "PRO Tool Cassette removal set", "d": "Black", "g": "maintenance", "t": "2026-10-27"},
-      {"c": "PRTL0104", "n": "PRO Tool Cassette wrench", "d": "10T/11T sprocket", "g": "maintenance", "t": "2026-10-27"},
-      {"c": "PRTL0049", "n": "PRO Tool Tire Levers", "d": "3 Pieces", "g": "maintenance", "t": "2026-10-27"},
-      {"c": "PRTL0123", "n": "PRO Tool Mini Tool 9F Perform", "d": "Alloy body/Comp w/BC Smart", "g": "minitools", "t": "2026-10-27"},
-      {"c": "PRSA0328", "n": "PRO Saddle Falcon Team", "d": "Black 132mm, AF, carb.rail", "g": "saddles", "t": "2026-10-27"},
-      {"c": "PRSA0381", "n": "PRO Saddle Sirin Performance", "d": "Black 162mm, Stainless", "g": "saddles", "t": "2026-10-27"},
-      {"c": "PRSA0413", "n": "PRO Saddle Stealth 3D Team", "d": "Black 152mm, Carbon", "g": "saddles", "t": "2026-10-27"},
-      {"c": "PRSA0356", "n": "PRO Saddle Stealth Curved Team", "d": "Black 142mm, AF, carbon", "g": "saddles", "t": "2026-10-27"},
-      {"c": "PRSA0352", "n": "PRO Saddle Stealth Team", "d": "Black 142mm, AF, carbon", "g": "saddles", "t": "2026-10-27"},
-      {"c": "PRSP0276", "n": "KORYAK DROPPER POST 120", "d": "30.9MM / INTERNAL", "g": "seatposts", "t": "2026-10-27"},
-      {"c": "PRSP0246", "n": "LT DROPPER POST 150", "d": "31.6MM / INTERNAL", "g": "seatposts", "t": "2026-10-27"},
-      {"c": "PRSP0119", "n": "LT SEATPOST", "d": "400MM / 31.6MM / 20MM OFFSET", "g": "seatposts", "t": "2026-10-27"},
-      {"c": "PRSP0284", "n": "PRO Seatpost PLT", "d": "Black 27.2mm/400mm/0mm/alloy", "g": "seatposts", "t": "2026-10-27"},
-      {"c": "PRSP0170", "n": "PRO Seatpost Vibe Alloy", "d": "27.2mm/350mm/0mm", "g": "seatposts", "t": "2026-10-27"},
-      {"c": "PRSP0172", "n": "PRO Seatpost Vibe Alloy", "d": "27.2mm/350mm/20mm", "g": "seatposts", "t": "2026-10-27"},
-      {"c": "PRSS0334", "n": "LT STEM", "d": "BLACK 120MM / 31.8MM / ± 6°", "g": "stems", "t": "2026-10-27"},
-      {"c": "PRSS0545", "n": "LT STEM", "d": "BLACK, 40MM / 31.8MM / 0 DEG", "g": "stems", "t": "2026-10-27"},
-      {"c": "PRSS0546", "n": "LT STEM", "d": "BLACK, 50MM / 31.8MM / 0 DEG", "g": "stems", "t": "2026-10-27"},
-      {"c": "PRSS0547", "n": "LT STEM", "d": "BLACK, 60MM / 31.8MM / 0 DEGR", "g": "stems", "t": "2026-10-27"},
-      {"c": "PRSS0550", "n": "PRO Discover Stem", "d": "70mm / 31.8mm /  +/-6\\u00b0 degr", "g": "stems", "t": "2026-10-27"},
-      {"c": "PRSS0638", "n": "PRO Stem PLT", "d": "Black 100mm/31.8mm/+-6 degree", "g": "stems", "t": "2026-10-27"},
-      {"c": "PRSS0591", "n": "PRO Stem Vibe 1 1/4", "d": "Black 90mm/31.8mm/-10degr.", "g": "stems", "t": "2026-10-30"},
-      {"c": "PRTL0082", "n": "PRO Tool Team Digital Torq.wr.", "d": "1 to 24 Nm", "g": "torque", "t": "2026-10-27"},
-      {"c": "PRTL0066", "n": "PRO Tool Torque Wrench 1/4\\", "d": "Adjustable 0-30mm", "g": "torque", "t": "2026-10-27"}
+      {"c": "PRSS0591", "n": "PRO Stem Vibe 1 1/4", "d": "Black 90mm/31.8mm/-10degr.", "g": "stems", "t": "2026-10-30"}
     ]
   }
 ];
