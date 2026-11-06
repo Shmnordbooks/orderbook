@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-02
+   Last checked: 2026-11-06
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-02";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-06";
 
 window.SHIMANO_EVENTS = [
   {
@@ -242,10 +242,10 @@ window.SHIMANO_EVENTS = [
   },
   {
     name: "Saudi Arabia T100",
-    start: "2026-11-27", end: "2026-11-28",
-    city: "Red Sea coast", country: "KSA",
+    start: "2027-04-16", end: "2027-04-17",
+    city: "Jeddah", country: "KSA",
     type: "triathlon", label: "T100",
-    url: "https://t100triathlon.com/saudi-arabia/participate/"
+    url: "https://triathlon.org/news/new-dates-for-saudi-arabia-t100-and-world-triathlon-cup-in-jeddah"
   },
   {
     name: "Fujairah Int. Triathlon",
