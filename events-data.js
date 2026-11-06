@@ -51,13 +51,6 @@ window.SHIMANO_EVENTS_UPDATED = "2026-11-06";
 
 window.SHIMANO_EVENTS = [
   {
-    name: "Ak Bulak XCO",
-    start: "2026-10-04", end: "2026-10-04",
-    city: "Ak Bulak", country: "KAZ",
-    type: "local", label: "MTB",
-    url: "https://athletex.kz/"
-  },
-  {
     name: "IRONMAN 70.3 Dhofar",
     start: "2026-10-24", end: "2026-10-24",
     city: "Salalah", country: "OMN",
@@ -260,13 +253,6 @@ window.SHIMANO_EVENTS = [
     city: "Sir Bani Yas Island", country: "UAE",
     type: "triathlon", label: "Challenge",
     url: "https://www.ahotu.com/calendar/triathlon/united-arab-emirates"
-  },
-  {
-    name: "Falcon Daman Series R1",
-    start: "2026-10-06", end: "2026-10-06",
-    city: "Hudayriyat, Abu Dhabi", country: "UAE",
-    type: "local", label: "Race Series",
-    url: "https://www.sported.ae/event-type/cycling/"
   },
   {
     name: "Falcon Daman Series R2",
@@ -533,5 +519,12 @@ window.SHIMANO_EVENTS = [
     city: "Marrakech – Erg Lihoudi", country: "MAR",
     type: "community", label: "Gravel Stages",
     url: "https://www.granfondoguide.com/Events/Index/12084/sahara-gravel"
+  },
+  {
+    name: "Cyber Run and Ride",
+    start: "2027-01-30", end: "2027-01-30",
+    city: "Abu Dhabi", country: "UAE",
+    type: "community", label: "Fun Ride",
+    url: "https://gulfnews.com/uae/abu-dhabi/abu-dhabi-lines-up-running-and-cycling-events-from-november-to-january-1.500735466"
   }
 ];
