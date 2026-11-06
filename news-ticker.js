@@ -277,7 +277,10 @@
     /* "Stock updated: …" always opens the strip */
     var stampFirst = autoFiltered.filter(function(n){ return n.auto === 'stamp'; });
     var autoRest = autoFiltered.filter(function(n){ return n.auto !== 'stamp'; });
-    var items = stampFirst.concat(tickerFiltered, autoRest, eventItems(eventsArr), newsFiltered);
+    /* lines marked first:true in ticker-data.js (e.g. office hours) open the strip */
+    var manualFirst = tickerFiltered.filter(function(n){ return n.first === true; });
+    var manualRest = tickerFiltered.filter(function(n){ return n.first !== true; });
+    var items = manualFirst.concat(stampFirst, manualRest, autoRest, eventItems(eventsArr), newsFiltered);
     if (!items.length) return;
 
     var sidebar = document.querySelector('.sidebar');
