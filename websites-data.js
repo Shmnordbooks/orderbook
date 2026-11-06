@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   SHIMANO RESOURCES — resources.html veri dosyası
+   SHIMANO WEBSITES — websites.html veri dosyası
    Yeni link eklemek için ilgili grubun "items" listesine bir satır ekle.
      title : kart başlığı
      desc  : kısa açıklama (İngilizce, bayi görür)
@@ -8,7 +8,7 @@
      tag   : (opsiyonel) küçük rozet, ör. "MANUALS"
    Gruplar ekranda bu sırayla çıkar.
    ═══════════════════════════════════════════════════════════════ */
-const SHIMANO_RESOURCES = [
+const SHIMANO_WEBSITES = [
   {
     group: "Technical documents & service",
     blurb: "Manuals, parts diagrams, error codes and compatibility — the pages a workshop uses every day.",

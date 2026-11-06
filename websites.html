@@ -12,7 +12,7 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHIMANO — Resources</title>
+<title>SHIMANO — Websites</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -419,7 +419,7 @@ html.light .sidebar a:hover {
   }
 
 
-  /* ═══ RESOURCES PAGE ═══ */
+  /* ═══ WEBSITES PAGE ═══ */
   .res-search-wrap { max-width: 1400px; margin: 0 auto; padding: 0 40px 22px; }
   .res-search { width: 100%; max-width: 420px; background: var(--card); border: 1px solid var(--border); color: var(--text); border-radius: 8px; padding: 10px 14px; font-family: 'Barlow', sans-serif; font-size: 14px; outline: none; transition: border-color .2s; }
   .res-search:focus { border-color: var(--shimano-blue); }
@@ -460,10 +460,10 @@ html.light .sidebar a:hover {
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
     CATALOGUES
   </a>
-  <!-- ★ Resources — ACTIVE on this page ★ -->
+  <!-- ★ Websites — ACTIVE on this page ★ -->
   <button class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #ec4899;color:#ec4899;font-weight:700;background:rgba(236,72,153,0.12);pointer-events:none;" disabled>
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M10 13a5 5 0 007.07 0l3-3a5 5 0 00-7.07-7.07l-1.5 1.5"/><path d="M14 11a5 5 0 00-7.07 0l-3 3a5 5 0 007.07 7.07l1.5-1.5"/></svg>
-    Resources <span style="font-size:9px;opacity:0.5;margin-left:auto">●</span>
+    Websites <span style="font-size:9px;opacity:0.5;margin-left:auto">●</span>
   </button>
   <a href="news.html" class="cat-chip" style="margin:2px 8px;width:calc(100% - 16px);border-left:3px solid #06b6d4;color:#06b6d4;font-weight:700;opacity:0.7;">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:14px;height:14px;flex-shrink:0"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01 0 2z"/><path d="M12 2v6h6"/><path d="M8 13h8M8 17h5"/></svg>
@@ -501,11 +501,11 @@ html.light .sidebar a:hover {
     <div class="logo-area">
       <img class="shimano-logo" src="https://bike.shimano.com/content/dam/one-website/common/logo/shimano-logo.png" alt="SHIMANO" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 28%22><text x=%220%22 y=%2222%22 font-family=%22Barlow Condensed,sans-serif%22 font-weight=%22800%22 font-size=%2226%22 fill=%22white%22 letter-spacing=%220.08em%22>SHIMANO</text></svg>'">
       <div class="logo-sep"></div>
-      <span class="logo-label">Resources</span>
+      <span class="logo-label">Websites</span>
     </div>
     <span class="header-meta" id="fetchDate"></span>
   </div>
-  <h1>Shimano Resources</h1>
+  <h1>Shimano Websites</h1>
   <p class="header-sub">Direct links to Shimano's official technical, software and support websites — manuals, compatibility, error codes, E-TUBE and more.</p>
   <div class="divider"></div>
 </div>
@@ -527,7 +527,7 @@ html.light .sidebar a:hover {
 </div><!-- /main-content -->
 
 <script src="news-data.js"></script>
-<script src="resources-data.js"></script>
+<script src="websites-data.js"></script>
 <script src="ticker-data.js"></script>
 <script src="news-ticker.js"></script>
 
@@ -550,19 +550,19 @@ html.light .sidebar a:hover {
 
   function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
 
-  function renderResources(filter) {
+  function renderWebsites(filter) {
     var wrap = document.getElementById('resWrap');
     wrap.innerHTML = '';
     var q = (filter || '').trim().toLowerCase();
     var total = 0;
 
-    if (typeof SHIMANO_RESOURCES === 'undefined' || !SHIMANO_RESOURCES.length) {
-      wrap.innerHTML = '<div class="res-empty">No resources found.</div>';
+    if (typeof SHIMANO_WEBSITES === 'undefined' || !SHIMANO_WEBSITES.length) {
+      wrap.innerHTML = '<div class="res-empty">No websites found.</div>';
       document.getElementById('statusCount').textContent = '0 LINKS';
       return;
     }
 
-    SHIMANO_RESOURCES.forEach(function(g) {
+    SHIMANO_WEBSITES.forEach(function(g) {
       var items = g.items.filter(function(it) {
         if (!q) return true;
         return (it.title + ' ' + it.desc + ' ' + (it.tag || '') + ' ' + it.host).toLowerCase().indexOf(q) !== -1;
@@ -601,8 +601,8 @@ html.light .sidebar a:hover {
   }
 
   window.addEventListener('DOMContentLoaded', function() {
-    renderResources('');
-    document.getElementById('resSearch').addEventListener('input', function(e){ renderResources(e.target.value); });
+    renderWebsites('');
+    document.getElementById('resSearch').addEventListener('input', function(e){ renderWebsites(e.target.value); });
   });
 </script>
 </body>
