@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-02
+   Last checked: 2026-11-06
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,16 +47,9 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-02";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-06";
 
 window.SHIMANO_EVENTS = [
-  {
-    name: "Ak Bulak XCO",
-    start: "2026-10-04", end: "2026-10-04",
-    city: "Ak Bulak", country: "KAZ",
-    type: "local", label: "MTB",
-    url: "https://athletex.kz/"
-  },
   {
     name: "IRONMAN 70.3 Dhofar",
     start: "2026-10-24", end: "2026-10-24",
@@ -242,10 +235,10 @@ window.SHIMANO_EVENTS = [
   },
   {
     name: "Saudi Arabia T100",
-    start: "2026-11-27", end: "2026-11-28",
-    city: "Red Sea coast", country: "KSA",
+    start: "2027-04-16", end: "2027-04-17",
+    city: "Jeddah", country: "KSA",
     type: "triathlon", label: "T100",
-    url: "https://t100triathlon.com/saudi-arabia/participate/"
+    url: "https://triathlon.org/news/new-dates-for-saudi-arabia-t100-and-world-triathlon-cup-in-jeddah"
   },
   {
     name: "Fujairah Int. Triathlon",
@@ -260,13 +253,6 @@ window.SHIMANO_EVENTS = [
     city: "Sir Bani Yas Island", country: "UAE",
     type: "triathlon", label: "Challenge",
     url: "https://www.ahotu.com/calendar/triathlon/united-arab-emirates"
-  },
-  {
-    name: "Falcon Daman Series R1",
-    start: "2026-10-06", end: "2026-10-06",
-    city: "Hudayriyat, Abu Dhabi", country: "UAE",
-    type: "local", label: "Race Series",
-    url: "https://www.sported.ae/event-type/cycling/"
   },
   {
     name: "Falcon Daman Series R2",
@@ -533,5 +519,12 @@ window.SHIMANO_EVENTS = [
     city: "Marrakech – Erg Lihoudi", country: "MAR",
     type: "community", label: "Gravel Stages",
     url: "https://www.granfondoguide.com/Events/Index/12084/sahara-gravel"
+  },
+  {
+    name: "Cyber Run and Ride",
+    start: "2027-01-30", end: "2027-01-30",
+    city: "Abu Dhabi", country: "UAE",
+    type: "community", label: "Fun Ride",
+    url: "https://gulfnews.com/uae/abu-dhabi/abu-dhabi-lines-up-running-and-cycling-events-from-november-to-january-1.500735466"
   }
 ];
