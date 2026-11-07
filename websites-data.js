@@ -141,47 +141,5 @@ const SHIMANO_WEBSITES = [
         tag: "PRODUCTS"
       }
     ]
-  },
-  {
-    group: "Shimano on social media",
-    blurb: "Official Shimano cycling accounts for product news, events and riding content.",
-    color: "#ec4899",
-    items: [
-      {
-        title: "Instagram — @rideshimano",
-        desc: "Photos from events, races and sponsored teams; share your rides with #RideShimano.",
-        url: "https://www.instagram.com/rideshimano/",
-        host: "instagram.com",
-        tag: "SOCIAL"
-      },
-      {
-        title: "YouTube — @RideShimano",
-        desc: "Product films, technology explainers, events, teams and athletes.",
-        url: "https://www.youtube.com/@RideShimano",
-        host: "youtube.com",
-        tag: "SOCIAL"
-      },
-      {
-        title: "Facebook — Shimano MTB",
-        desc: "Shimano's global Facebook page for MTB news and community content.",
-        url: "https://www.facebook.com/shimanomtb/",
-        host: "facebook.com",
-        tag: "SOCIAL"
-      },
-      {
-        title: "Strava — Shimano club",
-        desc: "Official Shimano club on Strava.",
-        url: "https://www.strava.com/clubs/Shimano",
-        host: "strava.com",
-        tag: "SOCIAL"
-      },
-      {
-        title: "Komoot — shimano",
-        desc: "Shimano's profile on Komoot with route inspiration.",
-        url: "https://www.komoot.com/user/shimano",
-        host: "komoot.com",
-        tag: "SOCIAL"
-      }
-    ]
   }
 ];
