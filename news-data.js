@@ -40,4 +40,4 @@ const SHIMANO_NEWS = [
     img: "https://bike.shimano.com/content/dam/one-website/common/stories/sponsored-road-teams-of-2026/FullMediaBanner_Sponsored-Road-2026_PC_1440x720px.jpg",
     link: "https://bike.shimano.com/en-NA/stories/article/sponsored-road-teams-of-2026.html"
   }
-];
+];
