@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-06
+   Last checked: 2026-11-09
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-06";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-09";
 
 window.SHIMANO_EVENTS = [
   {
@@ -526,5 +526,124 @@ window.SHIMANO_EVENTS = [
     city: "Abu Dhabi", country: "UAE",
     type: "community", label: "Fun Ride",
     url: "https://gulfnews.com/uae/abu-dhabi/abu-dhabi-lines-up-running-and-cycling-events-from-november-to-january-1.500735466"
+  },
+  {
+    name: "Grand Prix Antalya",
+    start: "2027-02-13", end: "2027-02-13",
+    city: "Antalya", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Grand Prix Alaiye",
+    start: "2027-02-20", end: "2027-02-20",
+    city: "Alanya", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Grand Prix Alanya",
+    start: "2027-02-21", end: "2027-02-21",
+    city: "Alanya", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Grand Prix Pedalia",
+    start: "2027-02-27", end: "2027-02-27",
+    city: "Antalya", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "GP Apollon Temple",
+    start: "2027-03-27", end: "2027-03-27",
+    city: "Antalya", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "GP Syedra Ancient City",
+    start: "2027-04-03", end: "2027-04-03",
+    city: "Antalya", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Grand Prix Kırıkkale",
+    start: "2027-05-29", end: "2027-05-29",
+    city: "Kırıkkale", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Grand Prix Anadolu",
+    start: "2027-05-30", end: "2027-05-30",
+    city: "Kırıkkale", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Anatolia",
+    start: "2027-06-03", end: "2027-06-06",
+    city: "Kırıkkale", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Grand Prix Palandöken",
+    start: "2027-07-03", end: "2027-07-03",
+    city: "Erzurum", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Grand Prix Ejder 3200",
+    start: "2027-07-04", end: "2027-07-04",
+    city: "Erzurum", country: "TUR",
+    type: "pro", label: "UCI 1-Day",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Erzurum",
+    start: "2027-07-08", end: "2027-07-11",
+    city: "Erzurum", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Kahramanmaraş",
+    start: "2027-08-12", end: "2027-08-15",
+    city: "Kahramanmaraş", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Ordu",
+    start: "2027-08-19", end: "2027-08-22",
+    city: "Ordu", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Samsun",
+    start: "2027-08-26", end: "2027-08-29",
+    city: "Samsun", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Tour of Istanbul",
+    start: "2027-09-02", end: "2027-09-05",
+    city: "Istanbul", country: "TUR",
+    type: "pro", label: "UCI Stage Race",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
+  },
+  {
+    name: "Grand Prix Jizzakh",
+    start: "2027-10-06", end: "2027-10-07",
+    city: "Jizzakh", country: "UZB",
+    type: "pro", label: "UCI Asia Tour",
+    url: "https://cyclinguptodate.com/cycling/2027-uci-calendar-revealed-world-tour-calendar-confirmed-and-a-new-spanish-race-opens-the-season"
   }
 ];
