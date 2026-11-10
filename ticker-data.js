@@ -17,13 +17,6 @@
 window.SHIMANO_TICKER = [
 
   {
-    title: "Due to a technical issue, some product images are temporarily unavailable. We apologise for the inconvenience.",
-    added: "2026-11-09",
-    pin: true,
-    first: true
-  },
-
-  {
     title: "Office Hours: Mon-Fri : 09:00-18:00 GMT+3",
     pin: true,
     first: true
