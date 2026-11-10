@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-09
+   Last checked: 2026-11-10
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-09";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-10";
 
 window.SHIMANO_EVENTS = [
   {
@@ -445,9 +445,10 @@ window.SHIMANO_EVENTS = [
   },
   {
     name: "L'Etape Dubai",
-    start: "2027-03-20", end: "2027-03-21",
+    start: "2027-01-24", end: "2027-01-24",
     city: "Dubai", country: "UAE",
     type: "community", label: "Gran Fondo",
+    tbc: true,
     url: "https://dubai.letapeseries.com/"
   },
   {
