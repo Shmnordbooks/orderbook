@@ -514,6 +514,20 @@
     letter-spacing:.08em;line-height:1;
     white-space:nowrap;
   }
+  /* ═══ CATEGORY VIDEO STRIP — short looping clip under the sign ═══ */
+  .cg-video{
+    width:100%;height:200px;position:relative;overflow:hidden;
+    border-radius:10px;background:#050d18;
+    margin:-8px 0 18px 0;
+    box-shadow:0 10px 30px -14px rgba(0,0,0,.6);
+  }
+  .cg-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+  .cg-video video.cv-off{opacity:0;pointer-events:none}
+  .cg-video::after{content:"";position:absolute;inset:0;pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(125,220,255,.18);border-radius:inherit}
+  @media(max-width:900px){ .cg-video{height:120px;margin:-4px 0 14px 0;border-radius:8px} }
+  @media(prefers-reduced-motion:reduce){ .cg-video{display:none !important} }
+
   @media(max-width:900px){
     .cg-banner{height:72px;margin:0 0 14px 0;border-radius:8px}
     .cg-banner .cg-plate{padding:9px 20px}
@@ -2429,6 +2443,10 @@ html.light .sidebar a:hover {
             <div class="cg-title" id="categoryBannerTitle" lang="en"></div>
           </div>
         </div>
+      </div>
+      <div class="cg-video" id="categoryVideo" style="display:none">
+        <video id="categoryVideoEl" muted loop playsinline preload="none"></video>
+        <video id="categoryVideoEl2" class="cv-off" muted playsinline preload="none"></video>
       </div>
       <div class="results-info" id="resultsInfo"></div>
       <div id="tableContainer"></div>
@@ -38488,14 +38506,134 @@ function updateCategoryBanner() {
   var banner = document.getElementById('categoryBanner');
   var title = document.getElementById('categoryBannerTitle');
   if (!banner || !title) return;
+  var vbox = document.getElementById('categoryVideo');
+  var vid = document.getElementById('categoryVideoEl');
   if (currentCat === 'all' || searchQuery) {
     banner.style.display = 'none';
+    if (vbox) { vbox.style.display = 'none'; try { vbox.querySelectorAll('video').forEach(function(v){ v.pause(); }); } catch(e){} }
     return;
   }
   var label = CATEGORY_LABELS[currentCat] || currentCat;
   title.textContent = String(label).toLocaleUpperCase('en-US');
   banner.style.display = '';
+  // Short clip(s) under the sign — shown only for categories that have an entry in CATEGORY_VIDEOS.
+  // One clip loops; several clips play one after another and cycle.
+  if (vbox && vid) {
+    var cv = window.CATEGORY_VIDEOS && window.CATEGORY_VIDEOS[currentCat];
+    if (!cv) { vbox.style.display = 'none'; try { vbox.querySelectorAll('video').forEach(function(v){ v.pause(); }); } catch(e){} vid.removeAttribute('data-cat'); return; }
+    if (vid.getAttribute('data-cat') !== currentCat) {
+      vid.setAttribute('data-cat', currentCat);
+      var clips = cv.clips;
+      var idx = 0;
+      var vid2 = document.getElementById('categoryVideoEl2');
+      var cur = vid, nxt = vid2;
+      function setup(el, i) {
+        el.style.objectPosition = clips[i].pos || cv.pos || '50% 30%';
+        el.poster = clips[i].poster || '';
+        el.src = clips[i].src;
+      }
+      // Several clips: the next one is preloaded in the hidden second <video> and swapped in
+      // the moment the current one ends, so no poster/black frame shows between clips.
+      var multi = clips.length > 1 && !!vid2;
+      vid.onended = null;
+      if (vid2) { vid2.onended = null; vid2.pause(); vid2.removeAttribute('src'); vid2.load(); vid2.classList.add('cv-off'); }
+      vid.classList.remove('cv-off');
+      vid.loop = !multi;
+      setup(vid, 0);
+      if (multi) {
+        var arm = function () {
+          var ni = (idx + 1) % clips.length, mine = cur, other = nxt;
+          setup(other, ni); other.preload = 'auto'; other.load();
+          mine.onended = function () {
+            mine.onended = null;
+            var show = function () {
+              other.classList.remove('cv-off'); mine.classList.add('cv-off');
+              idx = ni; cur = other; nxt = mine; arm();
+            };
+            other.addEventListener('playing', show, { once: true });
+            var pp = other.play(); if (pp && pp.catch) pp.catch(function(){});
+          };
+        };
+        arm();
+      }
+    }
+    vbox.style.display = '';
+    var act = vbox.querySelector('video:not(.cv-off)') || vid;
+    var pr = act.play(); if (pr && pr.catch) pr.catch(function(){});
+  }
 }
+window.CATEGORY_VIDEOS = window.CATEGORY_VIDEOS || {
+  'Freewheel': { pos:'50% 50%', clips:[{ src:'banner-freewheels.mp4', poster:'banner-freewheels-poster.jpg', pos:'50% 50%' }] },
+  'Spare Parts': { pos:'50% 50%', clips:[{ src:'banner-spare-parts.mp4', poster:'banner-spare-parts-poster.jpg', pos:'50% 50%' }] },
+  'Shifters': { pos:'50% 65%', clips:[{ src:'banner-shifters.mp4', poster:'banner-shifters-poster.jpg', pos:'50% 65%' }] },
+  'Chainring': { pos:'50% 50%', clips:[
+    { src:'banner-chainring-1.mp4', poster:'banner-chainring-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-chainring-2.mp4', poster:'banner-chainring-2-poster.jpg', pos:'50% 50%' }
+  ] },
+  'Pulley': { pos:'50% 50%', clips:[{ src:'banner-pulley.mp4', poster:'banner-pulley-poster.jpg', pos:'50% 50%' }] },
+  'Switch': { pos:'50% 50%', clips:[
+    { src:'banner-switch-1.mp4', poster:'banner-switch-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-switch-2.mp4', poster:'banner-switch-2-poster.jpg', pos:'50% 50%' },
+    { src:'banner-switch-3.mp4', poster:'banner-switch-3-poster.jpg', pos:'50% 50%' },
+    { src:'banner-switch-4.mp4', poster:'banner-switch-4-poster.jpg', pos:'50% 50%' }
+  ] },
+  'Bracket Cover': { pos:'50% 50%', clips:[
+    { src:'banner-bracket-cover-1.mp4', poster:'banner-bracket-cover-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-bracket-cover-2.mp4', poster:'banner-bracket-cover-2-poster.jpg', pos:'50% 50%' }
+  ] },
+  'Bottom Bracket': { pos:'50% 30%', clips:[{ src:'banner-bottom-bracket.mp4', poster:'banner-bottom-bracket-poster.jpg', pos:'50% 51%' }] },
+  'SHIMANO TOOLS': { pos:'50% 26%', clips:[{ src:'banner-tools.mp4', poster:'banner-tools-poster.jpg', pos:'50% 51%' }] },
+  'Parktool': { pos:'50% 50%', clips:[{ src:'banner-parktool.mp4', poster:'banner-parktool-poster.jpg', pos:'50% 50%' }] },
+  'Vittoria': { pos:'50% 50%', clips:[
+    { src:'banner-vittoria-1.mp4', poster:'banner-vittoria-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-vittoria-2.mp4', poster:'banner-vittoria-2-poster.jpg', pos:'50% 50%' }
+  ] },
+  'Wheels': { pos:'50% 36%', clips:[{ src:'banner-wheels.mp4', poster:'banner-wheels-poster.jpg', pos:'50% 51%' }] },
+  'STI Shifters Sets': { pos:'50% 46%', clips:[
+    { src:'banner-sti-sets-1.mp4', poster:'banner-sti-sets-1-poster.jpg', pos:'50% 46%' }
+  ] },
+  'Rotors': { pos:'50% 50%', clips:[
+    { src:'banner-rotors-1.mp4', poster:'banner-rotors-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-rotors-2.mp4', poster:'banner-rotors-2-poster.jpg', pos:'50% 50%' }
+  ] },
+  'HUBS': { pos:'50% 50%', clips:[
+    { src:'banner-hubs-1.mp4', poster:'banner-hubs-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-hubs-2.mp4', poster:'banner-hubs-2-poster.jpg', pos:'50% 52%' }
+  ] },
+  'DI2': { pos:'50% 42%', clips:[
+    { src:'banner-di2-1.mp4', poster:'banner-di2-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-di2-2.mp4', poster:'banner-di2-2-poster.jpg', pos:'50% 51%' }
+  ] },
+  'DiscBreakPads': { pos:'50% 44%', clips:[{ src:'banner-disc-brake-pads.mp4', poster:'banner-disc-brake-pads-poster.jpg', pos:'50% 51%' }] },
+  'Dreailleur': { pos:'50% 45%', clips:[
+    { src:'banner-derailleur-1.mp4', poster:'banner-derailleur-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-derailleur-2.mp4', poster:'banner-derailleur-2-poster.jpg', pos:'50% 51%' }
+  ] },
+  'Crankset': { pos:'50% 50%', clips:[
+    { src:'banner-crankset-1.mp4', poster:'banner-crankset-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-crankset-2.mp4', poster:'banner-crankset-2-poster.jpg', pos:'50% 50%' }
+  ] },
+  'Cassettes': { pos:'50% 50%', clips:[
+    { src:'banner-cassettes-1.mp4', poster:'banner-cassettes-1-poster.jpg', pos:'50% 51%' },
+    { src:'banner-cassettes-2.mp4', poster:'banner-cassettes-2-poster.jpg', pos:'50% 51%' },
+    { src:'banner-cassettes-3.mp4', poster:'banner-cassettes-3-poster.jpg', pos:'50% 51%' }
+  ] },
+  'Chain': { pos:'50% 50%', clips:[
+    { src:'banner-chain-1.mp4', poster:'banner-chain-1-poster.jpg', pos:'50% 51%' },
+    { src:'banner-chain-2.mp4', poster:'banner-chain-2-poster.jpg', pos:'50% 51%' }
+  ] },
+  'Battery Charger': { pos:'50% 22%', clips:[{ src:'banner-battery-charger.mp4', poster:'banner-battery-charger-poster.jpg', pos:'50% 51%' }] },
+  'Cables': { pos:'50% 46%', clips:[
+    { src:'banner-cables-1.mp4', poster:'banner-cables-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-cables-2.mp4', poster:'banner-cables-2-poster.jpg', pos:'50% 50%' },
+    { src:'banner-cables-3.mp4', poster:'banner-cables-3-poster.jpg', pos:'50% 50%' }
+  ] },
+  'Brake Shoes': { pos:'50% 45%', clips:[{ src:'banner-brake-shoes.mp4', poster:'banner-brake-shoes-poster.jpg', pos:'50% 51%' }] },
+  'Brake Sets': { pos:'50% 55%', clips:[
+    { src:'banner-brake-sets-1.mp4', poster:'banner-brake-sets-1-poster.jpg', pos:'50% 50%' },
+    { src:'banner-brake-sets-2.mp4', poster:'banner-brake-sets-2-poster.jpg', pos:'50% 50%' }
+  ] }
+};
 
 
 
@@ -39975,6 +40113,7 @@ document.addEventListener('click', e => {
 })();
 </script>
 <script src="shared-cart.js"></script>
+<script src="top-picks.js?v=20261110a"></script>
 <script src="cross-sell.js"></script>
 <script>
 // Auto-open Order Summary when navigating from shoes/pedals via #openOrderSummary
