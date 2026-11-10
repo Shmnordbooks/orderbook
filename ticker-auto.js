@@ -3,12 +3,12 @@
 window.SHIMANO_TICKER_AUTO = [
   {
     "title": "Stock updated: 09 Nov 2026",
-    "added": "2026-11-09",
-    "expires": "2026-11-16",
+    "added": "2026-11-10",
+    "expires": "2026-11-17",
     "auto": "stamp"
   },
   {
-    "title": "HARDGOODS: 91 back in stock",
+    "title": "HARDGOODS: 88 back in stock",
     "link": "hardgoods.html",
     "added": "2026-11-09",
     "auto": "change",
@@ -41,8 +41,6 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "EHBIM40PDC", "n": "Front Hub 100/36", "d": "HB-IM40 Roller Brake", "g": "HUBS", "t": "2026-11-09"},
       {"c": "EHBQC300AALP", "n": "Front Hub 100/36 Black", "d": "HB-QC300 Disc Brake CL", "g": "HUBS", "t": "2026-11-09"},
       {"c": "EHBTC50015BB", "n": "Front Hub 110/32 Thru Black", "d": "HB-TC500-15-B Disc Brake CL", "g": "HUBS", "t": "2026-11-09"},
-      {"c": "PT1971", "n": "ParkTool Clamp Adapter", "d": "1971 for D-Shaped Seat Posts", "g": "Parktool", "t": "2026-11-03"},
-      {"c": "PTMK17", "n": "ParkTool Master Tool Kit", "d": "MK-17", "g": "Parktool", "t": "2026-11-03"},
       {"c": "ESMRT10S2", "n": "Rotor 160mm Center Lock", "d": "SM-RT10 w/LRing", "g": "Rotors", "t": "2026-11-09"},
       {"c": "ESMRT54SXSP", "n": "Rotor 160mm Center Lock", "d": "SM-RT54 w/o LRing 10pcs", "g": "Rotors", "t": "2026-11-09"},
       {"c": "ESMRT54SI3P", "n": "Rotor 160mm Center Lock Int.", "d": "SM-RT54 w/LRing", "g": "Rotors", "t": "2026-11-09"},
@@ -62,7 +60,6 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "Y7KL98010", "n": "Bracket Unit (Diam. 31.8mm)", "d": "SC-EN610", "g": "Spare Parts", "t": "2026-11-05"},
       {"c": "Y2J708010", "n": "Caliper FixingBolt for C2 20mm", "d": "BR-R8170", "g": "Spare Parts", "t": "2026-11-05"},
       {"c": "Y31414210", "n": "Cap Nut M9", "d": "HB-IM40", "g": "Spare Parts", "t": "2026-11-05"},
-      {"c": "Y73E98020", "n": "Cassette Joint Unit Belt Drive", "d": "CJ-8S20", "g": "Spare Parts", "t": "2026-11-03"},
       {"c": "Y0WY9801T", "n": "Chain Guard", "d": "FC-U2000-1", "g": "Spare Parts", "t": "2026-11-05"},
       {"c": "Y0RC98010", "n": "Chain Guard&Fix. Screws 40T", "d": "FC-U4010-2", "g": "Spare Parts", "t": "2026-11-05"},
       {"c": "Y1KN98070", "n": "Chain Guard&Fix. Screws 42T", "d": "FC-M361", "g": "Spare Parts", "t": "2026-11-05"},
@@ -108,16 +105,14 @@ window.SHIMANO_TICKER_AUTO = [
     ]
   },
   {
-    "title": "SHOES: 15 back in stock",
+    "title": "SHOES: 13 back in stock",
     "link": "shoes.html",
     "added": "2026-11-09",
     "auto": "change",
     "expires": "2026-11-16",
     "items": [
-      {"c": "ESHRC503MGL01E43000", "n": "Bicycle Shoes RC503", "d": "Black Wide 43.0", "t": "2026-11-03"},
       {"c": "ESHRX910MCW01E47000", "n": "Bicycle Shoes RX910", "d": "White Wide 47.0", "t": "2026-11-09"},
       {"c": "ESHRC810MCW01S41000", "n": "Bicycle Shoes SH-RC810", "d": "White 41.0", "t": "2026-11-04"},
-      {"c": "ESHRC810MCW01S42500", "n": "Bicycle Shoes SH-RC810", "d": "White 42.5", "t": "2026-11-03"},
       {"c": "ESHRC810MCW01E41000", "n": "Bicycle Shoes SH-RC810", "d": "White Wide 41.0", "t": "2026-11-09"},
       {"c": "ESHRC810MCW01E42000", "n": "Bicycle Shoes SH-RC810", "d": "White Wide 42.0", "t": "2026-11-09"},
       {"c": "ESHRC810MCW01E46000", "n": "Bicycle Shoes SH-RC810", "d": "White Wide 46.0", "t": "2026-11-09"},
@@ -132,14 +127,13 @@ window.SHIMANO_TICKER_AUTO = [
     ]
   },
   {
-    "title": "PEDALS: back in stock – Flat for Explorer, SPD-SL w/Cleat SM-SH11, SPD-SL w/ Cleat SM-SH11",
+    "title": "PEDALS: back in stock – Flat for Explorer, SPD-SL w/ Cleat SM-SH11",
     "link": "pedals.html",
     "added": "2026-11-09",
     "auto": "change",
     "expires": "2026-11-16",
     "items": [
       {"c": "EPDEF102RL", "n": "Pedal Flat for Explorer", "d": "PD-EF102 Black", "g": "PD-EF102", "t": "2026-11-09"},
-      {"c": "IPDR8000", "n": "Pedal SPD-SL w/Cleat SM-SH11", "d": "PD-R8000 Ultegra", "g": "PD-R8000", "t": "2026-11-03"},
       {"c": "EPDRS500", "n": "Pedal SPD-SL w/ Cleat SM-SH11", "d": "PD-RS500", "g": "PD-RS500", "t": "2026-11-06"}
     ]
   }
