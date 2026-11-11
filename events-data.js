@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-10
+   Last checked: 2026-11-11
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-10";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-11";
 
 window.SHIMANO_EVENTS = [
   {
@@ -185,13 +185,6 @@ window.SHIMANO_EVENTS = [
     url: "https://athletex.kz/"
   },
   {
-    name: "Mleiha MTB Challenge",
-    start: "2026-10-11", end: "2026-10-11",
-    city: "Mleiha, Sharjah", country: "UAE",
-    type: "local", label: "MTB",
-    url: "https://www.hopasports.com/"
-  },
-  {
     name: "IRONMAN 70.3 Sharm",
     start: "2026-10-16", end: "2026-10-16",
     city: "Sharm El-Sheikh", country: "EGY",
@@ -274,13 +267,6 @@ window.SHIMANO_EVENTS = [
     city: "Hudayriyat, Abu Dhabi", country: "UAE",
     type: "local", label: "Race Series",
     url: "https://www.sported.ae/event-type/cycling/"
-  },
-  {
-    name: "Dubai Police Triathlon",
-    start: "2026-10-11", end: "2026-10-11",
-    city: "Al Mamzar, Dubai", country: "UAE",
-    type: "triathlon", label: "Triathlon",
-    url: "https://www.sported.ae/event-type/triathlon/"
   },
   {
     name: "Mamzar Triathlon R1",
@@ -379,6 +365,13 @@ window.SHIMANO_EVENTS = [
     city: "Muttrah", country: "OMN",
     type: "triathlon", label: "IRONMAN",
     url: "https://www.ahotu.com/event/ironman-oman"
+  },
+  {
+    name: "Al Salam Emirati Amateur",
+    start: "2026-12-27", end: "2026-12-27",
+    city: "Dubai", country: "UAE",
+    type: "local", label: "Al Salam Champ",
+    url: "https://www.gulftoday.ae/sport/2026/10/12/11th-al-salam-cycling-championship-offers-over-dhs36m-prize-money-features-5-races"
   },
   {
     name: "Al Salam Elite Race",
