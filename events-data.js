@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-11
+   Last checked: 2026-11-13
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-11";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-13";
 
 window.SHIMANO_EVENTS = [
   {
@@ -365,6 +365,20 @@ window.SHIMANO_EVENTS = [
     city: "Muttrah", country: "OMN",
     type: "triathlon", label: "IRONMAN",
     url: "https://www.ahotu.com/event/ironman-oman"
+  },
+  {
+    name: "Masfout X",
+    start: "2026-12-02", end: "2026-12-02",
+    city: "Masfout, Ajman", country: "UAE",
+    type: "triathlon", label: "MTB Duathlon",
+    url: "https://running.life/en/event/masfout-x"
+  },
+  {
+    name: "Ajman Duathlon",
+    start: "2026-12-19", end: "2026-12-19",
+    city: "Ajman", country: "UAE",
+    type: "triathlon", label: "Duathlon",
+    url: "https://running.life/en/event/ajman-duathlon/2026-12-19"
   },
   {
     name: "Al Salam Emirati Amateur",
