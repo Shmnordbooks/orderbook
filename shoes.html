@@ -13941,7 +13941,7 @@ window.addEventListener('DOMContentLoaded', function() {
   const W = 17, H = 16, MAX_DIFF = 10; // 256-bit dHash, ≤10 differing bits = same photo
 
   function smallSrc(u) {
-    return u.replace(/_800x(\.\w+)(\?|$)/, '_200x$1$2');
+    return u.replace(/_800x(\.\w+)(\?|$)/, '_100x$1$2');
   }
   function fingerprint(u) {
     if (_hashMemo[u] !== undefined) return Promise.resolve(_hashMemo[u]);
@@ -13966,7 +13966,7 @@ window.addEventListener('DOMContentLoaded', function() {
         } catch (e) { done(null); }
       };
       img.onerror = () => done(null);
-      setTimeout(() => done(null), 8000);
+      setTimeout(() => done(null), 6000);
       img.src = smallSrc(u);
     });
   }
@@ -13994,16 +13994,34 @@ window.addEventListener('DOMContentLoaded', function() {
     return { cleaned, removed };
   }
 
+  const _pending = {};
   window.buildGallery = function (group, colorGroups) {
-    _origBuild(group, colorGroups);
-    if (_deduped.has(group) || !colorGroups || !colorGroups.length) return;
+    if (_deduped.has(group) || !colorGroups || !colorGroups.length) { _origBuild(group, colorGroups); return; }
+    if (_pending[group]) return; // first build still running — it will render the clean list
+    // Keep the loading skeleton up and render ONCE, after duplicates are removed
+    const skel = document.getElementById('gal-skel-' + group);
+    if (skel) skel.style.display = 'flex';
+    let rendered = false;
+    const render = list => {
+      if (rendered) return; rendered = true;
+      _deduped.add(group); delete _pending[group];
+      if (galCache[group] === colorGroups) galCache[group] = list;
+      _origBuild(group, list);
+    };
+    _pending[group] = true;
+    // Safety cap: never keep the dealer waiting more than 2.5 s
+    setTimeout(() => { if (!rendered) { _deduped.delete(group); rendered = true; delete _pending[group]; _origBuild(group, colorGroups); _lateClean(group, colorGroups); } }, 2500);
+    dedupe(group, colorGroups).then(({ cleaned }) => render(cleaned)).catch(() => render(colorGroups));
+  };
+  // Only used if the 2.5 s cap was hit: finish quietly and swap in the clean list
+  function _lateClean(group, colorGroups) {
     _deduped.add(group);
     dedupe(group, colorGroups).then(({ cleaned, removed }) => {
       if (!removed) return;
       if (galCache[group] === colorGroups) galCache[group] = cleaned;
       _origBuild(group, cleaned);
     }).catch(() => {});
-  };
+  }
 })();
 </script>
 </body>
