@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-13
+   Last checked: 2026-11-16
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-13";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-16";
 
 window.SHIMANO_EVENTS = [
   {
@@ -185,13 +185,6 @@ window.SHIMANO_EVENTS = [
     url: "https://athletex.kz/"
   },
   {
-    name: "IRONMAN 70.3 Sharm",
-    start: "2026-10-16", end: "2026-10-16",
-    city: "Sharm El-Sheikh", country: "EGY",
-    type: "triathlon", label: "IRONMAN 70.3",
-    url: "https://egyptianstreets.com/2026/05/27/ironman-70-3-to-take-place-in-sharm-el-sheikh-in-october-2026/"
-  },
-  {
     name: "Ajman Triathlon",
     start: "2026-10-18", end: "2026-10-18",
     city: "Ajman", country: "UAE",
@@ -287,6 +280,7 @@ window.SHIMANO_EVENTS = [
     start: "2026-12-05", end: "2026-12-05",
     city: "Jebel Jais, RAK", country: "UAE",
     type: "community", label: "Mountain Ride",
+    tbc: true,
     url: "https://www.ahotu.com/calendar/cycling/united-arab-emirates"
   },
   {
@@ -365,6 +359,41 @@ window.SHIMANO_EVENTS = [
     city: "Muttrah", country: "OMN",
     type: "triathlon", label: "IRONMAN",
     url: "https://www.ahotu.com/event/ironman-oman"
+  },
+  {
+    name: "Oman Tri Series R3",
+    start: "2026-11-27", end: "2026-11-27",
+    city: "Qantab, Muscat", country: "OMN",
+    type: "local", label: "Oman Tri Champ",
+    url: "https://www.sported.ae/race-calendar/"
+  },
+  {
+    name: "Al Ain ITT Challenge",
+    start: "2026-11-28", end: "2026-11-28",
+    city: "Al Ain", country: "UAE",
+    type: "local", label: "Time Trial",
+    url: "https://www.sported.ae/race-calendar/"
+  },
+  {
+    name: "Hudayriyat Women R3",
+    start: "2026-11-29", end: "2026-11-29",
+    city: "Abu Dhabi", country: "UAE",
+    type: "local", label: "Women's Series",
+    url: "https://www.sported.ae/race-calendar/"
+  },
+  {
+    name: "Hudayriyat Women R4",
+    start: "2026-12-06", end: "2026-12-06",
+    city: "Abu Dhabi", country: "UAE",
+    type: "local", label: "Women's Series",
+    url: "https://www.sported.ae/race-calendar/"
+  },
+  {
+    name: "Tri World Cup Jeddah",
+    start: "2027-04-16", end: "2027-04-17",
+    city: "Jeddah", country: "KSA",
+    type: "triathlon", label: "World Cup",
+    url: "https://triathlon.org/news/new-dates-for-saudi-arabia-t100-and-world-triathlon-cup-in-jeddah"
   },
   {
     name: "Masfout X",
