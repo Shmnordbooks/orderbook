@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-16
+   Last checked: 2026-11-18
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-16";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-18";
 
 window.SHIMANO_EVENTS = [
   {
@@ -63,13 +63,6 @@ window.SHIMANO_EVENTS = [
     city: "Agadir", country: "MAR",
     type: "triathlon", label: "IRONMAN 70.3",
     url: "https://barlamantoday.com/2026/09/22/agadir-to-host-second-ironman-70-3-triathlon-in-october/"
-  },
-  {
-    name: "Spinneys Build-Up Ride 2",
-    start: "2026-10-18", end: "2026-10-18",
-    city: "Al Qudra", country: "UAE",
-    type: "community", label: "Gran Fondo",
-    url: "https://cyclechallenge.ae/"
   },
   {
     name: "IRONMAN 70.3 Türkiye",
@@ -185,13 +178,6 @@ window.SHIMANO_EVENTS = [
     url: "https://athletex.kz/"
   },
   {
-    name: "Ajman Triathlon",
-    start: "2026-10-18", end: "2026-10-18",
-    city: "Ajman", country: "UAE",
-    type: "triathlon", label: "Triathlon",
-    url: "https://www.hopasports.com/"
-  },
-  {
     name: "Masfout MTB Challenge",
     start: "2026-10-25", end: "2026-10-25",
     city: "Masfout", country: "UAE",
@@ -280,8 +266,7 @@ window.SHIMANO_EVENTS = [
     start: "2026-12-05", end: "2026-12-05",
     city: "Jebel Jais, RAK", country: "UAE",
     type: "community", label: "Mountain Ride",
-    tbc: true,
-    url: "https://www.ahotu.com/calendar/cycling/united-arab-emirates"
+    url: "https://uaesportshub.ae/"
   },
   {
     name: "IRONMAN 70.3 Bahrain",
@@ -289,13 +274,6 @@ window.SHIMANO_EVENTS = [
     city: "Manama", country: "BHR",
     type: "triathlon", label: "IRONMAN 70.3",
     url: "https://www.ironman.com/races/im703-bahrain"
-  },
-  {
-    name: "UAE Tour Community Race",
-    start: "2026-10-17", end: "2026-10-17",
-    city: "Al Wathba, Abu Dhabi", country: "UAE",
-    type: "community", label: "Age Group",
-    url: "https://www.sported.ae/event-type/cycling/"
   },
   {
     name: "UCI Granfondo Antalya",
@@ -363,7 +341,7 @@ window.SHIMANO_EVENTS = [
   {
     name: "Oman Tri Series R3",
     start: "2026-11-27", end: "2026-11-27",
-    city: "Qantab, Muscat", country: "OMN",
+    city: "Muscat", country: "OMN",
     type: "local", label: "Oman Tri Champ",
     url: "https://www.sported.ae/race-calendar/"
   },
@@ -394,6 +372,49 @@ window.SHIMANO_EVENTS = [
     city: "Jeddah", country: "KSA",
     type: "triathlon", label: "World Cup",
     url: "https://triathlon.org/news/new-dates-for-saudi-arabia-t100-and-world-triathlon-cup-in-jeddah"
+  },
+  {
+    name: "UAE Tour Jebel Hafeet",
+    start: "2026-11-28", end: "2026-11-28",
+    city: "Al Ain", country: "UAE",
+    type: "community", label: "Hill Climb",
+    tbc: true,
+    url: "https://uaesportshub.ae/"
+  },
+  {
+    name: "Oman Tri Series R4",
+    start: "2026-12-18", end: "2026-12-18",
+    city: "Al Azaiba, Muscat", country: "OMN",
+    type: "local", label: "Oman Tri Champ",
+    url: "https://thesportspal.com/triathlon-events-middle-east"
+  },
+  {
+    name: "Oman Tri Series R5",
+    start: "2027-01-08", end: "2027-01-08",
+    city: "Al Azaiba, Muscat", country: "OMN",
+    type: "local", label: "Oman Tri Champ",
+    url: "https://thesportspal.com/triathlon-events-middle-east"
+  },
+  {
+    name: "Samla International",
+    start: "2027-01-23", end: "2027-01-23",
+    city: "Doha", country: "QAT",
+    type: "triathlon", label: "Multisport",
+    url: "https://marhaba.qa/samla-international-race-to-return-on-23-january-2027/"
+  },
+  {
+    name: "Abu Dhabi T50",
+    start: "2027-03-27", end: "2027-03-28",
+    city: "Abu Dhabi", country: "UAE",
+    type: "triathlon", label: "T50 Tour",
+    url: "https://www.tri247.com/triathlon-news/elite/t50-t100-2027-calendar-initial-announcement"
+  },
+  {
+    name: "Samarkand T50",
+    start: "2027-04-24", end: "2027-04-25",
+    city: "Samarkand", country: "UZB",
+    type: "triathlon", label: "T50 Tour",
+    url: "https://www.tri247.com/triathlon-news/elite/t50-t100-2027-calendar-initial-announcement"
   },
   {
     name: "Masfout X",
