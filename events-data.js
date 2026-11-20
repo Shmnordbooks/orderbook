@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-18
+   Last checked: 2026-11-20
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-18";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-20";
 
 window.SHIMANO_EVENTS = [
   {
@@ -378,8 +378,7 @@ window.SHIMANO_EVENTS = [
     start: "2026-11-28", end: "2026-11-28",
     city: "Al Ain", country: "UAE",
     type: "community", label: "Hill Climb",
-    tbc: true,
-    url: "https://uaesportshub.ae/"
+    url: "https://adsc.ae/events/"
   },
   {
     name: "Oman Tri Series R4",
@@ -415,6 +414,13 @@ window.SHIMANO_EVENTS = [
     city: "Samarkand", country: "UZB",
     type: "triathlon", label: "T50 Tour",
     url: "https://www.tri247.com/triathlon-news/elite/t50-t100-2027-calendar-initial-announcement"
+  },
+  {
+    name: "Madinat Zayed Ride",
+    start: "2026-11-22", end: "2026-11-22",
+    city: "Madinat Zayed", country: "UAE",
+    type: "local", label: "Community Race",
+    url: "https://adsc.ae/events/"
   },
   {
     name: "Masfout X",
