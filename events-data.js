@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-20
+   Last checked: 2026-11-23
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,7 +47,7 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-20";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-23";
 
 window.SHIMANO_EVENTS = [
   {
@@ -119,13 +119,6 @@ window.SHIMANO_EVENTS = [
     city: "Al Qudra", country: "UAE",
     type: "community", label: "Gran Fondo",
     url: "https://cyclechallenge.ae/"
-  },
-  {
-    name: "AlUla Tour",
-    start: "2027-01-25", end: "2027-01-29",
-    city: "AlUla", country: "KSA",
-    type: "pro", label: "UCI ProSeries",
-    url: "https://www.experiencealula.com/en/whats-on/events/alula-tour"
   },
   {
     name: "UAE Tour Women",
