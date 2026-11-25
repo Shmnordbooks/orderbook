@@ -39,7 +39,7 @@
    - BHR           : calendar.bh
    - KAZ           : cycling.kz (federation), athletex.kz (Tengri series)
    - UZB           : velosport.uz (federation), ozsport.uz
-   Last checked: 2026-11-23
+   Last checked: 2026-11-25
    ============================================================ */
 /* Email address that receives "Suggest an event" forms from dealers.
    Leave empty ("") to hide the Suggest button. */
@@ -47,23 +47,9 @@ window.SHIMANO_EVENTS_CONTACT = "tuncay.gecim@shimano-eu.com";
 
 /* Date the calendar was last checked — shown as "UPDATED 14 OCT" in the panel header.
    Update together with "Last checked" above on every scan. */
-window.SHIMANO_EVENTS_UPDATED = "2026-11-23";
+window.SHIMANO_EVENTS_UPDATED = "2026-11-25";
 
 window.SHIMANO_EVENTS = [
-  {
-    name: "IRONMAN 70.3 Dhofar",
-    start: "2026-10-24", end: "2026-10-24",
-    city: "Salalah", country: "OMN",
-    type: "triathlon", label: "IRONMAN 70.3",
-    url: "https://timesofoman.com/article/175243-middle-east-ironman-703-team-championship-to-be-held-in-dhofar-on-24-october-2026"
-  },
-  {
-    name: "IRONMAN 70.3 Agadir",
-    start: "2026-10-25", end: "2026-10-25",
-    city: "Agadir", country: "MAR",
-    type: "triathlon", label: "IRONMAN 70.3",
-    url: "https://barlamantoday.com/2026/09/22/agadir-to-host-second-ironman-70-3-triathlon-in-october/"
-  },
   {
     name: "IRONMAN 70.3 Türkiye",
     start: "2026-11-01", end: "2026-11-01",
@@ -128,6 +114,14 @@ window.SHIMANO_EVENTS = [
     url: "https://www.mediaoffice.abudhabi/en/sport/organised-by-abu-dhabi-sports-council-and-empowered-by-ad-ports-group-uae-tour-men-and-uae-tour-women-2027-to-take-place-in-february/"
   },
   {
+    name: "Tour of Oman",
+    start: "2027-02-01", end: "2027-02-05",
+    city: "Muscat", country: "OMN",
+    type: "pro", label: "UCI ProSeries",
+    tbc: true,
+    url: "https://www.domestiquecycling.com/en/news/alula-tour-cancellation-raises-questions-over-2027-races-in-the-gulf/"
+  },
+  {
     name: "IRONMAN 70.3 Oman",
     start: "2027-02-06", end: "2027-02-06",
     city: "Muscat", country: "OMN",
@@ -169,13 +163,6 @@ window.SHIMANO_EVENTS = [
     city: "Ile River Valley", country: "KAZ",
     type: "community", label: "Ultra Ride",
     url: "https://athletex.kz/"
-  },
-  {
-    name: "Masfout MTB Challenge",
-    start: "2026-10-25", end: "2026-10-25",
-    city: "Masfout", country: "UAE",
-    type: "local", label: "MTB",
-    url: "https://www.hopasports.com/"
   },
   {
     name: "Khorfakkan Clouds Race",
@@ -239,13 +226,6 @@ window.SHIMANO_EVENTS = [
     city: "Hudayriyat, Abu Dhabi", country: "UAE",
     type: "local", label: "Race Series",
     url: "https://www.sported.ae/event-type/cycling/"
-  },
-  {
-    name: "Mamzar Triathlon R1",
-    start: "2026-10-25", end: "2026-10-25",
-    city: "Al Mamzar, Dubai", country: "UAE",
-    type: "triathlon", label: "Triathlon",
-    url: "https://www.sported.ae/event-type/triathlon/"
   },
   {
     name: "Ajman Cycling Race",
