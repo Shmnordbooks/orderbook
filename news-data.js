@@ -1,11 +1,5 @@
 const SHIMANO_NEWS = [
   {
-    title: "Shimano Confirms Supply Issues for Some Di2 and E-Bike Parts",
-    date: "NOVEMBER 22, 2026",
-    excerpt: "A circuit board shortage is affecting some Di2 groups and e-bike components, with delivery dates listed as TBD. No affected-product list has been published.",
-    link: "https://en.brujulabike.com/the-electronic-components-shortage-hits-cycling-shimano-confirms-supply-issues"
-  },
-  {
     title: "Shimano Releases New EP810 E-Bike System",
     date: "NOVEMBER 6, 2026",
     excerpt: "New EP810 eMTB motor system with 100 Nm torque and a 2.3 kg drive unit, plus the D-FLY+ wireless protocol and a new Shimano Connect app.",
@@ -30,10 +24,10 @@ const SHIMANO_NEWS = [
     link: "https://www.cyclingweekly.com/news/mathieu-van-der-poel-rides-13-speed-dura-ace-prototype-at-uci-world-championships"
   },
   {
-    title: "Shimano Launches SPD-SLR Road Pedal System",
+    title: "The Story Behind Shimano's SPD-SLR Pedals",
     date: "SEPTEMBER 17, 2026",
-    excerpt: "New Dura-Ace and Ultegra pedals, cleats and S-Phyre shoes with a lower stack and quicker clip-in. The new cleats do not work with SPD-SL pedals.",
-    link: "https://www.bikeradar.com/news/shimano-updates-spd-slr-road-pedal-system-for-the-first-time-in-23-years"
+    excerpt: "How SPD-SLR builds on SPD-SL: lower stack height, quicker clip-in and lighter cleats, with new Dura-Ace and Ultegra pedals and S-Phyre shoes.",
+    link: "https://bike.shimano.com/stories/article/the-story-behind-shimano-spd-slr-pedals.html"
   },
   {
     title: "New Deore XT M8200 Mechanical Groupset",
