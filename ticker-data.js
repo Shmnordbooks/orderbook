@@ -18,16 +18,16 @@
 window.SHIMANO_TICKER = [
 
   {
-    title: "Office Hours: Mon-Fri : 09:00-18:00 GMT+3",
+    title: "IMPORTANT NOTICE: Due to the global PCB shortage, delivery dates for some Di2 and e-bike items are currently TBD. To avoid incomplete groupsets please do check your stocks, and inform your consumers accordingly.",
+    added: "2026-11-26",
     pin: true,
     first: true
   },
 
   {
-    title: "IMPORTANT NOTICE: Due to the global PCB shortage, delivery dates for some Di2 and e-bike items are currently TBD. To avoid incomplete groupsets please do check your stocks, and inform your consumers accordingly.",
-    added: "2026-11-26",
+    title: "Office Hours: Mon-Fri : 09:00-18:00 GMT+3",
     pin: true,
-    last: true
+    first: true
   },
 
   {
