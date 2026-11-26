@@ -2,38 +2,39 @@
    Replaced on every stock update push. */
 window.SHIMANO_TICKER_AUTO = [
   {
-    "title": "Stock updated: 25 Nov 2026",
-    "added": "2026-11-25",
-    "expires": "2026-12-02",
+    "title": "Stock updated: 26 Nov 2026",
+    "added": "2026-11-26",
+    "expires": "2026-12-03",
     "auto": "stamp"
   },
   {
-    "title": "HARDGOODS: 185 back in stock",
+    "title": "HARDGOODS: 189 back in stock",
     "link": "hardgoods.html",
-    "added": "2026-11-25",
+    "added": "2026-11-26",
     "auto": "change",
-    "expires": "2026-12-02",
+    "expires": "2026-12-03",
     "items": [
       {"c": "ERTCL700SI", "n": "Rotor 160mm Lock Int.", "d": "RT-CL700 w/LRing", "t": "2026-11-23"},
       {"c": "EBLM6100LL", "n": "Brake Lever Left 2-fgr Black", "d": "BL-M6100 Deore Disc Brake", "g": "Brake Sets", "t": "2026-11-25"},
-      {"c": "IBLR400PLA", "n": "Brake Lever Set Black", "d": "BL-R400 Caliper", "g": "Brake Sets", "t": "2026-11-19"},
+      {"c": "EBL4700VL", "n": "Brake Lever Left 2.5-fgr", "d": "BL-4700 Tiagra V-Brake", "g": "Brake Sets", "t": "2026-11-26"},
       {"c": "EU40303DRRDRC170A", "n": "Disc Brake Kit Cues", "d": "ST-U4030(R), BR-U6030(R)", "g": "Brake Sets", "t": "2026-11-23"},
       {"c": "EBRC6001RAB", "n": "Roller Brake Rear", "d": "BR-C6001 Nexus w/8.2mm WashM10", "g": "Brake Sets", "t": "2026-11-23"},
       {"c": "EBRC6001RBB", "n": "Roller Brake Rear", "d": "BR-C6001 Nexusw/8.2mmWashBC3/8", "g": "Brake Sets", "t": "2026-11-23"},
       {"c": "EBRT610FX41XLP", "n": "V-Brake Front Black", "d": "BR-T610 Deore w/ S70C", "g": "Brake Sets", "t": "2026-11-25"},
       {"c": "EBRT610RX41XLP", "n": "V-Brake Rear Black", "d": "BR-T610 Deore w/ S70C", "g": "Brake Sets", "t": "2026-11-25"},
       {"c": "IOTSP41SET05", "n": "Shift Cable Set", "d": "for RD", "g": "Cables", "t": "2026-11-25"},
-      {"c": "ICSM8000146", "n": "Cassette 11 Speed 11-46T", "d": "CS-M8000 Deore XT", "g": "Cassettes", "t": "2026-11-19"},
-      {"c": "ICSM510011151", "n": "Cassette 11 Speed 11-51T", "d": "CS-M5100 Deore", "g": "Cassettes", "t": "2026-11-19"},
       {"c": "ICSM620012051", "n": "Cassette 12 Speed 10-51T", "d": "CS-M6200 Deore", "g": "Cassettes", "t": "2026-11-25"},
       {"c": "Y1NB98080", "n": "Chainring 50T-F Sora", "d": "FC-3550 Black for CG", "g": "Chainring", "t": "2026-11-20"},
       {"c": "EFCC6000C3S", "n": "Crankset 1-Speed Silver", "d": "FC-C6000 33T 170mm", "g": "Crankset", "t": "2026-11-25"},
+      {"c": "EFC4703CX090", "n": "Crankset 10-Speed", "d": "FC-4703 50/39/30T 170mm", "g": "Crankset", "t": "2026-11-26"},
+      {"c": "EFC4703EX090", "n": "Crankset 10-Speed", "d": "FC-4703 50/39/30T 175mm", "g": "Crankset", "t": "2026-11-26"},
       {"c": "EFCM51001CXA2", "n": "Crankset 10/11-Speed", "d": "FC-M5100-1 32T 170mm", "g": "Crankset", "t": "2026-11-25"},
       {"c": "EFCM51002CX66", "n": "Crankset 11-Speed", "d": "FC-M5100-2 36/26T 170mm", "g": "Crankset", "t": "2026-11-25"},
       {"c": "EFCMT5101CXA2L", "n": "Crankset 12-Speed Black", "d": "FC-MT510-1 32T 170mm", "g": "Crankset", "t": "2026-11-25"},
       {"c": "EFCU60001EXA2", "n": "Crankset 9/10/11-Speed", "d": "FC-U6000-1 32T 175mm", "g": "Crankset", "t": "2026-11-25"},
       {"c": "EFDU6030X", "n": "Front Derailleur", "d": "FD-U6030 34.9mm DS DP 62-66", "g": "Dreailleur", "t": "2026-11-23"},
       {"c": "EFDM313X3", "n": "Front Derailleur Triple Silver", "d": "FD-M313 34.9mm CB DS DP 63-66", "g": "Dreailleur", "t": "2026-11-25"},
+      {"c": "IRDU6070GS", "n": "Rear Derailleur 11s GS", "d": "RD-U6070 Cues", "g": "Dreailleur", "t": "2026-11-26"},
       {"c": "IRDM8200SGS", "n": "Rear Derailleur 12s SGS", "d": "RD-M8200 Deore XT", "g": "Dreailleur", "t": "2026-11-25"},
       {"c": "EMFTZ5007428", "n": "Multiple Freewheel Sprocket 7s", "d": "MF-TZ500 14-16-18-20-22-24-34T", "g": "Freewheel", "t": "2026-11-23"},
       {"c": "EFHM8110C", "n": "Freehub 12s 142/28 Thru", "d": "FH-M8110 Disc Brake CL", "g": "HUBS", "t": "2026-11-25"},
@@ -102,7 +103,6 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "PTDL36W", "n": "ParkTool Logo Window Decal", "d": "DL-36W White Letters", "g": "Parktool", "t": "2026-11-25"},
       {"c": "PT100792", "n": "ParkTool Magnetic Parts Bowl", "d": "MB-1", "g": "Parktool", "t": "2026-11-25"},
       {"c": "PTPRS30", "n": "ParkTool Mech Repair Stand", "d": "PRS-30 for E-Bike", "g": "Parktool", "t": "2026-11-25"},
-      {"c": "PTPRS30LB", "n": "ParkTool Mech Repair Stand", "d": "PRS-30LB for E-Bike, No Legs", "g": "Parktool", "t": "2026-11-25"},
       {"c": "PTMW10", "n": "ParkTool Metric Wrench", "d": "MW-10 10mm", "g": "Parktool", "t": "2026-11-25"},
       {"c": "PTMW13", "n": "ParkTool Metric Wrench", "d": "MW-13 13mm", "g": "Parktool", "t": "2026-11-25"},
       {"c": "PTMW7", "n": "ParkTool Metric Wrench", "d": "MW-7 7mm", "g": "Parktool", "t": "2026-11-25"},
@@ -187,13 +187,17 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "PT2197", "n": "ParkToolDiamondAbrasiveAdaptor", "d": "2197 for Carbon Fiber", "g": "Parktool", "t": "2026-11-25"},
       {"c": "ESMRT10M2", "n": "Rotor 180mm Center Lock", "d": "SM-RT10 w/LRing", "g": "Rotors", "t": "2026-11-23"},
       {"c": "ESMRT64MEC", "n": "Rotor 180mm Center Lock Ext.", "d": "SM-RT64 w/LRing", "g": "Rotors", "t": "2026-11-23"},
-      {"c": "IRTMT905L", "n": "Rotor 203mm 6-Bolt", "d": "RT-MT905 IceTechFreezaw/oLRing", "g": "Rotors", "t": "2026-11-19"},
+      {"c": "ERTCL700ME", "n": "Rotor 180mm Lock Ext.", "d": "RT-CL700 w/LRing", "g": "Rotors", "t": "2026-11-26"},
+      {"c": "ERTCL300L", "n": "Rotor 203mm Lock Int.&Ext.", "d": "RT-CL300 w/LRing", "g": "Rotors", "t": "2026-11-26"},
       {"c": "ESLC30017DXL210LA3R", "n": "Shift Lever Black 7s", "d": "SL-C3001 Nexus for CJ-NX40", "g": "Shifters", "t": "2026-11-20"},
       {"c": "ESLRV400P7FA", "n": "Shift Lever Set 3x7s w/ OGD", "d": "SL-RV400 Black Friction", "g": "Shifters", "t": "2026-11-23"},
       {"c": "Y0MX40000", "n": "Battery Case Screw", "d": "ST-R9120", "g": "Spare Parts", "t": "2026-11-23"},
       {"c": "Y2RJ98030", "n": "Fixing Spring L & Spacer", "d": "BL-M9220", "g": "Spare Parts", "t": "2026-11-20"},
-      {"c": "1TE00037", "n": "Inner Tube Standard Bulk", "d": "29x1.95/2.50 Schrader 48mm", "g": "Vittoria", "t": "2026-11-19"},
-      {"c": "11A01186", "n": "Tire MTB Barzo XC Sport FBlk", "d": "60-622/29x2.4 Rigid", "g": "Vittoria", "t": "2026-11-19"},
+      {"c": "1TA00119", "n": "Inner Tube Competition Latex", "d": "700x30/38c Presta 80mm RVC", "g": "Vittoria", "t": "2026-11-26"},
+      {"c": "1TA00109", "n": "Inner Tube Standard", "d": "700x28/42c Dunlop 45mm", "g": "Vittoria", "t": "2026-11-26"},
+      {"c": "1TA00113", "n": "Inner Tube Standard", "d": "700x40/52 Presta 60mm RVC", "g": "Vittoria", "t": "2026-11-26"},
+      {"c": "1TE00011", "n": "Inner Tube Standard Bulk", "d": "700x20/28c Presta 60mm RVC", "g": "Vittoria", "t": "2026-11-26"},
+      {"c": "1TE00012", "n": "Inner Tube Standard Bulk", "d": "700x20/28c Presta 80mm RVC", "g": "Vittoria", "t": "2026-11-26"},
       {"c": "EWHR9370C50LFEDB", "n": "Wheel Front WH-R9370-C50-TL", "d": "Tubeless Disc Brake Ethru", "g": "Wheels", "t": "2026-11-23"},
       {"c": "EWHMT500RD7C", "n": "Wheel Rear MT500 11s", "d": "Clincher 27.5\\", "g": "Wheels", "t": "2026-11-23"},
       {"c": "EWHMT500REBD9", "n": "Wheel Rear MT500 11s", "d": "Clincher 29\\", "g": "Wheels", "t": "2026-11-23"},
@@ -202,25 +206,33 @@ window.SHIMANO_TICKER_AUTO = [
     ]
   },
   {
-    "title": "SHOES: back in stock – SH-RC810, XC102",
+    "title": "SHOES: 13 back in stock",
     "link": "shoes.html",
-    "added": "2026-11-25",
+    "added": "2026-11-26",
     "auto": "change",
-    "expires": "2026-12-02",
+    "expires": "2026-12-03",
     "items": [
+      {"c": "ESHRC703MCW01S42500", "n": "Bicycle Shoes SH-RC703", "d": "White 42.5", "t": "2026-11-26"},
       {"c": "ESHRC810MCW01S37000", "n": "Bicycle Shoes SH-RC810", "d": "White 37.0", "t": "2026-11-25"},
       {"c": "ESHRC810MCW01S38000", "n": "Bicycle Shoes SH-RC810", "d": "White 38.0", "t": "2026-11-25"},
       {"c": "ESHRC810MCW01S39000", "n": "Bicycle Shoes SH-RC810", "d": "White 39.0", "t": "2026-11-25"},
       {"c": "ESHRC810MCW01S40000", "n": "Bicycle Shoes SH-RC810", "d": "White 40.0", "t": "2026-11-25"},
-      {"c": "ESHXC102WGL01W36000", "n": "Bicycle Shoes XC102", "d": "Women Black 36.0", "t": "2026-11-19"}
+      {"c": "ESHRC910MCW01N43000", "n": "Bicycle Shoes SH-RC910", "d": "White Narrow 43.0", "t": "2026-11-26"},
+      {"c": "ESHRP102MGL01S39000", "n": "Bicycle Shoes SH-RP102", "d": "Black 39.0", "t": "2026-11-26"},
+      {"c": "ESHRX710MCN01S44500", "n": "Bicycle Shoes SH-RX710", "d": "Navy 44.5", "t": "2026-11-26"},
+      {"c": "ESHRX710MCN01S45500", "n": "Bicycle Shoes SH-RX710", "d": "Navy 45.5", "t": "2026-11-26"},
+      {"c": "ESHXC503MGL01S41000", "n": "Bicycle Shoes XC503", "d": "Black 41.0", "t": "2026-11-26"},
+      {"c": "ESHXC503MGL01E41000", "n": "Bicycle Shoes XC503", "d": "Black Wide 41.0", "t": "2026-11-26"},
+      {"c": "ESHXC503MGL01E43000", "n": "Bicycle Shoes XC503", "d": "Black Wide 43.0", "t": "2026-11-26"},
+      {"c": "ESHXC503MGF09S44000", "n": "Bicycle Shoes XC503", "d": "Sand Beige 44.0", "t": "2026-11-26"}
     ]
   },
   {
-    "title": "LAZER: 11 back in stock",
+    "title": "LAZER: 13 back in stock",
     "link": "lazer.html",
-    "added": "2026-11-25",
+    "added": "2026-11-26",
     "auto": "change",
-    "expires": "2026-12-02",
+    "expires": "2026-12-03",
     "items": [
       {"c": "BLC2747894452", "n": "Lazer Helmet Blade KC CE-CPSC", "d": "Matte Clay M", "t": "2026-11-25"},
       {"c": "BLC2747894476", "n": "Lazer Helmet Blade KC CE-CPSC", "d": "White M", "t": "2026-11-25"},
@@ -229,14 +241,16 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "BLC2747894279", "n": "Lazer Helmet Finch KC CE", "d": "Matte Blue Mountain Uni", "t": "2026-11-25"},
       {"c": "BLC2747894282", "n": "Lazer Helmet Finch KC CE", "d": "Matte Dust Clay Uni", "t": "2026-11-25"},
       {"c": "BLC2747894321", "n": "Lazer Helmet Gekko KC CE-CPSC", "d": "Black S", "t": "2026-11-25"},
+      {"c": "BLC2747894276", "n": "Lazer Helmet Lupo KC CE-CPSC", "d": "Matte Twilight Blue Uni", "t": "2026-11-26"},
       {"c": "BLC2747894270", "n": "Lazer Helmet Lupo KC CE-CPSC", "d": "Matte Wild Green Uni", "t": "2026-11-25"},
       {"c": "BLC2747894273", "n": "Lazer Helmet Lupo KC CE-CPSC", "d": "Matte Willow Green Uni", "t": "2026-11-25"},
       {"c": "BLC2647893736", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "Matte Tyrian M", "t": "2026-11-25"},
+      {"c": "BLC2237891690", "n": "Lazer Helmet Tonic KC CE-CPSC", "d": "White XL", "t": "2026-11-26"},
       {"c": "PLZ2227891305", "n": "Lazer Part Padding", "d": "Jackal KC S&M", "t": "2026-11-25"}
     ]
   },
   {
-    "title": "PRO: 44 back in stock",
+    "title": "PRO: 41 back in stock",
     "link": "pro.html",
     "added": "2026-11-25",
     "auto": "change",
@@ -253,14 +267,12 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "PRGP0125", "n": "PRO Grips HeroDirt Performance", "d": "Black 32mm/132mm/Lock on", "g": "grips", "t": "2026-11-25"},
       {"c": "PRGP0115", "n": "PRO Grips HeroDirt Sport", "d": "Black 30mm/132.5mm/Lock on", "g": "grips", "t": "2026-11-25"},
       {"c": "PRGP0100", "n": "PRO Grips RollerRace Sport", "d": "Black 30mm/125mm/Slide on", "g": "grips", "t": "2026-11-25"},
-      {"c": "PRGP0101", "n": "PRO Grips RollerRace Sport", "d": "Black 32mm/125mm/Slide on", "g": "grips", "t": "2026-11-19"},
       {"c": "PRGP0136", "n": "PRO Grips SlickRock Performanc", "d": "Black wo.Flange32mm/132mm/Lock", "g": "grips", "t": "2026-11-23"},
       {"c": "PRHA0663", "n": "PRO Handlebar Discover 12", "d": "Black 40cm/31.8mm/12degr/Alloy", "g": "handlebars", "t": "2026-11-25"},
       {"c": "PRHA0664", "n": "PRO Handlebar Discover 12", "d": "Black 42cm/31.8mm/12degr/Alloy", "g": "handlebars", "t": "2026-11-25"},
       {"c": "PRHA0584", "n": "PRO Handlebar Discover Aero", "d": "Black 40cm/ 31.8mm/ Carbon", "g": "handlebars", "t": "2026-11-25"},
       {"c": "PRHA0640", "n": "PRO Handlebar Discover Ergo", "d": "Black 40cm/31.8mm/16degr/alloy", "g": "handlebars", "t": "2026-11-25"},
       {"c": "PRHA0643", "n": "PRO Handlebar Discover Ergo", "d": "Black 46cm/31.8mm/16degr/alloy", "g": "handlebars", "t": "2026-11-25"},
-      {"c": "PRHA0428", "n": "PRO Handlebar LT", "d": "Black 10dr flare/42cm/alloy", "g": "handlebars", "t": "2026-11-23"},
       {"c": "PRHA0623", "n": "PRO Handlebar PLT ergo", "d": "Black 36cm/31.8mm/alloy", "g": "handlebars", "t": "2026-11-25"},
       {"c": "PRHA0625", "n": "PRO Handlebar PLT ergo", "d": "Black 40cm/31.8mm/alloy", "g": "handlebars", "t": "2026-11-25"},
       {"c": "PRTLB031", "n": "PRO Tool BB-Remover hollowtech", "d": "Black", "g": "maintenance", "t": "2026-11-25"},
@@ -273,7 +285,6 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "PRTL0084", "n": "PRO Tool Team Chainwhip", "d": "Black 12 Speed", "g": "maintenance", "t": "2026-11-25"},
       {"c": "PRTL0127", "n": "PRO Y-Wrench HEX", "d": "4/5/6MM", "g": "maintenance", "t": "2026-11-25"},
       {"c": "PRTL0123", "n": "PRO Tool Mini Tool 9F Perform", "d": "Alloy body/Comp w/BC Smart", "g": "minitools", "t": "2026-11-25"},
-      {"c": "PRTL0122", "n": "PRO Tool Minitool 10", "d": "10 functions", "g": "minitools", "t": "2026-11-19"},
       {"c": "PRAC0237", "n": "PRO Bike Wall Mount Sport", "d": "Pedal Hook", "g": "mounts", "t": "2026-11-25"},
       {"c": "PRSA0355", "n": "PRO Saddle Stealth Curved Perf", "d": "Black 152mm, AF, stainless", "g": "saddles", "t": "2026-11-25"},
       {"c": "PRSA0337", "n": "PRO Saddle Turnix Performance", "d": "Black 132mm, AF", "g": "saddles", "t": "2026-11-25"},
@@ -286,26 +297,6 @@ window.SHIMANO_TICKER_AUTO = [
       {"c": "PRSS0637", "n": "PRO Stem PLT", "d": "Black 90mm/31.8mm/+-6 degree", "g": "stems", "t": "2026-11-25"},
       {"c": "PRSS0521", "n": "THARSIS ALLOY STEM", "d": "161G / 80MM / 35MM/ 9D", "g": "stems", "t": "2026-11-25"},
       {"c": "PR100340", "n": "PRO Tool Torque Wrench", "d": "Adjustable 3-15 Nm", "g": "torque", "t": "2026-11-25"}
-    ]
-  },
-  {
-    "title": "PEDALS: back in stock – SPD-SLR w/ Cleat CL-SL11",
-    "link": "pedals.html",
-    "added": "2026-11-19",
-    "auto": "change",
-    "expires": "2026-11-26",
-    "items": [
-      {"c": "IPDR8200", "n": "Pedal SPD-SLR w/ Cleat CL-SL11", "d": "PD-R8200", "g": "PD-R8200", "t": "2026-11-19"}
-    ]
-  },
-  {
-    "title": "EYEWEAR: back in stock – Ridescape Lens TCNM2",
-    "link": "eyewear.html",
-    "added": "2026-11-19",
-    "auto": "change",
-    "expires": "2026-11-26",
-    "items": [
-      {"c": "ESMCELSTCNM2000RSAR", "n": "Ridescape Lens TCNM2", "d": "Ridescape All Road", "g": "TECHNIUM", "t": "2026-11-19"}
     ]
   }
 ];
