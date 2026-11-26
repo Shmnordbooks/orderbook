@@ -10,6 +10,7 @@
      publishAt : "YYYY-MM-DD"  bu güne kadar gizli kalır (önceden planla)
      pin       : true          asla otomatik kalkmaz
      first     : true          kayan yazının en başında döner (ör. çalışma saatleri)
+     last      : true          kayan yazının en sonunda döner (ör. önemli duyuru)
      added     : "YYYY-MM-DD"  expires/pin yoksa 21 gün sonra kendiliğinden kalkar
    Not: Stok değişimi ve yaklaşan etkinlik satırları otomatiktir
    (ticker-auto.js, events-data.js) — buraya elle yazılmaz.
@@ -20,6 +21,13 @@ window.SHIMANO_TICKER = [
     title: "Office Hours: Mon-Fri : 09:00-18:00 GMT+3",
     pin: true,
     first: true
+  },
+
+  {
+    title: "IMPORTANT NOTICE: Due to the global PCB shortage, delivery dates for some Di2 and e-bike items are currently TBD. To avoid incomplete groupsets please do check your stocks, and inform your consumers accordingly.",
+    added: "2026-11-26",
+    pin: true,
+    last: true
   },
 
   {

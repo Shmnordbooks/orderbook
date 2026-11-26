@@ -278,9 +278,11 @@
     var stampFirst = autoFiltered.filter(function(n){ return n.auto === 'stamp'; });
     var autoRest = autoFiltered.filter(function(n){ return n.auto !== 'stamp'; });
     /* lines marked first:true in ticker-data.js (e.g. office hours) open the strip */
+    /* ...and lines marked last:true close it, after everything else */
     var manualFirst = tickerFiltered.filter(function(n){ return n.first === true; });
-    var manualRest = tickerFiltered.filter(function(n){ return n.first !== true; });
-    var items = manualFirst.concat(stampFirst, manualRest, autoRest, eventItems(eventsArr), newsFiltered);
+    var manualLast = tickerFiltered.filter(function(n){ return n.last === true && n.first !== true; });
+    var manualRest = tickerFiltered.filter(function(n){ return n.first !== true && n.last !== true; });
+    var items = manualFirst.concat(stampFirst, manualRest, autoRest, eventItems(eventsArr), newsFiltered, manualLast);
     if (!items.length) return;
 
     var sidebar = document.querySelector('.sidebar');
