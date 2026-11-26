@@ -223,6 +223,9 @@
     /* events-data.js is only on index.html by default — load it everywhere */
     if (!Array.isArray(window.SHIMANO_EVENTS)) need('events-data.js');
     if (!Array.isArray(window.SHIMANO_TICKER_AUTO)) need('ticker-auto.js');
+    /* the page's own <script src="ticker-data.js"> can come from the browser
+       cache for a while; reload it fresh so new manual lines show at once */
+    need('ticker-data.js');
     if (!pending) finish();
     else setTimeout(finish, 2500); /* never block the ticker on a slow/missing file */
   }
